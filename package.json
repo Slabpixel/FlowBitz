@@ -1,0 +1,44 @@
+{
+  "name": "webflow-bits",
+  "version": "1.0.0",
+  "description": "Interactive components library for Webflow",
+  "type": "module",
+  "main": "dist/webflow-bits.umd.js",
+  "module": "dist/webflow-bits.es.js",
+  "exports": {
+    ".": {
+      "import": "./dist/webflow-bits.es.js",
+      "require": "./dist/webflow-bits.umd.js"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "build:watch": "vite build --watch",
+    "preview": "vite preview",
+    "clean": "rm -rf dist"
+  },
+  "keywords": [
+    "webflow",
+    "gsap",
+    "animation",
+    "components",
+    "cdn"
+  ],
+  "author": "Slabpixel Studio",
+  "license": "MIT",
+  "dependencies": {
+    "gsap": "^3.13.0"
+  },
+  "devDependencies": {
+    "vite": "^7.0.4",
+    "terser": "^5.24.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "your-repo-url"
+  }
+}

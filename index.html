@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/src/styles/style.css">
+    <title>Webflow Bits</title>
+  </head>
+  <body>
+    <p 
+      wb-text-animate="split-text"
+      wb-split-type="chars"
+      wb-ease="power3.out"
+      wb-stagger-delay="50"
+      wb-duration="0.5"
+      wb-threshold="0.1"
+      style="font-size: 1.5rem; font-weight: 500; line-height: 1.5; text-align: center;"
+    >
+      This text will animate character by character with default settings.
+    </p>
+    <script type="module" src="/src/init.js"></script>
+  </body>
+</html>
