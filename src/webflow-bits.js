@@ -8,6 +8,7 @@
  */
 
 import splitTextAnimator from './components/splitText.js';
+import textTypeAnimator from './components/textType.js';
 
 /**
  * Main WebflowBits class for CDN usage
@@ -18,7 +19,8 @@ class WebflowBits {
     this.initialized = false;
     this.observers = [];
     this.components = {
-      splitText: splitTextAnimator
+      splitText: splitTextAnimator,
+      textType: textTypeAnimator
     };
   }
 
@@ -35,7 +37,7 @@ class WebflowBits {
     const config = {
       autoInit: true,
       debug: false,
-      components: ['splitText'],
+      components: ['splitText', 'textType'],
       ...options
     };
 
@@ -68,6 +70,10 @@ class WebflowBits {
       if (config.components.includes('splitText')) {
         this.initSplitText(config.debug);
       }
+      
+      if (config.components.includes('textType')) {
+        this.initTextType(config.debug);
+      }
 
       // Setup mutation observer for dynamic content if autoInit is enabled
       if (config.autoInit) {
@@ -93,10 +99,23 @@ class WebflowBits {
    */
   checkConflicts() {
     try {
-      const conflicts = splitTextAnimator.checkForConflicts();
-      if (conflicts) {
+      const allConflicts = [];
+      
+      // Check SplitText conflicts
+      const splitTextConflicts = splitTextAnimator.checkForConflicts();
+      if (splitTextConflicts) {
+        allConflicts.push(...splitTextConflicts);
+      }
+      
+      // Check TextType conflicts
+      const textTypeConflicts = textTypeAnimator.checkForConflicts();
+      if (textTypeConflicts) {
+        allConflicts.push(...textTypeConflicts);
+      }
+      
+      if (allConflicts.length > 0) {
         document.dispatchEvent(new CustomEvent('webflow-bits-conflicts', {
-          detail: { conflicts }
+          detail: { conflicts: allConflicts }
         }));
       }
     } catch (error) {
@@ -119,6 +138,20 @@ class WebflowBits {
   }
 
   /**
+   * Initialize TextType component
+   */
+  initTextType(debug = false) {
+    try {
+      textTypeAnimator.initAll();
+      if (debug) {
+        console.log('WebflowBits: TextType initialized');
+      }
+    } catch (error) {
+      console.error('WebflowBits: Failed to initialize TextType', error);
+    }
+  }
+
+  /**
    * Setup mutation observer to handle dynamically added content
    */
   setupMutationObserver(debug = false) {
@@ -129,7 +162,7 @@ class WebflowBits {
         if (mutation.type === 'childList') {
           mutation.addedNodes.forEach((node) => {
             if (node.nodeType === Node.ELEMENT_NODE) {
-              // Check for wb-text-animate elements
+              // Check for wb-text-animate="split-text" elements
               const splitTextElements = node.matches?.('[wb-text-animate="split-text"]') 
                 ? [node] 
                 : Array.from(node.querySelectorAll?.('[wb-text-animate="split-text"]') || []);
@@ -138,17 +171,28 @@ class WebflowBits {
                 splitTextAnimator.initElement(element);
                 shouldRefresh = true;
               });
+
+              // Check for wb-text-animate="text-type" elements
+              const textTypeElements = node.matches?.('[wb-text-animate="text-type"]') 
+                ? [node] 
+                : Array.from(node.querySelectorAll?.('[wb-text-animate="text-type"]') || []);
+
+              textTypeElements.forEach(element => {
+                textTypeAnimator.initElement(element);
+                shouldRefresh = true;
+              });
             }
           });
         }
       });
 
-      if (shouldRefresh) {
-        clearTimeout(this.refreshTimeout);
-        this.refreshTimeout = setTimeout(() => {
-          splitTextAnimator.refresh();
-        }, 100);
-      }
+              if (shouldRefresh) {
+          clearTimeout(this.refreshTimeout);
+          this.refreshTimeout = setTimeout(() => {
+            splitTextAnimator.refresh();
+            textTypeAnimator.refresh();
+          }, 100);
+        }
     });
 
     observer.observe(document.body, {
@@ -179,11 +223,33 @@ class WebflowBits {
   }
 
   /**
+   * Manually initialize TextType on specific elements
+   * @param {string|NodeList|Element} selector - CSS selector or DOM elements
+   */
+  initTextTypeOn(selector) {
+    const elements = typeof selector === 'string' 
+      ? document.querySelectorAll(selector)
+      : selector.nodeType ? [selector] : selector;
+
+    Array.from(elements).forEach(element => {
+      if (element.getAttribute('wb-text-animate') === 'text-type') {
+        textTypeAnimator.initElement(element);
+      }
+    });
+
+    textTypeAnimator.refresh();
+    return this;
+  }
+
+  /**
    * Destroy all components and observers
    */
   destroy() {
     // Destroy SplitText animations
     splitTextAnimator.destroyAll();
+    
+    // Destroy TextType animations
+    textTypeAnimator.destroyAll();
 
     // Disconnect observers
     this.observers.forEach(observer => observer.disconnect());
@@ -200,6 +266,7 @@ class WebflowBits {
    */
   refresh() {
     splitTextAnimator.refresh();
+    textTypeAnimator.refresh();
     return this;
   }
 
