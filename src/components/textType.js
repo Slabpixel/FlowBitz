@@ -1,5 +1,9 @@
 import { gsap } from "gsap";
 import { injectStyles } from '../utils/injectStyles.js';
+import { parseElementConfig, commonAttributeMaps, mergeAttributeMaps } from '../utils/attributeParser.js';
+import { ComponentClassManager, webflowBitsClasses } from '../utils/classManager.js';
+import { checkCSSConflicts, componentClassSets } from '../utils/conflictDetector.js';
+import { AnimationStateManager, PerformanceOptimizer } from '../utils/animationStateManager.js';
 
 // Inject component-specific CSS with unique namespace
 const componentCSS = `
@@ -62,6 +66,8 @@ class TextTypeAnimator {
   constructor() {
     this.instances = new Map();
     this.stylesInjected = false;
+    this.componentName = 'TextType';
+    this.componentClasses = webflowBitsClasses.forComponent('text-type');
     this.defaultConfig = {
       cursorCharacter: "pipe", // underscore | pipe | dot | block | full-block
       typingSpeed: 50,
@@ -100,108 +106,35 @@ class TextTypeAnimator {
   }
 
   /**
-   * Parse custom attributes from element
+   * Parse custom attributes from element using utility functions
    */
   parseConfig(element) {
-    const config = { ...this.defaultConfig };
+    const attributeMap = mergeAttributeMaps(
+      commonAttributeMaps.animation,
+      {
+        // TextType-specific attributes
+        cursorCharacter: { 
+          attribute: 'wb-cursor-character', 
+          type: 'string', 
+          validValues: ['underscore', 'pipe', 'dot', 'block', 'full-block'] 
+        },
+        typingSpeed: { attribute: 'wb-typing-speed', type: 'delay' },
+        pauseDuration: { attribute: 'wb-pause-duration', type: 'delay' },
+        deletingSpeed: { attribute: 'wb-deleting-speed', type: 'delay' },
+        cursorBlinkDuration: { attribute: 'wb-cursor-blink-duration', type: 'duration' },
+        showCursor: { attribute: 'wb-show-cursor', type: 'boolean' },
+        variableSpeed: { attribute: 'wb-variable-speed', type: 'boolean' },
+        variableSpeedMin: { attribute: 'wb-variable-speed-min', type: 'delay' },
+        variableSpeedMax: { attribute: 'wb-variable-speed-max', type: 'delay' },
+        loop: { attribute: 'wb-loop', type: 'boolean' },
+        startOnVisible: { attribute: 'wb-start-on-visible', type: 'boolean' },
+        reverseMode: { attribute: 'wb-reverse-mode', type: 'boolean' },
+        hideCursorWhileTyping: { attribute: 'wb-hide-cursor-while-typing', type: 'boolean' },
+        initialDelay: { attribute: 'wb-initial-delay', type: 'delay' }
+      }
+    );
     
-    // Parse cursor character
-    const cursorChar = element.getAttribute('wb-cursor-character');
-    if (cursorChar && ['underscore', 'pipe', 'dot', 'block', 'full-block'].includes(cursorChar)) {
-      config.cursorCharacter = cursorChar;
-    }
-
-    // Parse typing speed (in milliseconds)
-    const typingSpeed = element.getAttribute('wb-typing-speed');
-    if (typingSpeed && !isNaN(typingSpeed)) {
-      config.typingSpeed = parseInt(typingSpeed);
-    }
-
-    // Parse pause duration (in milliseconds)
-    const pauseDuration = element.getAttribute('wb-pause-duration');
-    if (pauseDuration && !isNaN(pauseDuration)) {
-      config.pauseDuration = parseInt(pauseDuration);
-    }
-
-    // Parse deleting speed (in milliseconds)
-    const deletingSpeed = element.getAttribute('wb-deleting-speed');
-    if (deletingSpeed && !isNaN(deletingSpeed)) {
-      config.deletingSpeed = parseInt(deletingSpeed);
-    }
-
-    // Parse cursor blink duration (in seconds)
-    const cursorBlinkDuration = element.getAttribute('wb-cursor-blink-duration');
-    if (cursorBlinkDuration && !isNaN(cursorBlinkDuration)) {
-      config.cursorBlinkDuration = parseFloat(cursorBlinkDuration);
-    }
-
-    // Parse show cursor (true/false)
-    const showCursor = element.getAttribute('wb-show-cursor');
-    if (showCursor !== null) {
-      config.showCursor = showCursor !== 'false';
-    }
-
-    // Parse variable speed (true/false)
-    const variableSpeed = element.getAttribute('wb-variable-speed');
-    if (variableSpeed !== null) {
-      config.variableSpeed = variableSpeed !== 'false';
-    }
-
-    // Parse variable speed min (in milliseconds)
-    const variableSpeedMin = element.getAttribute('wb-variable-speed-min');
-    if (variableSpeedMin && !isNaN(variableSpeedMin)) {
-      config.variableSpeedMin = parseInt(variableSpeedMin);
-    }
-
-    // Parse variable speed max (in milliseconds)
-    const variableSpeedMax = element.getAttribute('wb-variable-speed-max');
-    if (variableSpeedMax && !isNaN(variableSpeedMax)) {
-      config.variableSpeedMax = parseInt(variableSpeedMax);
-    }
-
-    // Parse loop (true/false)
-    const loop = element.getAttribute('wb-loop');
-    if (loop !== null) {
-      config.loop = loop !== 'false';
-    }
-
-    // Parse threshold (0-1)
-    const threshold = element.getAttribute('wb-threshold');
-    if (threshold && !isNaN(threshold)) {
-      config.threshold = parseFloat(threshold);
-    }
-
-    // Parse root margin
-    const rootMargin = element.getAttribute('wb-root-margin');
-    if (rootMargin) {
-      config.rootMargin = rootMargin;
-    }
-
-    // Parse start on visible (true/false)
-    const startOnVisible = element.getAttribute('wb-start-on-visible');
-    if (startOnVisible !== null) {
-      config.startOnVisible = startOnVisible !== 'false';
-    }
-
-    // Parse reverse mode (true/false)
-    const reverseMode = element.getAttribute('wb-reverse-mode');
-    if (reverseMode !== null) {
-      config.reverseMode = reverseMode !== 'false';
-    }
-
-    // Parse hide cursor while typing (true/false)
-    const hideCursorWhileTyping = element.getAttribute('wb-hide-cursor-while-typing');
-    if (hideCursorWhileTyping !== null) {
-      config.hideCursorWhileTyping = hideCursorWhileTyping !== 'false';
-    }
-
-    // Parse initial delay (in milliseconds)
-    const initialDelay = element.getAttribute('wb-initial-delay');
-    if (initialDelay && !isNaN(initialDelay)) {
-      config.initialDelay = parseInt(initialDelay);
-    }
-
-    return config;
+    return parseElementConfig(element, this.defaultConfig, attributeMap);
   }
 
   /**
@@ -233,30 +166,38 @@ class TextTypeAnimator {
   }
 
   /**
-   * Apply component classes to element
+   * Apply component classes using utility functions
    */
   applyComponentClasses(element, config) {
-    element.classList.add('wb-text-type');
-    element.classList.add('wb-text-type-animating');
+    const classesToApply = [
+      this.componentClasses.parent,
+      this.componentClasses.animating
+    ];
     
-    const instance = this.instances.get(element);
-    if (instance) {
-      instance.addedClasses = ['wb-text-type', 'wb-text-type-animating'];
-    }
+    ComponentClassManager.applyClasses(
+      element, 
+      classesToApply, 
+      this.instances, 
+      this.componentName
+    );
   }
 
   /**
-   * Remove component classes from element
+   * Remove component classes using utility functions
    */
   removeComponentClasses(element) {
-    const instance = this.instances.get(element);
-    if (instance && instance.addedClasses) {
-      instance.addedClasses.forEach(className => {
-        element.classList.remove(className);
-      });
-    }
+    const fallbackClasses = [
+      this.componentClasses.parent,
+      this.componentClasses.animating,
+      this.componentClasses.completed
+    ];
     
-    element.classList.remove('wb-text-type', 'wb-text-type-animating', 'wb-text-type-completed');
+    ComponentClassManager.removeClasses(
+      element, 
+      fallbackClasses, 
+      this.instances, 
+      this.componentName
+    );
   }
 
   /**
@@ -336,11 +277,17 @@ class TextTypeAnimator {
     this.instances.set(element, instance);
     
     try {
-      // Apply component classes
+      // Apply component classes using utility
       this.applyComponentClasses(element, config);
       
       // Create DOM structure
       instance.domStructure = this.createDOMStructure(element, config);
+      
+      // Apply performance optimizations
+      PerformanceOptimizer.optimizeForAnimation([
+        instance.domStructure.contentElement,
+        instance.domStructure.cursorElement
+      ].filter(Boolean));
       
       // Setup animations
       this.setupAnimation(instance);
@@ -422,6 +369,14 @@ class TextTypeAnimator {
   startTypingAnimation(instance) {
     const { config } = instance;
     
+    // Dispatch start event using utility
+    AnimationStateManager.dispatchLifecycleEvent(
+      instance.element, 
+      'start', 
+      'text-type',
+      { instance }
+    );
+    
     // Initial delay before starting
     gsap.delayedCall(config.initialDelay / 1000, () => {
       this.executeTypingStep(instance);
@@ -452,15 +407,16 @@ class TextTypeAnimator {
       if (instance.displayedText === '') {
         instance.isDeleting = false;
         
-        // Dispatch sentence complete event
-        instance.element.dispatchEvent(new CustomEvent('wb-text-type-sentence-complete', {
-          detail: { 
+        // Dispatch sentence complete event using utility
+        AnimationStateManager.dispatchEvent(
+          instance.element,
+          'wb-text-type-sentence-complete',
+          { 
             sentence: currentText, 
             index: instance.currentTextIndex,
             instance 
-          },
-          bubbles: true
-        }));
+          }
+        );
 
         if (instance.currentTextIndex === textArray.length - 1 && !config.loop) {
           // Animation completed
@@ -510,25 +466,34 @@ class TextTypeAnimator {
   }
 
   /**
-   * Complete the animation
+   * Complete the animation using utility functions
    */
   completeAnimation(instance) {
     instance.animationCompleted = true;
     
-    // Update state classes
-    instance.element.classList.remove('wb-text-type-animating');
-    instance.element.classList.add('wb-text-type-completed');
+    // Update state using utility
+    AnimationStateManager.setCompletedState(instance.element, 'wb-text-type');
+    
+    // Clean up performance optimizations
+    if (instance.domStructure) {
+      PerformanceOptimizer.cleanupAfterAnimation([
+        instance.domStructure.contentElement,
+        instance.domStructure.cursorElement
+      ].filter(Boolean));
+    }
     
     // Restore cursor visibility
     if (instance.config.hideCursorWhileTyping && instance.domStructure.cursorElement) {
       instance.domStructure.cursorElement.style.display = 'inline-block';
     }
 
-    // Dispatch completion event
-    instance.element.dispatchEvent(new CustomEvent('wb-text-type-complete', {
-      detail: { instance },
-      bubbles: true
-    }));
+    // Dispatch completion event using utility
+    AnimationStateManager.dispatchLifecycleEvent(
+      instance.element, 
+      'complete', 
+      'text-type',
+      { instance }
+    );
   }
 
   /**
@@ -566,12 +531,20 @@ class TextTypeAnimator {
       intersectionObserver.disconnect();
     }
 
+    // Clean up performance optimizations
+    if (domStructure) {
+      PerformanceOptimizer.cleanupAfterAnimation([
+        domStructure.contentElement,
+        domStructure.cursorElement
+      ].filter(Boolean));
+    }
+
     // Restore original content
     if (domStructure && domStructure.originalContent) {
       element.innerHTML = domStructure.originalContent;
     }
 
-    // Remove component classes
+    // Remove component classes using utility
     this.removeComponentClasses(element);
 
     // Remove from instances
@@ -591,33 +564,18 @@ class TextTypeAnimator {
    * Refresh animations (useful for dynamic content)
    */
   refresh() {
-    ScrollTrigger.refresh();
+    // TextType doesn't use ScrollTrigger, so no refresh needed
+    console.log('WebflowBits TextType: Refresh called');
   }
 
   /**
-   * Check for potential CSS conflicts
+   * Check for potential CSS conflicts using utility
    */
   checkForConflicts() {
-    const conflicts = [];
-    const testClasses = ['wb-text-type', 'wb-text-type__content', 'wb-text-type__cursor'];
-    
-    testClasses.forEach(className => {
-      const existing = document.querySelector(`.${className}:not([wb-text-animate])`);
-      if (existing) {
-        conflicts.push({
-          className,
-          element: existing,
-          message: `Class "${className}" already exists in DOM outside of WebflowBits components`
-        });
-      }
-    });
-
-    if (conflicts.length > 0) {
-      console.warn('WebflowBits TextType: Potential CSS conflicts detected:', conflicts);
-      return conflicts;
-    }
-
-    return null;
+    return checkCSSConflicts(
+      componentClassSets.textType, 
+      this.componentName
+    );
   }
 }
 

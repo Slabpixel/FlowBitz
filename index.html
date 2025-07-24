@@ -9,37 +9,15 @@
   </head>
   <body>
     <div style="display: flex; flex-direction: column; gap: 2rem; align-items: center; justify-content: center; height: 100vh;">
-      <p 
-        wb-text-animate="split-text"
-        wb-split-type="chars"
-        wb-ease="power3.out"
-        wb-stagger-delay="50"
-        wb-duration="0.5"
-        wb-threshold="0.1"
-        style="font-size: 1.5rem; font-weight: 500; line-height: 1.5; text-align: center;"
+      <div wb-text-animate="scramble-text"
+          wb-radius="80"
+          wb-duration="0.8"
+          wb-speed="1.2"
+          wb-scramble-chars=".:"
       >
-        This text will animate character by character with SplitText.
-      </p>
-      
-      <div 
-        wb-text-animate="text-type"
-        wb-cursor-character="underscore"
-        wb-typing-speed="60"
-        wb-pause-duration="1000"
-        wb-deleting-speed="30"
-        wb-cursor-blink-duration="0.5"
-        wb-show-cursor="true"
-        wb-variable-speed="true"
-        wb-variable-speed-min="50"
-        wb-variable-speed-max="120"
-        style="font-size: 1.8rem; font-weight: 500; line-height: 1.5; text-align: center;"
-      >
-        <p>Hello World!</p>
-        <p>Welcome to Webflow Bits</p>
-        <p>Amazing typewriter effect!</p>
-        <p>Built with GSAP & vanilla JS</p>
-        <p>Now with better Webflow UX!</p>
+        Hover to Scramble Text
       </div>
+
     </div>
     <script type="module" src="/src/init.js"></script>
   </body>

@@ -9,6 +9,11 @@
 
 import splitTextAnimator from './components/splitText.js';
 import textTypeAnimator from './components/textType.js';
+import blurTextAnimator from './components/blurText.js';
+import shinyTextAnimator from './components/shinyText.js';
+import gradientTextAnimator from './components/gradientText.js';
+import decryptedTextAnimator from './components/decryptedText.js';
+import scrambleTextAnimator from './components/scrambleText.js';
 
 /**
  * Main WebflowBits class for CDN usage
@@ -20,7 +25,12 @@ class WebflowBits {
     this.observers = [];
     this.components = {
       splitText: splitTextAnimator,
-      textType: textTypeAnimator
+      textType: textTypeAnimator,
+      blurText: blurTextAnimator,
+      shinyText: shinyTextAnimator,
+      gradientText: gradientTextAnimator,
+      decryptedText: decryptedTextAnimator,
+      scrambleText: scrambleTextAnimator,
     };
   }
 
@@ -37,7 +47,7 @@ class WebflowBits {
     const config = {
       autoInit: true,
       debug: false,
-      components: ['splitText', 'textType'],
+      components: ['splitText', 'textType', 'blurText', 'shinyText', 'gradientText', 'decryptedText', 'scrambleText'],
       ...options
     };
 
@@ -73,6 +83,26 @@ class WebflowBits {
       
       if (config.components.includes('textType')) {
         this.initTextType(config.debug);
+      }
+      
+      if (config.components.includes('blurText')) {
+        this.initBlurText(config.debug);
+      }
+      
+      if (config.components.includes('shinyText')) {
+        this.initShinyText(config.debug);
+      }
+      
+      if (config.components.includes('gradientText')) {
+        this.initGradientText(config.debug);
+      }
+
+      if (config.components.includes('decryptedText')) {
+        this.initDecryptedText(config.debug);
+      }
+
+      if (config.components.includes('scrambleText')) {
+        this.initScrambleText(config.debug);
       }
 
       // Setup mutation observer for dynamic content if autoInit is enabled
@@ -111,6 +141,36 @@ class WebflowBits {
       const textTypeConflicts = textTypeAnimator.checkForConflicts();
       if (textTypeConflicts) {
         allConflicts.push(...textTypeConflicts);
+      }
+      
+      // Check BlurText conflicts
+      const blurTextConflicts = blurTextAnimator.checkForConflicts();
+      if (blurTextConflicts) {
+        allConflicts.push(...blurTextConflicts);
+      }
+      
+      // Check ShinyText conflicts
+      const shinyTextConflicts = shinyTextAnimator.checkForConflicts();
+      if (shinyTextConflicts) {
+        allConflicts.push(...shinyTextConflicts);
+      }
+      
+      // Check GradientText conflicts
+      const gradientTextConflicts = gradientTextAnimator.checkForConflicts();
+      if (gradientTextConflicts) {
+        allConflicts.push(...gradientTextConflicts);
+      }
+      
+      // Check DecryptedText conflicts
+      const decryptedTextConflicts = decryptedTextAnimator.checkForConflicts();
+      if (decryptedTextConflicts) {
+        allConflicts.push(...decryptedTextConflicts);
+      }
+      
+      // Check ScrambleText conflicts
+      const scrambleTextConflicts = scrambleTextAnimator.checkForConflicts();
+      if (scrambleTextConflicts) {
+        allConflicts.push(...scrambleTextConflicts);
       }
       
       if (allConflicts.length > 0) {
@@ -152,6 +212,76 @@ class WebflowBits {
   }
 
   /**
+   * Initialize BlurText component
+   */
+  initBlurText(debug = false) {
+    try {
+      blurTextAnimator.initAll();
+      if (debug) {
+        console.log('WebflowBits: BlurText initialized');
+      }
+    } catch (error) {
+      console.error('WebflowBits: Failed to initialize BlurText', error);
+    }
+  }
+
+  /**
+   * Initialize ShinyText component
+   */
+  initShinyText(debug = false) {
+    try {
+      shinyTextAnimator.initAll();
+      if (debug) {
+        console.log('WebflowBits: ShinyText initialized');
+      }
+    } catch (error) {
+      console.error('WebflowBits: Failed to initialize ShinyText', error);
+    }
+  }
+
+  /**
+   * Initialize GradientText component
+   */
+  initGradientText(debug = false) {
+    try {
+      gradientTextAnimator.initAll();
+      if (debug) {
+        console.log('WebflowBits: GradientText initialized');
+      }
+    } catch (error) {
+      console.error('WebflowBits: Failed to initialize GradientText', error);
+    }
+  }
+
+  /**
+   * Initialize DecryptedText component
+   */
+  initDecryptedText(debug = false) {
+    try {
+      decryptedTextAnimator.initAll();
+      if (debug) {
+        console.log('WebflowBits: DecryptedText initialized');
+      }
+    } catch (error) {
+      console.error('WebflowBits: Failed to initialize DecryptedText', error);
+    }
+  }
+
+  /**
+   * Initialize ScrambleText component
+   */
+  initScrambleText(debug = false) {
+    try {
+      scrambleTextAnimator.initAll();
+      if (debug) {
+        console.log('WebflowBits: ScrambleText initialized');
+      }
+    } catch (error) {
+      console.error('WebflowBits: Failed to initialize ScrambleText', error);
+    }
+  }
+
+  /**
    * Setup mutation observer to handle dynamically added content
    */
   setupMutationObserver(debug = false) {
@@ -181,18 +311,73 @@ class WebflowBits {
                 textTypeAnimator.initElement(element);
                 shouldRefresh = true;
               });
+
+              // Check for wb-text-animate="blur-text" elements
+              const blurTextElements = node.matches?.('[wb-text-animate="blur-text"]') 
+                ? [node] 
+                : Array.from(node.querySelectorAll?.('[wb-text-animate="blur-text"]') || []);
+
+              blurTextElements.forEach(element => {
+                blurTextAnimator.initElement(element);
+                shouldRefresh = true;
+              });
+
+              // Check for wb-text-animate="shiny-text" elements
+              const shinyTextElements = node.matches?.('[wb-text-animate="shiny-text"]') 
+                ? [node] 
+                : Array.from(node.querySelectorAll?.('[wb-text-animate="shiny-text"]') || []);
+
+              shinyTextElements.forEach(element => {
+                shinyTextAnimator.initElement(element);
+                shouldRefresh = true;
+              });
+
+              // Check for wb-text-animate="gradient-text" elements
+              const gradientTextElements = node.matches?.('[wb-text-animate="gradient-text"]') 
+                ? [node] 
+                : Array.from(node.querySelectorAll?.('[wb-text-animate="gradient-text"]') || []);
+
+              gradientTextElements.forEach(element => {
+                gradientTextAnimator.initElement(element);
+                shouldRefresh = true;
+              });
+
+              // Check for wb-text-animate="decrypt-text" elements
+              const decryptedTextElements = node.matches?.('[wb-text-animate="decrypt-text"]') 
+                ? [node] 
+                : Array.from(node.querySelectorAll?.('[wb-text-animate="decrypt-text"]') || []);
+
+              decryptedTextElements.forEach(element => {
+                decryptedTextAnimator.initElement(element);
+                shouldRefresh = true;
+              });
+
+              // Check for wb-text-animate="scramble-text" elements
+              const scrambleTextElements = node.matches?.('[wb-text-animate="scramble-text"]') 
+                ? [node] 
+                : Array.from(node.querySelectorAll?.('[wb-text-animate="scramble-text"]') || []);
+
+              scrambleTextElements.forEach(element => {
+                scrambleTextAnimator.initElement(element);
+                shouldRefresh = true;
+              });
             }
           });
         }
       });
 
-              if (shouldRefresh) {
-          clearTimeout(this.refreshTimeout);
-          this.refreshTimeout = setTimeout(() => {
-            splitTextAnimator.refresh();
-            textTypeAnimator.refresh();
-          }, 100);
-        }
+                    if (shouldRefresh) {
+        clearTimeout(this.refreshTimeout);
+        this.refreshTimeout = setTimeout(() => {
+          splitTextAnimator.refresh();
+          textTypeAnimator.refresh();
+          blurTextAnimator.refresh();
+          shinyTextAnimator.refresh();
+          gradientTextAnimator.refresh();
+          decryptedTextAnimator.refresh();
+          scrambleTextAnimator.refresh();
+        }, 100);
+      }
     });
 
     observer.observe(document.body, {
@@ -242,6 +427,101 @@ class WebflowBits {
   }
 
   /**
+   * Manually initialize BlurText on specific elements
+   * @param {string|NodeList|Element} selector - CSS selector or DOM elements
+   */
+  initBlurTextOn(selector) {
+    const elements = typeof selector === 'string' 
+      ? document.querySelectorAll(selector)
+      : selector.nodeType ? [selector] : selector;
+
+    Array.from(elements).forEach(element => {
+      if (element.getAttribute('wb-text-animate') === 'blur-text') {
+        blurTextAnimator.initElement(element);
+      }
+    });
+
+    blurTextAnimator.refresh();
+    return this;
+  }
+
+  /**
+   * Manually initialize ShinyText on specific elements
+   * @param {string|NodeList|Element} selector - CSS selector or DOM elements
+   */
+  initShinyTextOn(selector) {
+    const elements = typeof selector === 'string' 
+      ? document.querySelectorAll(selector)
+      : selector.nodeType ? [selector] : selector;
+
+    Array.from(elements).forEach(element => {
+      if (element.getAttribute('wb-text-animate') === 'shiny-text') {
+        shinyTextAnimator.initElement(element);
+      }
+    });
+
+    shinyTextAnimator.refresh();
+    return this;
+  }
+
+  /**
+   * Manually initialize GradientText on specific elements
+   * @param {string|NodeList|Element} selector - CSS selector or DOM elements
+   */
+  initGradientTextOn(selector) {
+    const elements = typeof selector === 'string' 
+      ? document.querySelectorAll(selector)
+      : selector.nodeType ? [selector] : selector;
+
+    Array.from(elements).forEach(element => {
+      if (element.getAttribute('wb-text-animate') === 'gradient-text') {
+        gradientTextAnimator.initElement(element);
+      }
+    });
+
+    gradientTextAnimator.refresh();
+    return this;
+  }
+
+  /**
+   * Manually initialize DecryptedText on specific elements
+   * @param {string|NodeList|Element} selector - CSS selector or DOM elements
+   */
+  initDecryptedTextOn(selector) {
+    const elements = typeof selector === 'string' 
+      ? document.querySelectorAll(selector)
+      : selector.nodeType ? [selector] : selector;
+
+    Array.from(elements).forEach(element => {
+      if (element.getAttribute('wb-text-animate') === 'decrypt-text') {
+        decryptedTextAnimator.initElement(element);
+      }
+    });
+
+    decryptedTextAnimator.refresh();
+    return this;
+  }
+
+  /**
+   * Manually initialize ScrambleText on specific elements
+   * @param {string|NodeList|Element} selector - CSS selector or DOM elements
+   */
+  initScrambleTextOn(selector) {
+    const elements = typeof selector === 'string' 
+      ? document.querySelectorAll(selector)
+      : selector.nodeType ? [selector] : selector;
+
+    Array.from(elements).forEach(element => {
+      if (element.getAttribute('wb-text-animate') === 'scramble-text') {
+        scrambleTextAnimator.initElement(element);
+      }
+    });
+
+    scrambleTextAnimator.refresh();
+    return this;
+  }
+
+  /**
    * Destroy all components and observers
    */
   destroy() {
@@ -250,6 +530,21 @@ class WebflowBits {
     
     // Destroy TextType animations
     textTypeAnimator.destroyAll();
+    
+    // Destroy BlurText animations
+    blurTextAnimator.destroyAll();
+    
+    // Destroy ShinyText animations
+    shinyTextAnimator.destroyAll();
+    
+    // Destroy GradientText animations
+    gradientTextAnimator.destroyAll();
+    
+    // Destroy DecryptedText animations
+    decryptedTextAnimator.destroyAll();
+    
+    // Destroy ScrambleText animations
+    scrambleTextAnimator.destroyAll();
 
     // Disconnect observers
     this.observers.forEach(observer => observer.disconnect());
@@ -267,6 +562,11 @@ class WebflowBits {
   refresh() {
     splitTextAnimator.refresh();
     textTypeAnimator.refresh();
+    blurTextAnimator.refresh();
+    shinyTextAnimator.refresh();
+    gradientTextAnimator.refresh();
+    decryptedTextAnimator.refresh();
+    scrambleTextAnimator.refresh();
     return this;
   }
 

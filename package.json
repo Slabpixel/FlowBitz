@@ -34,8 +34,8 @@
     "gsap": "^3.13.0"
   },
   "devDependencies": {
-    "vite": "^7.0.4",
-    "terser": "^5.24.0"
+    "terser": "^5.24.0",
+    "vite": "^7.0.4"
   },
   "repository": {
     "type": "git",

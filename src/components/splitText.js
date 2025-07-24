@@ -2,6 +2,11 @@ import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { SplitText } from "gsap/SplitText";
 import { injectStyles } from '../utils/injectStyles.js';
+import { parseElementConfig, commonAttributeMaps, mergeAttributeMaps } from '../utils/attributeParser.js';
+import { ComponentClassManager, webflowBitsClasses } from '../utils/classManager.js';
+import { checkCSSConflicts, componentClassSets } from '../utils/conflictDetector.js';
+import { createOnceAnimationConfig, calculateScrollTriggerStart } from '../utils/scrollTriggerHelper.js';
+import { AnimationStateManager, PerformanceOptimizer } from '../utils/animationStateManager.js';
 
 // Register GSAP plugins
 gsap.registerPlugin(ScrollTrigger, SplitText);
@@ -64,6 +69,8 @@ class SplitTextAnimator {
   constructor() {
     this.instances = new Map();
     this.stylesInjected = false;
+    this.componentName = 'SplitText';
+    this.componentClasses = webflowBitsClasses.forComponent('split');
     this.defaultConfig = {
       splitType: "chars",
       ease: "power3.out",
@@ -94,80 +101,58 @@ class SplitTextAnimator {
   }
 
   /**
-   * Parse custom attributes from element
+   * Parse custom attributes from element using utility functions
    */
   parseConfig(element) {
-    const config = { ...this.defaultConfig };
+    const attributeMap = mergeAttributeMaps(
+      commonAttributeMaps.animation,
+      commonAttributeMaps.timing,
+      {
+        // Component-specific attributes
+        splitType: { 
+          attribute: 'wb-split-type', 
+          type: 'string', 
+          validValues: ['chars', 'words', 'lines'] 
+        }
+      }
+    );
     
-    // Parse split type
-    const splitType = element.getAttribute('wb-split-type');
-    if (splitType && ['chars', 'words', 'lines'].includes(splitType)) {
-      config.splitType = splitType;
-    }
-
-    // Parse ease
-    const ease = element.getAttribute('wb-ease');
-    if (ease) {
-      config.ease = ease;
-    }
-
-    // Parse stagger delay (in milliseconds)
-    const staggerDelay = element.getAttribute('wb-stagger-delay');
-    if (staggerDelay && !isNaN(staggerDelay)) {
-      config.staggerDelay = parseInt(staggerDelay);
-    }
-
-    // Parse duration (in seconds)
-    const duration = element.getAttribute('wb-duration');
-    if (duration && !isNaN(duration)) {
-      config.duration = parseFloat(duration);
-    }
-
-    // Parse threshold (0-1)
-    const threshold = element.getAttribute('wb-threshold');
-    if (threshold && !isNaN(threshold)) {
-      config.threshold = parseFloat(threshold);
-    }
-
-    // Parse root margin
-    const rootMargin = element.getAttribute('wb-root-margin');
-    if (rootMargin) {
-      config.rootMargin = rootMargin;
-    }
-
-    return config;
+    return parseElementConfig(element, this.defaultConfig, attributeMap);
   }
 
   /**
-   * Apply component classes to element
+   * Apply component classes using utility functions
    */
   applyComponentClasses(element, config) {
-    // Add parent class with unique namespace
-    element.classList.add('wb-split-parent');
+    const classesToApply = [
+      this.componentClasses.parent,
+      this.componentClasses.animating
+    ];
     
-    // Add animation state class
-    element.classList.add('wb-split-animating');
-    
-    // Store original classes for cleanup
-    const instance = this.instances.get(element);
-    if (instance) {
-      instance.addedClasses = ['wb-split-parent', 'wb-split-animating'];
-    }
+    ComponentClassManager.applyClasses(
+      element, 
+      classesToApply, 
+      this.instances, 
+      this.componentName
+    );
   }
 
   /**
-   * Remove component classes from element
+   * Remove component classes using utility functions
    */
   removeComponentClasses(element) {
-    const instance = this.instances.get(element);
-    if (instance && instance.addedClasses) {
-      instance.addedClasses.forEach(className => {
-        element.classList.remove(className);
-      });
-    }
+    const fallbackClasses = [
+      this.componentClasses.parent,
+      this.componentClasses.animating,
+      this.componentClasses.completed
+    ];
     
-    // Remove all wb-split classes as cleanup
-    element.classList.remove('wb-split-parent', 'wb-split-animating', 'wb-split-completed');
+    ComponentClassManager.removeClasses(
+      element, 
+      fallbackClasses, 
+      this.instances, 
+      this.componentName
+    );
   }
 
   /**
@@ -213,7 +198,7 @@ class SplitTextAnimator {
   }
 
   /**
-   * Setup the GSAP animation using new SplitText features
+   * Setup the GSAP animation using utility functions
    */
   setupAnimation(instance) {
     const { element, config } = instance;
@@ -221,16 +206,12 @@ class SplitTextAnimator {
     // Create SplitText instance with namespaced classes
     const splitter = new SplitText(element, {
       type: config.splitType,
-      // New autoSplit feature for responsive handling
       autoSplit: true,
-      // Built-in accessibility (default in new version)
       aria: true,
-      // Optional masking for lines with namespaced class
       mask: config.splitType === 'lines' ? 'wb-split-line-mask' : false,
       linesClass: 'wb-split-line',
       wordsClass: 'wb-split-word', 
       charsClass: 'wb-split-char',
-      // New onSplit callback for responsive handling
       onSplit: (self) => {
         return this.createAnimation(self, config, instance);
       }
@@ -240,7 +221,7 @@ class SplitTextAnimator {
   }
 
   /**
-   * Create animation with new SplitText callback
+   * Create animation with performance optimization
    */
   createAnimation(splitter, config, instance) {
     // Get targets based on split type
@@ -264,45 +245,24 @@ class SplitTextAnimator {
       return;
     }
 
-    // Calculate ScrollTrigger start position
-    const startPct = (1 - config.threshold) * 100;
-    const marginMatch = /^(-?\d+(?:\.\d+)?)(px|em|rem|%)?$/.exec(config.rootMargin);
-    const marginValue = marginMatch ? parseFloat(marginMatch[1]) : 0;
-    const marginUnit = marginMatch ? (marginMatch[2] || 'px') : 'px';
-    const sign = marginValue < 0 ? `-=${Math.abs(marginValue)}${marginUnit}` : `+=${marginValue}${marginUnit}`;
-    const start = `top ${startPct}%${sign}`;
+    // Apply performance optimizations
+    PerformanceOptimizer.optimizeForAnimation(targets);
+
+    // Create ScrollTrigger config using utility
+    const scrollTriggerConfig = createOnceAnimationConfig(
+      instance.element,
+      config,
+      (self) => {
+        instance.scrollTrigger = self;
+      }
+    );
 
     // Create timeline with context for cleanup
     return gsap.context(() => {
       const timeline = gsap.timeline({
-        scrollTrigger: {
-          trigger: instance.element,
-          start,
-          toggleActions: 'play none none none',
-          once: true,
-          onToggle: (self) => {
-            instance.scrollTrigger = self;
-          },
-        },
+        scrollTrigger: scrollTriggerConfig,
         onComplete: () => {
-          instance.animationCompleted = true;
-          
-          // Update state classes
-          instance.element.classList.remove('wb-split-animating');
-          instance.element.classList.add('wb-split-completed');
-          
-          // Clean up and set final state
-          gsap.set(targets, {
-            ...config.to,
-            clearProps: 'willChange',
-            immediateRender: true,
-          });
-
-          // Dispatch custom event with namespaced name
-          instance.element.dispatchEvent(new CustomEvent('wb-split-text-complete', {
-            detail: { instance, targets },
-            bubbles: true
-          }));
+          this.completeAnimation(instance, targets);
         },
       });
 
@@ -325,6 +285,34 @@ class SplitTextAnimator {
 
       return timeline;
     });
+  }
+
+  /**
+   * Complete animation using utility functions
+   */
+  completeAnimation(instance, targets) {
+    instance.animationCompleted = true;
+    
+    // Update state using utility
+    AnimationStateManager.setCompletedState(instance.element, 'wb-split');
+    
+    // Clean up performance optimizations
+    PerformanceOptimizer.cleanupAfterAnimation(targets);
+    
+    // Clear performance properties
+    gsap.set(targets, {
+      ...instance.config.to,
+      clearProps: 'willChange',
+      immediateRender: true,
+    });
+
+    // Dispatch completion event using utility
+    AnimationStateManager.dispatchLifecycleEvent(
+      instance.element, 
+      'complete', 
+      'split-text',
+      { instance, targets }
+    );
   }
 
   /**
@@ -354,12 +342,12 @@ class SplitTextAnimator {
       scrollTrigger.kill();
     }
 
-    // Revert SplitText (new method)
+    // Revert SplitText
     if (splitter) {
       splitter.revert();
     }
 
-    // Remove component classes
+    // Remove component classes using utility
     this.removeComponentClasses(element);
 
     // Remove from instances
@@ -383,29 +371,13 @@ class SplitTextAnimator {
   }
 
   /**
-   * Check for potential CSS conflicts
+   * Check for potential CSS conflicts using utility
    */
   checkForConflicts() {
-    const conflicts = [];
-    const testClasses = ['wb-split-parent', 'wb-split-line', 'wb-split-word', 'wb-split-char'];
-    
-    testClasses.forEach(className => {
-      const existing = document.querySelector(`.${className}:not([wb-text-animate])`);
-      if (existing) {
-        conflicts.push({
-          className,
-          element: existing,
-          message: `Class "${className}" already exists in DOM outside of WebflowBits components`
-        });
-      }
-    });
-
-    if (conflicts.length > 0) {
-      console.warn('WebflowBits SplitText: Potential CSS conflicts detected:', conflicts);
-      return conflicts;
-    }
-
-    return null;
+    return checkCSSConflicts(
+      componentClassSets.splitText, 
+      this.componentName
+    );
   }
 }
 
