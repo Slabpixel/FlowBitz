@@ -16,7 +16,7 @@ The library will auto-initialize and start working with elements that have the p
 
 ### Available Components
 
-WebflowBits includes eight powerful text animation components:
+WebflowBits includes nine powerful text animation components:
 
 1. **SplitText** - Character, word, or line-based split animations
 2. **TextType** - Typewriter/typing effect with cursor
@@ -26,6 +26,7 @@ WebflowBits includes eight powerful text animation components:
 6. **DecryptedText** - Matrix-style decryption effects with character scrambling
 7. **ScrambleText** - Interactive hover-based character scrambling with GSAP
 8. **VariableProximity** - Mouse proximity-based font variation effects with Roboto Flex
+9. **RotatingText** - Auto-rotating text with customizable animations and stagger effects
 
 #### SplitText Animation
 
@@ -346,6 +347,7 @@ Add interactive hover-based character scrambling with proximity effects:
 **JavaScript Controls:**
 ```javascript
 const scrambleText = WebflowBits.getComponent('scrambleText');
+const rotatingText = WebflowBits.getComponent('rotatingText');
 const variableProximity = WebflowBits.getComponent('variableProximity');
 const element = document.querySelector('[wb-text-animate="scramble-text"]');
 
@@ -454,6 +456,111 @@ console.log(instance.config);
 - Supports any CSS font-variation-settings axis (wght, opsz, slnt, etc.)
 - For custom fonts, ensure they support the variation axes you specify
 
+#### RotatingText Animation
+
+Add rotating text with smooth transitions and customizable stagger effects:
+
+```html
+<div wb-text-animate="rotating-text">
+  <p>First rotating text</p>
+  <p>Second rotating text</p>
+  <p>Third rotating text</p>
+</div>
+```
+
+**Available attributes:**
+- `wb-split-by="characters"` - Split type: characters|words|lines (default: "characters")
+- `wb-animation-preset="slideUp"` - Animation preset: slideUp|slideDown (default: "slideUp")
+- `wb-rotation-interval="2000"` - Time between rotations in milliseconds (default: 2000)
+- `wb-stagger-duration="0"` - Delay between characters/words in milliseconds (default: 0)
+- `wb-stagger-from="first"` - Stagger direction: first|last|center|random (default: "first")
+- `wb-auto="true"` - Enable auto-rotation (default: true)
+- `wb-loop="true"` - Loop rotation (default: true)
+- `wb-duration="0.6"` - Animation duration in seconds (default: 0.6)
+- `wb-ease="power2.out"` - Animation easing (default: "power2.out")
+- `wb-threshold="0.1"` - Intersection observer threshold (default: 0.1)
+- `wb-root-margin="0px"` - Intersection observer margin (default: "0px")
+
+**Text Content Priority:**
+1. **Paragraph elements** (`<p>`) inside the container (recommended for Webflow)
+2. **wb-texts** attribute with JSON array
+3. **Element text content** as single text
+
+**Examples:**
+```html
+<!-- Basic rotating text with paragraph elements -->
+<div wb-text-animate="rotating-text">
+  <p>Welcome to our site</p>
+  <p>Explore amazing features</p>
+  <p>Join us today</p>
+</div>
+
+<!-- Character-by-character with stagger from center -->
+<h1 wb-text-animate="rotating-text"
+    wb-split-by="characters"
+    wb-stagger-duration="50"
+    wb-stagger-from="center"
+    wb-animation-preset="slideDown">
+  <p>Animated</p>
+  <p>Rotating</p>
+  <p>Headers</p>
+</h1>
+
+<!-- Word-by-word rotation with custom timing -->
+<span wb-text-animate="rotating-text"
+      wb-split-by="words"
+      wb-rotation-interval="3000"
+      wb-stagger-duration="100"
+      wb-stagger-from="random">
+  <p>Fast paced words</p>
+  <p>Smooth transitions here</p>
+  <p>Dynamic text effects</p>
+</span>
+
+<!-- Manual control (no auto-rotation) -->
+<div wb-text-animate="rotating-text"
+     wb-auto="false"
+     wb-split-by="lines">
+  <p>First line of text</p>
+  <p>Second line of text</p>
+  <p>Third line of text</p>
+</div>
+
+<!-- JSON attribute method -->
+<p wb-text-animate="rotating-text"
+   wb-texts='["Option A", "Option B", "Option C"]'
+   wb-stagger-from="last">
+  Fallback text
+</p>
+```
+
+**JavaScript Controls:**
+```javascript
+const rotatingText = WebflowBits.getComponent('rotatingText');
+const element = document.querySelector('[wb-text-animate="rotating-text"]');
+
+// Manual navigation
+rotatingText.next(element);       // Go to next text
+rotatingText.previous(element);   // Go to previous text
+rotatingText.jumpTo(element, 2);  // Jump to specific index (0-based)
+rotatingText.reset(element);      // Back to first text
+
+// Playback control
+rotatingText.pause(element);      // Pause auto-rotation
+rotatingText.resume(element);     // Resume auto-rotation
+
+// Configuration updates
+rotatingText.updateConfig(element, {
+  rotationInterval: 1500,
+  staggerDuration: 75,
+  animationPreset: 'slideDown'
+});
+
+// Get component instance
+const instance = rotatingText.getInstance(element);
+console.log(instance.config, instance.currentIndex);
+```
+
 ### Events
 
 ```javascript
@@ -556,6 +663,35 @@ document.addEventListener('wb-variable-proximity-stop', (event) => {
 document.addEventListener('wb-variable-proximity-update', (event) => {
   console.log('VariableProximity updated:', event.detail);
 });
+
+// Listen for RotatingText initialization
+document.addEventListener('wb-rotating-text-init', (event) => {
+  console.log('RotatingText initialized:', event.detail);
+});
+
+// Listen for RotatingText text change
+document.addEventListener('wb-rotating-text-change', (event) => {
+  console.log('RotatingText changed to:', event.detail.currentText);
+});
+
+// Listen for RotatingText pause/resume
+document.addEventListener('wb-rotating-text-pause', (event) => {
+  console.log('RotatingText paused:', event.detail);
+});
+
+document.addEventListener('wb-rotating-text-resume', (event) => {
+  console.log('RotatingText resumed:', event.detail);
+});
+
+// Listen for RotatingText reset
+document.addEventListener('wb-rotating-text-reset', (event) => {
+  console.log('RotatingText reset:', event.detail);
+});
+
+// Listen for RotatingText configuration updates
+document.addEventListener('wb-rotating-text-update', (event) => {
+  console.log('RotatingText updated:', event.detail);
+});
 ```
 
 ### Manual Control
@@ -584,6 +720,9 @@ WebflowBits.initScrambleTextOn('.my-scramble-class');
 
 // Initialize specific VariableProximity elements
 WebflowBits.initVariableProximityOn('.my-proximity-class');
+
+// Initialize specific RotatingText elements
+WebflowBits.initRotatingTextOn('.my-rotating-class');
 
 // Refresh animations (useful after dynamic content changes)
 WebflowBits.refresh();
@@ -643,4 +782,17 @@ variableProximity.updateConfig(proximityElement, {
   toFontVariationSettings: "'wght' 800, 'opsz' 120"
 }); // Update configuration
 const proximityInstance = variableProximity.getInstance(proximityElement); // Get instance
+
+// RotatingText specific controls
+const rotatingElement = document.querySelector('[wb-text-animate="rotating-text"]');
+rotatingText.next(rotatingElement);       // Next text
+rotatingText.previous(rotatingElement);   // Previous text
+rotatingText.jumpTo(rotatingElement, 2);  // Jump to index 2
+rotatingText.pause(rotatingElement);      // Pause auto-rotation
+rotatingText.resume(rotatingElement);     // Resume auto-rotation
+rotatingText.reset(rotatingElement);      // Reset to first text
+rotatingText.updateConfig(rotatingElement, {
+  rotationInterval: 1500,
+  staggerDuration: 75
+}); // Update configuration
 ```

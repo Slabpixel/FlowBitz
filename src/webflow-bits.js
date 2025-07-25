@@ -15,6 +15,8 @@ import gradientTextAnimator from './components/gradientText.js';
 import decryptedTextAnimator from './components/decryptedText.js';
 import scrambleTextAnimator from './components/scrambleText.js';
 import variableProximityAnimator from './components/variableProximity.js';
+import countUpAnimator from './components/countUp.js';
+import rotatingTextAnimator from './components/rotatingText.js';
 
 /**
  * Main WebflowBits class for CDN usage
@@ -33,6 +35,8 @@ class WebflowBits {
       decryptedText: decryptedTextAnimator,
       scrambleText: scrambleTextAnimator,
       variableProximity: variableProximityAnimator,
+      countUp: countUpAnimator,
+      rotatingText: rotatingTextAnimator,
     };
   }
 
@@ -49,7 +53,7 @@ class WebflowBits {
     const config = {
       autoInit: true,
       debug: false,
-      components: ['splitText', 'textType', 'blurText', 'shinyText', 'gradientText', 'decryptedText', 'scrambleText', 'variableProximity'],
+      components: ['splitText', 'textType', 'blurText', 'shinyText', 'gradientText', 'decryptedText', 'scrambleText', 'variableProximity', 'countUp', 'rotatingText'],
       ...options
     };
 
@@ -109,6 +113,14 @@ class WebflowBits {
 
       if (config.components.includes('variableProximity')) {
         this.initVariableProximity(config.debug);
+      }
+
+      if (config.components.includes('countUp')) {
+        this.initCountUp(config.debug);
+      }
+
+      if (config.components.includes('rotatingText')) {
+        this.initRotatingText(config.debug);
       }
 
       // Setup mutation observer for dynamic content if autoInit is enabled
@@ -183,6 +195,18 @@ class WebflowBits {
       const variableProximityConflicts = variableProximityAnimator.checkForConflicts();
       if (variableProximityConflicts) {
         allConflicts.push(...variableProximityConflicts);
+      }
+
+      // Check CountUp conflicts
+      const countUpConflicts = countUpAnimator.checkForConflicts();
+      if (countUpConflicts) {
+        allConflicts.push(...countUpConflicts);
+      }
+
+      // Check RotatingText conflicts
+      const rotatingTextConflicts = rotatingTextAnimator.checkForConflicts();
+      if (rotatingTextConflicts) {
+        allConflicts.push(...rotatingTextConflicts);
       }
       
       if (allConflicts.length > 0) {
@@ -308,6 +332,34 @@ class WebflowBits {
   }
 
   /**
+   * Initialize countUp component
+   */
+  initCountUp(debug = false) {
+    try {
+      countUpAnimator.initAll();
+      if (debug) {
+        console.log('WebflowBits: CountUp initialized');
+      }
+    } catch (error) {
+      console.error('WebflowBits: Failed to initialize CountUp', error);
+    }
+  }
+
+  /**
+   * Initialize RotatingText component
+   */
+  initRotatingText(debug = false) {
+    try {
+      rotatingTextAnimator.initAll();
+      if (debug) {
+        console.log('WebflowBits: RotatingText initialized');
+      }
+    } catch (error) {
+      console.error('WebflowBits: Failed to initialize RotatingText', error);
+    }
+  }
+
+  /**
    * Setup mutation observer to handle dynamically added content
    */
   setupMutationObserver(debug = false) {
@@ -397,12 +449,32 @@ class WebflowBits {
                 variableProximityAnimator.initElement(element);
                 shouldRefresh = true;
               });
+
+              // Check for wb-text-animate="count-up" elements
+              const countUpElements = node.matches?.('[wb-text-animate="count-up"]')
+                ? [node]
+                : Array.from(node.querySelectorAll?.('[wb-text-animate="count-up"]') || []);
+
+              countUpElements.forEach(element => {
+                countUpAnimator.initElement(element);
+                shouldRefresh = true;
+              });
+
+              // Check for wb-text-animate="rotating-text" elements
+              const rotatingTextElements = node.matches?.('[wb-text-animate="rotating-text"]')
+                ? [node]
+                : Array.from(node.querySelectorAll?.('[wb-text-animate="rotating-text"]') || []);
+
+              rotatingTextElements.forEach(element => {
+                rotatingTextAnimator.initElement(element);
+                shouldRefresh = true;
+              });
             }
           });
         }
       });
 
-                    if (shouldRefresh) {
+      if (shouldRefresh) {
         clearTimeout(this.refreshTimeout);
         this.refreshTimeout = setTimeout(() => {
           splitTextAnimator.refresh();
@@ -413,6 +485,8 @@ class WebflowBits {
           decryptedTextAnimator.refresh();
           scrambleTextAnimator.refresh();
           variableProximityAnimator.refresh();
+          countUpAnimator.refresh();
+          rotatingTextAnimator.refresh();
         }, 100);
       }
     });
@@ -578,6 +652,44 @@ class WebflowBits {
   }
 
   /**
+   * Manually initialize CountUp on specific elements
+   * @param {string|NodeList|Element} selector - CSS selector or DOM elements
+   */
+  initCountUpOn(selector) {
+    const elements = typeof selector === 'string' 
+      ? document.querySelectorAll(selector)
+      : selector.nodeType ? [selector] : selector;
+
+    Array.from(elements).forEach(element => {
+      if (element.getAttribute('wb-text-animate') === 'count-up') {
+        countUpAnimator.initElement(element);
+      }
+    });
+
+    countUpAnimator.refresh();
+    return this;
+  }
+
+  /**
+   * Manually initialize RotatingText on specific elements
+   * @param {string|NodeList|Element} selector - CSS selector or DOM elements
+   */
+  initRotatingTextOn(selector) {
+    const elements = typeof selector === 'string' 
+      ? document.querySelectorAll(selector)
+      : selector.nodeType ? [selector] : selector;
+
+    Array.from(elements).forEach(element => {
+      if (element.getAttribute('wb-text-animate') === 'rotating-text') {
+        rotatingTextAnimator.initElement(element);
+      }
+    });
+
+    rotatingTextAnimator.refresh();
+    return this;
+  }
+
+  /**
    * Destroy all components and observers
    */
   destroy() {
@@ -605,6 +717,12 @@ class WebflowBits {
     // Destroy VariableProximity animations
     variableProximityAnimator.destroyAll();
 
+    // Destroy CountUp animations
+    countUpAnimator.destroyAll();
+
+    // Destroy RotatingText animations
+    rotatingTextAnimator.destroyAll();
+
     // Disconnect observers
     this.observers.forEach(observer => observer.disconnect());
     this.observers = [];
@@ -626,6 +744,8 @@ class WebflowBits {
     gradientTextAnimator.refresh();
     decryptedTextAnimator.refresh();
     scrambleTextAnimator.refresh();
+    variableProximityAnimator.refresh();
+    countUpAnimator.refresh();
     return this;
   }
 
