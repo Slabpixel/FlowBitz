@@ -16,7 +16,7 @@ The library will auto-initialize and start working with elements that have the p
 
 ### Available Components
 
-WebflowBits includes seven powerful text animation components:
+WebflowBits includes eight powerful text animation components:
 
 1. **SplitText** - Character, word, or line-based split animations
 2. **TextType** - Typewriter/typing effect with cursor
@@ -25,6 +25,7 @@ WebflowBits includes seven powerful text animation components:
 5. **GradientText** - Animated gradient text with customizable colors
 6. **DecryptedText** - Matrix-style decryption effects with character scrambling
 7. **ScrambleText** - Interactive hover-based character scrambling with GSAP
+8. **VariableProximity** - Mouse proximity-based font variation effects with Roboto Flex
 
 #### SplitText Animation
 
@@ -345,6 +346,7 @@ Add interactive hover-based character scrambling with proximity effects:
 **JavaScript Controls:**
 ```javascript
 const scrambleText = WebflowBits.getComponent('scrambleText');
+const variableProximity = WebflowBits.getComponent('variableProximity');
 const element = document.querySelector('[wb-text-animate="scramble-text"]');
 
 // Manually trigger scramble effect
@@ -362,6 +364,95 @@ scrambleText.updateConfig(element, {
   speed: 1.0
 });
 ```
+
+#### VariableProximity Animation
+
+Add mouse proximity-based font variation effects to text elements using variable fonts:
+
+```html
+<p wb-text-animate="variable-proximity">Your text here</p>
+```
+
+**Available attributes:**
+- `wb-from-font-variation="'wght' 100, 'opsz' 8"` - Starting font variation settings (default: "'wght' 100, 'opsz' 8")
+- `wb-to-font-variation="'wght' 900, 'opsz' 144"` - Target font variation settings (default: "'wght' 900, 'opsz' 144")
+- `wb-radius="50"` - Proximity radius in pixels (default: 50)
+- `wb-falloff="linear"` - Falloff type: linear|exponential|gaussian (default: "linear")
+- `wb-container=""` - CSS selector for container element (default: uses element itself)
+- `wb-threshold="0.1"` - Intersection observer threshold (default: 0.1)
+- `wb-root-margin="0px"` - Intersection observer margin (default: "0px")
+
+**Font Variation Format:**
+Font variation settings should be formatted as CSS font-variation-settings values:
+- `"'wght' 400, 'opsz' 20"` - Weight 400, Optical Size 20
+- `"'wght' 100"` - Weight 100 only
+- `"'wght' 900, 'opsz' 144, 'slnt' -10"` - Multiple axes
+
+**Examples:**
+```html
+<!-- Basic variable proximity with default Roboto Flex -->
+<h1 wb-text-animate="variable-proximity">
+  Hover Over Me
+</h1>
+
+<!-- Custom weight range with smaller radius -->
+<p wb-text-animate="variable-proximity"
+   wb-from-font-variation="'wght' 300, 'opsz' 20"
+   wb-to-font-variation="'wght' 700, 'opsz' 100"
+   wb-radius="30">
+  Custom Weight Range
+</p>
+
+<!-- Exponential falloff for dramatic effect -->
+<div wb-text-animate="variable-proximity"
+     wb-from-font-variation="'wght' 100, 'opsz' 8"
+     wb-to-font-variation="'wght' 900, 'opsz' 144"
+     wb-radius="80"
+     wb-falloff="exponential">
+  Exponential Falloff
+</div>
+
+<!-- Gaussian falloff for smooth transitions -->
+<span wb-text-animate="variable-proximity"
+      wb-from-font-variation="'wght' 200, 'opsz' 12"
+      wb-to-font-variation="'wght' 800, 'opsz' 120"
+      wb-radius="60"
+      wb-falloff="gaussian">
+  Gaussian Smoothness
+</span>
+
+<!-- Container-based tracking -->
+<div class="hero-section">
+  <h1 wb-text-animate="variable-proximity"
+      wb-container=".hero-section"
+      wb-radius="100">
+    Container-Based Effect
+  </h1>
+</div>
+```
+
+**JavaScript Controls:**
+```javascript
+const variableProximity = WebflowBits.getComponent('variableProximity');
+const element = document.querySelector('[wb-text-animate="variable-proximity"]');
+
+// Update configuration
+variableProximity.updateConfig(element, {
+  radius: 80,
+  falloff: 'exponential',
+  fromFontVariationSettings: "'wght' 200, 'opsz' 10",
+  toFontVariationSettings: "'wght' 800, 'opsz' 120"
+});
+
+// Get component instance
+const instance = variableProximity.getInstance(element);
+console.log(instance.config);
+```
+
+**Font Requirements:**
+- Works best with variable fonts like **Roboto Flex** (included by default)
+- Supports any CSS font-variation-settings axis (wght, opsz, slnt, etc.)
+- For custom fonts, ensure they support the variation axes you specify
 
 ### Events
 
@@ -445,6 +536,26 @@ document.addEventListener('wb-scramble-text-stop', (event) => {
 document.addEventListener('wb-scramble-text-update', (event) => {
   console.log('ScrambleText updated:', event.detail);
 });
+
+// Listen for VariableProximity initialization
+document.addEventListener('wb-variable-proximity-init', (event) => {
+  console.log('VariableProximity initialized:', event.detail);
+});
+
+// Listen for VariableProximity animation start
+document.addEventListener('wb-variable-proximity-start', (event) => {
+  console.log('VariableProximity animation started:', event.detail);
+});
+
+// Listen for VariableProximity animation stop
+document.addEventListener('wb-variable-proximity-stop', (event) => {
+  console.log('VariableProximity animation stopped:', event.detail);
+});
+
+// Listen for VariableProximity configuration updates
+document.addEventListener('wb-variable-proximity-update', (event) => {
+  console.log('VariableProximity updated:', event.detail);
+});
 ```
 
 ### Manual Control
@@ -470,6 +581,9 @@ WebflowBits.initDecryptedTextOn('.my-decrypt-class');
 
 // Initialize specific ScrambleText elements
 WebflowBits.initScrambleTextOn('.my-scramble-class');
+
+// Initialize specific VariableProximity elements
+WebflowBits.initVariableProximityOn('.my-proximity-class');
 
 // Refresh animations (useful after dynamic content changes)
 WebflowBits.refresh();
@@ -519,4 +633,14 @@ scrambleText.updateConfig(scrambleElement, {
   radius: 200,
   speed: 1.0
 }); // Update configuration
+
+// VariableProximity specific controls
+const proximityElement = document.querySelector('[wb-text-animate="variable-proximity"]');
+variableProximity.updateConfig(proximityElement, {
+  radius: 80,
+  falloff: 'exponential',
+  fromFontVariationSettings: "'wght' 200, 'opsz' 10",
+  toFontVariationSettings: "'wght' 800, 'opsz' 120"
+}); // Update configuration
+const proximityInstance = variableProximity.getInstance(proximityElement); // Get instance
 ```

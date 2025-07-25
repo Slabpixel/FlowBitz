@@ -14,6 +14,7 @@ import shinyTextAnimator from './components/shinyText.js';
 import gradientTextAnimator from './components/gradientText.js';
 import decryptedTextAnimator from './components/decryptedText.js';
 import scrambleTextAnimator from './components/scrambleText.js';
+import variableProximityAnimator from './components/variableProximity.js';
 
 /**
  * Main WebflowBits class for CDN usage
@@ -31,6 +32,7 @@ class WebflowBits {
       gradientText: gradientTextAnimator,
       decryptedText: decryptedTextAnimator,
       scrambleText: scrambleTextAnimator,
+      variableProximity: variableProximityAnimator,
     };
   }
 
@@ -47,7 +49,7 @@ class WebflowBits {
     const config = {
       autoInit: true,
       debug: false,
-      components: ['splitText', 'textType', 'blurText', 'shinyText', 'gradientText', 'decryptedText', 'scrambleText'],
+      components: ['splitText', 'textType', 'blurText', 'shinyText', 'gradientText', 'decryptedText', 'scrambleText', 'variableProximity'],
       ...options
     };
 
@@ -103,6 +105,10 @@ class WebflowBits {
 
       if (config.components.includes('scrambleText')) {
         this.initScrambleText(config.debug);
+      }
+
+      if (config.components.includes('variableProximity')) {
+        this.initVariableProximity(config.debug);
       }
 
       // Setup mutation observer for dynamic content if autoInit is enabled
@@ -171,6 +177,12 @@ class WebflowBits {
       const scrambleTextConflicts = scrambleTextAnimator.checkForConflicts();
       if (scrambleTextConflicts) {
         allConflicts.push(...scrambleTextConflicts);
+      }
+      
+      // Check VariableProximity conflicts
+      const variableProximityConflicts = variableProximityAnimator.checkForConflicts();
+      if (variableProximityConflicts) {
+        allConflicts.push(...variableProximityConflicts);
       }
       
       if (allConflicts.length > 0) {
@@ -282,6 +294,20 @@ class WebflowBits {
   }
 
   /**
+   * Initialize VariableProximity component
+   */
+  initVariableProximity(debug = false) {
+    try {
+      variableProximityAnimator.initAll();
+      if (debug) {
+        console.log('WebflowBits: VariableProximity initialized');
+      }
+    } catch (error) {
+      console.error('WebflowBits: Failed to initialize VariableProximity', error);
+    }
+  }
+
+  /**
    * Setup mutation observer to handle dynamically added content
    */
   setupMutationObserver(debug = false) {
@@ -361,6 +387,16 @@ class WebflowBits {
                 scrambleTextAnimator.initElement(element);
                 shouldRefresh = true;
               });
+
+              // Check for wb-text-animate="variable-proximity" elements
+              const variableProximityElements = node.matches?.('[wb-text-animate="variable-proximity"]') 
+                ? [node] 
+                : Array.from(node.querySelectorAll?.('[wb-text-animate="variable-proximity"]') || []);
+
+              variableProximityElements.forEach(element => {
+                variableProximityAnimator.initElement(element);
+                shouldRefresh = true;
+              });
             }
           });
         }
@@ -376,6 +412,7 @@ class WebflowBits {
           gradientTextAnimator.refresh();
           decryptedTextAnimator.refresh();
           scrambleTextAnimator.refresh();
+          variableProximityAnimator.refresh();
         }, 100);
       }
     });
@@ -522,6 +559,25 @@ class WebflowBits {
   }
 
   /**
+   * Manually initialize VariableProximity on specific elements
+   * @param {string|NodeList|Element} selector - CSS selector or DOM elements
+   */
+  initVariableProximityOn(selector) {
+    const elements = typeof selector === 'string' 
+      ? document.querySelectorAll(selector)
+      : selector.nodeType ? [selector] : selector;
+
+    Array.from(elements).forEach(element => {
+      if (element.getAttribute('wb-text-animate') === 'variable-proximity') {
+        variableProximityAnimator.initElement(element);
+      }
+    });
+
+    variableProximityAnimator.refresh();
+    return this;
+  }
+
+  /**
    * Destroy all components and observers
    */
   destroy() {
@@ -545,6 +601,9 @@ class WebflowBits {
     
     // Destroy ScrambleText animations
     scrambleTextAnimator.destroyAll();
+    
+    // Destroy VariableProximity animations
+    variableProximityAnimator.destroyAll();
 
     // Disconnect observers
     this.observers.forEach(observer => observer.disconnect());

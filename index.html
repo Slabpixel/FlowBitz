@@ -9,13 +9,14 @@
   </head>
   <body>
     <div style="display: flex; flex-direction: column; gap: 2rem; align-items: center; justify-content: center; height: 100vh;">
-      <div wb-text-animate="scramble-text"
-          wb-radius="80"
-          wb-duration="0.8"
-          wb-speed="1.2"
-          wb-scramble-chars=".:"
+      <div 
+        wb-text-animate="variable-proximity"
+        wb-from-font-variation="'wght' 300, 'opsz' 20"
+        wb-to-font-variation="'wght' 700, 'opsz' 100"
+        wb-radius="100"
+        style="width: 40vw; height: 40vw; display: flex; align-items: center; justify-content: center;"
       >
-        Hover to Scramble Text
+        Hover Over Me
       </div>
 
     </div>
