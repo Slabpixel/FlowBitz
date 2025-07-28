@@ -14,76 +14,20 @@
         <p>Creative</p>
         <div
           wb-text-animate="rotating-text"
-          wb-split-by="characters"
-          wb-stagger-duration="100"
-          wb-stagger-from="first"
-          wb-animation-preset="slideDown"
+          wb-rotating-texts='["Components!", "Coding", "Thinking"]'
+          wb-rotating-split-by="characters"
+          wb-rotating-stagger-duration="25"
+          wb-rotating-stagger-from="first"
+          wb-rotating-interval="2000"
+          wb-rotating-ease="back.out(1.7)"
           style="padding: 0.5rem; background-color: cornflowerblue; border-radius: 8px;"
         >
-          <p>Components!</p>
-          <p>Coding</p>
-          <p>Thinking</p>
+          Components!
         </div>
       </div>
 
     </div>
-    
-    <script>
-      // Manual control test
-      function testManualControl() {
-        const element = document.querySelector('[wb-auto="false"]');
-        if (window.WebflowBits) {
-          const rotatingText = window.WebflowBits.getComponent('rotatingText');
-          if (rotatingText) {
-            rotatingText.next(element);
-            console.log('Manual next triggered');
-          } else {
-            console.error('RotatingText component not found');
-          }
-        } else {
-          console.error('WebflowBits not found on window');
-        }
-      }
 
-      // Debug logging
-      document.addEventListener('wb-rotating-text-init', (e) => {
-        console.log('🎉 RotatingText Init Event:', e.detail);
-      });
-
-      document.addEventListener('wb-rotating-text-change', (e) => {
-        console.log('🔄 RotatingText Change Event:', e.detail);
-      });
-
-      document.addEventListener('webflow-bits-ready', (e) => {
-        console.log('🚀 WebflowBits Ready:', e.detail);
-        
-        // List all elements found
-        const rotatingElements = document.querySelectorAll('[wb-text-animate="rotating-text"]');
-        console.log('📝 Found rotating elements:', rotatingElements.length);
-        
-        rotatingElements.forEach((el, i) => {
-          console.log(`Element ${i}:`, {
-            element: el,
-            innerHTML: el.innerHTML,
-            hasContent: el.querySelector('.wb-rotating-text__content'),
-            computedStyle: window.getComputedStyle(el)
-          });
-        });
-      });
-
-      // Check if components are loading
-      setTimeout(() => {
-        console.log('🔍 5 Second Check:');
-        console.log('WebflowBits on window:', !!window.WebflowBits);
-        console.log('RotatingText component:', window.WebflowBits?.getComponent?.('rotatingText'));
-        
-        const elements = document.querySelectorAll('[wb-text-animate="rotating-text"]');
-        console.log('Elements found:', elements.length);
-        elements.forEach((el, i) => {
-          console.log(`Element ${i} structure:`, el.innerHTML);
-        });
-      }, 5000);
-    </script>
     <script type="module" src="/src/init.js"></script>
   </body>
 </html>
