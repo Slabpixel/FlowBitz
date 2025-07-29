@@ -175,6 +175,39 @@ class RotatingTextAnimator {
   }
 
   /**
+   * Parse text content from element
+   */
+  parseTextContent(element) {
+    // First priority: Check for <p> elements inside the container
+    const paragraphs = element.querySelectorAll('p');
+    if (paragraphs.length > 0) {
+      const textArray = Array.from(paragraphs).map(p => p.textContent.trim()).filter(text => text);
+      if (textArray.length > 0) {
+        return textArray;
+      }
+    }
+
+    // Second priority: Check for wb-rotating-texts attribute
+    const textsAttr = element.getAttribute('wb-rotating-texts');
+    if (textsAttr) {
+      try {
+        return JSON.parse(textsAttr);
+      } catch {
+        return textsAttr.split(',').map(text => text.trim());
+      }
+    }
+
+    // Fallback: Use element text content (excluding nested elements)
+    const directTextContent = Array.from(element.childNodes)
+      .filter(node => node.nodeType === Node.TEXT_NODE)
+      .map(node => node.textContent.trim())
+      .filter(text => text)
+      .join(' ');
+    
+    return directTextContent ? [directTextContent] : this.defaultConfig.texts;
+  }
+
+  /**
    * Parse configuration from element attributes using utility functions
    */
   parseConfig(element) {
@@ -208,15 +241,8 @@ class RotatingTextAnimator {
 
     const parsed = parseElementConfig(element, this.defaultConfig, attributeMap);
     
-    // Handle texts attribute manually since it needs custom parsing
-    const textsAttr = element.getAttribute('wb-rotating-texts');
-    if (textsAttr) {
-      try {
-        parsed.texts = JSON.parse(textsAttr);
-      } catch {
-        parsed.texts = textsAttr.split(',').map(text => text.trim());
-      }
-    }
+    // Parse texts from element content or attributes
+    parsed.texts = this.parseTextContent(element);
     
     // Handle custom initial, animate, and exit configurations
     if (parsed.initialY !== undefined || parsed.initialOpacity !== undefined) {

@@ -5,29 +5,23 @@
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="/src/styles/style.css">
-    <title>Webflow Bits</title>
+    <title>Webflow Bits - Demo Including ImageTrail</title>
   </head>
   <body>
-    <div style="display: flex; flex-direction: column; gap: 2rem; align-items: center; justify-content: center; height: 100vh; padding: 2rem;">
-      
-      <div style="display: flex; gap: 1rem; align-items: center;">
-        <p>Creative</p>
-        <div
-          wb-text-animate="rotating-text"
-          wb-rotating-texts='["Components!", "Coding", "Thinking"]'
-          wb-rotating-split-by="characters"
-          wb-rotating-stagger-duration="25"
-          wb-rotating-stagger-from="first"
-          wb-rotating-interval="2000"
-          wb-rotating-ease="back.out(1.7)"
-          style="padding: 0.5rem; background-color: cornflowerblue; border-radius: 8px;"
-        >
-          Components!
-        </div>
-      </div>
+    <div style="display: flex; flex-direction: column; gap: 2rem; align-items: center; justify-content: center; min-height: 100vh; padding: 2rem;">
 
+      <p>
+        $
+        <span wb-text-animate="count-up" 
+          wb-count-from="0"
+          wb-count-to="999" 
+          wb-separator=","
+          wb-duration="3">
+          
+        </span>
+      </p>
     </div>
 
-    <script type="module" src="/src/init.js"></script>
+    <script type="module" src="/src/webflow-bits.js"></script>
   </body>
 </html>

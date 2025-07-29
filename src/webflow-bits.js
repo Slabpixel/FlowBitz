@@ -17,6 +17,9 @@ import scrambleTextAnimator from './components/scrambleText.js';
 import variableProximityAnimator from './components/variableProximity.js';
 import countUpAnimator from './components/countUp.js';
 import rotatingTextAnimator from './components/rotatingText.js';
+import textPressureAnimator from './components/textPressure.js';
+import magnetLinesAnimator from './components/magnetLines.js';
+import imageTrailAnimator from './components/imageTrail.js';
 
 /**
  * Main WebflowBits class for CDN usage
@@ -37,6 +40,9 @@ class WebflowBits {
       variableProximity: variableProximityAnimator,
       countUp: countUpAnimator,
       rotatingText: rotatingTextAnimator,
+      textPressure: textPressureAnimator,
+      magnetLines: magnetLinesAnimator,
+      imageTrail: imageTrailAnimator,
     };
   }
 
@@ -53,7 +59,7 @@ class WebflowBits {
     const config = {
       autoInit: true,
       debug: false,
-      components: ['splitText', 'textType', 'blurText', 'shinyText', 'gradientText', 'decryptedText', 'scrambleText', 'variableProximity', 'countUp', 'rotatingText'],
+      components: ['splitText', 'textType', 'blurText', 'shinyText', 'gradientText', 'decryptedText', 'scrambleText', 'variableProximity', 'countUp', 'rotatingText', 'textPressure', 'magnetLines', 'imageTrail'],
       ...options
     };
 
@@ -121,6 +127,17 @@ class WebflowBits {
 
       if (config.components.includes('rotatingText')) {
         this.initRotatingText(config.debug);
+      }
+      if (config.components.includes('textPressure')) {
+        this.initTextPressure(config.debug);
+      }
+
+      if (config.components.includes('magnetLines')) {
+        this.initMagnetLines(config.debug);
+      }
+
+      if (config.components.includes('imageTrail')) {
+        this.initImageTrail(config.debug);
       }
 
       // Setup mutation observer for dynamic content if autoInit is enabled
@@ -207,6 +224,24 @@ class WebflowBits {
       const rotatingTextConflicts = rotatingTextAnimator.checkForConflicts();
       if (rotatingTextConflicts) {
         allConflicts.push(...rotatingTextConflicts);
+      }
+
+      // Check TextPressure conflicts
+      const textPressureConflicts = textPressureAnimator.checkForConflicts();
+      if (textPressureConflicts) {
+        allConflicts.push(...textPressureConflicts);
+      }
+
+      // Check MagnetLines conflicts
+      const magnetLinesConflicts = magnetLinesAnimator.checkForConflicts();
+      if (magnetLinesConflicts) {
+        allConflicts.push(...magnetLinesConflicts);
+      }
+
+      // Check ImageTrail conflicts
+      const imageTrailConflicts = imageTrailAnimator.checkForConflicts();
+      if (imageTrailConflicts) {
+        allConflicts.push(...imageTrailConflicts);
       }
       
       if (allConflicts.length > 0) {
@@ -360,6 +395,48 @@ class WebflowBits {
   }
 
   /**
+   * Initialize TextPressure component
+   */
+  initTextPressure(debug = false) {
+    try {
+      textPressureAnimator.initAll();
+      if (debug) {
+        console.log('WebflowBits: TextPressure initialized');
+      }
+    } catch (error) {
+      console.error('WebflowBits: Failed to initialize TextPressure', error);
+    }
+  }
+
+  /**
+   * Initialize MagnetLines component
+   */
+  initMagnetLines(debug = false) {
+    try {
+      magnetLinesAnimator.initAll();
+      if (debug) {
+        console.log('WebflowBits: MagnetLines initialized');
+      }
+    } catch (error) {
+      console.error('WebflowBits: Failed to initialize MagnetLines', error);
+    }
+  }
+
+  /**
+   * Initialize ImageTrail component
+   */
+  initImageTrail(debug = false) {
+    try {
+      imageTrailAnimator.initAll();
+      if (debug) {
+        console.log('WebflowBits: ImageTrail initialized');
+      }
+    } catch (error) {
+      console.error('WebflowBits: Failed to initialize ImageTrail', error);
+    }
+  }
+
+  /**
    * Setup mutation observer to handle dynamically added content
    */
   setupMutationObserver(debug = false) {
@@ -469,6 +546,36 @@ class WebflowBits {
                 rotatingTextAnimator.initElement(element);
                 shouldRefresh = true;
               });
+
+              // Check for wb-text-animate="text-pressure" elements
+              const textPressureElements = node.matches?.('[wb-text-animate="text-pressure"]')
+                ? [node]
+                : Array.from(node.querySelectorAll?.('[wb-text-animate="text-pressure"]') || []);
+
+              textPressureElements.forEach(element => {
+                textPressureAnimator.initElement(element);
+                shouldRefresh = true;
+              });
+
+              // Check for wb-animate="magnet-lines" elements
+              const magnetLinesElements = node.matches?.('[wb-animate="magnet-lines"]')
+                ? [node]
+                : Array.from(node.querySelectorAll?.('[wb-animate="magnet-lines"]') || []);
+
+              magnetLinesElements.forEach(element => {
+                magnetLinesAnimator.initElement(element);
+                shouldRefresh = true;
+              });
+
+              // Check for wb-animate="image-trail" elements
+              const imageTrailElements = node.matches?.('[wb-animate="image-trail"]')
+                ? [node]
+                : Array.from(node.querySelectorAll?.('[wb-animate="image-trail"]') || []);
+
+              imageTrailElements.forEach(element => {
+                imageTrailAnimator.initElement(element);
+                shouldRefresh = true;
+              });
             }
           });
         }
@@ -487,6 +594,9 @@ class WebflowBits {
           variableProximityAnimator.refresh();
           countUpAnimator.refresh();
           rotatingTextAnimator.refresh();
+          textPressureAnimator.refresh();
+          magnetLinesAnimator.refresh();
+          imageTrailAnimator.refresh();
         }, 100);
       }
     });
@@ -690,6 +800,63 @@ class WebflowBits {
   }
 
   /**
+   * Manually initialize TextPressure on specific elements
+   * @param {string|NodeList|Element} selector - CSS selector or DOM elements
+   */
+  initTextPressureOn(selector) {
+    const elements = typeof selector === 'string' 
+      ? document.querySelectorAll(selector)
+      : selector.nodeType ? [selector] : selector;
+    
+    Array.from(elements).forEach(element => {
+      if (element.getAttribute('wb-text-animate') === 'text-pressure') {
+        textPressureAnimator.initElement(element);
+      }
+    });
+
+    textPressureAnimator.refresh();
+    return this;
+  }
+
+  /**
+   * Manually initialize MagnetLines on specific elements
+   * @param {string|NodeList|Element} selector - CSS selector or DOM elements
+   */
+  initMagnetLinesOn(selector) {
+    const elements = typeof selector === 'string' 
+      ? document.querySelectorAll(selector)
+      : selector.nodeType ? [selector] : selector;
+    
+    Array.from(elements).forEach(element => {
+      if (element.getAttribute('wb-animate') === 'magnet-lines') {
+        magnetLinesAnimator.initElement(element);
+      }
+    });
+
+    magnetLinesAnimator.refresh();
+    return this;
+  }
+
+  /**
+   * Manually initialize ImageTrail on specific elements
+   * @param {string|NodeList|Element} selector - CSS selector or DOM elements
+   */
+  initImageTrailOn(selector) {
+    const elements = typeof selector === 'string' 
+      ? document.querySelectorAll(selector)
+      : selector.nodeType ? [selector] : selector;
+    
+    Array.from(elements).forEach(element => {
+      if (element.getAttribute('wb-animate') === 'image-trail') {
+        imageTrailAnimator.initElement(element);
+      }
+    });
+
+    imageTrailAnimator.refresh();
+    return this;
+  }
+
+  /**
    * Destroy all components and observers
    */
   destroy() {
@@ -723,6 +890,15 @@ class WebflowBits {
     // Destroy RotatingText animations
     rotatingTextAnimator.destroyAll();
 
+    // Destroy TextPressure animations
+    textPressureAnimator.destroyAll();
+
+    // Destroy MagnetLines animations
+    magnetLinesAnimator.destroyAll();
+
+    // Destroy ImageTrail animations
+    imageTrailAnimator.destroyAll();
+
     // Disconnect observers
     this.observers.forEach(observer => observer.disconnect());
     this.observers = [];
@@ -746,6 +922,10 @@ class WebflowBits {
     scrambleTextAnimator.refresh();
     variableProximityAnimator.refresh();
     countUpAnimator.refresh();
+    rotatingTextAnimator.refresh();
+    textPressureAnimator.refresh();
+    magnetLinesAnimator.refresh();
+    imageTrailAnimator.refresh();
     return this;
   }
 

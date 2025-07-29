@@ -16,8 +16,9 @@ The library will auto-initialize and start working with elements that have the p
 
 ### Available Components
 
-WebflowBits includes nine powerful text animation components:
+WebflowBits includes thirteen powerful animation components:
 
+### Text Animation Components:
 1. **SplitText** - Character, word, or line-based split animations
 2. **TextType** - Typewriter/typing effect with cursor
 3. **BlurText** - Blur-to-clear transition effects
@@ -27,6 +28,12 @@ WebflowBits includes nine powerful text animation components:
 7. **ScrambleText** - Interactive hover-based character scrambling with GSAP
 8. **VariableProximity** - Mouse proximity-based font variation effects with Roboto Flex
 9. **RotatingText** - Auto-rotating text with customizable animations and stagger effects
+10. **TextPressure** - Mouse proximity-based font variation effects with variable fonts
+11. **CountUp** - Animated number counting with customizable formatting
+
+### Interactive Components:
+12. **ImageTrail** - Mouse-following image trail effects with multiple variants
+13. **MagnetLines** - Interactive magnetic line grid that follows mouse movement
 
 #### SplitText Animation
 
@@ -561,6 +568,476 @@ const instance = rotatingText.getInstance(element);
 console.log(instance.config, instance.currentIndex);
 ```
 
+#### TextPressure Animation
+
+Add mouse proximity-based font variation effects to text elements using variable fonts:
+
+```html
+<div wb-text-animate="text-pressure">Your text here</div>
+```
+
+**Available attributes:**
+- `wb-text="PRESSURE"` - Text to animate (default: "PRESSURE")
+- `wb-font-family="Compressa VF, sans-serif"` - Font family (default: "Roboto Flex, sans-serif")
+- `wb-width="true"` - Enable width variation (default: true)
+- `wb-weight="true"` - Enable weight variation (default: true)
+- `wb-italic="true"` - Enable italic/slant variation (default: true)
+- `wb-alpha="false"` - Enable opacity variation (default: false)
+- `wb-stroke="false"` - Enable stroke effect (default: false)
+- `wb-text-color="#FFFFFF"` - Text color (default: "#FFFFFF")
+- `wb-stroke-color="#FF0000"` - Stroke color (default: "#FF0000")
+- `wb-min-font-size="24"` - Minimum font size (default: 24)
+
+**Custom Font Support:**
+TextPressure now supports custom fonts! You can add your own variable font by declaring it in your HTML:
+
+```html
+<head>
+  <!-- Add your custom variable font -->
+  <style>
+    @font-face {
+      font-family: 'MyCustomVF';
+      src: url('path-to-your-variable-font.woff2') format('woff2');
+      font-variation-settings: 'wght' 100, 'wdth' 75, 'ital' 0;
+    }
+  </style>
+</head>
+```
+
+Then use it with the component:
+```html
+<div wb-text-animate="text-pressure"
+     wb-font-family="MyCustomVF, sans-serif"
+     wb-text="CUSTOM">
+</div>
+```
+
+**Font Support Levels:**
+- **Roboto Flex** (included) - Full effects: weight + width + slant  
+- **Source Sans 3** (included) - Weight + italic effects
+- **Inter** (included) - Weight effects only
+- **Custom Variable Fonts** - Full effects if they support weight, width, and italic axes
+- **Regular Fonts** - Automatic fallback to weight-only effects
+
+**Fallback Mechanism:**
+Any font (including custom fonts) will receive the full pressure effect with weight, width, and italic variations. If a font doesn't support certain variation axes, the browser will gracefully ignore unsupported properties while still applying supported ones.
+
+**Examples:**
+```html
+<!-- Basic TextPressure with default Compressa VF -->
+<div wb-text-animate="text-pressure"
+     wb-text="PRESSURE"
+     wb-text-color="#FFFFFF"
+     style="width: 400px; height: 200px; background: #1a1a1a;">
+</div>
+
+<!-- Using Roboto Flex -->
+<div wb-text-animate="text-pressure"
+     wb-text="ROBOTO"
+     wb-font-family="Roboto Flex, sans-serif"
+     wb-text-color="#FFFFFF"
+     style="width: 400px; height: 200px; background: #2c3e50;">
+</div>
+
+<!-- Custom variable font -->
+<style>
+  @font-face {
+    font-family: 'MyVariableFont';
+    src: url('https://example.com/my-variable-font.woff2') format('woff2');
+    font-variation-settings: 'wght' 400, 'wdth' 100, 'ital' 0;
+  }
+</style>
+<div wb-text-animate="text-pressure"
+     wb-text="CUSTOM"
+     wb-font-family="MyVariableFont, sans-serif"
+     wb-text-color="#FFFFFF"
+     style="width: 400px; height: 200px; background: #8e44ad;">
+</div>
+
+<!-- Weight only effect with regular font -->
+<div wb-text-animate="text-pressure"
+     wb-text="BOLD"
+     wb-font-family="Inter, sans-serif"
+     wb-weight="true"
+     wb-width="false"
+     wb-italic="false"
+     style="width: 300px; height: 150px; background: #ff6b6b;">
+</div>
+
+<!-- With stroke effect -->
+<div wb-text-animate="text-pressure"
+     wb-text="STROKE"
+     wb-stroke="true"
+     wb-stroke-color="#FF0000"
+     wb-text-color="#FFFFFF"
+     style="width: 400px; height: 200px; background: #000000;">
+</div>
+
+<!-- Alpha effect -->
+<div wb-text-animate="text-pressure"
+     wb-text="FADE"
+     wb-alpha="true"
+     wb-weight="true"
+     wb-width="false"
+     wb-italic="false"
+     style="width: 400px; height: 200px; background: linear-gradient(45deg, #667eea, #764ba2);">
+</div>
+```
+
+**JavaScript Controls:**
+```javascript
+const textPressure = WebflowBits.getComponent('textPressure');
+const element = document.querySelector('[wb-text-animate="text-pressure"]');
+
+// Update configuration
+textPressure.updateConfig(element, {
+  text: 'NEW TEXT',
+  fontFamily: 'Source Sans 3, sans-serif',
+  weight: true,
+  width: false,
+  italic: true,
+  alpha: true
+});
+
+// Debug current settings
+textPressure.debugFontSettings(element);
+
+// Get current effect values
+const values = textPressure.getEffectValues(element);
+console.log('Current effect values:', values);
+
+// Get component instance
+const instance = textPressure.getInstance(element);
+console.log(instance.config);
+```
+
+**Troubleshooting:**
+- **Effects not visible**: All fonts will show at least weight variation. For full effects, use variable fonts like Compressa VF, Roboto Flex, or Source Sans 3
+- **No width variation**: Check if your font supports 'wdth' axis. Compressa VF and Roboto Flex support this
+- **No italic variation**: Check if your font supports 'ital' or 'slnt' axis. Most variable fonts support at least one of these
+- **Custom font not loading**: Ensure your @font-face declaration is in the HTML <head> section and the font file path is correct
+- **Partial effects only**: This is normal! The component gracefully falls back to supported axes. Regular fonts will show weight effects only
+- **Performance issues**: Reduce animation frequency or disable unused effects (set wb-width="false", wb-italic="false", etc.)
+
+#### CountUp Animation
+
+Add animated number counting to numeric text elements:
+
+```html
+<span wb-text-animate="count-up">1000</span>
+```
+
+**Available attributes:**
+- `wb-count-to="1000"` - Target number to count to (default: 100, or element text content)
+- `wb-count-from="0"` - Starting number (default: 0)
+- `wb-count-direction="up"` - Direction of counting: 'up' or 'down' (default: 'up')
+- `wb-count-separator=","` - Thousands separator (default: empty)
+- `wb-count-precision="2"` - Number of decimal places (default: auto-detect)
+- `wb-count-start="true"` - Start when element becomes visible (default: true)
+- `wb-count-loop="false"` - Loop the animation (default: false)
+- `wb-delay="0"` - Animation delay in seconds (default: 0)
+- `wb-duration="2"` - Animation duration in seconds (default: 2)
+- `wb-ease="power2.out"` - Animation easing (default: "power2.out")
+- `wb-threshold="0.1"` - Scroll trigger threshold (default: 0.1)
+- `wb-root-margin="0px"` - Scroll trigger margin (default: "0px")
+
+**Examples:**
+```html
+<!-- Basic counter -->
+<span wb-text-animate="count-up" wb-count-to="1250">0</span>
+
+<!-- Currency with formatting -->
+<span wb-text-animate="count-up" 
+      wb-count-to="99999" 
+      wb-count-separator=","
+      wb-duration="3">
+  0
+</span>
+
+<!-- Percentage with decimal places -->
+<span wb-text-animate="count-up" 
+      wb-count-to="85.7" 
+      wb-count-precision="1"
+      wb-duration="1.5">
+  0
+</span>
+
+<!-- Large numbers with separator -->
+<span wb-text-animate="count-up" 
+      wb-count-to="2500000" 
+      wb-count-separator=","
+      wb-duration="2.5"
+      wb-ease="power3.out">
+  0
+</span>
+
+<!-- Custom range (not starting from 0) -->
+<span wb-text-animate="count-up" 
+      wb-count-from="50" 
+      wb-count-to="100" 
+      wb-duration="1.8">
+  50
+</span>
+
+<!-- Count down animation -->
+<span wb-text-animate="count-up" 
+      wb-count-direction="down"
+      wb-count-from="100"
+      wb-count-to="0"
+      wb-duration="3">
+  100
+</span>
+
+<!-- Auto-start disabled (manual trigger) -->
+<span wb-text-animate="count-up" 
+      wb-count-to="1000"
+      wb-count-start="false">
+  0
+</span>
+
+<!-- Looping animation -->
+<span wb-text-animate="count-up" 
+      wb-count-to="100"
+      wb-count-loop="true"
+      wb-duration="2">
+  0
+</span>
+```
+
+**JavaScript Controls:**
+```javascript
+const countUp = WebflowBits.getComponent('countUp');
+const element = document.querySelector('[wb-text-animate="count-up"]');
+
+// Manually start animation
+countUp.startCountUp(element);
+
+// Pause animation
+countUp.pauseCountUp(element);
+
+// Resume animation
+countUp.resumeCountUp(element);
+
+// Reset animation to initial state
+countUp.resetCountUp(element);
+
+// Update configuration
+countUp.updateConfig(element, {
+  to: 5000,
+  duration: 3,
+  separator: '.',
+  direction: 'up'
+});
+
+// Get component instance
+const instance = countUp.getInstance(element);
+console.log(instance.config);
+```
+
+#### ImageTrail Animation
+
+Add mouse-following image trail effects with multiple visual variants:
+
+```html
+<div wb-animate="image-trail" 
+     wb-images='["image1.jpg", "image2.jpg", "image3.jpg"]'>
+</div>
+```
+
+**Available attributes:**
+- `wb-variant="1"` - Effect variant (1-8, default: 1)
+- `wb-threshold="80"` - Mouse movement threshold to trigger images (default: 80)
+- `wb-item-width="190px"` - Image width (default: "190px")
+- `wb-item-height="auto"` - Image height (default: "auto")
+- `wb-border-radius="15px"` - Image border radius (default: "15px")
+- `wb-visible-images="9"` - Maximum visible images for variant 7 (default: 9)
+- `wb-images='["url1", "url2"]'` - **Required** JSON array of image URLs
+
+**Effect Variants:**
+1. **Variant 1**: Basic trail - Simple fade in/out effect
+2. **Variant 2**: Scale with filter - Brightness and scale effects
+3. **Variant 3**: Fly up animation - Images fly upward with random movement
+4. **Variant 4**: Directional movement - Images follow mouse velocity direction
+5. **Variant 5**: Rotation-based - Images rotate based on mouse movement angle
+6. **Variant 6**: Speed-based effects - Size, blur, and color based on mouse speed
+7. **Variant 7**: Multiple visible - Shows multiple images with queue system
+8. **Variant 8**: 3D perspective - Depth and perspective effects
+
+**Examples:**
+```html
+<!-- Basic trail effect -->
+<div wb-animate="image-trail" 
+     wb-variant="1"
+     wb-threshold="80"
+     wb-images='[
+       "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=300&h=400&fit=crop",
+       "https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=300&h=400&fit=crop",
+       "https://images.unsplash.com/photo-1506197603052-3cc9c3a201bd?w=300&h=400&fit=crop"
+     ]'
+     style="width: 100%; height: 400px; background: #1a1a1a; cursor: pointer;">
+</div>
+
+<!-- Speed-based effects with custom sizing -->
+<div wb-animate="image-trail" 
+     wb-variant="6"
+     wb-threshold="50"
+     wb-item-width="150px"
+     wb-border-radius="20px"
+     wb-images='[
+       "image1.jpg",
+       "image2.jpg", 
+       "image3.jpg",
+       "image4.jpg"
+     ]'
+     style="width: 100%; height: 300px; background: #2a2a2a; cursor: pointer;">
+</div>
+
+<!-- 3D perspective effect -->
+<div wb-animate="image-trail" 
+     wb-variant="8"
+     wb-threshold="60"
+     wb-item-width="200px"
+     wb-images='[
+       "portrait1.jpg",
+       "portrait2.jpg",
+       "portrait3.jpg"
+     ]'
+     style="width: 100%; height: 500px; background: linear-gradient(45deg, #1e3c72, #2a5298); cursor: pointer;">
+</div>
+
+<!-- Multiple visible images -->
+<div wb-animate="image-trail" 
+     wb-variant="7"
+     wb-threshold="70"
+     wb-visible-images="5"
+     wb-images='[
+       "gallery1.jpg",
+       "gallery2.jpg",
+       "gallery3.jpg",
+       "gallery4.jpg",
+       "gallery5.jpg",
+       "gallery6.jpg"
+     ]'
+     style="width: 100%; height: 350px; background: #333; cursor: pointer;">
+</div>
+```
+
+**JavaScript Controls:**
+```javascript
+const imageTrail = WebflowBits.getComponent('imageTrail');
+const element = document.querySelector('[wb-animate="image-trail"]');
+
+// Get component instance
+const instance = imageTrail.getInstance(element);
+console.log(instance.config);
+
+// Manually destroy and recreate
+imageTrail.destroy(element);
+imageTrail.initElement(element);
+```
+
+**Usage Notes:**
+- Container should have explicit width and height
+- Images should be optimized for web (WebP recommended)
+- Use HTTPS URLs for images to avoid mixed content issues
+- Test on mobile devices as touch events are supported
+- Consider using placeholder images for better loading experience
+
+#### MagnetLines Animation
+
+Add interactive magnetic line grid that follows mouse movement:
+
+```html
+<div wb-animate="magnet-lines"></div>
+```
+
+**Available attributes:**
+- `wb-rows="9"` - Number of rows in the grid (default: 9)
+- `wb-columns="9"` - Number of columns in the grid (default: 9)
+- `wb-container-size="80vmin"` - Container size (default: "80vmin")
+- `wb-line-color="#efefef"` - Line color (default: "#efefef")
+- `wb-line-width="1vmin"` - Line width (default: "1vmin")
+- `wb-line-height="6vmin"` - Line height (default: "6vmin")
+- `wb-base-angle="-10"` - Base rotation angle in degrees (default: -10)
+
+**Examples:**
+```html
+<!-- Basic magnetic lines -->
+<div wb-animate="magnet-lines"></div>
+
+<!-- Custom grid with blue lines -->
+<div wb-animate="magnet-lines"
+     wb-rows="12"
+     wb-columns="12"
+     wb-container-size="60vmin"
+     wb-line-color="#3b82f6"
+     wb-line-width="2px"
+     wb-line-height="8vmin"
+     wb-base-angle="0">
+</div>
+
+<!-- Dense grid with thin red lines -->
+<div wb-animate="magnet-lines"
+     wb-rows="15"
+     wb-columns="15"
+     wb-container-size="50vmin"
+     wb-line-color="#ef4444"
+     wb-line-width="1px"
+     wb-line-height="4vmin"
+     wb-base-angle="45">
+</div>
+
+<!-- Large sparse grid -->
+<div wb-animate="magnet-lines"
+     wb-rows="6"
+     wb-columns="6"
+     wb-container-size="90vmin"
+     wb-line-color="#10b981"
+     wb-line-width="3px"
+     wb-line-height="10vmin"
+     wb-base-angle="-45">
+</div>
+
+<!-- Minimal clean look -->
+<div wb-animate="magnet-lines"
+     wb-rows="8"
+     wb-columns="8"
+     wb-container-size="70vmin"
+     wb-line-color="rgba(255, 255, 255, 0.3)"
+     wb-line-width="1px"
+     wb-line-height="5vmin"
+     wb-base-angle="0">
+</div>
+```
+
+**JavaScript Controls:**
+```javascript
+const magnetLines = WebflowBits.getComponent('magnetLines');
+const element = document.querySelector('[wb-animate="magnet-lines"]');
+
+// Get component instance
+const instance = magnetLines.getInstance(element);
+console.log(instance.config);
+
+// Manually destroy and recreate
+magnetLines.destroy(element);
+magnetLines.initElement(element);
+```
+
+**Styling Notes:**
+- Container automatically centers itself with CSS Grid
+- Uses CSS custom properties for smooth rotation
+- Performance optimized with `will-change` and `transform`
+- Responsive sizing with `vmin` units by default
+- Lines smoothly rotate to point toward mouse cursor
+- Effect works on both mouse and touch devices
+
+**Performance Tips:**
+- Avoid very dense grids (20x20+) on mobile devices
+- Use `vmin` units for responsive behavior
+- Consider reducing `wb-line-height` for better performance
+- Test on lower-end devices if using many instances
+
 ### Events
 
 ```javascript
@@ -692,6 +1169,81 @@ document.addEventListener('wb-rotating-text-reset', (event) => {
 document.addEventListener('wb-rotating-text-update', (event) => {
   console.log('RotatingText updated:', event.detail);
 });
+
+// Listen for TextPressure initialization
+document.addEventListener('wb-text-pressure-init', (event) => {
+  console.log('TextPressure initialized:', event.detail);
+});
+
+// Listen for TextPressure animation start
+document.addEventListener('wb-text-pressure-start', (event) => {
+  console.log('TextPressure animation started:', event.detail);
+});
+
+// Listen for TextPressure animation stop
+document.addEventListener('wb-text-pressure-stop', (event) => {
+  console.log('TextPressure animation stopped:', event.detail);
+});
+
+// Listen for TextPressure configuration updates
+document.addEventListener('wb-text-pressure-update', (event) => {
+  console.log('TextPressure updated:', event.detail);
+});
+
+// Listen for CountUp initialization
+document.addEventListener('wb-count-up-init', (event) => {
+  console.log('CountUp initialized:', event.detail);
+});
+
+// Listen for CountUp animation start
+document.addEventListener('wb-count-up-start', (event) => {
+  console.log('CountUp animation started:', event.detail);
+});
+
+// Listen for CountUp animation completion
+document.addEventListener('wb-count-up-complete', (event) => {
+  console.log('CountUp animation completed:', event.detail);
+});
+
+// Listen for CountUp pause
+document.addEventListener('wb-count-up-pause', (event) => {
+  console.log('CountUp paused:', event.detail);
+});
+
+// Listen for CountUp resume
+document.addEventListener('wb-count-up-resume', (event) => {
+  console.log('CountUp resumed:', event.detail);
+});
+
+// Listen for CountUp reset
+document.addEventListener('wb-count-up-reset', (event) => {
+  console.log('CountUp reset:', event.detail);
+});
+
+// Listen for CountUp configuration updates
+document.addEventListener('wb-count-up-update', (event) => {
+  console.log('CountUp updated:', event.detail);
+});
+
+// Listen for ImageTrail initialization
+document.addEventListener('wb-image-trail-init', (event) => {
+  console.log('ImageTrail initialized:', event.detail);
+});
+
+// Listen for ImageTrail destroy
+document.addEventListener('wb-image-trail-destroy', (event) => {
+  console.log('ImageTrail destroyed:', event.detail);
+});
+
+// Listen for MagnetLines initialization
+document.addEventListener('wb-magnet-lines-init', (event) => {
+  console.log('MagnetLines initialized:', event.detail);
+});
+
+// Listen for MagnetLines destroy
+document.addEventListener('wb-magnet-lines-destroy', (event) => {
+  console.log('MagnetLines destroyed:', event.detail);
+});
 ```
 
 ### Manual Control
@@ -724,6 +1276,18 @@ WebflowBits.initVariableProximityOn('.my-proximity-class');
 // Initialize specific RotatingText elements
 WebflowBits.initRotatingTextOn('.my-rotating-class');
 
+// Initialize specific TextPressure elements
+WebflowBits.initTextPressureOn('.my-pressure-class');
+
+// Initialize specific CountUp elements
+WebflowBits.initCountUpOn('.my-countup-class');
+
+// Initialize specific ImageTrail elements
+WebflowBits.initImageTrailOn('.my-imagetrail-class');
+
+// Initialize specific MagnetLines elements
+WebflowBits.initMagnetLinesOn('.my-magnetlines-class');
+
 // Refresh animations (useful after dynamic content changes)
 WebflowBits.refresh();
 
@@ -738,6 +1302,12 @@ const shinyText = WebflowBits.getComponent('shinyText');
 const gradientText = WebflowBits.getComponent('gradientText');
 const decryptedText = WebflowBits.getComponent('decryptedText');
 const scrambleText = WebflowBits.getComponent('scrambleText');
+const variableProximity = WebflowBits.getComponent('variableProximity');
+const rotatingText = WebflowBits.getComponent('rotatingText');
+const textPressure = WebflowBits.getComponent('textPressure');
+const countUp = WebflowBits.getComponent('countUp');
+const imageTrail = WebflowBits.getComponent('imageTrail');
+const magnetLines = WebflowBits.getComponent('magnetLines');
 
 // ShinyText specific controls
 const shinyElement = document.querySelector('[wb-text-animate="shiny-text"]');
@@ -795,4 +1365,46 @@ rotatingText.updateConfig(rotatingElement, {
   rotationInterval: 1500,
   staggerDuration: 75
 }); // Update configuration
+
+// TextPressure specific controls
+const textPressureElement = document.querySelector('[wb-text-animate="text-pressure"]');
+textPressure.updateConfig(textPressureElement, {
+  text: 'NEW TEXT',
+  fontFamily: 'Source Sans 3, sans-serif',
+  weight: true,
+  width: false,
+  italic: true,
+  alpha: true
+}); // Update configuration
+textPressure.debugFontSettings(textPressureElement); // Debug current settings
+const pressureValues = textPressure.getEffectValues(textPressureElement); // Get current values
+const pressureInstance = textPressure.getInstance(textPressureElement); // Get instance
+
+// CountUp specific controls
+const countUpElement = document.querySelector('[wb-text-animate="count-up"]');
+countUp.startCountUp(countUpElement); // Manually start animation
+countUp.pauseCountUp(countUpElement); // Pause animation
+countUp.resumeCountUp(countUpElement); // Resume animation
+countUp.resetCountUp(countUpElement); // Reset to initial state
+countUp.updateConfig(countUpElement, {
+  to: 5000,
+  duration: 3,
+  separator: '.',
+  direction: 'up'
+}); // Update configuration
+const countUpInstance = countUp.getInstance(countUpElement); // Get instance
+
+// ImageTrail specific controls
+const imageTrailElement = document.querySelector('[wb-animate="image-trail"]');
+const imageTrailInstance = imageTrail.getInstance(imageTrailElement); // Get instance
+console.log(imageTrailInstance.config); // View configuration
+imageTrail.destroy(imageTrailElement); // Manually destroy
+imageTrail.initElement(imageTrailElement); // Manually reinitialize
+
+// MagnetLines specific controls
+const magnetLinesElement = document.querySelector('[wb-animate="magnet-lines"]');
+const magnetLinesInstance = magnetLines.getInstance(magnetLinesElement); // Get instance
+console.log(magnetLinesInstance.config); // View configuration
+magnetLines.destroy(magnetLinesElement); // Manually destroy
+magnetLines.initElement(magnetLinesElement); // Manually reinitialize
 ```
