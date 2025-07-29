@@ -16,7 +16,7 @@ The library will auto-initialize and start working with elements that have the p
 
 ### Available Components
 
-WebflowBits includes thirteen powerful animation components:
+WebflowBits includes fourteen powerful animation components:
 
 ### Text Animation Components:
 1. **SplitText** - Character, word, or line-based split animations
@@ -30,10 +30,11 @@ WebflowBits includes thirteen powerful animation components:
 9. **RotatingText** - Auto-rotating text with customizable animations and stagger effects
 10. **TextPressure** - Mouse proximity-based font variation effects with variable fonts
 11. **CountUp** - Animated number counting with customizable formatting
+12. **TextCursor** - Mouse-following text/emoji trail effects with customizable behavior
 
 ### Interactive Components:
-12. **ImageTrail** - Mouse-following image trail effects with multiple variants
-13. **MagnetLines** - Interactive magnetic line grid that follows mouse movement
+13. **ImageTrail** - Mouse-following image trail effects with multiple variants
+14. **MagnetLines** - Interactive magnetic line grid that follows mouse movement
 
 #### SplitText Animation
 
@@ -834,6 +835,124 @@ const instance = countUp.getInstance(element);
 console.log(instance.config);
 ```
 
+#### TextCursor Animation
+
+Add mouse-following text/emoji trail effects to any container element:
+
+```html
+<div wb-text-animate="text-cursor">Move your mouse here!</div>
+```
+
+**Available attributes:**
+- `wb-cursor-text="⚛️"` - Text or emoji to display in trail (default: "⚛️")
+- `wb-cursor-delay="0.01"` - Animation delay in seconds (default: 0.01)
+- `wb-cursor-spacing="100"` - Distance between trail items in pixels (default: 100)
+- `wb-cursor-follow-direction="true"` - Rotate text to follow mouse direction (default: true)
+- `wb-cursor-random-float="true"` - Enable random floating animation (default: true)
+- `wb-cursor-exit-duration="0.5"` - Exit animation duration in seconds (default: 0.5)
+- `wb-cursor-removal-interval="30"` - Cleanup interval in milliseconds (default: 30)
+- `wb-cursor-max-points="5"` - Maximum number of trail items (default: 5)
+- `wb-cursor-font-size="1.875rem"` - Font size for trail items (default: "1.875rem")
+- `wb-cursor-color="currentColor"` - Color for trail items (default: "currentColor")
+
+**Examples:**
+```html
+<!-- Basic emoji trail -->
+<div wb-text-animate="text-cursor" 
+     wb-cursor-text="🎯"
+     style="width: 100%; height: 300px; background: #f0f0f0; cursor: crosshair;">
+  Move your mouse here for emoji trail!
+</div>
+
+<!-- Custom text with specific spacing -->
+<div wb-text-animate="text-cursor"
+     wb-cursor-text="★"
+     wb-cursor-spacing="60"
+     wb-cursor-max-points="10"
+     wb-cursor-font-size="2rem"
+     wb-cursor-color="#ffd700"
+     style="width: 100%; height: 250px; background: #2a2a2a; cursor: crosshair;">
+  Star trail effect
+</div>
+
+<!-- Dense floating trail -->
+<div wb-text-animate="text-cursor"
+     wb-cursor-text="✨"
+     wb-cursor-spacing="40"
+     wb-cursor-max-points="15"
+     wb-cursor-follow-direction="true"
+     wb-cursor-random-float="true"
+     wb-cursor-exit-duration="1"
+     wb-cursor-removal-interval="20"
+     style="width: 100%; height: 280px; background: linear-gradient(45deg, #ff9a9e, #fecfef); cursor: crosshair;">
+  Dense sparkle trail
+</div>
+
+<!-- Clean trail without rotation -->
+<div wb-text-animate="text-cursor"
+     wb-cursor-text="●"
+     wb-cursor-spacing="80"
+     wb-cursor-max-points="8"
+     wb-cursor-follow-direction="false"
+     wb-cursor-random-float="false"
+     wb-cursor-color="#ff6b6b"
+     style="width: 100%; height: 200px; background: #1a1a1a; cursor: crosshair;">
+  Simple dot trail
+</div>
+
+<!-- Custom symbols with fast removal -->
+<div wb-text-animate="text-cursor"
+     wb-cursor-text="🔥"
+     wb-cursor-spacing="50"
+     wb-cursor-max-points="12"
+     wb-cursor-exit-duration="0.3"
+     wb-cursor-removal-interval="15"
+     wb-cursor-font-size="1.5rem"
+     style="width: 100%; height: 220px; background: radial-gradient(circle, #ff4757, #2f1b14); cursor: crosshair;">
+  Fire trail with fast removal
+</div>
+```
+
+**JavaScript Controls:**
+```javascript
+const textCursor = WebflowBits.getComponent('textCursor');
+const element = document.querySelector('[wb-text-animate="text-cursor"]');
+
+// Update configuration
+textCursor.updateConfig(element, {
+  text: '🌟',
+  spacing: 60,
+  maxPoints: 8,
+  followMouseDirection: false,
+  randomFloat: true,
+  color: '#00ff00'
+});
+
+// Get component instance
+const instance = textCursor.getInstance(element);
+console.log(instance.config);
+
+// Manually destroy and recreate
+textCursor.destroy(element);
+textCursor.initElement(element);
+```
+
+**Usage Notes:**
+- Container should have explicit width and height for best results
+- Use `cursor: crosshair` or `cursor: pointer` for better user experience
+- Trail items automatically clean up when mouse stops moving
+- Supports both text characters and emojis
+- Works on both mouse and touch devices
+- Performance optimized with GSAP animations
+
+**Creative Ideas:**
+- Use emojis: 🎯, ⚡, 🌟, ✨, 🔥, 💫, 🌈, 🎨, 🚀, 💎
+- Use symbols: ★, ●, ◆, ▲, ♦, ✦, ❋, ◉, ◈, ⬢
+- Use letters: A, X, +, -, =, ~, |, /, \, ^
+- Combine with CSS gradients for stunning backgrounds
+- Adjust spacing for dense or sparse trails
+- Use different colors for themed experiences
+
 #### ImageTrail Animation
 
 Add mouse-following image trail effects with multiple visual variants:
@@ -1244,6 +1363,21 @@ document.addEventListener('wb-magnet-lines-init', (event) => {
 document.addEventListener('wb-magnet-lines-destroy', (event) => {
   console.log('MagnetLines destroyed:', event.detail);
 });
+
+// Listen for TextCursor initialization
+document.addEventListener('wb-text-cursor-init', (event) => {
+  console.log('TextCursor initialized:', event.detail);
+});
+
+// Listen for TextCursor destroy
+document.addEventListener('wb-text-cursor-destroy', (event) => {
+  console.log('TextCursor destroyed:', event.detail);
+});
+
+// Listen for TextCursor configuration updates
+document.addEventListener('wb-text-cursor-update', (event) => {
+  console.log('TextCursor updated:', event.detail);
+});
 ```
 
 ### Manual Control
@@ -1288,6 +1422,9 @@ WebflowBits.initImageTrailOn('.my-imagetrail-class');
 // Initialize specific MagnetLines elements
 WebflowBits.initMagnetLinesOn('.my-magnetlines-class');
 
+// Initialize specific TextCursor elements
+WebflowBits.initTextCursorOn('.my-textcursor-class');
+
 // Refresh animations (useful after dynamic content changes)
 WebflowBits.refresh();
 
@@ -1308,6 +1445,7 @@ const textPressure = WebflowBits.getComponent('textPressure');
 const countUp = WebflowBits.getComponent('countUp');
 const imageTrail = WebflowBits.getComponent('imageTrail');
 const magnetLines = WebflowBits.getComponent('magnetLines');
+const textCursor = WebflowBits.getComponent('textCursor');
 
 // ShinyText specific controls
 const shinyElement = document.querySelector('[wb-text-animate="shiny-text"]');
@@ -1407,4 +1545,19 @@ const magnetLinesInstance = magnetLines.getInstance(magnetLinesElement); // Get 
 console.log(magnetLinesInstance.config); // View configuration
 magnetLines.destroy(magnetLinesElement); // Manually destroy
 magnetLines.initElement(magnetLinesElement); // Manually reinitialize
+
+// TextCursor specific controls
+const textCursorElement = document.querySelector('[wb-text-animate="text-cursor"]');
+textCursor.updateConfig(textCursorElement, {
+  text: '🌟',
+  spacing: 60,
+  maxPoints: 8,
+  followMouseDirection: false,
+  randomFloat: true,
+  color: '#00ff00'
+}); // Update configuration
+const textCursorInstance = textCursor.getInstance(textCursorElement); // Get instance
+console.log(textCursorInstance.config); // View configuration
+textCursor.destroy(textCursorElement); // Manually destroy
+textCursor.initElement(textCursorElement); // Manually reinitialize
 ```

@@ -20,6 +20,7 @@ import rotatingTextAnimator from './components/rotatingText.js';
 import textPressureAnimator from './components/textPressure.js';
 import magnetLinesAnimator from './components/magnetLines.js';
 import imageTrailAnimator from './components/imageTrail.js';
+import textCursorAnimator from './components/textCursor.js';
 
 /**
  * Main WebflowBits class for CDN usage
@@ -43,6 +44,7 @@ class WebflowBits {
       textPressure: textPressureAnimator,
       magnetLines: magnetLinesAnimator,
       imageTrail: imageTrailAnimator,
+      textCursor: textCursorAnimator,
     };
   }
 
@@ -59,7 +61,7 @@ class WebflowBits {
     const config = {
       autoInit: true,
       debug: false,
-      components: ['splitText', 'textType', 'blurText', 'shinyText', 'gradientText', 'decryptedText', 'scrambleText', 'variableProximity', 'countUp', 'rotatingText', 'textPressure', 'magnetLines', 'imageTrail'],
+      components: ['splitText', 'textType', 'blurText', 'shinyText', 'gradientText', 'decryptedText', 'scrambleText', 'variableProximity', 'countUp', 'rotatingText', 'textPressure', 'magnetLines', 'imageTrail', 'textCursor'],
       ...options
     };
 
@@ -138,6 +140,10 @@ class WebflowBits {
 
       if (config.components.includes('imageTrail')) {
         this.initImageTrail(config.debug);
+      }
+
+      if (config.components.includes('textCursor')) {
+        this.initTextCursor(config.debug);
       }
 
       // Setup mutation observer for dynamic content if autoInit is enabled
@@ -242,6 +248,12 @@ class WebflowBits {
       const imageTrailConflicts = imageTrailAnimator.checkForConflicts();
       if (imageTrailConflicts) {
         allConflicts.push(...imageTrailConflicts);
+      }
+
+      // Check TextCursor conflicts
+      const textCursorConflicts = textCursorAnimator.checkForConflicts();
+      if (textCursorConflicts) {
+        allConflicts.push(...textCursorConflicts);
       }
       
       if (allConflicts.length > 0) {
@@ -437,6 +449,20 @@ class WebflowBits {
   }
 
   /**
+   * Initialize TextCursor component
+   */
+  initTextCursor(debug = false) {
+    try {
+      textCursorAnimator.initAll();
+      if (debug) {
+        console.log('WebflowBits: TextCursor initialized');
+      }
+    } catch (error) {
+      console.error('WebflowBits: Failed to initialize TextCursor', error);
+    }
+  }
+
+  /**
    * Setup mutation observer to handle dynamically added content
    */
   setupMutationObserver(debug = false) {
@@ -576,6 +602,16 @@ class WebflowBits {
                 imageTrailAnimator.initElement(element);
                 shouldRefresh = true;
               });
+
+              // Check for wb-text-animate="text-cursor" elements
+              const textCursorElements = node.matches?.('[wb-text-animate="text-cursor"]')
+                ? [node]
+                : Array.from(node.querySelectorAll?.('[wb-text-animate="text-cursor"]') || []);
+
+              textCursorElements.forEach(element => {
+                textCursorAnimator.initElement(element);
+                shouldRefresh = true;
+              });
             }
           });
         }
@@ -597,6 +633,7 @@ class WebflowBits {
           textPressureAnimator.refresh();
           magnetLinesAnimator.refresh();
           imageTrailAnimator.refresh();
+          textCursorAnimator.refresh();
         }, 100);
       }
     });
@@ -857,6 +894,25 @@ class WebflowBits {
   }
 
   /**
+   * Manually initialize TextCursor on specific elements
+   * @param {string|NodeList|Element} selector - CSS selector or DOM elements
+   */
+  initTextCursorOn(selector) {
+    const elements = typeof selector === 'string' 
+      ? document.querySelectorAll(selector)
+      : selector.nodeType ? [selector] : selector;
+    
+    Array.from(elements).forEach(element => {
+      if (element.getAttribute('wb-text-animate') === 'text-cursor') {
+        textCursorAnimator.initElement(element);
+      }
+    });
+
+    textCursorAnimator.refresh();
+    return this;
+  }
+
+  /**
    * Destroy all components and observers
    */
   destroy() {
@@ -899,6 +955,9 @@ class WebflowBits {
     // Destroy ImageTrail animations
     imageTrailAnimator.destroyAll();
 
+    // Destroy TextCursor animations
+    textCursorAnimator.destroyAll();
+
     // Disconnect observers
     this.observers.forEach(observer => observer.disconnect());
     this.observers = [];
@@ -926,6 +985,7 @@ class WebflowBits {
     textPressureAnimator.refresh();
     magnetLinesAnimator.refresh();
     imageTrailAnimator.refresh();
+    textCursorAnimator.refresh();
     return this;
   }
 

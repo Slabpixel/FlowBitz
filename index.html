@@ -5,21 +5,72 @@
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="/src/styles/style.css">
-    <title>Webflow Bits - Demo Including ImageTrail</title>
+    <title>Webflow Bits - TextCursor & Animation Components Demo</title>
   </head>
   <body>
     <div style="display: flex; flex-direction: column; gap: 2rem; align-items: center; justify-content: center; min-height: 100vh; padding: 2rem;">
 
-      <p>
-        $
-        <span wb-text-animate="count-up" 
-          wb-count-from="0"
-          wb-count-to="999" 
-          wb-separator=","
-          wb-duration="3">
-          
-        </span>
-      </p>
+      <!-- TextCursor Demo Section -->
+      <section style="width: 100%; max-width: 800px; margin: 2rem 0;">
+        <h2 style="text-align: center; margin-bottom: 2rem; color: #fefefe;">TextCursor Trail Effects</h2>
+        
+        <!-- Basic TextCursor -->
+        <div style="margin-bottom: 2rem;">
+          <h3 style="color: #ccc; margin-bottom: 1rem;">Basic Emoji Trail</h3>
+          <div 
+            wb-text-animate="text-cursor"
+            wb-cursor-text="🎯"
+            wb-cursor-spacing="80"
+            wb-cursor-max-points="6"
+            wb-cursor-follow-direction="true"
+            wb-cursor-random-float="true"
+            wb-cursor-font-size="2rem"
+            wb-cursor-color="#ff6b6b"
+            style="width: 100%; height: 300px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 12px; cursor: crosshair; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; color: white;"
+          >
+            Move your mouse here for emoji trail! 🎯
+          </div>
+        </div>
+
+        <!-- Custom Text Trail -->
+        <div style="margin-bottom: 2rem;">
+          <h3 style="color: #ccc; margin-bottom: 1rem;">Custom Text Trail</h3>
+          <div 
+            wb-text-animate="text-cursor"
+            wb-cursor-text="★"
+            wb-cursor-spacing="60"
+            wb-cursor-max-points="10"
+            wb-cursor-follow-direction="false"
+            wb-cursor-random-float="false"
+            wb-cursor-font-size="1.5rem"
+            wb-cursor-color="#ffd700"
+            style="width: 100%; height: 250px; background: linear-gradient(45deg, #1e3c72, #2a5298); border-radius: 12px; cursor: crosshair; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; color: white;"
+          >
+            Clean star trail without rotation ★
+          </div>
+        </div>
+
+        <!-- Dense Trail -->
+        <div style="margin-bottom: 2rem;">
+          <h3 style="color: #ccc; margin-bottom: 1rem;">Dense Floating Trail</h3>
+          <div 
+            wb-text-animate="text-cursor"
+            wb-cursor-text="✨"
+            wb-cursor-spacing="40"
+            wb-cursor-max-points="15"
+            wb-cursor-follow-direction="true"
+            wb-cursor-random-float="true"
+            wb-cursor-font-size="1.8rem"
+            wb-cursor-color="#ff69b4"
+            wb-cursor-exit-duration="1"
+            wb-cursor-removal-interval="20"
+            style="width: 100%; height: 280px; background: linear-gradient(315deg, #ff9a9e 0%, #fecfef 50%, #fecfef 100%); border-radius: 12px; cursor: crosshair; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; color: #333;"
+          >
+            Dense sparkle trail with floating ✨
+          </div>
+        </div>
+      </section>
+
     </div>
 
     <script type="module" src="/src/webflow-bits.js"></script>
