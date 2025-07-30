@@ -75,7 +75,7 @@ class ScrambleTextAnimator {
       rootMargin: '0px'
     };
     
-    this.injectComponentStyles();
+    // this.injectComponentStyles();
   }
 
   /**
@@ -92,6 +92,15 @@ class ScrambleTextAnimator {
       console.warn('WebflowBits: Failed to inject ScrambleText styles', error);
     }
   }
+
+    /**
+   * Ensure styles are injected when needed
+   */
+    ensureStylesInjected() {
+      if (!this.stylesInjected) {
+        this.injectComponentStyles();
+      }
+    }
 
   /**
    * Parse custom attributes from element using utility functions
@@ -115,6 +124,8 @@ class ScrambleTextAnimator {
    * Initialize element for scramble animation
    */
   initElement(element) {
+    this.ensureStylesInjected();
+    
     if (this.instances.has(element)) {
       return;
     }

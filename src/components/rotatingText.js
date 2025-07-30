@@ -103,7 +103,7 @@ class RotatingTextAnimator {
       exit: { y: '-100%', opacity: 0 }
     };
     
-    this.injectComponentStyles();
+    // this.injectComponentStyles();
   }
 
   /**
@@ -121,6 +121,15 @@ class RotatingTextAnimator {
     }
   }
 
+    /**
+   * Ensure styles are injected when needed
+   */
+    ensureStylesInjected() {
+      if (!this.stylesInjected) {
+        this.injectComponentStyles();
+      }
+    }
+
   /**
    * Initialize all rotating text elements
    */
@@ -133,6 +142,8 @@ class RotatingTextAnimator {
    * Initialize a single rotating text element
    */
   initElement(element) {
+    this.ensureStylesInjected();
+    
     if (this.instances.has(element)) {
       this.destroyElement(element);
     }

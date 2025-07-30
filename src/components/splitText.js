@@ -82,7 +82,6 @@ class SplitTextAnimator {
       to: { opacity: 1, y: 0 }
     };
     
-    this.injectComponentStyles();
   }
 
   /**
@@ -97,6 +96,15 @@ class SplitTextAnimator {
       console.log('WebflowBits: SplitText styles injected');
     } catch (error) {
       console.warn('WebflowBits: Failed to inject SplitText styles', error);
+    }
+  }
+
+  /**
+   * Ensure styles are injected when needed
+   */
+  ensureStylesInjected() {
+    if (!this.stylesInjected) {
+      this.injectComponentStyles();
     }
   }
 
@@ -159,6 +167,8 @@ class SplitTextAnimator {
    * Initialize animation for a single element
    */
   initElement(element) {
+    this.ensureStylesInjected();
+    
     if (!element || !element.textContent.trim()) {
       console.warn('WebflowBits SplitText: Element is empty or invalid');
       return;

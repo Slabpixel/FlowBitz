@@ -21,6 +21,7 @@ import textPressureAnimator from './components/textPressure.js';
 import magnetLinesAnimator from './components/magnetLines.js';
 import imageTrailAnimator from './components/imageTrail.js';
 import textCursorAnimator from './components/textCursor.js';
+import shapeBlurAnimator from './components/shapeBlur.js';
 
 /**
  * Main WebflowBits class for CDN usage
@@ -45,6 +46,7 @@ class WebflowBits {
       magnetLines: magnetLinesAnimator,
       imageTrail: imageTrailAnimator,
       textCursor: textCursorAnimator,
+      shapeBlur: shapeBlurAnimator,
     };
   }
 
@@ -61,7 +63,7 @@ class WebflowBits {
     const config = {
       autoInit: true,
       debug: false,
-      components: ['splitText', 'textType', 'blurText', 'shinyText', 'gradientText', 'decryptedText', 'scrambleText', 'variableProximity', 'countUp', 'rotatingText', 'textPressure', 'magnetLines', 'imageTrail', 'textCursor'],
+      components: ['splitText', 'textType', 'blurText', 'shinyText', 'gradientText', 'decryptedText', 'scrambleText', 'variableProximity', 'countUp', 'rotatingText', 'textPressure', 'magnetLines', 'imageTrail', 'textCursor', 'shapeBlur'],
       ...options
     };
 
@@ -144,6 +146,10 @@ class WebflowBits {
 
       if (config.components.includes('textCursor')) {
         this.initTextCursor(config.debug);
+      }
+
+      if (config.components.includes('shapeBlur')) {
+        this.initShapeBlur(config.debug);
       }
 
       // Setup mutation observer for dynamic content if autoInit is enabled
@@ -254,6 +260,12 @@ class WebflowBits {
       const textCursorConflicts = textCursorAnimator.checkForConflicts();
       if (textCursorConflicts) {
         allConflicts.push(...textCursorConflicts);
+      }
+
+      // Check ShapeBlur conflicts
+      const shapeBlurConflicts = shapeBlurAnimator.checkForConflicts();
+      if (shapeBlurConflicts) {
+        allConflicts.push(...shapeBlurConflicts);
       }
       
       if (allConflicts.length > 0) {
@@ -463,6 +475,20 @@ class WebflowBits {
   }
 
   /**
+   * Initialize ShapeBlur component
+   */
+  initShapeBlur(debug = false) {
+    try {
+      shapeBlurAnimator.initAll();
+      if (debug) {
+        console.log('WebflowBits: ShapeBlur initialized');
+      }
+    } catch (error) {
+      console.error('WebflowBits: Failed to initialize ShapeBlur', error);
+    }
+  }
+
+  /**
    * Setup mutation observer to handle dynamically added content
    */
   setupMutationObserver(debug = false) {
@@ -612,6 +638,16 @@ class WebflowBits {
                 textCursorAnimator.initElement(element);
                 shouldRefresh = true;
               });
+
+              // Check for wb-animate="shape-blur" elements
+              const shapeBlurElements = node.matches?.('[wb-animate="shape-blur"]')
+                ? [node]
+                : Array.from(node.querySelectorAll?.('[wb-animate="shape-blur"]') || []);
+
+              shapeBlurElements.forEach(element => {
+                shapeBlurAnimator.initElement(element);
+                shouldRefresh = true;
+              });
             }
           });
         }
@@ -631,9 +667,10 @@ class WebflowBits {
           countUpAnimator.refresh();
           rotatingTextAnimator.refresh();
           textPressureAnimator.refresh();
-          magnetLinesAnimator.refresh();
-          imageTrailAnimator.refresh();
-          textCursorAnimator.refresh();
+              magnetLinesAnimator.refresh();
+    imageTrailAnimator.refresh();
+    textCursorAnimator.refresh();
+    shapeBlurAnimator.refresh();
         }, 100);
       }
     });
@@ -913,6 +950,25 @@ class WebflowBits {
   }
 
   /**
+   * Manually initialize ShapeBlur on specific elements
+   * @param {string|NodeList|Element} selector - CSS selector or DOM elements
+   */
+  initShapeBlurOn(selector) {
+    const elements = typeof selector === 'string' 
+      ? document.querySelectorAll(selector)
+      : selector.nodeType ? [selector] : selector;
+    
+    Array.from(elements).forEach(element => {
+      if (element.getAttribute('wb-animate') === 'shape-blur') {
+        shapeBlurAnimator.initElement(element);
+      }
+    });
+
+    shapeBlurAnimator.refresh();
+    return this;
+  }
+
+  /**
    * Destroy all components and observers
    */
   destroy() {
@@ -957,6 +1013,9 @@ class WebflowBits {
 
     // Destroy TextCursor animations
     textCursorAnimator.destroyAll();
+
+    // Destroy ShapeBlur animations
+    shapeBlurAnimator.destroyAll();
 
     // Disconnect observers
     this.observers.forEach(observer => observer.disconnect());

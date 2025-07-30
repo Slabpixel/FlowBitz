@@ -72,7 +72,7 @@ class CountUpAnimator {
       precision: null // auto-detect decimal places
     };
     
-    this.injectComponentStyles();
+    // this.injectComponentStyles();
   }
 
   /**
@@ -89,6 +89,15 @@ class CountUpAnimator {
       console.warn('WebflowBits: Failed to inject CountUp styles', error);
     }
   }
+
+    /**
+   * Ensure styles are injected when needed
+   */
+    ensureStylesInjected() {
+      if (!this.stylesInjected) {
+        this.injectComponentStyles();
+      }
+    }
 
   /**
    * Parse custom attributes from element
@@ -151,6 +160,8 @@ class CountUpAnimator {
    * Initialize element for count up animation
    */
   initElement(element) {
+    this.ensureStylesInjected();
+
     if (this.instances.has(element)) {
       return;
     }

@@ -54,7 +54,7 @@ class ShinyTextAnimator {
       shineColor: 'rgba(255, 255, 255, 0.8)' // shine color
     };
     
-    this.injectComponentStyles();
+    // this.injectComponentStyles();
   }
 
   /**
@@ -71,6 +71,15 @@ class ShinyTextAnimator {
       console.warn('WebflowBits: Failed to inject ShinyText styles', error);
     }
   }
+
+    /**
+   * Ensure styles are injected when needed
+   */
+    ensureStylesInjected() {
+      if (!this.stylesInjected) {
+        this.injectComponentStyles();
+      }
+    }
 
   /**
    * Parse custom attributes from element using utility functions
@@ -152,6 +161,8 @@ class ShinyTextAnimator {
    * Initialize animation for a single element
    */
   initElement(element) {
+    this.ensureStylesInjected();
+    
     if (!element || !element.textContent.trim()) {
       console.warn('WebflowBits ShinyText: Element is empty or invalid');
       return;

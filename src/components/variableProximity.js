@@ -92,7 +92,7 @@ class VariableProximityAnimator {
     this.lastMousePosition = { x: null, y: null };
     this.activeInstances = new Set();
     
-    this.injectComponentStyles();
+    // this.injectComponentStyles();
     this.setupGlobalMouseTracking();
   }
 
@@ -110,6 +110,15 @@ class VariableProximityAnimator {
       console.warn('WebflowBits: Failed to inject VariableProximity styles', error);
     }
   }
+
+    /**
+   * Ensure styles are injected when needed
+   */
+    ensureStylesInjected() {
+      if (!this.stylesInjected) {
+        this.injectComponentStyles();
+      }
+    }
 
   /**
    * Setup global mouse tracking for performance
@@ -208,6 +217,8 @@ class VariableProximityAnimator {
    * Initialize element for variable proximity animation
    */
   initElement(element) {
+    this.ensureStylesInjected();
+    
     if (this.instances.has(element)) {
       return;
     }

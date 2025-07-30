@@ -100,7 +100,7 @@ class GradientTextAnimator {
       borderColor: "#060010"
     };
     
-    this.injectComponentStyles();
+    // this.injectComponentStyles();
   }
 
   /**
@@ -117,6 +117,15 @@ class GradientTextAnimator {
       console.warn('WebflowBits: Failed to inject GradientText styles', error);
     }
   }
+
+    /**
+   * Ensure styles are injected when needed
+   */
+    ensureStylesInjected() {
+      if (!this.stylesInjected) {
+        this.injectComponentStyles();
+      }
+    }
 
   /**
    * Parse custom attributes from element using utility functions
@@ -263,6 +272,8 @@ class GradientTextAnimator {
    * Initialize animation for a single element
    */
   initElement(element) {
+    this.ensureStylesInjected();
+    
     if (!element || !element.textContent.trim()) {
       console.warn('WebflowBits GradientText: Element is empty or invalid');
       return;

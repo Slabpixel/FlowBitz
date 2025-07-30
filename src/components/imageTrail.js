@@ -1058,7 +1058,7 @@ class ImageTrailAnimator {
       visibleImagesTotal: 9
     };
     
-    this.injectComponentStyles();
+    // this.injectComponentStyles();
   }
 
   /**
@@ -1075,6 +1075,15 @@ class ImageTrailAnimator {
       console.warn('WebflowBits: Failed to inject ImageTrail styles', error);
     }
   }
+
+    /**
+   * Ensure styles are injected when needed
+   */
+    ensureStylesInjected() {
+      if (!this.stylesInjected) {
+        this.injectComponentStyles();
+      }
+    }
 
   /**
    * Parse custom attributes from element using utility functions
@@ -1178,6 +1187,8 @@ class ImageTrailAnimator {
    * Initialize animation for a single element
    */
   initElement(element) {
+    this.ensureStylesInjected();
+    
     if (!element) {
       console.warn('WebflowBits ImageTrail: Element is invalid');
       return;

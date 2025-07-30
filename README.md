@@ -35,6 +35,7 @@ WebflowBits includes fourteen powerful animation components:
 ### Interactive Components:
 13. **ImageTrail** - Mouse-following image trail effects with multiple variants
 14. **MagnetLines** - Interactive magnetic line grid that follows mouse movement
+15. **ShapeBlur** - WebGL shader-based interactive shape effects with mouse interaction
 
 #### SplitText Animation
 
@@ -1157,6 +1158,165 @@ magnetLines.initElement(element);
 - Consider reducing `wb-line-height` for better performance
 - Test on lower-end devices if using many instances
 
+#### ShapeBlur Animation
+
+⚠️ **Important**: ShapeBlur requires **Three.js** library to work. Include Three.js before using this component.
+
+Add interactive WebGL shader-based shape effects that respond to mouse movement:
+
+```html
+<!-- Include Three.js first (Required) -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+<!-- Basic ShapeBlur with fixed height -->
+<div wb-animate="shape-blur" style="height: 400px;">
+  Your content here
+</div>
+```
+
+**📏 Height Requirement**: Elements using ShapeBlur **must have a fixed height** defined via CSS using `px`, `rem`, `vh`, or other absolute units. The effect relies on container dimensions to render properly.
+
+**Available attributes:**
+- `wb-shape-variation="0"` - Shape type: 0=rounded rectangle, 1=filled circle, 2=circle stroke, 3=triangle (default: 0)
+- `wb-shape-size="1.2"` - Shape size in shader (default: 1.2)
+- `wb-roundness="0.4"` - Border roundness for rounded rectangle (0-1, default: 0.4)
+- `wb-border-size="0.05"` - Border thickness (default: 0.05)
+- `wb-circle-size="0.3"` - Mouse cursor effect size (default: 0.3)
+- `wb-circle-edge="0.5"` - Mouse cursor edge softness (default: 0.5)
+- `wb-mouse-damp="8"` - Mouse following damping (1-50, default: 8)
+- `wb-pixel-ratio="2"` - Render quality (1-3, default: 2)
+
+**Shape Variations:**
+- **Variation 0**: Rounded rectangle with stroke effects
+- **Variation 1**: Filled circle with edge blending
+- **Variation 2**: Circle outline with adjustable stroke
+- **Variation 3**: Triangle shape with soft edges
+
+**Examples:**
+```html
+<!-- Basic rounded rectangle effect -->
+<div wb-animate="shape-blur" 
+     wb-shape-variation="0"
+     wb-shape-size="1.2"
+     wb-roundness="0.4"
+     style="height: 300px; background: #1a1a1a;">
+  <h2>Interactive Shape Effect</h2>
+  <p>Move your mouse around to see the shader effect</p>
+</div>
+
+<!-- Filled circle with custom mouse interaction -->
+<div wb-animate="shape-blur"
+     wb-shape-variation="1"
+     wb-circle-size="0.4"
+     wb-circle-edge="0.3"
+     wb-mouse-damp="12"
+     style="height: 400px; background: linear-gradient(45deg, #667eea, #764ba2);">
+  <h2>Filled Circle Effect</h2>
+  <p>Smooth circular shader with custom mouse damping</p>
+</div>
+
+<!-- Circle stroke with larger effect area -->
+<div wb-animate="shape-blur"
+     wb-shape-variation="2"
+     wb-circle-size="0.5"
+     wb-circle-edge="0.8"
+     wb-pixel-ratio="3"
+     style="height: 350px; background: #2c3e50;">
+  <h2>High Quality Circle Stroke</h2>
+  <p>Outlined effect with enhanced pixel ratio</p>
+</div>
+
+<!-- Triangle with fast mouse response -->
+<div wb-animate="shape-blur"
+     wb-shape-variation="3"
+     wb-circle-size="0.4"
+     wb-mouse-damp="4"
+     style="height: 250px; background: #8e44ad;">
+  <h2>Geometric Triangle</h2>
+  <p>Fast-responding triangular shape effect</p>
+</div>
+
+<!-- Fixed viewport height -->
+<div wb-animate="shape-blur"
+     wb-shape-variation="0"
+     wb-shape-size="1.5"
+     style="height: 60vh; background: #34495e;">
+  <h1>Viewport Height Example</h1>
+  <p>Using 60vh for responsive height</p>
+</div>
+
+<!-- With rem units -->
+<div wb-animate="shape-blur"
+     wb-shape-variation="1"
+     style="height: 25rem; background: #e74c3c;">
+  <h3>Using rem units</h3>
+  <p>25rem height for scalable sizing</p>
+</div>
+```
+
+**Height Examples:**
+```css
+/* ✅ Good - Fixed heights */
+.shape-blur-container {
+  height: 400px;        /* Pixels */
+  height: 25rem;        /* Rem units */
+  height: 50vh;         /* Viewport height */
+  height: 300pt;        /* Points */
+}
+
+/* ❌ Bad - Relative heights (won't work properly) */
+.shape-blur-container {
+  height: 100%;         /* Depends on parent */
+  height: auto;         /* No fixed dimension */
+  min-height: 300px;    /* Only minimum, not fixed */
+}
+```
+
+**JavaScript Controls:**
+```javascript
+const shapeBlur = WebflowBits.getComponent('shapeBlur');
+const element = document.querySelector('[wb-animate="shape-blur"]');
+
+// Update shader configuration
+shapeBlur.updateConfig(element, {
+  variation: 2,           // Change to circle stroke
+  shapeSize: 1.8,        // Increase shape size
+  circleSize: 0.6,       // Larger mouse effect
+  mouseDamp: 15          // Slower mouse following
+});
+
+// Get component instance
+const instance = shapeBlur.getInstance(element);
+console.log(instance.config);
+
+// Manually destroy and recreate
+shapeBlur.destroy(element);
+shapeBlur.initElement(element);
+```
+
+**Dependencies:**
+- **Three.js r128+** - Required for WebGL rendering
+- **GSAP** - Included with WebflowBits
+
+**Browser Support:**
+- Modern browsers with WebGL support
+- Automatically falls back to error message on unsupported devices
+- Mobile devices with WebGL capability
+
+**Troubleshooting:**
+- **No effect visible**: Ensure Three.js is loaded before WebflowBits
+- **Canvas not sizing**: Check that container has fixed height (px, rem, vh)
+- **Performance issues**: Reduce `wb-pixel-ratio` or limit number of instances
+- **Error messages**: Enable debug mode with `wb-debug="true"` attribute
+- **WebGL not supported**: Component shows error message automatically
+
+**Usage Notes:**
+- Container automatically creates canvas overlay for WebGL rendering
+- Content remains interactive and accessible above the effect
+- Effect responds to both mouse and touch input
+- Performance optimized with automatic resize handling
+- Works with any background colors or gradients
+
 ### Events
 
 ```javascript
@@ -1378,6 +1538,26 @@ document.addEventListener('wb-text-cursor-destroy', (event) => {
 document.addEventListener('wb-text-cursor-update', (event) => {
   console.log('TextCursor updated:', event.detail);
 });
+
+// Listen for ShapeBlur initialization
+document.addEventListener('wb-shape-blur-init', (event) => {
+  console.log('ShapeBlur initialized:', event.detail);
+});
+
+// Listen for ShapeBlur animation start
+document.addEventListener('wb-shape-blur-start', (event) => {
+  console.log('ShapeBlur animation started:', event.detail);
+});
+
+// Listen for ShapeBlur configuration updates
+document.addEventListener('wb-shape-blur-update', (event) => {
+  console.log('ShapeBlur updated:', event.detail);
+});
+
+// Listen for ShapeBlur destroy
+document.addEventListener('wb-shape-blur-destroy', (event) => {
+  console.log('ShapeBlur destroyed:', event.detail);
+});
 ```
 
 ### Manual Control
@@ -1425,6 +1605,9 @@ WebflowBits.initMagnetLinesOn('.my-magnetlines-class');
 // Initialize specific TextCursor elements
 WebflowBits.initTextCursorOn('.my-textcursor-class');
 
+// Initialize specific ShapeBlur elements
+WebflowBits.initShapeBlurOn('.my-shapeblur-class');
+
 // Refresh animations (useful after dynamic content changes)
 WebflowBits.refresh();
 
@@ -1446,6 +1629,7 @@ const countUp = WebflowBits.getComponent('countUp');
 const imageTrail = WebflowBits.getComponent('imageTrail');
 const magnetLines = WebflowBits.getComponent('magnetLines');
 const textCursor = WebflowBits.getComponent('textCursor');
+const shapeBlur = WebflowBits.getComponent('shapeBlur');
 
 // ShinyText specific controls
 const shinyElement = document.querySelector('[wb-text-animate="shiny-text"]');
@@ -1560,4 +1744,20 @@ const textCursorInstance = textCursor.getInstance(textCursorElement); // Get ins
 console.log(textCursorInstance.config); // View configuration
 textCursor.destroy(textCursorElement); // Manually destroy
 textCursor.initElement(textCursorElement); // Manually reinitialize
+
+// ShapeBlur specific controls
+const shapeBlurElement = document.querySelector('[wb-animate="shape-blur"]');
+shapeBlur.updateConfig(shapeBlurElement, {
+  variation: 2,           // Change to circle stroke
+  shapeSize: 1.8,        // Increase shape size
+  roundness: 0.8,        // More rounded
+  circleSize: 0.6,       // Larger mouse effect
+  circleEdge: 0.4,       // Sharper edge
+  mouseDamp: 15,         // Slower mouse following
+  pixelRatio: 3          // Higher quality
+}); // Update configuration
+const shapeBlurInstance = shapeBlur.getInstance(shapeBlurElement); // Get instance
+console.log(shapeBlurInstance.config); // View configuration
+shapeBlur.destroy(shapeBlurElement); // Manually destroy
+shapeBlur.initElement(shapeBlurElement); // Manually reinitialize
 ```

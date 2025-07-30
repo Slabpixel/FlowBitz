@@ -64,7 +64,7 @@ class MagnetLinesAnimator {
       baseAngle: -10
     };
     
-    this.injectComponentStyles();
+    // this.injectComponentStyles();
   }
 
   /**
@@ -81,6 +81,15 @@ class MagnetLinesAnimator {
       console.warn('WebflowBits: Failed to inject MagnetLines styles', error);
     }
   }
+
+    /**
+   * Ensure styles are injected when needed
+   */
+    ensureStylesInjected() {
+      if (!this.stylesInjected) {
+        this.injectComponentStyles();
+      }
+    }
 
   /**
    * Parse custom attributes from element using utility functions
@@ -249,6 +258,8 @@ class MagnetLinesAnimator {
    * Initialize animation for a single element
    */
   initElement(element) {
+    this.ensureStylesInjected();
+    
     if (!element) {
       console.warn('WebflowBits MagnetLines: Element is invalid');
       return;

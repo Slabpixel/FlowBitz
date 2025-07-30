@@ -60,7 +60,7 @@ class BlurTextAnimator {
       ease: "back.out(1.4)"
     };
     
-    this.injectComponentStyles();
+    // this.injectComponentStyles();
   }
 
   /**
@@ -75,6 +75,15 @@ class BlurTextAnimator {
       console.log('WebflowBits: BlurText styles injected');
     } catch (error) {
       console.warn('WebflowBits: Failed to inject BlurText styles', error);
+    }
+  }
+
+  /**
+ * Ensure styles are injected when needed
+ */
+  ensureStylesInjected() {
+    if (!this.stylesInjected) {
+      this.injectComponentStyles();
     }
   }
 
@@ -181,6 +190,8 @@ class BlurTextAnimator {
    * Initialize animation for a single element
    */
   initElement(element) {
+    this.ensureStylesInjected();
+
     if (!element || !element.textContent.trim()) {
       console.warn('WebflowBits BlurText: Element is empty or invalid');
       return;

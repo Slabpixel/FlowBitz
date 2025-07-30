@@ -86,7 +86,7 @@ class DecryptedTextAnimator {
       encryptedClassName: 'wb-decrypt-text-scrambling'
     };
     
-    this.injectComponentStyles();
+    // this.injectComponentStyles();
   }
 
   /**
@@ -103,6 +103,15 @@ class DecryptedTextAnimator {
       console.warn('WebflowBits: Failed to inject DecryptedText styles', error);
     }
   }
+
+    /**
+   * Ensure styles are injected when needed
+   */
+    ensureStylesInjected() {
+      if (!this.stylesInjected) {
+        this.injectComponentStyles();
+      }
+    }
 
   /**
    * Parse custom attributes from element using utility functions
@@ -139,6 +148,8 @@ class DecryptedTextAnimator {
    * Initialize element for decryption animation
    */
   initElement(element) {
+    this.ensureStylesInjected();
+    
     if (this.instances.has(element)) {
       return;
     }

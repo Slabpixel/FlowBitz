@@ -76,7 +76,7 @@ class TextCursorAnimator {
       color: 'currentColor'
     };
     
-    this.injectComponentStyles();
+    // this.injectComponentStyles();
   }
 
   /**
@@ -91,6 +91,15 @@ class TextCursorAnimator {
       console.log('WebflowBits: TextCursor styles injected');
     } catch (error) {
       console.warn('WebflowBits: Failed to inject TextCursor styles', error);
+    }
+  }
+
+  /**
+ * Ensure styles are injected when needed
+ */
+  ensureStylesInjected() {
+    if (!this.stylesInjected) {
+      this.injectComponentStyles();
     }
   }
 
@@ -364,6 +373,8 @@ class TextCursorAnimator {
    * Initialize animation for a single element
    */
   initElement(element) {
+    this.ensureStylesInjected();
+
     if (!element) {
       console.warn('WebflowBits TextCursor: Element is invalid');
       return;

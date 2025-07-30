@@ -87,7 +87,7 @@ class TextTypeAnimator {
       initialDelay: 0
     };
     
-    this.injectComponentStyles();
+    // this.injectComponentStyles();
   }
 
   /**
@@ -104,6 +104,15 @@ class TextTypeAnimator {
       console.warn('WebflowBits: Failed to inject TextType styles', error);
     }
   }
+
+    /**
+   * Ensure styles are injected when needed
+   */
+    ensureStylesInjected() {
+      if (!this.stylesInjected) {
+        this.injectComponentStyles();
+      }
+    }
 
   /**
    * Parse custom attributes from element using utility functions
@@ -242,6 +251,8 @@ class TextTypeAnimator {
    * Initialize animation for a single element
    */
   initElement(element) {
+    this.ensureStylesInjected();
+    
     if (!element || !element.textContent.trim()) {
       console.warn('WebflowBits TextType: Element is empty or invalid');
       return;

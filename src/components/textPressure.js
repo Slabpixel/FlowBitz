@@ -148,7 +148,7 @@ class TextPressureAnimator {
     this.cursorPosition = { x: 0, y: 0 };
     this.activeInstances = new Set();
     
-    this.injectComponentStyles();
+    // this.injectComponentStyles();
     this.setupGlobalMouseTracking();
   }
 
@@ -162,6 +162,15 @@ class TextPressureAnimator {
       // Silent fail for production
     }
   }
+
+    /**
+   * Ensure styles are injected when needed
+   */
+    ensureStylesInjected() {
+      if (!this.stylesInjected) {
+        this.injectComponentStyles();
+      }
+    }
 
   setupGlobalMouseTracking() {
     const updateMousePosition = (event) => {
@@ -260,6 +269,8 @@ class TextPressureAnimator {
   }
 
   initElement(element) {
+    this.ensureStylesInjected();
+    
     if (this.instances.has(element)) {
       return;
     }
