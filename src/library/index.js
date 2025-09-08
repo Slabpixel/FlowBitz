@@ -1,0 +1,47 @@
+/**
+ * WebflowBits Library - Main Entry Point
+ * This is the main entry point for the WebflowBits animation library
+ */
+
+// Export the main WebflowBits class
+export { default as WebflowBits } from './core/WebflowBits.js'
+
+// Export the component registry
+export { ComponentRegistry, componentRegistry } from './core/ComponentRegistry.js'
+
+// Export all components
+export { default as SplitText } from './components/text/splitText.js'
+export { default as BlurText } from './components/text/blurText.js'
+export { default as GradientText } from './components/text/gradientText.js'
+export { default as TextType } from './components/text/textType.js'
+export { default as ShinyText } from './components/text/shinyText.js'
+export { default as CountUp } from './components/text/countUp.js'
+export { default as DecryptedText } from './components/text/decryptedText.js'
+export { default as ScrambleText } from './components/text/scrambleText.js'
+export { default as VariableProximity } from './components/text/variableProximity.js'
+export { default as RotatingText } from './components/text/rotatingText.js'
+export { default as TextPressure } from './components/text/textPressure.js'
+export { default as TextCursor } from './components/text/textCursor.js'
+export { default as Shuffle } from './components/text/shuffle.js'
+export { default as ShapeBlur } from './components/interactive/shapeBlur.js'
+export { default as ImageTrail } from './components/interactive/imageTrail.js'
+export { default as MagnetLines } from './components/interactive/magnetLines.js'
+
+// Export utilities
+export { ComponentClassManager, webflowBitsClasses } from './utils/core/classManager.js'
+export { checkCSSConflicts, analyzeConflicts } from './utils/core/conflictDetector.js'
+export { parseElementConfig, commonAttributeMaps } from './utils/core/attributeParser.js'
+export { injectStyles } from './utils/core/injectStyles.js'
+export { AnimationStateManager, PerformanceOptimizer } from './utils/animation/animationStateManager.js'
+export { createOnceAnimationConfig, calculateScrollTriggerStart } from './utils/animation/scrollTriggerHelper.js'
+
+// Export metadata and registry
+export { componentsMetadata, getComponentsByCategory, getComponent, getAllComponentKeys } from './data/ComponentsMetadata.js'
+export { loadComponent, getAvailableComponents, componentExists, getComponentFileName } from './data/ComponentsRegistry.js'
+
+// Export component helpers
+export { getComponentStats, validateComponentMetadata, generateComponentKey, generateFileName, getComponentTemplate, componentExists as helperComponentExists, getAllComponentNames, searchComponents } from './utils/validation/componentHelper.js'
+
+// Default export
+import WebflowBits from './core/WebflowBits.js'
+export default WebflowBits
