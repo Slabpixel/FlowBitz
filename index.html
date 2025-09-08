@@ -4,36 +4,11 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="/src/styles/style.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-    <title>Webflow Bits - TextCursor & Animation Components Demo</title>
-
-    <style>
-      .shape-blur-container {
-        height: 100%;
-
-        
-        /* backdrop-filter: blur(10px); */
-
-        /* overflow: hidden; */
-        /* position: relative; */
-      }
-    </style>
+    <title>FlowBits - Interactive Components for Webflow</title>
   </head>
   <body>
-    <div style="display: flex; flex-direction: column; gap: 2rem; align-items: center; justify-content: center; height: 100vh; padding: 2rem;">
-      <div class="shape-blur-container" 
-        wb-animate="shape-blur"
-        wb-shape-variation="0"
-        wb-shape-size="1"
-        wb-roundness="0.4"
-        wb-border-size="0.05"
-        wb-circle-size="0.3"
-        wb-circle-edge="0.5"
-        wb-mouse-damp="8"
-        wb-debug="true">
-      </div>
-    </div>
-    <script type="module" src="/src/webflow-bits.js"></script>
+    <div id="root"></div>
+    <script type="module" src="/src/app/main.jsx"></script>
   </body>
 </html>

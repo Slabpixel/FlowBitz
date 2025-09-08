@@ -1,16 +1,22 @@
 import { defineConfig } from "vite";
+import react from "@vitejs/plugin-react";
 import { resolve } from "path";
 
 export default defineConfig({
+  plugins: [react()],
+  
   // Development configuration
   optimizeDeps: {
     include: [
       'gsap',
       'gsap/SplitText',
       'gsap/ScrollTrigger',
-      'gsap/ScrambleTextPlugin'
+      'gsap/ScrambleTextPlugin',
+      'react',
+      'react-dom',
+      'react-router-dom'
     ],
-    force: false // Set to true if you want to force re-optimization
+    force: false
   },
   
   // Development server configuration
@@ -20,24 +26,25 @@ export default defineConfig({
     hmr: true
   },
 
-  // Build configuration (untuk production)
+  // Build configuration for React app
   build: {
-    lib: {
-      entry: resolve(__dirname, 'src/webflow-bits.js'),
-      name: 'WebflowBits',
-      fileName: (format) => `webflow-bits.${format}.js`,
-      formats: ['umd', 'es'],
-    },
-    rollupOptions: {
-      external: [],
-      output: {
-        globals: {}
-      }
-    },
     outDir: 'dist',
     emptyOutDir: true,
-    minify: 'terser',
     sourcemap: true,
+    rollupOptions: {
+      input: {
+        main: resolve(__dirname, 'index.html')
+      }
+    }
+  },
+
+  // Resolve configuration for new structure
+  resolve: {
+    alias: {
+      '@app': resolve(__dirname, 'src/app'),
+      '@library': resolve(__dirname, 'src/library'),
+      '@shared': resolve(__dirname, 'src/shared')
+    }
   },
   
   define: {

@@ -1,7 +1,7 @@
 {
   "name": "webflow-bits",
   "version": "1.0.0",
-  "description": "Interactive components library for Webflow",
+  "description": "Interactive components library for Webflow - React Showcase",
   "type": "module",
   "main": "dist/webflow-bits.umd.js",
   "module": "dist/webflow-bits.es.js",
@@ -26,14 +26,31 @@
     "gsap",
     "animation",
     "components",
-    "cdn"
+    "react",
+    "showcase",
+    "interactive"
   ],
   "author": "Slabpixel Studio",
   "license": "MIT",
   "dependencies": {
-    "gsap": "^3.13.0"
+    "@radix-ui/react-tabs": "^1.1.13",
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
+    "gsap": "^3.13.0",
+    "lucide-react": "^0.542.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^6.8.0",
+    "tailwind-merge": "^3.3.1",
+    "tailwindcss-animate": "^1.0.7"
   },
   "devDependencies": {
+    "@types/react": "^18.2.0",
+    "@types/react-dom": "^18.2.0",
+    "@vitejs/plugin-react": "^4.0.0",
+    "autoprefixer": "^10.4.21",
+    "postcss": "^8.5.6",
+    "tailwindcss": "^3.4.17",
     "terser": "^5.24.0",
     "vite": "^7.0.4"
   },
