@@ -22,6 +22,7 @@ import magnetLinesAnimator from '../components/interactive/magnetLines.js';
 import imageTrailAnimator from '../components/interactive/imageTrail.js';
 import textCursorAnimator from '../components/text/textCursor.js';
 import shapeBlurAnimator from '../components/interactive/shapeBlur.js';
+import shuffleAnimator from '../components/text/shuffle.js';
 
 /**
  * Main WebflowBits class for CDN usage
@@ -47,6 +48,7 @@ class WebflowBits {
       imageTrail: imageTrailAnimator,
       textCursor: textCursorAnimator,
       shapeBlur: shapeBlurAnimator,
+      shuffle: shuffleAnimator,
     };
   }
 
@@ -63,7 +65,7 @@ class WebflowBits {
     const config = {
       autoInit: true,
       debug: false,
-      components: ['splitText', 'textType', 'blurText', 'shinyText', 'gradientText', 'decryptedText', 'scrambleText', 'variableProximity', 'countUp', 'rotatingText', 'textPressure', 'magnetLines', 'imageTrail', 'textCursor', 'shapeBlur'],
+      components: ['splitText', 'textType', 'blurText', 'shinyText', 'gradientText', 'decryptedText', 'scrambleText', 'variableProximity', 'countUp', 'rotatingText', 'textPressure', 'magnetLines', 'imageTrail', 'textCursor', 'shapeBlur', 'shuffle'],
       ...options
     };
 
@@ -150,6 +152,10 @@ class WebflowBits {
 
       if (config.components.includes('shapeBlur')) {
         this.initShapeBlur(config.debug);
+      }
+
+      if (config.components.includes('shuffle')) {
+        this.initShuffle(config.debug);
       }
 
       // Setup mutation observer for dynamic content if autoInit is enabled
@@ -266,6 +272,12 @@ class WebflowBits {
       const shapeBlurConflicts = shapeBlurAnimator.checkForConflicts();
       if (shapeBlurConflicts) {
         allConflicts.push(...shapeBlurConflicts);
+      }
+
+      // Check Shuffle conflicts
+      const shuffleConflicts = shuffleAnimator.checkForConflicts();
+      if (shuffleConflicts) {
+        allConflicts.push(...shuffleConflicts);
       }
       
       if (allConflicts.length > 0) {
@@ -489,6 +501,20 @@ class WebflowBits {
   }
 
   /**
+   * Initialize Shuffle component
+   */
+  initShuffle(debug = false) {
+    try {
+      shuffleAnimator.initAll();
+      if (debug) {
+        console.log('WebflowBits: Shuffle initialized');
+      }
+    } catch (error) {
+      console.error('WebflowBits: Failed to initialize Shuffle', error);
+    }
+  }
+
+  /**
    * Setup mutation observer to handle dynamically added content
    */
   setupMutationObserver(debug = false) {
@@ -648,6 +674,16 @@ class WebflowBits {
                 shapeBlurAnimator.initElement(element);
                 shouldRefresh = true;
               });
+
+              // Check for wb-text-animate="shuffle" elements
+              const shuffleElements = node.matches?.('[wb-text-animate="shuffle"]')
+                ? [node]
+                : Array.from(node.querySelectorAll?.('[wb-text-animate="shuffle"]') || []);
+
+              shuffleElements.forEach(element => {
+                shuffleAnimator.initElement(element);
+                shouldRefresh = true;
+              });
             }
           });
         }
@@ -667,10 +703,11 @@ class WebflowBits {
           countUpAnimator.refresh();
           rotatingTextAnimator.refresh();
           textPressureAnimator.refresh();
-              magnetLinesAnimator.refresh();
-    imageTrailAnimator.refresh();
-    textCursorAnimator.refresh();
-    shapeBlurAnimator.refresh();
+          magnetLinesAnimator.refresh();
+          imageTrailAnimator.refresh();
+          textCursorAnimator.refresh();
+          shapeBlurAnimator.refresh();
+          shuffleAnimator.refresh();
         }, 100);
       }
     });
@@ -969,6 +1006,25 @@ class WebflowBits {
   }
 
   /**
+   * Manually initialize Shuffle on specific elements
+   * @param {string|NodeList|Element} selector - CSS selector or DOM elements
+   */
+  initShuffleOn(selector) {
+    const elements = typeof selector === 'string' 
+      ? document.querySelectorAll(selector)
+      : selector.nodeType ? [selector] : selector;
+    
+    Array.from(elements).forEach(element => {
+      if (element.getAttribute('wb-text-animate') === 'shuffle') {
+        shuffleAnimator.initElement(element);
+      }
+    });
+
+    shuffleAnimator.refresh();
+    return this;
+  }
+
+  /**
    * Destroy all components and observers
    */
   destroy() {
@@ -1017,6 +1073,9 @@ class WebflowBits {
     // Destroy ShapeBlur animations
     shapeBlurAnimator.destroyAll();
 
+    // Destroy Shuffle animations
+    shuffleAnimator.destroyAll();
+
     // Disconnect observers
     this.observers.forEach(observer => observer.disconnect());
     this.observers = [];
@@ -1045,6 +1104,8 @@ class WebflowBits {
     magnetLinesAnimator.refresh();
     imageTrailAnimator.refresh();
     textCursorAnimator.refresh();
+    shapeBlurAnimator.refresh();
+    shuffleAnimator.refresh();
     return this;
   }
 

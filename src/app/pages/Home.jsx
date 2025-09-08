@@ -112,9 +112,9 @@ const Home = () => {
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 px-8">
-        <div className="max-w-4xl mx-auto text-center">
-          <div className="bg-card border border-border rounded-3xl p-12">
+      <section className="pt-20 pb-40 px-8">
+        <div className="max-w-7xl mx-auto text-center">
+          <div className="flex flex-col items-center justify-center">
             <h2 className="text-4xl lg:text-5xl font-bold mb-6 text-foreground">
               Ready to enhance your Webflow projects?
             </h2>

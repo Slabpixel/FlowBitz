@@ -3,8 +3,8 @@ import { Link } from 'react-router-dom'
 
 const Footer = () => {
   return (
-    <footer className="bg-background border-t border-border py-12">
-      <div className="mx-auto px-6">
+    <footer className="w-full flex justify-center bg-background border-t border-border py-12">
+      <div className="w-full max-w-7xl mx-auto px-6">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
           <div className="footer-section">
             <h3 className="text-xl font-semibold mb-3 text-foreground">

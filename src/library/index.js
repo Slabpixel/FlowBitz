@@ -22,6 +22,7 @@ export { default as VariableProximity } from './components/text/variableProximit
 export { default as RotatingText } from './components/text/rotatingText.js'
 export { default as TextPressure } from './components/text/textPressure.js'
 export { default as TextCursor } from './components/text/textCursor.js'
+export { default as Shuffle } from './components/text/shuffle.js'
 export { default as ShapeBlur } from './components/interactive/shapeBlur.js'
 export { default as ImageTrail } from './components/interactive/imageTrail.js'
 export { default as MagnetLines } from './components/interactive/magnetLines.js'

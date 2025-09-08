@@ -348,6 +348,60 @@ export const componentsMetadata = {
         description: 'Basic magnetic line grid'
       }
     ]
+  },
+
+  'shuffle': {
+    name: 'Shuffle',
+    description: 'Character-based sliding shuffle effects with customizable direction and scrambling',
+    category: 'text',
+    file: 'shuffle.js',
+    attributes: [
+      { name: 'wb-shuffle-direction', description: 'Direction of shuffle: left|right', default: 'right' },
+      { name: 'wb-shuffle-times', description: 'Number of shuffle iterations', default: '1' },
+      { name: 'wb-animation-mode', description: 'Animation mode: evenodd|random', default: 'evenodd' },
+      { name: 'wb-duration', description: 'Animation duration in seconds', default: '0.35' },
+      { name: 'wb-max-delay', description: 'Maximum random delay for random mode in seconds', default: '0' },
+      { name: 'wb-ease', description: 'Animation easing', default: 'power3.out' },
+      { name: 'wb-threshold', description: 'Scroll trigger threshold', default: '0.1' },
+      { name: 'wb-root-margin', description: 'Scroll trigger margin', default: '"-100px"' },
+      { name: 'wb-loop', description: 'Loop animation continuously', default: 'false' },
+      { name: 'wb-loop-delay', description: 'Delay between loops in seconds', default: '0' },
+      { name: 'wb-stagger', description: 'Stagger delay between characters in seconds', default: '0.03' },
+      { name: 'wb-scramble-charset', description: 'Characters to use for scrambling effect', default: 'empty' },
+      { name: 'wb-color-from', description: 'Starting color for color transition', default: 'none' },
+      { name: 'wb-color-to', description: 'Ending color for color transition', default: 'none' },
+      { name: 'wb-trigger-once', description: 'Trigger animation only once on scroll', default: 'true' },
+      { name: 'wb-respect-reduced-motion', description: 'Respect reduced motion preference', default: 'true' },
+      { name: 'wb-trigger-on-hover', description: 'Enable hover trigger after initial animation', default: 'true' },
+      { name: 'wb-text-align', description: 'Text alignment for characters: left|center|right|justify', default: 'center' }
+    ],
+    examples: [
+      {
+        title: 'Basic Left-to-Right Shuffle',
+        code: '<h1 wb-text-animate="shuffle">SHUFFLE EFFECT</h1>',
+        description: 'Basic left-to-right shuffle animation'
+      },
+      {
+        title: 'Right-to-Left with Multiple Iterations',
+        code: '<p wb-text-animate="shuffle" wb-shuffle-direction="left" wb-shuffle-times="3" wb-duration="0.5">Multi-Shuffle Text</p>',
+        description: 'Right-to-left shuffle with multiple iterations'
+      },
+      {
+        title: 'Scrambled Shuffle with Custom Characters',
+        code: '<div wb-text-animate="shuffle" wb-shuffle-direction="right" wb-shuffle-times="2" wb-scramble-charset="ABCDEFGHIJKLMNOPQRSTUVWXYZ" wb-animation-mode="evenodd" wb-stagger="0.05">SCRAMBLED SHUFFLE</div>',
+        description: 'Shuffle with custom character scrambling'
+      },
+      {
+        title: 'Random Mode with Color Transition',
+        code: '<span wb-text-animate="shuffle" wb-animation-mode="random" wb-max-delay="0.5" wb-color-from="#ff0000" wb-color-to="#00ff00" wb-duration="0.8">Random Color Shuffle</span>',
+        description: 'Random timing with color transition'
+      },
+      {
+        title: 'Looping Shuffle with Hover Trigger',
+        code: '<h2 wb-text-animate="shuffle" wb-loop="true" wb-loop-delay="1" wb-trigger-on-hover="true" wb-duration="0.4">Hover to Trigger</h2>',
+        description: 'Continuous loop with hover re-trigger'
+      }
+    ]
   }
 }
 

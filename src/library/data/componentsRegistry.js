@@ -28,7 +28,8 @@ export const loadComponent = async (componentName) => {
       'text-cursor': 'textCursor',
       'shape-blur': 'shapeBlur',
       'image-trail': 'imageTrail',
-      'magnet-lines': 'magnetLines'
+      'magnet-lines': 'magnetLines',
+      'shuffle': 'shuffle'
     }
 
     const fileName = componentMap[componentName]
@@ -82,7 +83,8 @@ export const getComponentFileName = (componentName) => {
     'text-cursor': 'textCursor',
     'shape-blur': 'shapeBlur',
     'image-trail': 'imageTrail',
-    'magnet-lines': 'magnetLines'
+    'magnet-lines': 'magnetLines',
+    'shuffle': 'shuffle'
   }
 
   return componentMap[componentName] || null

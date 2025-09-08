@@ -16,7 +16,7 @@ The library will auto-initialize and start working with elements that have the p
 
 ### Available Components
 
-WebflowBits includes fourteen powerful animation components:
+WebflowBits includes fifteen powerful animation components:
 
 ### Text Animation Components:
 1. **SplitText** - Character, word, or line-based split animations
@@ -31,11 +31,12 @@ WebflowBits includes fourteen powerful animation components:
 10. **TextPressure** - Mouse proximity-based font variation effects with variable fonts
 11. **CountUp** - Animated number counting with customizable formatting
 12. **TextCursor** - Mouse-following text/emoji trail effects with customizable behavior
+13. **Shuffle** - Character-based sliding shuffle effect with scramble support
 
 ### Interactive Components:
-13. **ImageTrail** - Mouse-following image trail effects with multiple variants
-14. **MagnetLines** - Interactive magnetic line grid that follows mouse movement
-15. **ShapeBlur** - WebGL shader-based interactive shape effects with mouse interaction
+14. **ImageTrail** - Mouse-following image trail effects with multiple variants
+15. **MagnetLines** - Interactive magnetic line grid that follows mouse movement
+16. **ShapeBlur** - WebGL shader-based interactive shape effects with mouse interaction
 
 #### SplitText Animation
 
@@ -954,6 +955,166 @@ textCursor.initElement(element);
 - Adjust spacing for dense or sparse trails
 - Use different colors for themed experiences
 
+#### Shuffle Animation
+
+Add character-based sliding shuffle effects to text elements:
+
+```html
+<p wb-text-animate="shuffle">Your text here</p>
+```
+
+**Available attributes:**
+- `wb-shuffle-direction="right"` - Direction of shuffle: left|right (default: "right")
+- `wb-shuffle-times="1"` - Number of shuffle iterations (default: 1)
+- `wb-animation-mode="evenodd"` - Animation mode: evenodd|random (default: "evenodd")
+- `wb-duration="0.35"` - Animation duration in seconds (default: 0.35)
+- `wb-max-delay="0"` - Maximum random delay for random mode in seconds (default: 0)
+- `wb-ease="power3.out"` - Animation easing (default: "power3.out")
+- `wb-threshold="0.1"` - Scroll trigger threshold (default: 0.1)
+- `wb-root-margin="-100px"` - Scroll trigger margin (default: "-100px")
+- `wb-loop="false"` - Loop animation continuously (default: false)
+- `wb-loop-delay="0"` - Delay between loops in seconds (default: 0)
+- `wb-stagger="0.03"` - Stagger delay between characters in seconds (default: 0.03)
+- `wb-scramble-charset=""` - Characters to use for scrambling effect (default: empty)
+- `wb-color-from=""` - Starting color for color transition (default: none)
+- `wb-color-to=""` - Ending color for color transition (default: none)
+- `wb-trigger-once="true"` - Trigger animation only once on scroll (default: true)
+- `wb-respect-reduced-motion="true"` - Respect reduced motion preference (default: true)
+- `wb-trigger-on-hover="true"` - Enable hover trigger after initial animation (default: true)
+- `wb-text-align="center"` - Text alignment for characters: left|center|right|justify (default: "center")
+
+**Animation Modes:**
+- **evenodd**: Animates odd-indexed characters first, then even characters with overlap
+- **random**: Each character animates with random delay within `wb-max-delay`
+
+**Examples:**
+```html
+<!-- Basic left-to-right shuffle -->
+<h1 wb-text-animate="shuffle">
+  SHUFFLE EFFECT
+</h1>
+
+<!-- Right-to-left with multiple iterations -->
+<p wb-text-animate="shuffle"
+   wb-shuffle-direction="left"
+   wb-shuffle-times="3"
+   wb-duration="0.5">
+  Multi-Shuffle Text
+</p>
+
+<!-- Scrambled shuffle with custom characters -->
+<div wb-text-animate="shuffle"
+     wb-shuffle-direction="right"
+     wb-shuffle-times="2"
+     wb-scramble-charset="ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+     wb-animation-mode="evenodd"
+     wb-stagger="0.05">
+  SCRAMBLED SHUFFLE
+</div>
+
+<!-- Random mode with color transition -->
+<span wb-text-animate="shuffle"
+      wb-animation-mode="random"
+      wb-max-delay="0.5"
+      wb-color-from="#ff0000"
+      wb-color-to="#00ff00"
+      wb-duration="0.8">
+  Random Color Shuffle
+</span>
+
+<!-- Looping shuffle with hover trigger -->
+<h2 wb-text-animate="shuffle"
+    wb-loop="true"
+    wb-loop-delay="1"
+    wb-trigger-on-hover="true"
+    wb-duration="0.4">
+  Hover to Trigger
+</h2>
+
+<!-- Custom timing and scramble -->
+<p wb-text-animate="shuffle"
+   wb-shuffle-times="4"
+   wb-scramble-charset="!@#$%^&*()"
+   wb-animation-mode="evenodd"
+   wb-stagger="0.08"
+   wb-duration="0.6"
+   wb-ease="back.out(1.7)">
+  Symbol Scramble
+</p>
+
+<!-- Performance optimized for mobile -->
+<div wb-text-animate="shuffle"
+     wb-respect-reduced-motion="true"
+     wb-trigger-once="true"
+     wb-shuffle-times="1"
+     wb-text-align="left">
+  Mobile Friendly
+</div>
+```
+
+**JavaScript Controls:**
+```javascript
+const shuffle = WebflowBits.getComponent('shuffle');
+const element = document.querySelector('[wb-text-animate="shuffle"]');
+
+// Manually trigger shuffle
+shuffle.trigger(element);
+
+// Update configuration
+shuffle.updateConfig(element, {
+  shuffleDirection: 'left',
+  shuffleTimes: 2,
+  scrambleCharset: '0123456789',
+  duration: 0.8
+});
+
+// Animation controls
+shuffle.pause(element);    // Pause current animation
+shuffle.resume(element);   // Resume paused animation
+
+// Get component instance
+const instance = shuffle.getInstance(element);
+console.log(instance.config);
+
+// Event listeners
+element.addEventListener('wb-shuffle-start', (e) => {
+  console.log('Shuffle animation started:', e.detail);
+});
+
+element.addEventListener('wb-shuffle-complete', (e) => {
+  console.log('Shuffle animation completed:', e.detail);
+});
+
+element.addEventListener('wb-shuffle-repeat', (e) => {
+  console.log('Shuffle animation repeated:', e.detail);
+});
+```
+
+**Character Direction Logic:**
+- **Left Direction**: Characters slide from right to left, revealing original text
+- **Right Direction**: Characters slide from left to right, revealing original text
+- Each character gets its own wrapper with controlled overflow for smooth sliding
+
+**Scramble Features:**
+- Uses custom character set for intermediate shuffle states
+- Randomizes characters on each repeat for dynamic effect
+- Maintains original character width for consistent spacing
+- Works with any Unicode characters including emojis
+
+**Performance Features:**
+- GPU-accelerated transforms with `force3D`
+- Automatic cleanup of DOM structure after animation
+- Respects `prefers-reduced-motion` for accessibility
+- Optimized for smooth 60fps animations
+- Memory-efficient instance management
+
+**Usage Notes:**
+- Text should have consistent character spacing for best results
+- Works with variable fonts but may need custom `wb-text-align` adjustment
+- Hover trigger re-initializes the entire effect for repeated interactions
+- Loop mode keeps the shuffle structure active for continuous animation
+- Color transitions work independently of character shuffling
+
 #### ImageTrail Animation
 
 Add mouse-following image trail effects with multiple visual variants:
@@ -1558,6 +1719,51 @@ document.addEventListener('wb-shape-blur-update', (event) => {
 document.addEventListener('wb-shape-blur-destroy', (event) => {
   console.log('ShapeBlur destroyed:', event.detail);
 });
+
+// Listen for Shuffle initialization
+document.addEventListener('wb-shuffle-init', (event) => {
+  console.log('Shuffle initialized:', event.detail);
+});
+
+// Listen for Shuffle animation start
+document.addEventListener('wb-shuffle-start', (event) => {
+  console.log('Shuffle animation started:', event.detail);
+});
+
+// Listen for Shuffle animation completion
+document.addEventListener('wb-shuffle-complete', (event) => {
+  console.log('Shuffle animation completed:', event.detail);
+});
+
+// Listen for Shuffle animation repeat (loop mode)
+document.addEventListener('wb-shuffle-repeat', (event) => {
+  console.log('Shuffle animation repeated:', event.detail);
+});
+
+// Listen for Shuffle pause
+document.addEventListener('wb-shuffle-pause', (event) => {
+  console.log('Shuffle paused:', event.detail);
+});
+
+// Listen for Shuffle resume
+document.addEventListener('wb-shuffle-resume', (event) => {
+  console.log('Shuffle resumed:', event.detail);
+});
+
+// Listen for Shuffle configuration updates
+document.addEventListener('wb-shuffle-update', (event) => {
+  console.log('Shuffle updated:', event.detail);
+});
+
+// Listen for Shuffle destroy
+document.addEventListener('wb-shuffle-destroy', (event) => {
+  console.log('Shuffle destroyed:', event.detail);
+});
+
+// Listen for Shuffle error
+document.addEventListener('wb-shuffle-error', (event) => {
+  console.log('Shuffle error:', event.detail);
+});
 ```
 
 ### Manual Control
@@ -1608,6 +1814,9 @@ WebflowBits.initTextCursorOn('.my-textcursor-class');
 // Initialize specific ShapeBlur elements
 WebflowBits.initShapeBlurOn('.my-shapeblur-class');
 
+// Initialize specific Shuffle elements
+WebflowBits.initShuffleOn('.my-shuffle-class');
+
 // Refresh animations (useful after dynamic content changes)
 WebflowBits.refresh();
 
@@ -1630,6 +1839,7 @@ const imageTrail = WebflowBits.getComponent('imageTrail');
 const magnetLines = WebflowBits.getComponent('magnetLines');
 const textCursor = WebflowBits.getComponent('textCursor');
 const shapeBlur = WebflowBits.getComponent('shapeBlur');
+const shuffle = WebflowBits.getComponent('shuffle');
 
 // ShinyText specific controls
 const shinyElement = document.querySelector('[wb-text-animate="shiny-text"]');
@@ -1760,4 +1970,23 @@ const shapeBlurInstance = shapeBlur.getInstance(shapeBlurElement); // Get instan
 console.log(shapeBlurInstance.config); // View configuration
 shapeBlur.destroy(shapeBlurElement); // Manually destroy
 shapeBlur.initElement(shapeBlurElement); // Manually reinitialize
+
+// Shuffle specific controls
+const shuffleElement = document.querySelector('[wb-text-animate="shuffle"]');
+shuffle.trigger(shuffleElement); // Manually trigger shuffle
+shuffle.pause(shuffleElement); // Pause animation
+shuffle.resume(shuffleElement); // Resume animation
+shuffle.updateConfig(shuffleElement, {
+  shuffleDirection: 'left',
+  shuffleTimes: 3,
+  scrambleCharset: '!@#$%^&*()',
+  animationMode: 'random',
+  maxDelay: 0.8,
+  colorFrom: '#ff0000',
+  colorTo: '#00ff00'
+}); // Update configuration
+const shuffleInstance = shuffle.getInstance(shuffleElement); // Get instance
+console.log(shuffleInstance.config); // View configuration
+shuffle.destroy(shuffleElement); // Manually destroy
+shuffle.initElement(shuffleElement); // Manually reinitialize
 ```
