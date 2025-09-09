@@ -141,7 +141,7 @@ const ComponentDetail = () => {
                 Copy
               </Button>
               <pre className="bg-slate-900 dark:bg-slate-800 rounded-lg p-6 overflow-x-auto whitespace-pre-wrap break-words border border-slate-700 dark:border-slate-600"><code className="text-slate-100 font-mono text-sm leading-relaxed" dangerouslySetInnerHTML={{ __html: highlightCode(`<!-- Add this to your Webflow project's custom code (before </body>) -->
-<script src="https://cdn.jsdelivr.net/npm/webflow-bits@latest/dist/webflow-bits.umd.js"></script>
+<script src="https://webflow-bits.vercel.app/webflow-bits.umd.js"></script>
 <script>
   // Initialize WebflowBits
   WebflowBits.init({
