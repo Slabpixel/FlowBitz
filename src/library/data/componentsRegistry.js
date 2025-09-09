@@ -3,7 +3,7 @@
  * Dynamic loading system for WebflowBits components
  */
 
-import { getAllComponentKeys } from './ComponentsMetadata.js'
+import { getAllComponentKeys } from './componentsMetadata.js'
 
 /**
  * Load a component dynamically
