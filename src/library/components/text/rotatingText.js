@@ -36,7 +36,7 @@ const componentCSS = `
   display: inline-flex;
   flex-wrap: wrap;
   overflow: hidden;
-  height: 1.5em; /* Precise masking - only show 1 line height */
+  height: 1.1em; /* Precise masking - only show 1 line height */
 }
 
 .wb-rotating-text-word {

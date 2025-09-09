@@ -9,7 +9,6 @@ const componentCSS = `
 /* Webflow Bits - DecryptedText Component Styles */
 .wb-decrypt-text {
   display: inline-block;
-  white-space: pre-wrap;
   position: relative;
 }
 
@@ -75,11 +74,11 @@ class DecryptedTextAnimator {
     this.defaultConfig = {
       speed: 50,
       maxIterations: 10,
-      sequential: false,
+      sequential: true,
       revealDirection: 'start', // start | end | center
       useOriginalCharsOnly: false,
       characters: 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz!@#$%^&*()_+',
-      animateOn: 'hover', // hover | view
+      animateOn: 'view', // hover | view
       threshold: 0.1,
       rootMargin: '0px',
       className: '',

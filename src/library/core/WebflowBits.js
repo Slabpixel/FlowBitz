@@ -576,9 +576,9 @@ class WebflowBits {
               });
 
               // Check for wb-text-animate="decrypt-text" elements
-              const decryptedTextElements = node.matches?.('[wb-text-animate="decrypt-text"]') 
+              const decryptedTextElements = node.matches?.('[wb-text-animate="decrypted-text"]') 
                 ? [node] 
-                : Array.from(node.querySelectorAll?.('[wb-text-animate="decrypt-text"]') || []);
+                : Array.from(node.querySelectorAll?.('[wb-text-animate="decrypted-text"]') || []);
 
               decryptedTextElements.forEach(element => {
                 decryptedTextAnimator.initElement(element);
@@ -825,7 +825,7 @@ class WebflowBits {
       : selector.nodeType ? [selector] : selector;
 
     Array.from(elements).forEach(element => {
-      if (element.getAttribute('wb-text-animate') === 'decrypt-text') {
+      if (element.getAttribute('wb-text-animate') === 'decrypted-text') {
         decryptedTextAnimator.initElement(element);
       }
     });
