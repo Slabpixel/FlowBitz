@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useParams } from 'react-router-dom'
-import { getComponent } from '../../library/data/ComponentsMetadata.js'
+import { getComponent } from '../../library/data/componentsMetadata.js'
 import Sidebar from '../components/layout/Sidebar.jsx'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '../components/ui/tabs.jsx'
 import { Button } from '../components/ui/button.jsx'
@@ -49,12 +49,25 @@ const ComponentDetail = () => {
   const { componentName } = useParams()
   const [activeTab, setActiveTab] = useState('preview')
   const [reloadKey, setReloadKey] = useState(0)
+  const [copyStates, setCopyStates] = useState({})
   
   // Get component metadata
   const component = getComponent(componentName)
 
   const reloadPreview = () => {
     setReloadKey(prev => prev + 1)
+  }
+
+  const copyToClipboard = async (text, key) => {
+    try {
+      await navigator.clipboard.writeText(text)
+      setCopyStates(prev => ({ ...prev, [key]: true }))
+      setTimeout(() => {
+        setCopyStates(prev => ({ ...prev, [key]: false }))
+      }, 2000)
+    } catch (err) {
+      console.error('Failed to copy text: ', err)
+    }
   }
 
   const copyCode = (button) => {
@@ -77,8 +90,11 @@ const ComponentDetail = () => {
       <div className="space-y-8">
         {component.examples.map((example, index) => (
           <div key={index} className="space-y-6">
-            {/* Title */}
+            {/* Title & Description */}
+            <div className="space-y-2">
             <h3 className="text-3xl font-semibold text-foreground">{example.title}</h3>
+            <p className="text-muted-foreground leading-relaxed">{example.description}</p>
+            </div>
             
             {/* Preview */}
             <div className="relative bg-muted/50 rounded-lg p-12 overflow-hidden border border-border min-h-[300px] flex items-center justify-center">
@@ -91,25 +107,9 @@ const ComponentDetail = () => {
               >
                 <RotateCcw className="w-4 h-4" />
               </Button>
-              <div key={reloadKey} className="text-center [&_*]:text-7xl [&_*]:font-medium" dangerouslySetInnerHTML={{ __html: example.code }} />
+              <div key={reloadKey} className="text-center [&_*]:text-6xl [&_*]:font-medium" dangerouslySetInnerHTML={{ __html: example.code }} />
             </div>
             
-            {/* Code to Copy */}
-            <div className="relative">
-              <Button 
-                variant="outline" 
-                size="sm"
-                className="absolute top-4 right-4 bg-background border-border text-foreground hover:bg-accent z-10" 
-                onClick={(e) => copyCode(e.target)}
-              >
-                <Copy className="w-4 h-4" />
-                Copy
-              </Button>
-              <pre className="bg-slate-900 dark:bg-slate-800 rounded-lg p-6 overflow-x-auto whitespace-pre-wrap break-words border border-slate-700 dark:border-slate-600"><code className="text-slate-100 font-mono text-sm leading-relaxed" dangerouslySetInnerHTML={{ __html: highlightCode(example.code) }}></code></pre>
-            </div>
-            
-            {/* Description */}
-            <p className="text-muted-foreground leading-relaxed">{example.description}</p>
           </div>
         ))}
       </div>
@@ -130,19 +130,30 @@ const ComponentDetail = () => {
             </div>
             <p className="text-muted-foreground ml-11">Add the WebflowBits script to your Webflow project's custom code section.</p>
             
-            <div className="ml-11 relative">
-              <Button 
-                variant="outline" 
-                size="sm"
-                className="absolute top-4 right-4 bg-background border-border text-foreground hover:bg-accent z-10" 
-                onClick={(e) => copyCode(e.target)}
-              >
-                <Copy className="w-4 h-4" />
-                Copy
-              </Button>
-              <pre className="bg-slate-900 dark:bg-slate-800 rounded-lg p-6 overflow-x-auto whitespace-pre-wrap break-words border border-slate-700 dark:border-slate-600"><code className="text-slate-100 font-mono text-sm leading-relaxed" dangerouslySetInnerHTML={{ __html: highlightCode(`<!-- Add this to your Webflow project's custom code (before </body>) -->
-<script src="https://webflow-bits.vercel.app/webflow-bits.umd.js"></script>
-`) }}></code></pre>
+            <div className="ml-11 space-y-4">
+              <div className="p-4 border border-border rounded-lg">
+                <div>
+                  <label className="text-sm font-medium text-foreground mb-2 block">Script Tag</label>
+                  <div className="relative">
+                    <div 
+                      className="w-full bg-gray-800 dark:bg-background border border-border rounded-md px-3 py-2 pr-10 text-foreground font-mono text-sm focus:outline-none focus:ring-2 focus:ring-primary/20 min-h-[40px] flex items-center"
+                      dangerouslySetInnerHTML={{ __html: highlightCode('<script src="https://webflow-bits.vercel.app/webflow-bits.umd.js"></script>') }}
+                    />
+                    <Button 
+                      variant="ghost" 
+                      size="sm"
+                      className="absolute right-1 top-1/2 -translate-y-1/2 h-8 w-8 p-0 hover:bg-gray-700" 
+                      onClick={() => copyToClipboard('<script src="https://webflow-bits.vercel.app/webflow-bits.umd.js"></script>', 'scriptTag')}
+                    >
+                      {copyStates.scriptTag ? (
+                        <span className="text-green-500 text-xs">✓</span>
+                      ) : (
+                        <Copy className="w-4 h-4 text-white" />
+                      )}
+                    </Button>
+                  </div>
+                </div>
+              </div>
             </div>
             
             <div className="ml-11 bg-blue-50 dark:bg-blue-950/20 border border-blue-200 dark:border-blue-800 rounded-lg p-4">
@@ -161,9 +172,9 @@ const ComponentDetail = () => {
             <p className="text-muted-foreground ml-11">Add this attribute to any text element in your Webflow project.</p>
             
             <div className="ml-11 space-y-4">
-              <div className="space-y-3">
+              <div className="space-y-3 p-4 border border-border rounded-lg">
                 <div>
-                  <label className="text-sm font-medium text-foreground mb-2 block">Name:</label>
+                  <label className="text-sm font-medium text-foreground mb-2 block">Attribute Name</label>
                   <div className="relative">
                     <input 
                       type="text" 
@@ -175,22 +186,18 @@ const ComponentDetail = () => {
                       variant="ghost" 
                       size="sm"
                       className="absolute right-1 top-1/2 -translate-y-1/2 h-8 w-8 p-0 hover:bg-accent" 
-                      onClick={(e) => {
-                        navigator.clipboard.writeText('wb-text-animate').then(() => {
-                          const originalText = e.target.innerHTML
-                          e.target.innerHTML = '✓'
-                          setTimeout(() => {
-                            e.target.innerHTML = originalText
-                          }, 2000)
-                        })
-                      }}
+                      onClick={() => copyToClipboard('wb-text-animate', 'attributeName')}
                     >
-                      <Copy className="w-4 h-4" />
+                      {copyStates.attributeName ? (
+                        <span className="text-green-500 text-xs">✓</span>
+                      ) : (
+                        <Copy className="w-4 h-4" />
+                      )}
                     </Button>
                   </div>
                 </div>
                 <div>
-                  <label className="text-sm font-medium text-foreground mb-2 block">Value:</label>
+                  <label className="text-sm font-medium text-foreground mb-2 block">Attribute Value</label>
                   <div className="relative">
                     <input 
                       type="text" 
@@ -202,17 +209,13 @@ const ComponentDetail = () => {
                       variant="ghost" 
                       size="sm"
                       className="absolute right-1 top-1/2 -translate-y-1/2 h-8 w-8 p-0 hover:bg-accent" 
-                      onClick={(e) => {
-                        navigator.clipboard.writeText(componentName).then(() => {
-                          const originalText = e.target.innerHTML
-                          e.target.innerHTML = '✓'
-                          setTimeout(() => {
-                            e.target.innerHTML = originalText
-                          }, 2000)
-                        })
-                      }}
+                      onClick={() => copyToClipboard(componentName, 'attributeValue')}
                     >
-                      <Copy className="w-4 h-4" />
+                      {copyStates.attributeValue ? (
+                        <span className="text-green-500 text-xs">✓</span>
+                      ) : (
+                        <Copy className="w-4 h-4" />
+                      )}
                     </Button>
                   </div>
                 </div>

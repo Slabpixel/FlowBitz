@@ -7,7 +7,7 @@
 export { default as WebflowBits } from './core/WebflowBits.js'
 
 // Export the component registry
-export { ComponentRegistry, componentRegistry } from './core/ComponentRegistry.js'
+export { ComponentRegistry, componentRegistry } from './core/componentRegistry.js'
 
 // Export all components
 export { default as SplitText } from './components/text/splitText.js'
@@ -36,8 +36,8 @@ export { AnimationStateManager, PerformanceOptimizer } from './utils/animation/a
 export { createOnceAnimationConfig, calculateScrollTriggerStart } from './utils/animation/scrollTriggerHelper.js'
 
 // Export metadata and registry
-export { componentsMetadata, getComponentsByCategory, getComponent, getAllComponentKeys } from './data/ComponentsMetadata.js'
-export { loadComponent, getAvailableComponents, componentExists, getComponentFileName } from './data/ComponentsRegistry.js'
+export { componentsMetadata, getComponentsByCategory, getComponent, getAllComponentKeys } from './data/componentsMetadata.js'
+export { loadComponent, getAvailableComponents, componentExists, getComponentFileName } from './data/componentsRegistry.js'
 
 // Export component helpers
 export { getComponentStats, validateComponentMetadata, generateComponentKey, generateFileName, getComponentTemplate, componentExists as helperComponentExists, getAllComponentNames, searchComponents } from './utils/validation/componentHelper.js'

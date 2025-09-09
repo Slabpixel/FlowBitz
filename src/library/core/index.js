@@ -12,8 +12,8 @@ export { checkCSSConflicts, analyzeConflicts } from '../utils/core/conflictDetec
 export { parseElementConfig, commonAttributeMaps } from '../utils/core/attributeParser.js'
 
 // Re-export component metadata
-export { componentsMetadata, getComponentsByCategory } from '../data/ComponentsMetadata.js'
-export { loadComponent, getAvailableComponents } from '../data/ComponentsRegistry.js'
+export { componentsMetadata, getComponentsByCategory } from '../data/componentsMetadata.js'
+export { loadComponent, getAvailableComponents } from '../data/componentsRegistry.js'
 
 // Default export for CDN usage
 import WebflowBits from './WebflowBits.js'

@@ -3,7 +3,7 @@
  * Utilities to help manage and add new components
  */
 
-import { componentsMetadata } from '../../data/ComponentsMetadata.js'
+import { componentsMetadata } from '../../data/componentsMetadata.js'
 
 /**
  * Get component statistics

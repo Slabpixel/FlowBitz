@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link, useLocation } from 'react-router-dom'
-import { getComponentsByCategory } from '../../../library/data/ComponentsMetadata.js'
+import { getComponentsByCategory } from '../../../library/data/componentsMetadata.js'
 
 const Sidebar = ({ showBackLink = false }) => {
   const location = useLocation()

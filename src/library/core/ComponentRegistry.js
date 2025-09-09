@@ -3,7 +3,7 @@
  * Manages component registration and dynamic loading
  */
 
-import { loadComponent } from '../data/ComponentsRegistry.js'
+import { loadComponent } from '../data/componentsRegistry.js'
 
 /**
  * Component Registry Class
