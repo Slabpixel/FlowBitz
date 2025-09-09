@@ -142,13 +142,7 @@ const ComponentDetail = () => {
               </Button>
               <pre className="bg-slate-900 dark:bg-slate-800 rounded-lg p-6 overflow-x-auto whitespace-pre-wrap break-words border border-slate-700 dark:border-slate-600"><code className="text-slate-100 font-mono text-sm leading-relaxed" dangerouslySetInnerHTML={{ __html: highlightCode(`<!-- Add this to your Webflow project's custom code (before </body>) -->
 <script src="https://webflow-bits.vercel.app/webflow-bits.umd.js"></script>
-<script>
-  // Initialize WebflowBits
-  WebflowBits.init({
-    debug: false, // Set to true for development
-    autoInit: true
-  });
-</script>`) }}></code></pre>
+`) }}></code></pre>
             </div>
             
             <div className="ml-11 bg-blue-50 dark:bg-blue-950/20 border border-blue-200 dark:border-blue-800 rounded-lg p-4">

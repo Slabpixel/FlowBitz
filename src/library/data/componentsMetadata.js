@@ -22,7 +22,7 @@ export const componentsMetadata = {
     examples: [
       {
         title: 'Character Split',
-        code: '<h1 wb-text-animate="split-text" wb-split-type="chars" wb-stagger-delay="50">Character by Character</h1>',
+        code: '<div wb-text-animate="split-text" wb-split-type="chars" wb-stagger-delay="50">Lorem Ipsum Dolor Sit Amet Consectetur Adipisicing Elit</div>',
         description: 'Each character animates individually'
       },
       {
@@ -63,7 +63,7 @@ export const componentsMetadata = {
       },
       {
         title: 'With Border',
-        code: '<div wb-text-animate="gradient-text" wb-colors="#a29bfe,#fd79a8,#fdcb6e" wb-show-border="true">Bordered Gradient</div>',
+        code: '<div style="padding: 16px;" wb-text-animate="gradient-text" wb-colors="#a29bfe,#fd79a8,#fdcb6e" wb-show-border="true">Bordered Gradient</div>',
         description: 'Gradient with animated border effect'
       }
     ]
@@ -84,7 +84,13 @@ export const componentsMetadata = {
     examples: [
       {
         title: 'Basic Typewriter',
-        code: '<h1 wb-text-animate="text-type">Hello World!</h1>',
+        code: `
+          <div wb-text-animate="text-type">
+  <p>First text to type</p>
+  <p>Second text to type</p>
+  <p>Third text to type</p>
+</div>
+        `,
         description: 'Basic typewriter effect'
       },
       {
@@ -153,7 +159,7 @@ export const componentsMetadata = {
       { name: 'wb-count-to', description: 'Target number to count to', default: '100' },
       { name: 'wb-duration', description: 'Animation duration in seconds', default: '2' },
       { name: 'wb-delay', description: 'Delay before animation starts', default: '0' },
-      { name: 'wb-format', description: 'Number format (e.g., "0,0" for commas)', default: 'none' }
+      { name: 'wb-count-separator', description: 'Number format', default: 'none' }
     ],
     examples: [
       {
@@ -163,7 +169,7 @@ export const componentsMetadata = {
       },
       {
         title: 'Formatted Count',
-        code: '<span wb-text-animate="count-up" wb-count-to="1250" wb-format="0,0">0</span>',
+        code: `<span wb-text-animate="count-up" wb-count-to="1250" wb-count-separator=","> 0 </span>`,
         description: 'Count with comma formatting'
       }
     ]
@@ -239,7 +245,21 @@ export const componentsMetadata = {
     examples: [
       {
         title: 'Rotating Text',
-        code: '<h1 wb-text-animate="rotating-text">Rotating Text</h1>',
+        code: `
+          <div 
+            wb-text-animate="rotating-text"
+            wb-rotating-split-by="characters"
+            wb-rotating-stagger-duration="25"
+            wb-rotating-stagger-from="first"
+            wb-rotating-interval="2000"
+            wb-rotating-ease="back.out(1.7)"
+            style="padding: 0.5rem; background-color: cornflowerblue; border-radius: 8px;"
+          >
+            <p>Animated</p>
+            <p>Rotating</p>
+            <p>Text</p>
+          </div>
+        `,
         description: 'Text rotates automatically'
       }
     ]
@@ -277,7 +297,15 @@ export const componentsMetadata = {
     examples: [
       {
         title: 'Text Cursor',
-        code: '<div wb-text-animate="text-cursor" wb-cursor-text="★">Move Mouse</div>',
+        code: `
+          <div 
+            wb-text-animate="text-cursor" 
+            wb-cursor-text="🎯"
+            style="width: 800px; height: 400px; background: #1a1a1a; cursor: crosshair;"
+          >
+            Move your mouse here for emoji trail!
+          </div>
+        `,
         description: 'Text follows mouse cursor'
       }
     ]
@@ -300,14 +328,58 @@ export const componentsMetadata = {
     ],
     examples: [
       {
-        title: 'Basic Shape Blur',
-        code: '<div wb-animate="shape-blur">Interactive Shape</div>',
+        title: 'Basic Rounded Rectacle Blur',
+        code: `
+          <div wb-animate="shape-blur" 
+            wb-shape-variation="0"
+            wb-shape-size="1.2"
+            wb-roundness="0.4"
+            style="height: 400px; width: 1000px; background: #1a1a1a;"
+          >
+          </div>
+        `,
         description: 'Basic interactive shape effect'
       },
       {
-        title: 'Custom Shape',
-        code: '<div wb-animate="shape-blur" wb-shape-size="1.5" wb-roundness="0.8">Custom Shape</div>',
-        description: 'Customized shape parameters'
+        title: 'Filled Circle Blur',
+        code: `
+          <div wb-animate="shape-blur"
+            wb-shape-variation="1"
+            wb-circle-size="0.4"
+            wb-circle-edge="0.3"
+            wb-mouse-damp="12"
+            style="height: 400px; width: 1000px; background: linear-gradient(45deg, #667eea, #764ba2);"
+          >
+          </div>
+        `,
+        description: 'Filled Circle shape parameters'
+      },
+      {
+        title: 'Circle Blur',
+        code: `
+          <div wb-animate="shape-blur"
+            wb-shape-variation="2"
+            wb-circle-size="0.5"
+            wb-circle-edge="0.8"
+            wb-pixel-ratio="3"
+            style="height: 400px; width: 1000px; background: #2c3e50;"
+          >
+          </div>
+        `,
+        description: 'Circle shape parameters'
+      },
+      {
+        title: 'Triagle Blur',
+        code: `
+          <div wb-animate="shape-blur"
+            wb-shape-variation="3"
+            wb-circle-size="0.4"
+            wb-mouse-damp="4"
+            style="height: 400px; width: 1000px; background: #8e44ad;"
+          >
+          </div>
+        `,
+        description: 'Triangle shape parameters'
       }
     ]
   },
@@ -325,7 +397,19 @@ export const componentsMetadata = {
     examples: [
       {
         title: 'Basic Trail',
-        code: '<img wb-animate="image-trail" src="image.jpg" alt="Trail Image">',
+        code: `
+          <div 
+            wb-animate="image-trail" 
+            wb-variant="1"
+            wb-threshold="80"
+            wb-images='[
+              "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=300&h=400&fit=crop",
+              "https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=300&h=400&fit=crop",
+              "https://images.unsplash.com/photo-1506197603052-3cc9c3a201bd?w=300&h=400&fit=crop"
+            ]'
+            style="width: 800px; height: 400px; background: #1a1a1a; cursor: pointer;">
+          </div>
+        `,
         description: 'Basic image trail effect'
       }
     ]
