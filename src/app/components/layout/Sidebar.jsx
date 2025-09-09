@@ -32,7 +32,7 @@ const Sidebar = ({ showBackLink = false }) => {
               <Link to="/components" className={`block px-0 py-2 text-muted-foreground no-underline rounded-md transition-all duration-200 text-sm font-medium ${
                 currentLink !== '/components'
                   ? 'px-0 hover:px-3 hover:text-foreground hover:bg-accent' 
-                  : 'px-3 hover:px-3 text-white bg-accent font-medium'
+                  : 'px-3 hover:px-3 text-foreground dark:text-white bg-accent font-medium'
               }`}>
                 Introduction
               </Link>
@@ -57,7 +57,7 @@ const Sidebar = ({ showBackLink = false }) => {
                       className={`block px-0 py-2 text-muted-foreground no-underline rounded-md transition-all duration-200 text-sm font-medium ${
                         currentComponentName !== component.key 
                           ? 'px-0 hover:px-3 hover:text-foreground hover:bg-accent' 
-                          : 'px-3 hover:px-3 text-white bg-accent font-medium'
+                          : 'px-3 hover:px-3 text-foreground dark:text-white bg-accent font-medium'
                       }`}
                     >
                       {component.name}
@@ -79,7 +79,7 @@ const Sidebar = ({ showBackLink = false }) => {
                       className={`block px-0 py-2 text-muted-foreground no-underline rounded-md transition-all duration-200 text-sm font-medium ${
                         currentComponentName !== component.key 
                           ? 'px-0 hover:px-3 hover:text-foreground hover:bg-accent' 
-                          : 'px-3 hover:px-3 text-white bg-accent font-medium'
+                          : 'px-3 hover:px-3 text-foreground dark:text-white bg-accent font-medium'
                       }`}
                     >
                       {component.name}
