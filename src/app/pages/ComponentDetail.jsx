@@ -77,8 +77,11 @@ const ComponentDetail = () => {
       <div className="space-y-8">
         {component.examples.map((example, index) => (
           <div key={index} className="space-y-6">
-            {/* Title */}
+            {/* Title & Description */}
+            <div className="space-y-2">
             <h3 className="text-3xl font-semibold text-foreground">{example.title}</h3>
+            <p className="text-muted-foreground leading-relaxed">{example.description}</p>
+            </div>
             
             {/* Preview */}
             <div className="relative bg-muted/50 rounded-lg p-12 overflow-hidden border border-border min-h-[300px] flex items-center justify-center">
@@ -91,25 +94,9 @@ const ComponentDetail = () => {
               >
                 <RotateCcw className="w-4 h-4" />
               </Button>
-              <div key={reloadKey} className="text-center [&_*]:text-7xl [&_*]:font-medium" dangerouslySetInnerHTML={{ __html: example.code }} />
+              <div key={reloadKey} className="text-center [&_*]:text-6xl [&_*]:font-medium" dangerouslySetInnerHTML={{ __html: example.code }} />
             </div>
             
-            {/* Code to Copy */}
-            <div className="relative">
-              <Button 
-                variant="outline" 
-                size="sm"
-                className="absolute top-4 right-4 bg-background border-border text-foreground hover:bg-accent z-10" 
-                onClick={(e) => copyCode(e.target)}
-              >
-                <Copy className="w-4 h-4" />
-                Copy
-              </Button>
-              <pre className="bg-slate-900 dark:bg-slate-800 rounded-lg p-6 overflow-x-auto whitespace-pre-wrap break-words border border-slate-700 dark:border-slate-600"><code className="text-slate-100 font-mono text-sm leading-relaxed" dangerouslySetInnerHTML={{ __html: highlightCode(example.code) }}></code></pre>
-            </div>
-            
-            {/* Description */}
-            <p className="text-muted-foreground leading-relaxed">{example.description}</p>
           </div>
         ))}
       </div>
@@ -167,9 +154,9 @@ const ComponentDetail = () => {
             <p className="text-muted-foreground ml-11">Add this attribute to any text element in your Webflow project.</p>
             
             <div className="ml-11 space-y-4">
-              <div className="space-y-3">
+              <div className="space-y-3 p-4 border border-border rounded-lg">
                 <div>
-                  <label className="text-sm font-medium text-foreground mb-2 block">Name:</label>
+                  <label className="text-sm font-medium text-foreground mb-2 block">Attribute Name</label>
                   <div className="relative">
                     <input 
                       type="text" 
@@ -196,7 +183,7 @@ const ComponentDetail = () => {
                   </div>
                 </div>
                 <div>
-                  <label className="text-sm font-medium text-foreground mb-2 block">Value:</label>
+                  <label className="text-sm font-medium text-foreground mb-2 block">Attribute Value</label>
                   <div className="relative">
                     <input 
                       type="text" 
