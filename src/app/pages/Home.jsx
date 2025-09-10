@@ -17,8 +17,8 @@ const Home = () => {
         <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-12 items-center">
           <div className="space-y-8">
             {/* Component Count Pill */}
-            <div className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-blue-500/10 to-purple-600/10 border border-blue-500/20 rounded-full text-sm font-medium text-blue-600 dark:text-blue-400">
-              <span className="w-2 h-2 bg-blue-500 rounded-full animate-pulse"></span>
+            <div className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-primary/10 to-purple-600/10 border border-primary/20 rounded-full text-sm font-medium text-primary">
+              <span className="w-2 h-2 bg-primary  rounded-full animate-pulse"></span>
               <span>16 Components Available</span>
             </div>
             
@@ -34,7 +34,7 @@ const Home = () => {
             <div className="flex flex-col sm:flex-row gap-4">
               <Button 
                 size="lg" 
-                className="bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700" 
+                className="bg-primary" 
                 onClick={() => navigate('/components')}
               >
                 <Zap className="w-5 h-5" />
@@ -79,32 +79,32 @@ const Home = () => {
             </p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <div className="bg-card border border-border rounded-xl p-8 text-center hover:bg-accent transition-all duration-300">
+            <div className="bg-card bg-muted rounded-xl p-8 text-center hover:bg-accent transition-all duration-300">
               <div className="text-4xl mb-4">🎨</div>
               <h3 className="text-xl font-semibold mb-3 text-foreground">16 Components</h3>
               <p className="text-muted-foreground">Comprehensive library of text animations and interactive effects</p>
             </div>
-            <div className="bg-card border border-border rounded-xl p-8 text-center hover:bg-accent transition-all duration-300">
+            <div className="bg-card bg-muted rounded-xl p-8 text-center hover:bg-accent transition-all duration-300">
               <div className="text-4xl mb-4">⚡</div>
               <h3 className="text-xl font-semibold mb-3 text-foreground">GSAP Powered</h3>
               <p className="text-muted-foreground">Built on industry-standard animation library for smooth performance</p>
             </div>
-            <div className="bg-card border border-border rounded-xl p-8 text-center hover:bg-accent transition-all duration-300">
+            <div className="bg-card bg-muted rounded-xl p-8 text-center hover:bg-accent transition-all duration-300">
               <div className="text-4xl mb-4">🔧</div>
               <h3 className="text-xl font-semibold mb-3 text-foreground">Easy Integration</h3>
               <p className="text-muted-foreground">Simple HTML attributes - no complex JavaScript required</p>
             </div>
-            <div className="bg-card border border-border rounded-xl p-8 text-center hover:bg-accent transition-all duration-300">
+            <div className="bg-card bg-muted rounded-xl p-8 text-center hover:bg-accent transition-all duration-300">
               <div className="text-4xl mb-4">📱</div>
               <h3 className="text-xl font-semibold mb-3 text-foreground">Responsive</h3>
               <p className="text-muted-foreground">Works perfectly across all devices and screen sizes</p>
             </div>
-            <div className="bg-card border border-border rounded-xl p-8 text-center hover:bg-accent transition-all duration-300">
+            <div className="bg-card bg-muted rounded-xl p-8 text-center hover:bg-accent transition-all duration-300">
               <div className="text-4xl mb-4">🎯</div>
               <h3 className="text-xl font-semibold mb-3 text-foreground">Webflow Ready</h3>
               <p className="text-muted-foreground">Designed specifically for Webflow's visual editor</p>
             </div>
-            <div className="bg-card border border-border rounded-xl p-8 text-center hover:bg-accent transition-all duration-300">
+            <div className="bg-card bg-muted rounded-xl p-8 text-center hover:bg-accent transition-all duration-300">
               <div className="text-4xl mb-4">🚀</div>
               <h3 className="text-xl font-semibold mb-3 text-foreground">Performance</h3>
               <p className="text-muted-foreground">Optimized for speed with minimal impact on page load</p>
@@ -126,7 +126,7 @@ const Home = () => {
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button 
                 size="lg" 
-                className="bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700"
+                className="bg-primary"
                 onClick={() => navigate('/components')}
               >
                 <Zap className="w-5 h-5" />

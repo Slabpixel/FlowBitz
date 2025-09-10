@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { useNavigate, useLocation } from 'react-router-dom'
 import ThemeToggle from '../ThemeToggle'
+import Logo from '../Logo'
 import { Home, Layers, BookOpen, Github } from 'lucide-react'
 
 const Navbar = () => {
@@ -27,9 +28,7 @@ const Navbar = () => {
             onClick={() => navigate('/')}
             className="flex items-center gap-2 transition-opacity duration-200 hover:opacity-80"
           >
-            <span className="text-xl font-bold text-foreground tracking-tight">
-              FlowBits
-            </span>
+            <Logo className="w-[96px] h-auto" />
           </button>
         </div>
         <div className={`nav-menu ${isMenuOpen ? 'active' : ''} hidden md:flex items-center gap-1`} id="nav-menu">
