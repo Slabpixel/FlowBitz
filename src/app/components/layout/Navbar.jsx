@@ -121,7 +121,7 @@ const Navbar = () => {
           </button>
           <button 
             onClick={() => {
-              window.open('https://github.com', '_blank')
+              window.open('https://github.com/Slabpixel/Webflow-Bits', '_blank')
               setIsMenuOpen(false)
             }}
             className="w-full py-3 px-4 rounded-lg font-medium transition-all duration-200 text-muted-foreground hover:text-foreground hover:bg-accent flex items-center gap-3"
