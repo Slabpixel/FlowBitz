@@ -7,7 +7,7 @@
 export { default as WebflowBits } from './core/WebflowBits.js'
 
 // Export the component registry
-export { ComponentRegistry, componentRegistry } from './core/componentRegistry.js'
+export { ComponentRegistry, componentRegistry } from './core/ComponentRegistry.js'
 
 // Export all components
 export { default as SplitText } from './components/text/splitText.js'
