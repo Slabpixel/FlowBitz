@@ -13,6 +13,9 @@ const Navbar = () => {
   }
 
   const isActive = (path) => {
+    if (path === '/components') {
+      return location.pathname === path || location.pathname.startsWith('/components/')
+    }
     return location.pathname === path
   }
 
@@ -53,14 +56,7 @@ const Navbar = () => {
             Components
           </button>
           <button 
-            onClick={() => window.open('#docs', '_blank')}
-            className="px-4 py-2 rounded-md font-medium text-sm transition-all duration-200 text-muted-foreground hover:text-foreground hover:bg-accent flex items-center gap-2"
-          >
-            <BookOpen className="w-4 h-4" />
-            Docs
-          </button>
-          <button 
-            onClick={() => window.open('https://github.com', '_blank')}
+            onClick={() => window.open('https://github.com/Slabpixel/Webflow-Bits', '_blank')}
             className="px-4 py-2 rounded-md font-medium text-sm transition-all duration-200 text-muted-foreground hover:text-foreground hover:bg-accent flex items-center gap-2"
           >
             <Github className="w-4 h-4" />

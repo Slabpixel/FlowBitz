@@ -6,12 +6,8 @@ import { Zap, Plus, Layers, Github } from 'lucide-react'
 const Home = () => {
   const navigate = useNavigate()
 
-  const handleGetStarted = () => {
-    document.getElementById('installation')?.scrollIntoView({ behavior: 'smooth' })
-  }
-
   const handleGitHub = () => {
-    window.open('https://github.com', '_blank')
+    window.open('https://github.com/Slabpixel/Webflow-Bits', '_blank')
   }
 
   return (
@@ -20,13 +16,19 @@ const Home = () => {
       <section className="relative flex items-center justify-center px-8 py-[64px]">
         <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-12 items-center">
           <div className="space-y-8">
+            {/* Component Count Pill */}
+            <div className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-blue-500/10 to-purple-600/10 border border-blue-500/20 rounded-full text-sm font-medium text-blue-600 dark:text-blue-400">
+              <span className="w-2 h-2 bg-blue-500 rounded-full animate-pulse"></span>
+              <span>16 Components Available</span>
+            </div>
+            
             <h1 className="text-5xl lg:text-6xl font-bold leading-tight text-foreground" 
                 wb-text-animate="blur-text" wb-animate-by="words" wb-delay="200">
               Interactive Components for Webflow
             </h1>
             <p className="text-xl text-muted-foreground leading-relaxed" 
                wb-text-animate="blur-text" wb-animate-by="words" wb-delay="200">
-              Create stunning animations and interactive effects with our powerful library of 15+ components. 
+              Create stunning animations and interactive effects with our powerful library components. 
               Easy to use, performant, and designed specifically for Webflow.
             </p>
             <div className="flex flex-col sm:flex-row gap-4">
@@ -42,10 +44,10 @@ const Home = () => {
                 variant="outline" 
                 size="lg" 
                 className="border-border hover:bg-accent"
-                onClick={handleGetStarted}
+                onClick={handleGitHub}
               >
-                <Plus className="w-5 h-5" />
-                Get Started
+                <Github className="w-5 h-5" />
+                GitHub
               </Button>
             </div>
           </div>
@@ -79,7 +81,7 @@ const Home = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             <div className="bg-card border border-border rounded-xl p-8 text-center hover:bg-accent transition-all duration-300">
               <div className="text-4xl mb-4">🎨</div>
-              <h3 className="text-xl font-semibold mb-3 text-foreground">15+ Components</h3>
+              <h3 className="text-xl font-semibold mb-3 text-foreground">16 Components</h3>
               <p className="text-muted-foreground">Comprehensive library of text animations and interactive effects</p>
             </div>
             <div className="bg-card border border-border rounded-xl p-8 text-center hover:bg-accent transition-all duration-300">
@@ -127,8 +129,8 @@ const Home = () => {
                 className="bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700"
                 onClick={() => navigate('/components')}
               >
-                <Layers className="w-5 h-5" />
-                Start Building
+                <Zap className="w-5 h-5" />
+                Explore Components
               </Button>
               <Button 
                 variant="outline" 
@@ -137,7 +139,7 @@ const Home = () => {
                 onClick={handleGitHub}
               >
                 <Github className="w-5 h-5" />
-                View on GitHub
+                GitHub
               </Button>
             </div>
           </div>

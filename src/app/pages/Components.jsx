@@ -11,13 +11,13 @@ const Components = () => {
 
         {/* Main Content */}
         <main className="flex flex-col p-16 w-full items-center">
-          <div className="max-w-6xl w-full mb-8">
-            <h1 className="text-4xl font-bold mb-2 gradient-text">Introduction</h1>
+          <div className="w-full max-w-[970px] mb-8">
+            <h1 className="text-4xl font-bold mb-2 text-foreground">Introduction</h1>
             <p className="text-muted-foreground text-lg">Explore our library of interactive components</p>
           </div>
 
           {/* Introduction Content */}
-          <div className="max-w-6xl w-full">
+          <div className="w-full max-w-[970px]">
             <div className="mb-12">
               <h2 className="text-3xl font-bold mb-6 text-foreground">FlowBits</h2>
               <p className="text-muted-foreground text-lg leading-relaxed mb-4">
