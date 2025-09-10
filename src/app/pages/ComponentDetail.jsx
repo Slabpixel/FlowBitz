@@ -23,12 +23,12 @@ const highlightCode = (code) => {
     }
     if (openTag && tagName) {
       const highlightedContent = tagContent.replace(/(\s)([a-zA-Z-]+)(=)(&quot;[^&]*&quot;|&#39;[^&]*&#39;)/g, 
-        '<span class="text-gray-300">$1</span><span class="text-yellow-300">$2</span><span class="text-gray-300">$3</span><span class="text-green-400">$4</span>')
-      const closeTagSpan = closeTag ? `<span class="text-blue-400">${closeTag}</span>` : ''
-      return `<span class="text-blue-400">${openTag}</span><span class="text-orange-400">${tagName}</span>${highlightedContent}${closeTagSpan}`
+        '<span class="text-gray-300">&nbsp;</span><span class="text-yellow-300">$2</span><span class="text-gray-300">$3</span><span class="text-green-400">$4</span>')
+      const closeTagSpan = closeTag ? `<span class="text-primary">${closeTag}</span>` : ''
+      return `<span class="text-primary">${openTag}</span><span class="text-orange-400">${tagName}</span>${highlightedContent}${closeTagSpan}`
     }
     if (attrSpace && attrName && attrEquals && attrValue) {
-      return `<span class="text-gray-300">${attrSpace}</span><span class="text-yellow-300">${attrName}</span><span class="text-gray-300">${attrEquals}</span><span class="text-green-400">${attrValue}</span>`
+      return `<span class="text-gray-300">&nbsp;</span><span class="text-yellow-300">${attrName}</span><span class="text-gray-300">${attrEquals}</span><span class="text-green-400">${attrValue}</span>`
     }
     if (keyword) {
       return `<span class="text-white">${keyword}</span>`
@@ -92,7 +92,7 @@ const ComponentDetail = () => {
           <div key={index} className="space-y-6">
             {/* Title & Description */}
             <div className="space-y-2">
-            <h3 className="text-3xl font-semibold text-foreground">{example.title}</h3>
+            <h3 className="text-2xl font-semibold text-foreground">{example.title}</h3>
             <p className="text-muted-foreground leading-relaxed">{example.description}</p>
             </div>
             
@@ -123,9 +123,9 @@ const ComponentDetail = () => {
           <h3 className="text-2xl font-semibold mb-6 text-foreground">Installation Guide</h3>
           
           {/* Step 1: Add Script */}
-          <div className="space-y-4 mb-8 pb-8 border-b border-border">
+          <div className="space-y-4 mb-8 p-8 card rounded-lg border border-border">
             <div className="flex items-center gap-3">
-              <div className="w-8 h-8 bg-blue-500 text-white rounded-full flex items-center justify-center font-semibold text-sm">1</div>
+              <div className="w-8 h-8 bg-primary text-white rounded-full flex items-center justify-center font-semibold text-sm">1</div>
               <h4 className="text-xl font-medium text-foreground">Add WebflowBits Script</h4>
             </div>
             <p className="text-muted-foreground ml-11">Add the WebflowBits script to your Webflow project's custom code section.</p>
@@ -156,17 +156,17 @@ const ComponentDetail = () => {
               </div>
             </div>
             
-            <div className="ml-11 bg-blue-50 dark:bg-blue-950/20 border border-blue-200 dark:border-blue-800 rounded-lg p-4">
-              <p className="text-sm text-blue-800 dark:text-blue-200">
+            <div className="ml-11 bg-primary/10 border border-primary/20 rounded-lg p-4">
+              <p className="text-sm text-primary">
                 <strong>💡 Pro Tip:</strong> Go to your Webflow project settings → Custom Code → Footer Code, and paste the script there.
               </p>
             </div>
           </div>
 
           {/* Step 2: Add Attributes */}
-          <div className="space-y-4 mb-8 pb-8 border-b border-border">
+          <div className="space-y-4 mb-8 p-8 card rounded-lg border border-border">
             <div className="flex items-center gap-3">
-              <div className="w-8 h-8 bg-blue-500 text-white rounded-full flex items-center justify-center font-semibold text-sm">2</div>
+              <div className="w-8 h-8 bg-primary text-white rounded-full flex items-center justify-center font-semibold text-sm">2</div>
               <h4 className="text-xl font-medium text-foreground">Add Component Attributes</h4>
             </div>
             <p className="text-muted-foreground ml-11">Add this attribute to any text element in your Webflow project.</p>
@@ -222,17 +222,17 @@ const ComponentDetail = () => {
               </div>
             </div>
             
-            <div className="ml-11 bg-blue-50 dark:bg-blue-950/20 border border-blue-200 dark:border-blue-800 rounded-lg p-4">
-              <p className="text-sm text-blue-800 dark:text-blue-200">
+            <div className="ml-11 bg-primary/10 border border-primary/20 rounded-lg p-4">
+              <p className="text-sm text-primary">
                 <strong>📝 Note:</strong> In Webflow, you can add custom attributes by selecting your element, going to Element Settings → Custom Attributes, and adding the attribute name and value.
               </p>
             </div>
           </div>
 
           {/* Step 3: Available Attributes */}
-          <div className="space-y-4 mb-8 pb-8 border-b border-border">
+          <div className="space-y-4 mb-8 p-8 card rounded-lg border border-border">
             <div className="flex items-center gap-3">
-              <div className="w-8 h-8 bg-blue-500 text-white rounded-full flex items-center justify-center font-semibold text-sm">3</div>
+              <div className="w-8 h-8 bg-primary text-white rounded-full flex items-center justify-center font-semibold text-sm">3</div>
               <h4 className="text-xl font-medium text-foreground">Available Attributes</h4>
             </div>
             <p className="text-muted-foreground ml-11">Use these attributes to customize the animation behavior and appearance.</p>
@@ -260,15 +260,15 @@ const ComponentDetail = () => {
               </div>
             </div>
             
-            <div className="ml-11 bg-blue-50 dark:bg-blue-950/20 border border-blue-200 dark:border-blue-800 rounded-lg p-4">
-              <p className="text-sm text-blue-800 dark:text-blue-200">
+            <div className="ml-11 bg-primary/10 border border-primary/20 rounded-lg p-4">
+              <p className="text-sm text-primary">
                 <strong>🎨 Customization:</strong> Add any of these attributes to your element to customize the animation behavior, timing, and appearance.
               </p>
             </div>
           </div>
 
           {/* Step 4: Publish */}
-          <div className="space-y-4 mb-8">
+          <div className="space-y-4 mb-8 p-8 card rounded-lg border border-border">
             <div className="flex items-center gap-3">
               <div className="w-8 h-8 bg-green-500 text-white rounded-full flex items-center justify-center font-semibold text-sm">4</div>
               <h4 className="text-xl font-medium text-foreground">Publish Your Site</h4>
@@ -296,13 +296,13 @@ const ComponentDetail = () => {
 
         {/* Main Content */}
         <main className="flex flex-col p-16 w-full items-center">
-          <div className="max-w-6xl w-full mb-8">
-            <h1 className="text-4xl font-bold mb-2 gradient-text">{component.name}</h1>
+          <div className="w-full max-w-[970px] mb-8">
+            <h1 className="text-4xl font-bold mb-2 text-foreground">{component.name}</h1>
             <p className="text-muted-foreground text-lg">{component.description}</p>
           </div>
 
           {/* Tabs */}
-          <div className="max-w-6xl w-full">
+          <div className="w-full max-w-[970px]">
             <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
               <TabsList className="flex w-fit flex-row mb-8 bg-muted border border-border">
                 <TabsTrigger value="preview" className="data-[state=active]:bg-background data-[state=active]:text-foreground flex items-center gap-2">
@@ -315,11 +315,11 @@ const ComponentDetail = () => {
                 </TabsTrigger>
               </TabsList>
               
-              <TabsContent value="preview" className="bg-card rounded-lg p-8 overflow-hidden border border-border">
+              <TabsContent value="preview">
                 {renderPreviewContent()}
               </TabsContent>
               
-              <TabsContent value="installation" className="bg-card rounded-lg p-8 overflow-hidden border border-border">
+              <TabsContent value="installation">
                 {renderInstallationContent()}
               </TabsContent>
             </Tabs>

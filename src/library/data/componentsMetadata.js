@@ -7,7 +7,7 @@
 export const componentsMetadata = {
   // Text Components
   'split-text': {
-    name: 'SplitText',
+    name: 'Split Text',
     description: 'Character, word, or line-based split animations',
     category: 'text',
     file: 'splitText.js',
@@ -39,7 +39,7 @@ export const componentsMetadata = {
   },
 
   'gradient-text': {
-    name: 'GradientText',
+    name: 'Gradient Text',
     description: 'Animated gradient text with customizable colors',
     category: 'text',
     file: 'gradientText.js',
@@ -71,7 +71,7 @@ export const componentsMetadata = {
   },
 
   'text-type': {
-    name: 'TextType',
+    name: 'Text Type',
     description: 'Typewriter effect with customizable cursor',
     category: 'text',
     file: 'textType.js',
@@ -112,7 +112,7 @@ export const componentsMetadata = {
   },
 
   'blur-text': {
-    name: 'BlurText',
+    name: 'Blur Text',
     description: 'Blur-to-clear transition effects',
     category: 'text',
     file: 'blurText.js',
@@ -140,7 +140,7 @@ export const componentsMetadata = {
   },
 
   'shiny-text': {
-    name: 'ShinyText',
+    name: 'Shiny Text',
     description: 'Shimmer and shine text effects',
     category: 'text',
     file: 'shinyText.js',
@@ -165,7 +165,7 @@ export const componentsMetadata = {
   },
 
   'count-up': {
-    name: 'CountUp',
+    name: 'Count Up',
     description: 'Animated number counting',
     category: 'text',
     file: 'countUp.js',
@@ -199,7 +199,7 @@ export const componentsMetadata = {
   },
 
   'decrypted-text': {
-    name: 'DecryptedText',
+    name: 'Decrypted Text',
     description: 'Matrix-style decryption effects',
     category: 'text',
     file: 'decryptedText.js',
@@ -225,7 +225,7 @@ export const componentsMetadata = {
   },
 
   'scramble-text': {
-    name: 'ScrambleText',
+    name: 'Scramble Text',
     description: 'Interactive character scrambling',
     category: 'text',
     file: 'scrambleText.js',
@@ -247,7 +247,7 @@ export const componentsMetadata = {
   },
 
   'variable-proximity': {
-    name: 'VariableProximity',
+    name: 'Variable Proximity',
     description: 'Mouse proximity font variations',
     category: 'text',
     file: 'variableProximity.js',
@@ -269,7 +269,7 @@ export const componentsMetadata = {
   },
 
   'rotating-text': {
-    name: 'RotatingText',
+    name: 'Rotating Text',
     description: 'Auto-rotating text with stagger effects',
     category: 'text',
     file: 'rotatingText.js',
@@ -331,7 +331,7 @@ export const componentsMetadata = {
   },
 
   'text-pressure': {
-    name: 'TextPressure',
+    name: 'Text Pressure',
     description: 'Mouse proximity font variations with variable fonts',
     category: 'text',
     file: 'textPressure.js',
@@ -357,7 +357,7 @@ export const componentsMetadata = {
   },
 
   'text-cursor': {
-    name: 'TextCursor',
+    name: 'Text Cursor',
     description: 'Mouse-following text/emoji trail effects',
     category: 'text',
     file: 'textCursor.js',
@@ -445,7 +445,7 @@ export const componentsMetadata = {
 
   // Interactive Components
   'shape-blur': {
-    name: 'ShapeBlur',
+    name: 'Shape Blur',
     description: 'WebGL shader-based interactive shape effects',
     category: 'interactive',
     file: 'shapeBlur.js',
@@ -518,7 +518,7 @@ export const componentsMetadata = {
   },
 
   'image-trail': {
-    name: 'ImageTrail',
+    name: 'Image Trail',
     description: 'Mouse-following image trail effects',
     category: 'interactive',
     file: 'imageTrail.js',
@@ -553,7 +553,7 @@ export const componentsMetadata = {
   },
 
   'magnet-lines': {
-    name: 'MagnetLines',
+    name: 'Magnet Lines',
     description: 'Interactive magnetic line grid',
     category: 'interactive',
     file: 'magnetLines.js',
