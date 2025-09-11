@@ -43,7 +43,7 @@ WebflowBits includes fifteen powerful animation components:
 Add the following attribute to any text element:
 
 ```html
-<p wb-text-animate="split-text">Your text here</p>
+<p wb-component="split-text">Your text here</p>
 ```
 
 **Available attributes:**
@@ -60,19 +60,19 @@ Add the following attribute for typewriter effect:
 
 ```html
 <!-- Method 1: Using paragraph elements (Recommended for Webflow) -->
-<div wb-text-animate="text-type">
+<div wb-component="text-type">
   <p>First text to type</p>
   <p>Second text to type</p>
   <p>Third text to type</p>
 </div>
 
 <!-- Method 2: Using JSON attribute -->
-<div wb-text-animate="text-type" wb-text-array='["Text 1", "Text 2"]'>
+<div wb-component="text-type" wb-text-array='["Text 1", "Text 2"]'>
   Fallback text
 </div>
 
 <!-- Method 3: Single text -->
-<div wb-text-animate="text-type">Your single text here</div>
+<div wb-component="text-type">Your single text here</div>
 ```
 
 **Available attributes:**
@@ -105,7 +105,7 @@ The paragraph method is recommended for Webflow as it provides better visual edi
 Add blur effect animation to text elements:
 
 ```html
-<p wb-text-animate="blur-text">Your text here</p>
+<p wb-component="blur-text">Your text here</p>
 ```
 
 **Available attributes:**
@@ -120,7 +120,7 @@ Add blur effect animation to text elements:
 **Example:**
 ```html
 <!-- Word-by-word blur from top -->
-<h2 wb-text-animate="blur-text" 
+<h2 wb-component="blur-text" 
     wb-animate-by="words" 
     wb-direction="top" 
     wb-delay="150">
@@ -128,7 +128,7 @@ Add blur effect animation to text elements:
 </h2>
 
 <!-- Character-by-character blur from bottom -->
-<p wb-text-animate="blur-text" 
+<p wb-component="blur-text" 
    wb-animate-by="chars" 
    wb-direction="bottom" 
    wb-delay="50">
@@ -141,7 +141,7 @@ Add blur effect animation to text elements:
 Add shimmer/shine effect to text elements:
 
 ```html
-<p wb-text-animate="shiny-text">Your shiny text here</p>
+<p wb-component="shiny-text">Your shiny text here</p>
 ```
 
 **Available attributes:**
@@ -153,10 +153,10 @@ Add shimmer/shine effect to text elements:
 **Examples:**
 ```html
 <!-- Basic shiny text -->
-<h1 wb-text-animate="shiny-text">Shiny Header</h1>
+<h1 wb-component="shiny-text">Shiny Header</h1>
 
 <!-- Fast golden shine -->
-<p wb-text-animate="shiny-text" 
+<p wb-component="shiny-text" 
    wb-speed="2" 
    wb-text-color="#d4af37" 
    wb-shine-color="rgba(255, 215, 0, 0.9)">
@@ -164,7 +164,7 @@ Add shimmer/shine effect to text elements:
 </p>
 
 <!-- Custom colored shine -->
-<span wb-text-animate="shiny-text" 
+<span wb-component="shiny-text" 
       wb-speed="8" 
       wb-text-color="#6b46c1" 
       wb-shine-color="rgba(196, 181, 253, 0.8)">
@@ -172,7 +172,7 @@ Add shimmer/shine effect to text elements:
 </span>
 
 <!-- Disabled state (can be toggled via JavaScript) -->
-<p wb-text-animate="shiny-text" wb-disabled="true">
+<p wb-component="shiny-text" wb-disabled="true">
   Initially disabled shine
 </p>
 ```
@@ -182,7 +182,7 @@ Add shimmer/shine effect to text elements:
 Add animated gradient effects to text elements:
 
 ```html
-<p wb-text-animate="gradient-text">Your gradient text here</p>
+<p wb-component="gradient-text">Your gradient text here</p>
 ```
 
 **Available attributes:**
@@ -195,13 +195,13 @@ Add animated gradient effects to text elements:
 **Color Format Options:**
 ```html
 <!-- Comma-separated colors -->
-<h1 wb-text-animate="gradient-text" 
+<h1 wb-component="gradient-text" 
     wb-colors="#ff6b6b,#4ecdc4,#45b7d1,#96ceb4">
   Comma Separated Colors
 </h1>
 
 <!-- JSON array format -->
-<h2 wb-text-animate="gradient-text" 
+<h2 wb-component="gradient-text" 
     wb-colors='["#e056fd", "#f0932b", "#eb4d4b", "#6c5ce7"]'>
   JSON Array Colors
 </h2>
@@ -210,17 +210,17 @@ Add animated gradient effects to text elements:
 **Examples:**
 ```html
 <!-- Basic gradient text -->
-<h1 wb-text-animate="gradient-text">Basic Gradient</h1>
+<h1 wb-component="gradient-text">Basic Gradient</h1>
 
 <!-- Fast gradient with custom colors -->
-<p wb-text-animate="gradient-text" 
+<p wb-component="gradient-text" 
    wb-colors="#ff9ff3,#f368e0,#ff3838,#ff9500" 
    wb-animation-speed="2">
   Fast Custom Gradient
 </p>
 
 <!-- Gradient with border effect -->
-<div wb-text-animate="gradient-text" 
+<div wb-component="gradient-text" 
      wb-colors="#a29bfe,#fd79a8,#fdcb6e" 
      wb-show-border="true" 
      wb-border-color="#1a1a2e">
@@ -228,7 +228,7 @@ Add animated gradient effects to text elements:
 </div>
 
 <!-- Disabled gradient (can be enabled via JavaScript) -->
-<span wb-text-animate="gradient-text" 
+<span wb-component="gradient-text" 
       wb-colors="#74b9ff,#0984e3,#00b894" 
       wb-disabled="true">
   Paused Gradient
@@ -238,7 +238,7 @@ Add animated gradient effects to text elements:
 **JavaScript Controls:**
 ```javascript
 const gradientText = WebflowBits.getComponent('gradientText');
-const element = document.querySelector('[wb-text-animate="gradient-text"]');
+const element = document.querySelector('[wb-component="gradient-text"]');
 
 // Enable/disable animation
 gradientText.enable(element);
@@ -259,7 +259,7 @@ gradientText.toggleBorder(element, true); // Show border
 Add matrix-style decryption effects to text elements:
 
 ```html
-<p wb-text-animate="decrypt-text">Your text here</p>
+<p wb-component="decrypt-text">Your text here</p>
 ```
 
 **Available attributes:**
@@ -277,12 +277,12 @@ Add matrix-style decryption effects to text elements:
 **Examples:**
 ```html
 <!-- Basic hover decryption -->
-<h1 wb-text-animate="decrypt-text">
+<h1 wb-component="decrypt-text">
   Hover to Decrypt
 </h1>
 
 <!-- Sequential reveal from center -->
-<p wb-text-animate="decrypt-text" 
+<p wb-component="decrypt-text" 
    wb-sequential="true"
    wb-reveal-direction="center"
    wb-speed="30">
@@ -290,7 +290,7 @@ Add matrix-style decryption effects to text elements:
 </p>
 
 <!-- View-triggered with custom characters -->
-<div wb-text-animate="decrypt-text"
+<div wb-component="decrypt-text"
      wb-animate-on="view"
      wb-characters="01010101"
      wb-max-iterations="15">
@@ -298,7 +298,7 @@ Add matrix-style decryption effects to text elements:
 </div>
 
 <!-- Using only original characters -->
-<span wb-text-animate="decrypt-text"
+<span wb-component="decrypt-text"
       wb-use-original-chars="true"
       wb-sequential="true">
   Original Characters Only
@@ -310,7 +310,7 @@ Add matrix-style decryption effects to text elements:
 Add interactive hover-based character scrambling with proximity effects:
 
 ```html
-<p wb-text-animate="scramble-text">Your text here</p>
+<p wb-component="scramble-text">Your text here</p>
 ```
 
 **Available attributes:**
@@ -324,12 +324,12 @@ Add interactive hover-based character scrambling with proximity effects:
 **Examples:**
 ```html
 <!-- Basic scramble on hover -->
-<h1 wb-text-animate="scramble-text">
+<h1 wb-component="scramble-text">
   Hover to Scramble
 </h1>
 
 <!-- Custom radius and characters -->
-<p wb-text-animate="scramble-text"
+<p wb-component="scramble-text"
    wb-radius="120"
    wb-duration="1.5"
    wb-scramble-chars="!@#$%^&*()">
@@ -337,7 +337,7 @@ Add interactive hover-based character scrambling with proximity effects:
 </p>
 
 <!-- Binary style scrambling -->
-<div wb-text-animate="scramble-text"
+<div wb-component="scramble-text"
      wb-radius="80"
      wb-duration="0.8"
      wb-speed="1.2"
@@ -346,7 +346,7 @@ Add interactive hover-based character scrambling with proximity effects:
 </div>
 
 <!-- Fast scramble with symbols -->
-<span wb-text-animate="scramble-text"
+<span wb-component="scramble-text"
       wb-speed="1.5"
       wb-scramble-chars="▓▒░█"
       wb-radius="150">
@@ -359,7 +359,7 @@ Add interactive hover-based character scrambling with proximity effects:
 const scrambleText = WebflowBits.getComponent('scrambleText');
 const rotatingText = WebflowBits.getComponent('rotatingText');
 const variableProximity = WebflowBits.getComponent('variableProximity');
-const element = document.querySelector('[wb-text-animate="scramble-text"]');
+const element = document.querySelector('[wb-component="scramble-text"]');
 
 // Manually trigger scramble effect
 scrambleText.triggerScramble(element);
@@ -382,7 +382,7 @@ scrambleText.updateConfig(element, {
 Add mouse proximity-based font variation effects to text elements using variable fonts:
 
 ```html
-<p wb-text-animate="variable-proximity">Your text here</p>
+<p wb-component="variable-proximity">Your text here</p>
 ```
 
 **Available attributes:**
@@ -403,12 +403,12 @@ Font variation settings should be formatted as CSS font-variation-settings value
 **Examples:**
 ```html
 <!-- Basic variable proximity with default Roboto Flex -->
-<h1 wb-text-animate="variable-proximity">
+<h1 wb-component="variable-proximity">
   Hover Over Me
 </h1>
 
 <!-- Custom weight range with smaller radius -->
-<p wb-text-animate="variable-proximity"
+<p wb-component="variable-proximity"
    wb-from-font-variation="'wght' 300, 'opsz' 20"
    wb-to-font-variation="'wght' 700, 'opsz' 100"
    wb-radius="30">
@@ -416,7 +416,7 @@ Font variation settings should be formatted as CSS font-variation-settings value
 </p>
 
 <!-- Exponential falloff for dramatic effect -->
-<div wb-text-animate="variable-proximity"
+<div wb-component="variable-proximity"
      wb-from-font-variation="'wght' 100, 'opsz' 8"
      wb-to-font-variation="'wght' 900, 'opsz' 144"
      wb-radius="80"
@@ -425,7 +425,7 @@ Font variation settings should be formatted as CSS font-variation-settings value
 </div>
 
 <!-- Gaussian falloff for smooth transitions -->
-<span wb-text-animate="variable-proximity"
+<span wb-component="variable-proximity"
       wb-from-font-variation="'wght' 200, 'opsz' 12"
       wb-to-font-variation="'wght' 800, 'opsz' 120"
       wb-radius="60"
@@ -435,7 +435,7 @@ Font variation settings should be formatted as CSS font-variation-settings value
 
 <!-- Container-based tracking -->
 <div class="hero-section">
-  <h1 wb-text-animate="variable-proximity"
+  <h1 wb-component="variable-proximity"
       wb-container=".hero-section"
       wb-radius="100">
     Container-Based Effect
@@ -446,7 +446,7 @@ Font variation settings should be formatted as CSS font-variation-settings value
 **JavaScript Controls:**
 ```javascript
 const variableProximity = WebflowBits.getComponent('variableProximity');
-const element = document.querySelector('[wb-text-animate="variable-proximity"]');
+const element = document.querySelector('[wb-component="variable-proximity"]');
 
 // Update configuration
 variableProximity.updateConfig(element, {
@@ -471,7 +471,7 @@ console.log(instance.config);
 Add rotating text with smooth transitions and customizable stagger effects:
 
 ```html
-<div wb-text-animate="rotating-text">
+<div wb-component="rotating-text">
   <p>First rotating text</p>
   <p>Second rotating text</p>
   <p>Third rotating text</p>
@@ -499,14 +499,14 @@ Add rotating text with smooth transitions and customizable stagger effects:
 **Examples:**
 ```html
 <!-- Basic rotating text with paragraph elements -->
-<div wb-text-animate="rotating-text">
+<div wb-component="rotating-text">
   <p>Welcome to our site</p>
   <p>Explore amazing features</p>
   <p>Join us today</p>
 </div>
 
 <!-- Character-by-character with stagger from center -->
-<h1 wb-text-animate="rotating-text"
+<h1 wb-component="rotating-text"
     wb-split-by="characters"
     wb-stagger-duration="50"
     wb-stagger-from="center"
@@ -517,7 +517,7 @@ Add rotating text with smooth transitions and customizable stagger effects:
 </h1>
 
 <!-- Word-by-word rotation with custom timing -->
-<span wb-text-animate="rotating-text"
+<span wb-component="rotating-text"
       wb-split-by="words"
       wb-rotation-interval="3000"
       wb-stagger-duration="100"
@@ -528,7 +528,7 @@ Add rotating text with smooth transitions and customizable stagger effects:
 </span>
 
 <!-- Manual control (no auto-rotation) -->
-<div wb-text-animate="rotating-text"
+<div wb-component="rotating-text"
      wb-auto="false"
      wb-split-by="lines">
   <p>First line of text</p>
@@ -537,7 +537,7 @@ Add rotating text with smooth transitions and customizable stagger effects:
 </div>
 
 <!-- JSON attribute method -->
-<p wb-text-animate="rotating-text"
+<p wb-component="rotating-text"
    wb-texts='["Option A", "Option B", "Option C"]'
    wb-stagger-from="last">
   Fallback text
@@ -547,7 +547,7 @@ Add rotating text with smooth transitions and customizable stagger effects:
 **JavaScript Controls:**
 ```javascript
 const rotatingText = WebflowBits.getComponent('rotatingText');
-const element = document.querySelector('[wb-text-animate="rotating-text"]');
+const element = document.querySelector('[wb-component="rotating-text"]');
 
 // Manual navigation
 rotatingText.next(element);       // Go to next text
@@ -576,7 +576,7 @@ console.log(instance.config, instance.currentIndex);
 Add mouse proximity-based font variation effects to text elements using variable fonts:
 
 ```html
-<div wb-text-animate="text-pressure">Your text here</div>
+<div wb-component="text-pressure">Your text here</div>
 ```
 
 **Available attributes:**
@@ -609,7 +609,7 @@ TextPressure now supports custom fonts! You can add your own variable font by de
 
 Then use it with the component:
 ```html
-<div wb-text-animate="text-pressure"
+<div wb-component="text-pressure"
      wb-font-family="MyCustomVF, sans-serif"
      wb-text="CUSTOM">
 </div>
@@ -628,14 +628,14 @@ Any font (including custom fonts) will receive the full pressure effect with wei
 **Examples:**
 ```html
 <!-- Basic TextPressure with default Compressa VF -->
-<div wb-text-animate="text-pressure"
+<div wb-component="text-pressure"
      wb-text="PRESSURE"
      wb-text-color="#FFFFFF"
      style="width: 400px; height: 200px; background: #1a1a1a;">
 </div>
 
 <!-- Using Roboto Flex -->
-<div wb-text-animate="text-pressure"
+<div wb-component="text-pressure"
      wb-text="ROBOTO"
      wb-font-family="Roboto Flex, sans-serif"
      wb-text-color="#FFFFFF"
@@ -650,7 +650,7 @@ Any font (including custom fonts) will receive the full pressure effect with wei
     font-variation-settings: 'wght' 400, 'wdth' 100, 'ital' 0;
   }
 </style>
-<div wb-text-animate="text-pressure"
+<div wb-component="text-pressure"
      wb-text="CUSTOM"
      wb-font-family="MyVariableFont, sans-serif"
      wb-text-color="#FFFFFF"
@@ -658,7 +658,7 @@ Any font (including custom fonts) will receive the full pressure effect with wei
 </div>
 
 <!-- Weight only effect with regular font -->
-<div wb-text-animate="text-pressure"
+<div wb-component="text-pressure"
      wb-text="BOLD"
      wb-font-family="Inter, sans-serif"
      wb-weight="true"
@@ -668,7 +668,7 @@ Any font (including custom fonts) will receive the full pressure effect with wei
 </div>
 
 <!-- With stroke effect -->
-<div wb-text-animate="text-pressure"
+<div wb-component="text-pressure"
      wb-text="STROKE"
      wb-stroke="true"
      wb-stroke-color="#FF0000"
@@ -677,7 +677,7 @@ Any font (including custom fonts) will receive the full pressure effect with wei
 </div>
 
 <!-- Alpha effect -->
-<div wb-text-animate="text-pressure"
+<div wb-component="text-pressure"
      wb-text="FADE"
      wb-alpha="true"
      wb-weight="true"
@@ -690,7 +690,7 @@ Any font (including custom fonts) will receive the full pressure effect with wei
 **JavaScript Controls:**
 ```javascript
 const textPressure = WebflowBits.getComponent('textPressure');
-const element = document.querySelector('[wb-text-animate="text-pressure"]');
+const element = document.querySelector('[wb-component="text-pressure"]');
 
 // Update configuration
 textPressure.updateConfig(element, {
@@ -727,7 +727,7 @@ console.log(instance.config);
 Add animated number counting to numeric text elements:
 
 ```html
-<span wb-text-animate="count-up">1000</span>
+<span wb-componente="count-up">1000</span>
 ```
 
 **Available attributes:**
@@ -747,10 +747,10 @@ Add animated number counting to numeric text elements:
 **Examples:**
 ```html
 <!-- Basic counter -->
-<span wb-text-animate="count-up" wb-count-to="1250">0</span>
+<span wb-componente="count-up" wb-count-to="1250">0</span>
 
 <!-- Currency with formatting -->
-<span wb-text-animate="count-up" 
+<span wb-component="count-up" 
       wb-count-to="99999" 
       wb-count-separator=","
       wb-duration="3">
@@ -758,7 +758,7 @@ Add animated number counting to numeric text elements:
 </span>
 
 <!-- Percentage with decimal places -->
-<span wb-text-animate="count-up" 
+<span wb-component="count-up" 
       wb-count-to="85.7" 
       wb-count-precision="1"
       wb-duration="1.5">
@@ -766,7 +766,7 @@ Add animated number counting to numeric text elements:
 </span>
 
 <!-- Large numbers with separator -->
-<span wb-text-animate="count-up" 
+<span wb-component="count-up" 
       wb-count-to="2500000" 
       wb-count-separator=","
       wb-duration="2.5"
@@ -775,7 +775,7 @@ Add animated number counting to numeric text elements:
 </span>
 
 <!-- Custom range (not starting from 0) -->
-<span wb-text-animate="count-up" 
+<span wb-component="count-up" 
       wb-count-from="50" 
       wb-count-to="100" 
       wb-duration="1.8">
@@ -783,7 +783,7 @@ Add animated number counting to numeric text elements:
 </span>
 
 <!-- Count down animation -->
-<span wb-text-animate="count-up" 
+<span wb-component="count-up" 
       wb-count-direction="down"
       wb-count-from="100"
       wb-count-to="0"
@@ -792,14 +792,14 @@ Add animated number counting to numeric text elements:
 </span>
 
 <!-- Auto-start disabled (manual trigger) -->
-<span wb-text-animate="count-up" 
+<span wb-component="count-up" 
       wb-count-to="1000"
       wb-count-start="false">
   0
 </span>
 
 <!-- Looping animation -->
-<span wb-text-animate="count-up" 
+<span wb-component="count-up" 
       wb-count-to="100"
       wb-count-loop="true"
       wb-duration="2">
@@ -810,7 +810,7 @@ Add animated number counting to numeric text elements:
 **JavaScript Controls:**
 ```javascript
 const countUp = WebflowBits.getComponent('countUp');
-const element = document.querySelector('[wb-text-animate="count-up"]');
+const element = document.querySelector('[wb-component="count-up"]');
 
 // Manually start animation
 countUp.startCountUp(element);
@@ -842,7 +842,7 @@ console.log(instance.config);
 Add mouse-following text/emoji trail effects to any container element:
 
 ```html
-<div wb-text-animate="text-cursor">Move your mouse here!</div>
+<div wb-component="text-cursor">Move your mouse here!</div>
 ```
 
 **Available attributes:**
@@ -860,14 +860,14 @@ Add mouse-following text/emoji trail effects to any container element:
 **Examples:**
 ```html
 <!-- Basic emoji trail -->
-<div wb-text-animate="text-cursor" 
+<div wb-component="text-cursor" 
      wb-cursor-text="🎯"
      style="width: 100%; height: 300px; background: #f0f0f0; cursor: crosshair;">
   Move your mouse here for emoji trail!
 </div>
 
 <!-- Custom text with specific spacing -->
-<div wb-text-animate="text-cursor"
+<div wb-component="text-cursor"
      wb-cursor-text="★"
      wb-cursor-spacing="60"
      wb-cursor-max-points="10"
@@ -878,7 +878,7 @@ Add mouse-following text/emoji trail effects to any container element:
 </div>
 
 <!-- Dense floating trail -->
-<div wb-text-animate="text-cursor"
+<div wb-component="text-cursor"
      wb-cursor-text="✨"
      wb-cursor-spacing="40"
      wb-cursor-max-points="15"
@@ -891,7 +891,7 @@ Add mouse-following text/emoji trail effects to any container element:
 </div>
 
 <!-- Clean trail without rotation -->
-<div wb-text-animate="text-cursor"
+<div wb-component="text-cursor"
      wb-cursor-text="●"
      wb-cursor-spacing="80"
      wb-cursor-max-points="8"
@@ -903,7 +903,7 @@ Add mouse-following text/emoji trail effects to any container element:
 </div>
 
 <!-- Custom symbols with fast removal -->
-<div wb-text-animate="text-cursor"
+<div wb-component="text-cursor"
      wb-cursor-text="🔥"
      wb-cursor-spacing="50"
      wb-cursor-max-points="12"
@@ -918,7 +918,7 @@ Add mouse-following text/emoji trail effects to any container element:
 **JavaScript Controls:**
 ```javascript
 const textCursor = WebflowBits.getComponent('textCursor');
-const element = document.querySelector('[wb-text-animate="text-cursor"]');
+const element = document.querySelector('[wb-component="text-cursor"]');
 
 // Update configuration
 textCursor.updateConfig(element, {
@@ -960,7 +960,7 @@ textCursor.initElement(element);
 Add character-based sliding shuffle effects to text elements:
 
 ```html
-<p wb-text-animate="shuffle">Your text here</p>
+<p wb-component="shuffle">Your text here</p>
 ```
 
 **Available attributes:**
@@ -990,12 +990,12 @@ Add character-based sliding shuffle effects to text elements:
 **Examples:**
 ```html
 <!-- Basic left-to-right shuffle -->
-<h1 wb-text-animate="shuffle">
+<h1 wb-component="shuffle">
   SHUFFLE EFFECT
 </h1>
 
 <!-- Right-to-left with multiple iterations -->
-<p wb-text-animate="shuffle"
+<p wb-component="shuffle"
    wb-shuffle-direction="left"
    wb-shuffle-times="3"
    wb-duration="0.5">
@@ -1003,7 +1003,7 @@ Add character-based sliding shuffle effects to text elements:
 </p>
 
 <!-- Scrambled shuffle with custom characters -->
-<div wb-text-animate="shuffle"
+<div wb-component="shuffle"
      wb-shuffle-direction="right"
      wb-shuffle-times="2"
      wb-scramble-charset="ABCDEFGHIJKLMNOPQRSTUVWXYZ"
@@ -1013,7 +1013,7 @@ Add character-based sliding shuffle effects to text elements:
 </div>
 
 <!-- Random mode with color transition -->
-<span wb-text-animate="shuffle"
+<span wb-component="shuffle"
       wb-animation-mode="random"
       wb-max-delay="0.5"
       wb-color-from="#ff0000"
@@ -1023,7 +1023,7 @@ Add character-based sliding shuffle effects to text elements:
 </span>
 
 <!-- Looping shuffle with hover trigger -->
-<h2 wb-text-animate="shuffle"
+<h2 wb-component="shuffle"
     wb-loop="true"
     wb-loop-delay="1"
     wb-trigger-on-hover="true"
@@ -1032,7 +1032,7 @@ Add character-based sliding shuffle effects to text elements:
 </h2>
 
 <!-- Custom timing and scramble -->
-<p wb-text-animate="shuffle"
+<p wb-component="shuffle"
    wb-shuffle-times="4"
    wb-scramble-charset="!@#$%^&*()"
    wb-animation-mode="evenodd"
@@ -1043,7 +1043,7 @@ Add character-based sliding shuffle effects to text elements:
 </p>
 
 <!-- Performance optimized for mobile -->
-<div wb-text-animate="shuffle"
+<div wb-component="shuffle"
      wb-respect-reduced-motion="true"
      wb-trigger-once="true"
      wb-shuffle-times="1"
@@ -1055,7 +1055,7 @@ Add character-based sliding shuffle effects to text elements:
 **JavaScript Controls:**
 ```javascript
 const shuffle = WebflowBits.getComponent('shuffle');
-const element = document.querySelector('[wb-text-animate="shuffle"]');
+const element = document.querySelector('[wb-component="shuffle"]');
 
 // Manually trigger shuffle
 shuffle.trigger(element);
@@ -1842,13 +1842,13 @@ const shapeBlur = WebflowBits.getComponent('shapeBlur');
 const shuffle = WebflowBits.getComponent('shuffle');
 
 // ShinyText specific controls
-const shinyElement = document.querySelector('[wb-text-animate="shiny-text"]');
+const shinyElement = document.querySelector('[wb-component="shiny-text"]');
 shinyText.enable(shinyElement);  // Enable animation
 shinyText.disable(shinyElement); // Disable animation
 shinyText.setSpeed(shinyElement, 3); // Change speed to 3 seconds
 
 // GradientText specific controls
-const gradientElement = document.querySelector('[wb-text-animate="gradient-text"]');
+const gradientElement = document.querySelector('[wb-component="gradient-text"]');
 gradientText.enable(gradientElement);  // Enable animation
 gradientText.disable(gradientElement); // Disable animation
 gradientText.setSpeed(gradientElement, 5); // Change speed to 5 seconds
@@ -1856,7 +1856,7 @@ gradientText.setColors(gradientElement, ['#ff0000', '#00ff00', '#0000ff']); // C
 gradientText.toggleBorder(gradientElement, true); // Show border
 
 // DecryptedText specific controls
-const decryptElement = document.querySelector('[wb-text-animate="decrypt-text"]');
+const decryptElement = document.querySelector('[wb-component="decrypt-text"]');
 decryptedText.updateConfig(decryptElement, {
   speed: 30,
   sequential: true,
@@ -1864,7 +1864,7 @@ decryptedText.updateConfig(decryptElement, {
 });
 
 // ScrambleText specific controls
-const scrambleElement = document.querySelector('[wb-text-animate="scramble-text"]');
+const scrambleElement = document.querySelector('[wb-component="scramble-text"]');
 scrambleText.triggerScramble(scrambleElement); // Manually trigger scramble
 scrambleText.triggerScramble(scrambleElement, {
   scrambleChars: "!@#$",
@@ -1876,7 +1876,7 @@ scrambleText.updateConfig(scrambleElement, {
 }); // Update configuration
 
 // VariableProximity specific controls
-const proximityElement = document.querySelector('[wb-text-animate="variable-proximity"]');
+const proximityElement = document.querySelector('[wb-component="variable-proximity"]');
 variableProximity.updateConfig(proximityElement, {
   radius: 80,
   falloff: 'exponential',
@@ -1886,7 +1886,7 @@ variableProximity.updateConfig(proximityElement, {
 const proximityInstance = variableProximity.getInstance(proximityElement); // Get instance
 
 // RotatingText specific controls
-const rotatingElement = document.querySelector('[wb-text-animate="rotating-text"]');
+const rotatingElement = document.querySelector('[wb-component="rotating-text"]');
 rotatingText.next(rotatingElement);       // Next text
 rotatingText.previous(rotatingElement);   // Previous text
 rotatingText.jumpTo(rotatingElement, 2);  // Jump to index 2
@@ -1899,7 +1899,7 @@ rotatingText.updateConfig(rotatingElement, {
 }); // Update configuration
 
 // TextPressure specific controls
-const textPressureElement = document.querySelector('[wb-text-animate="text-pressure"]');
+const textPressureElement = document.querySelector('[wb-component="text-pressure"]');
 textPressure.updateConfig(textPressureElement, {
   text: 'NEW TEXT',
   fontFamily: 'Source Sans 3, sans-serif',
@@ -1913,7 +1913,7 @@ const pressureValues = textPressure.getEffectValues(textPressureElement); // Get
 const pressureInstance = textPressure.getInstance(textPressureElement); // Get instance
 
 // CountUp specific controls
-const countUpElement = document.querySelector('[wb-text-animate="count-up"]');
+const countUpElement = document.querySelector('[wb-component="count-up"]');
 countUp.startCountUp(countUpElement); // Manually start animation
 countUp.pauseCountUp(countUpElement); // Pause animation
 countUp.resumeCountUp(countUpElement); // Resume animation
@@ -1941,7 +1941,7 @@ magnetLines.destroy(magnetLinesElement); // Manually destroy
 magnetLines.initElement(magnetLinesElement); // Manually reinitialize
 
 // TextCursor specific controls
-const textCursorElement = document.querySelector('[wb-text-animate="text-cursor"]');
+const textCursorElement = document.querySelector('[wb-component="text-cursor"]');
 textCursor.updateConfig(textCursorElement, {
   text: '🌟',
   spacing: 60,
@@ -1972,7 +1972,7 @@ shapeBlur.destroy(shapeBlurElement); // Manually destroy
 shapeBlur.initElement(shapeBlurElement); // Manually reinitialize
 
 // Shuffle specific controls
-const shuffleElement = document.querySelector('[wb-text-animate="shuffle"]');
+const shuffleElement = document.querySelector('[wb-component="shuffle"]');
 shuffle.trigger(shuffleElement); // Manually trigger shuffle
 shuffle.pause(shuffleElement); // Pause animation
 shuffle.resume(shuffleElement); // Resume animation

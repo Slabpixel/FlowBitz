@@ -508,10 +508,10 @@ class TextTypeAnimator {
   }
 
   /**
-   * Initialize all elements with wb-text-animate="text-type"
+   * Initialize all elements with wb-component="text-type"
    */
   initAll() {
-    const elements = document.querySelectorAll('[wb-text-animate="text-type"]');
+    const elements = document.querySelectorAll('[wb-component="text-type"]');
     elements.forEach(element => this.initElement(element));
   }
 

@@ -434,10 +434,10 @@ class TextCursorAnimator {
   }
 
   /**
-   * Initialize all elements with wb-text-animate="text-cursor"
+   * Initialize all elements with wb-component="text-cursor"
    */
   initAll() {
-    const elements = document.querySelectorAll('[wb-text-animate="text-cursor"]');
+    const elements = document.querySelectorAll('[wb-component="text-cursor"]');
     elements.forEach(element => this.initElement(element));
   }
 

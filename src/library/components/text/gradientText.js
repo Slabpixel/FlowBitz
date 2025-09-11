@@ -408,10 +408,10 @@ class GradientTextAnimator {
   }
 
   /**
-   * Initialize all elements with wb-text-animate="gradient-text"
+   * Initialize all elements with wb-component="gradient-text"
    */
   initAll() {
-    const elements = document.querySelectorAll('[wb-text-animate="gradient-text"]');
+    const elements = document.querySelectorAll('[wb-component="gradient-text"]');
     elements.forEach(element => this.initElement(element));
   }
 

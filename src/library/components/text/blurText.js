@@ -340,10 +340,10 @@ class BlurTextAnimator {
   }
 
   /**
-   * Initialize all elements with wb-text-animate="blur-text"
+   * Initialize all elements with wb-component="blur-text"
    */
   initAll() {
-    const elements = document.querySelectorAll('[wb-text-animate="blur-text"]');
+    const elements = document.querySelectorAll('[wb-component="blur-text"]');
     elements.forEach(element => this.initElement(element));
   }
 

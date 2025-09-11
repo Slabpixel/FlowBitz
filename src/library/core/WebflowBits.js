@@ -525,110 +525,110 @@ class WebflowBits {
         if (mutation.type === 'childList') {
           mutation.addedNodes.forEach((node) => {
             if (node.nodeType === Node.ELEMENT_NODE) {
-              // Check for wb-text-animate="split-text" elements
-              const splitTextElements = node.matches?.('[wb-text-animate="split-text"]') 
+              // Check for wb-component="split-text" elements
+              const splitTextElements = node.matches?.('[wb-component="split-text"]') 
                 ? [node] 
-                : Array.from(node.querySelectorAll?.('[wb-text-animate="split-text"]') || []);
+                : Array.from(node.querySelectorAll?.('[wb-component="split-text"]') || []);
 
               splitTextElements.forEach(element => {
                 splitTextAnimator.initElement(element);
                 shouldRefresh = true;
               });
 
-              // Check for wb-text-animate="text-type" elements
-              const textTypeElements = node.matches?.('[wb-text-animate="text-type"]') 
+              // Check for wb-component="text-type" elements
+              const textTypeElements = node.matches?.('[wb-component="text-type"]') 
                 ? [node] 
-                : Array.from(node.querySelectorAll?.('[wb-text-animate="text-type"]') || []);
+                : Array.from(node.querySelectorAll?.('[wb-component="text-type"]') || []);
 
               textTypeElements.forEach(element => {
                 textTypeAnimator.initElement(element);
                 shouldRefresh = true;
               });
 
-              // Check for wb-text-animate="blur-text" elements
-              const blurTextElements = node.matches?.('[wb-text-animate="blur-text"]') 
+              // Check for wb-component="blur-text" elements
+              const blurTextElements = node.matches?.('[wb-component="blur-text"]') 
                 ? [node] 
-                : Array.from(node.querySelectorAll?.('[wb-text-animate="blur-text"]') || []);
+                : Array.from(node.querySelectorAll?.('[wb-component="blur-text"]') || []);
 
               blurTextElements.forEach(element => {
                 blurTextAnimator.initElement(element);
                 shouldRefresh = true;
               });
 
-              // Check for wb-text-animate="shiny-text" elements
-              const shinyTextElements = node.matches?.('[wb-text-animate="shiny-text"]') 
+              // Check for wb-component="shiny-text" elements
+              const shinyTextElements = node.matches?.('[wb-component="shiny-text"]') 
                 ? [node] 
-                : Array.from(node.querySelectorAll?.('[wb-text-animate="shiny-text"]') || []);
+                : Array.from(node.querySelectorAll?.('[wb-component="shiny-text"]') || []);
 
               shinyTextElements.forEach(element => {
                 shinyTextAnimator.initElement(element);
                 shouldRefresh = true;
               });
 
-              // Check for wb-text-animate="gradient-text" elements
-              const gradientTextElements = node.matches?.('[wb-text-animate="gradient-text"]') 
+              // Check for wb-component="gradient-text" elements
+              const gradientTextElements = node.matches?.('[wb-component="gradient-text"]') 
                 ? [node] 
-                : Array.from(node.querySelectorAll?.('[wb-text-animate="gradient-text"]') || []);
+                : Array.from(node.querySelectorAll?.('[wb-component="gradient-text"]') || []);
 
               gradientTextElements.forEach(element => {
                 gradientTextAnimator.initElement(element);
                 shouldRefresh = true;
               });
 
-              // Check for wb-text-animate="decrypt-text" elements
-              const decryptedTextElements = node.matches?.('[wb-text-animate="decrypted-text"]') 
+              // Check for wb-component="decrypt-text" elements
+              const decryptedTextElements = node.matches?.('[wb-component="decrypted-text"]') 
                 ? [node] 
-                : Array.from(node.querySelectorAll?.('[wb-text-animate="decrypted-text"]') || []);
+                : Array.from(node.querySelectorAll?.('[wb-component="decrypted-text"]') || []);
 
               decryptedTextElements.forEach(element => {
                 decryptedTextAnimator.initElement(element);
                 shouldRefresh = true;
               });
 
-              // Check for wb-text-animate="scramble-text" elements
-              const scrambleTextElements = node.matches?.('[wb-text-animate="scramble-text"]') 
+              // Check for wb-component="scramble-text" elements
+              const scrambleTextElements = node.matches?.('[wb-component="scramble-text"]') 
                 ? [node] 
-                : Array.from(node.querySelectorAll?.('[wb-text-animate="scramble-text"]') || []);
+                : Array.from(node.querySelectorAll?.('[wb-component="scramble-text"]') || []);
 
               scrambleTextElements.forEach(element => {
                 scrambleTextAnimator.initElement(element);
                 shouldRefresh = true;
               });
 
-              // Check for wb-text-animate="variable-proximity" elements
-              const variableProximityElements = node.matches?.('[wb-text-animate="variable-proximity"]') 
+              // Check for wb-component="variable-proximity" elements
+              const variableProximityElements = node.matches?.('[wb-component="variable-proximity"]') 
                 ? [node] 
-                : Array.from(node.querySelectorAll?.('[wb-text-animate="variable-proximity"]') || []);
+                : Array.from(node.querySelectorAll?.('[wb-component="variable-proximity"]') || []);
 
               variableProximityElements.forEach(element => {
                 variableProximityAnimator.initElement(element);
                 shouldRefresh = true;
               });
 
-              // Check for wb-text-animate="count-up" elements
-              const countUpElements = node.matches?.('[wb-text-animate="count-up"]')
+              // Check for wb-component="count-up" elements
+              const countUpElements = node.matches?.('[wb-component="count-up"]')
                 ? [node]
-                : Array.from(node.querySelectorAll?.('[wb-text-animate="count-up"]') || []);
+                : Array.from(node.querySelectorAll?.('[wb-component="count-up"]') || []);
 
               countUpElements.forEach(element => {
                 countUpAnimator.initElement(element);
                 shouldRefresh = true;
               });
 
-              // Check for wb-text-animate="rotating-text" elements
-              const rotatingTextElements = node.matches?.('[wb-text-animate="rotating-text"]')
+              // Check for wb-component="rotating-text" elements
+              const rotatingTextElements = node.matches?.('[wb-component="rotating-text"]')
                 ? [node]
-                : Array.from(node.querySelectorAll?.('[wb-text-animate="rotating-text"]') || []);
+                : Array.from(node.querySelectorAll?.('[wb-component="rotating-text"]') || []);
 
               rotatingTextElements.forEach(element => {
                 rotatingTextAnimator.initElement(element);
                 shouldRefresh = true;
               });
 
-              // Check for wb-text-animate="text-pressure" elements
-              const textPressureElements = node.matches?.('[wb-text-animate="text-pressure"]')
+              // Check for wb-component="text-pressure" elements
+              const textPressureElements = node.matches?.('[wb-component="text-pressure"]')
                 ? [node]
-                : Array.from(node.querySelectorAll?.('[wb-text-animate="text-pressure"]') || []);
+                : Array.from(node.querySelectorAll?.('[wb-component="text-pressure"]') || []);
 
               textPressureElements.forEach(element => {
                 textPressureAnimator.initElement(element);
@@ -655,10 +655,10 @@ class WebflowBits {
                 shouldRefresh = true;
               });
 
-              // Check for wb-text-animate="text-cursor" elements
-              const textCursorElements = node.matches?.('[wb-text-animate="text-cursor"]')
+              // Check for wb-component="text-cursor" elements
+              const textCursorElements = node.matches?.('[wb-component="text-cursor"]')
                 ? [node]
-                : Array.from(node.querySelectorAll?.('[wb-text-animate="text-cursor"]') || []);
+                : Array.from(node.querySelectorAll?.('[wb-component="text-cursor"]') || []);
 
               textCursorElements.forEach(element => {
                 textCursorAnimator.initElement(element);
@@ -675,10 +675,10 @@ class WebflowBits {
                 shouldRefresh = true;
               });
 
-              // Check for wb-text-animate="shuffle" elements
-              const shuffleElements = node.matches?.('[wb-text-animate="shuffle"]')
+              // Check for wb-component="shuffle" elements
+              const shuffleElements = node.matches?.('[wb-component="shuffle"]')
                 ? [node]
-                : Array.from(node.querySelectorAll?.('[wb-text-animate="shuffle"]') || []);
+                : Array.from(node.querySelectorAll?.('[wb-component="shuffle"]') || []);
 
               shuffleElements.forEach(element => {
                 shuffleAnimator.initElement(element);
@@ -730,7 +730,7 @@ class WebflowBits {
       : selector.nodeType ? [selector] : selector;
 
     Array.from(elements).forEach(element => {
-      if (element.getAttribute('wb-text-animate') === 'split-text') {
+      if (element.getAttribute('wb-component') === 'split-text') {
         splitTextAnimator.initElement(element);
       }
     });
@@ -749,7 +749,7 @@ class WebflowBits {
       : selector.nodeType ? [selector] : selector;
 
     Array.from(elements).forEach(element => {
-      if (element.getAttribute('wb-text-animate') === 'text-type') {
+      if (element.getAttribute('wb-component') === 'text-type') {
         textTypeAnimator.initElement(element);
       }
     });
@@ -768,7 +768,7 @@ class WebflowBits {
       : selector.nodeType ? [selector] : selector;
 
     Array.from(elements).forEach(element => {
-      if (element.getAttribute('wb-text-animate') === 'blur-text') {
+      if (element.getAttribute('wb-component') === 'blur-text') {
         blurTextAnimator.initElement(element);
       }
     });
@@ -787,7 +787,7 @@ class WebflowBits {
       : selector.nodeType ? [selector] : selector;
 
     Array.from(elements).forEach(element => {
-      if (element.getAttribute('wb-text-animate') === 'shiny-text') {
+      if (element.getAttribute('wb-component') === 'shiny-text') {
         shinyTextAnimator.initElement(element);
       }
     });
@@ -806,7 +806,7 @@ class WebflowBits {
       : selector.nodeType ? [selector] : selector;
 
     Array.from(elements).forEach(element => {
-      if (element.getAttribute('wb-text-animate') === 'gradient-text') {
+      if (element.getAttribute('wb-component') === 'gradient-text') {
         gradientTextAnimator.initElement(element);
       }
     });
@@ -825,7 +825,7 @@ class WebflowBits {
       : selector.nodeType ? [selector] : selector;
 
     Array.from(elements).forEach(element => {
-      if (element.getAttribute('wb-text-animate') === 'decrypted-text') {
+      if (element.getAttribute('wb-component') === 'decrypted-text') {
         decryptedTextAnimator.initElement(element);
       }
     });
@@ -844,7 +844,7 @@ class WebflowBits {
       : selector.nodeType ? [selector] : selector;
 
     Array.from(elements).forEach(element => {
-      if (element.getAttribute('wb-text-animate') === 'scramble-text') {
+      if (element.getAttribute('wb-component') === 'scramble-text') {
         scrambleTextAnimator.initElement(element);
       }
     });
@@ -863,7 +863,7 @@ class WebflowBits {
       : selector.nodeType ? [selector] : selector;
 
     Array.from(elements).forEach(element => {
-      if (element.getAttribute('wb-text-animate') === 'variable-proximity') {
+      if (element.getAttribute('wb-component') === 'variable-proximity') {
         variableProximityAnimator.initElement(element);
       }
     });
@@ -882,7 +882,7 @@ class WebflowBits {
       : selector.nodeType ? [selector] : selector;
 
     Array.from(elements).forEach(element => {
-      if (element.getAttribute('wb-text-animate') === 'count-up') {
+      if (element.getAttribute('wb-component') === 'count-up') {
         countUpAnimator.initElement(element);
       }
     });
@@ -901,7 +901,7 @@ class WebflowBits {
       : selector.nodeType ? [selector] : selector;
 
     Array.from(elements).forEach(element => {
-      if (element.getAttribute('wb-text-animate') === 'rotating-text') {
+      if (element.getAttribute('wb-component') === 'rotating-text') {
         rotatingTextAnimator.initElement(element);
       }
     });
@@ -920,7 +920,7 @@ class WebflowBits {
       : selector.nodeType ? [selector] : selector;
     
     Array.from(elements).forEach(element => {
-      if (element.getAttribute('wb-text-animate') === 'text-pressure') {
+      if (element.getAttribute('wb-component') === 'text-pressure') {
         textPressureAnimator.initElement(element);
       }
     });
@@ -977,7 +977,7 @@ class WebflowBits {
       : selector.nodeType ? [selector] : selector;
     
     Array.from(elements).forEach(element => {
-      if (element.getAttribute('wb-text-animate') === 'text-cursor') {
+      if (element.getAttribute('wb-component') === 'text-cursor') {
         textCursorAnimator.initElement(element);
       }
     });
@@ -996,7 +996,7 @@ class WebflowBits {
       : selector.nodeType ? [selector] : selector;
     
     Array.from(elements).forEach(element => {
-      if (element.getAttribute('wb-animate') === 'shape-blur') {
+      if (element.getAttribute('wb-component') === 'shape-blur') {
         shapeBlurAnimator.initElement(element);
       }
     });
@@ -1015,7 +1015,7 @@ class WebflowBits {
       : selector.nodeType ? [selector] : selector;
     
     Array.from(elements).forEach(element => {
-      if (element.getAttribute('wb-text-animate') === 'shuffle') {
+      if (element.getAttribute('wb-component') === 'shuffle') {
         shuffleAnimator.initElement(element);
       }
     });

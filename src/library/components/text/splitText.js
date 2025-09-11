@@ -326,10 +326,10 @@ class SplitTextAnimator {
   }
 
   /**
-   * Initialize all elements with wb-text-animate="split-text"
+   * Initialize all elements with wb-component="split-text"
    */
   initAll() {
-    const elements = document.querySelectorAll('[wb-text-animate="split-text"]');
+    const elements = document.querySelectorAll('[wb-component="split-text"]');
     elements.forEach(element => this.initElement(element));
   }
 

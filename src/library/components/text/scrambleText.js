@@ -346,10 +346,10 @@ class ScrambleTextAnimator {
   }
 
   /**
-   * Initialize all elements with wb-text-animate="scramble-text"
+   * Initialize all elements with wb-component="scramble-text"
    */
   initAll() {
-    const elements = document.querySelectorAll('[wb-text-animate="scramble-text"]');
+    const elements = document.querySelectorAll('[wb-component="scramble-text"]');
     elements.forEach(element => this.initElement(element));
   }
 
