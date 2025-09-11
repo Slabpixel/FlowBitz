@@ -536,10 +536,10 @@ class DecryptedTextAnimator {
   }
 
   /**
-   * Initialize all elements with wb-text-animate="decrypt-text"
+   * Initialize all elements with wb-component="decrypt-text"
    */
   initAll() {
-    const elements = document.querySelectorAll('[wb-text-animate="decrypt-text"]');
+    const elements = document.querySelectorAll('[wb-component="decrypt-text"]');
     elements.forEach(element => this.initElement(element));
   }
 

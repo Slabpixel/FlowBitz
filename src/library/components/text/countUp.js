@@ -403,10 +403,10 @@ class CountUpAnimator {
   }
 
   /**
-   * Initialize all elements with wb-text-animate="count-up"
+   * Initialize all elements with wb-component="count-up"
    */
   initAll() {
-    const elements = document.querySelectorAll('[wb-text-animate="count-up"]');
+    const elements = document.querySelectorAll('[wb-component="count-up"]');
     elements.forEach(element => this.initElement(element));
   }
 

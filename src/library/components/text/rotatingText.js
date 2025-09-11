@@ -134,7 +134,7 @@ class RotatingTextAnimator {
    * Initialize all rotating text elements
    */
   initAll() {
-    const elements = document.querySelectorAll('[wb-text-animate="rotating-text"]');
+    const elements = document.querySelectorAll('[wb-component="rotating-text"]');
     elements.forEach(element => this.initElement(element));
   }
 

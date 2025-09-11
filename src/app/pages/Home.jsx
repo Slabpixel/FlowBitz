@@ -23,11 +23,11 @@ const Home = () => {
             </div>
             
             <h1 className="text-5xl lg:text-6xl font-bold leading-tight text-foreground" 
-                wb-text-animate="blur-text" wb-animate-by="words" wb-delay="200">
+                wb-component="blur-text" wb-animate-by="words" wb-delay="200">
               Interactive Components for Webflow
             </h1>
             <p className="text-xl text-muted-foreground leading-relaxed" 
-               wb-text-animate="blur-text" wb-animate-by="words" wb-delay="200">
+               wb-component="blur-text" wb-animate-by="words" wb-delay="200">
               Create stunning animations and interactive effects with our powerful library components. 
               Easy to use, performant, and designed specifically for Webflow.
             </p>
@@ -71,7 +71,7 @@ const Home = () => {
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
             <h2 className="text-4xl lg:text-5xl font-bold mb-6" 
-                wb-text-animate="text-type" wb-typing-speed="50" wb-deleting-speed="25">
+                wb-component="text-type" wb-typing-speed="50" wb-deleting-speed="25">
               Powerful Features
             </h2>
             <p className="text-xl text-muted-foreground max-w-2xl mx-auto">

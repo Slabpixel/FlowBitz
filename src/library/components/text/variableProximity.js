@@ -513,10 +513,10 @@ class VariableProximityAnimator {
   }
 
   /**
-   * Initialize all elements with wb-text-animate="variable-proximity"
+   * Initialize all elements with wb-component="variable-proximity"
    */
   initAll() {
-    const elements = document.querySelectorAll('[wb-text-animate="variable-proximity"]');
+    const elements = document.querySelectorAll('[wb-component="variable-proximity"]');
     elements.forEach(element => this.initElement(element));
   }
 

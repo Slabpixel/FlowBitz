@@ -12,30 +12,60 @@ export const componentsMetadata = {
     category: 'text',
     file: 'splitText.js',
     attributes: [
-      { name: 'wb-split-type', description: 'How to split the text: "chars", "words", or "lines"', default: 'words' },
-      { name: 'wb-stagger-delay', description: 'Delay between elements in milliseconds', default: '100' },
-      { name: 'wb-duration', description: 'Animation duration in seconds', default: '0.6' },
-      { name: 'wb-ease', description: 'GSAP animation easing function', default: 'power3.out' },
-      { name: 'wb-threshold', description: 'Scroll trigger threshold', default: '0.1' },
-      { name: 'wb-root-margin', description: 'Scroll trigger margin', default: '"-100px"' }
-    ],
-    examples: [
-      {
-        title: 'Character Split Animation',
-        code: '<div wb-text-animate="split-text" wb-split-type="chars" wb-stagger-delay="50">Lorem Ipsum Dolor Sit Amet Consectetur Adipisicing Elit</div>',
-        description: 'Each character animates individually'
+      { 
+        name: 'wb-component', 
+        description: 'Enable split text animation', 
+        default: 'split-text',
+        inputType: 'text',
+        required: true
       },
-      {
-        title: 'Word Split Animation',
-        code: '<h2 wb-text-animate="split-text" wb-split-type="words" wb-stagger-delay="100">Word by Word Animation</h2>',
-        description: 'Each word animates separately'
+      { 
+        name: 'wb-split-type', 
+        description: 'How to split the text: "chars", "words", or "lines"', 
+        default: 'words',
+        inputType: 'dropdown',
+        options: ['characters', 'words', 'lines']
       },
-      {
-        title: 'Line Split Animation',
-        code: '<h3 wb-text-animate="split-text" wb-split-type="lines" wb-stagger-delay="150">Line by Line<br>Animation Effect</h3>',
-        description: 'Each line animates separately'
+      { 
+        name: 'wb-stagger-delay', 
+        description: 'Delay between elements in milliseconds', 
+        default: '100',
+        inputType: 'slider',
+        sliderConfig: { min: 0, max: 1000, step: 10 }
+      },
+      { 
+        name: 'wb-duration', 
+        description: 'Animation duration in seconds', 
+        default: '0.6',
+        inputType: 'slider',
+        sliderConfig: { min: 0.1, max: 5, step: 0.1 }
+      },
+      { 
+        name: 'wb-ease', 
+        description: 'GSAP animation easing function', 
+        default: 'power3.out',
+        inputType: 'dropdown',
+        options: ['power1.out', 'power2.out', 'power3.out', 'power4.out', 'back.out(1.7)', 'elastic.out(1, 0.3)']
+      },
+      { 
+        name: 'wb-threshold', 
+        description: 'Scroll trigger threshold', 
+        default: '0.1',
+        inputType: 'slider',
+        sliderConfig: { min: 0, max: 1, step: 0.1 }
+      },
+      { 
+        name: 'wb-root-margin', 
+        description: 'Scroll trigger margin', 
+        default: '"-100px"',
+        inputType: 'text'
       }
-    ]
+    ],
+    example: {
+      title: 'Split Text Animation',
+      code: '<div wb-component="split-text" wb-split-type="words" wb-stagger-delay="100">Lorem Ipsum Dolor Sit Amet Consectetur Adipisicing Elit</div>',
+      description: 'Each word animates separately with customizable split type and timing'
+    }
   },
 
   'gradient-text': {
@@ -44,30 +74,50 @@ export const componentsMetadata = {
     category: 'text',
     file: 'gradientText.js',
     attributes: [
-      { name: 'wb-colors', description: 'Gradient colors (comma-separated or JSON array)', default: 'Default gradient colors' },
-      { name: 'wb-animation-speed', description: 'Animation speed in seconds', default: '8' },
-      { name: 'wb-show-border', description: 'Show animated border overlay', default: 'false' },
-      { name: 'wb-disabled', description: 'Disable animation', default: 'false' },
-      { name: 'wb-border-color', description: 'Border background color', default: '"#060010"' }
-    ],
-    examples: [
-      {
-        title: 'Default Gradient',
-        code: '<h1 wb-text-animate="gradient-text">Default Gradient</h1>',
-        description: 'Uses default gradient colors'
+      { 
+        name: 'wb-component', 
+        description: 'Enable gradient text animation', 
+        default: 'gradient-text',
+        inputType: 'text',
+        required: true
       },
-      {
-        title: 'Custom Colors',
-        code: '<h2 wb-text-animate="gradient-text" wb-colors="#ff6b6b,#4ecdc4,#45b7d1">Custom Colors</h2>',
-        description: 'Custom gradient with specific colors'
+      { 
+        name: 'wb-colors', 
+        description: 'Gradient colors (comma-separated or JSON array)', 
+        default: '#40ffaa,#4079ff,#40ffaa,#4079ff,#40ffaa',
+        inputType: 'text'
       },
-      {
-        title: 'With Border',
-        code: '<div style="padding: 16px;" wb-text-animate="gradient-text" wb-colors="#a29bfe,#fd79a8,#fdcb6e" wb-show-border="true">Bordered Gradient</div>',
-        code: '<div style="padding: 16px;" wb-text-animate="gradient-text" wb-colors="#a29bfe,#fd79a8,#fdcb6e" wb-show-border="true">Bordered Gradient</div>',
-        description: 'Gradient with animated border effect'
+      { 
+        name: 'wb-animation-speed', 
+        description: 'Animation speed in seconds', 
+        default: '8',
+        inputType: 'slider',
+        sliderConfig: { min: 1, max: 20, step: 0.5 }
+      },
+      { 
+        name: 'wb-show-border', 
+        description: 'Show animated border overlay', 
+        default: 'false',
+        inputType: 'toggle'
+      },
+      { 
+        name: 'wb-disabled', 
+        description: 'Disable animation', 
+        default: 'false',
+        inputType: 'toggle'
+      },
+      { 
+        name: 'wb-border-color', 
+        description: 'Border background color', 
+        default: '#060010',
+        inputType: 'color'
       }
-    ]
+    ],
+    example: {
+      title: 'Gradient Text Animation',
+      code: '<h1 wb-component="gradient-text">Gradient Text</h1>',
+      description: 'Animated gradient text with customizable colors and effects'
+    }
   },
 
   'text-type': {
@@ -76,39 +126,111 @@ export const componentsMetadata = {
     category: 'text',
     file: 'textType.js',
     attributes: [
-      { name: 'wb-cursor-character', description: 'Cursor character style: "underscore", "pipe", "dot", "block", "full-block" ', default: '|' },
-      { name: 'wb-typing-speed', description: 'Typing speed in milliseconds', default: '100' },
-      { name: 'wb-pause-duration', description: 'Pause time between typing and deleting in milisecond', default: '2000' },
-      { name: 'wb-deleting-speed', description: 'Deleting speed in milliseconds', default: '50' },
-      { name: 'wb-cursor-blink-duration', description: 'Cursor blink duration in seconds', default: '0.5' },
-      { name: 'wb-show-cursor', description: 'Show/Hide cursor', default: 'true' },
-      { name: 'wb-variable-speed', description: 'Enable variable typing speed', default: 'false' },
-      { name: 'wb-variable-speed-min', description: 'Minimum variable typing speed in milliseconds', default: '30' },
-      { name: 'wb-variable-speed-max', description: 'Maximum variable typing speed in milliseconds', default: '100' },
-      { name: 'wb-loop', description: 'Loop through text array: "true" or "false"', default: 'true' },
-      { name: 'wb-start-on-visible', description: 'Start animation when element becomes visible: "true" or "false"', default: 'false' },
-      { name: 'wb-reverse-mode', description: 'Reverse character order: "true" or "false"', default: 'false' },
-      { name: 'wb-hide-cursor-while-typing', description: 'Hide cursor while typing: "true" or "false"', default: 'false' },
-      { name: 'wb-initial-delay', description: 'Initial delay in milliseconds', default: '0' }
-    ],
-    examples: [
-      {
-        title: 'Basic Typewriter',
-        code: `
-          <div wb-text-animate="text-type">
-            <p>First text to type</p>
-            <p>Second text to type</p>
-            <p>Third text to type</p>
-          </div>
-        `,
-        description: 'Basic typewriter effect'
+      { 
+        name: 'wb-component', 
+        description: 'Enable text type animation', 
+        default: 'text-type',
+        inputType: 'text',
+        required: true
       },
-      {
-        title: 'Custom Speed',
-        code: '<h2 wb-text-animate="text-type" wb-typing-speed="50" wb-deleting-speed="25">Fast Typing</h2>',
-        description: 'Faster typing and deleting speed'
+      { 
+        name: 'wb-cursor-character', 
+        description: 'Cursor character style: "underscore", "pipe", "dot", "block", "full-block"', 
+        default: '|',
+        inputType: 'dropdown',
+        options: ['underscore', 'pipe', 'dot', 'block', 'full-block']
+      },
+      { 
+        name: 'wb-typing-speed', 
+        description: 'Typing speed in milliseconds', 
+        default: '100',
+        inputType: 'slider',
+        sliderConfig: { min: 10, max: 500, step: 10 }
+      },
+      { 
+        name: 'wb-pause-duration', 
+        description: 'Pause time between typing and deleting in milliseconds', 
+        default: '2000',
+        inputType: 'slider',
+        sliderConfig: { min: 500, max: 10000, step: 100 }
+      },
+      { 
+        name: 'wb-deleting-speed', 
+        description: 'Deleting speed in milliseconds', 
+        default: '50',
+        inputType: 'slider',
+        sliderConfig: { min: 10, max: 200, step: 5 }
+      },
+      { 
+        name: 'wb-cursor-blink-duration', 
+        description: 'Cursor blink duration in seconds', 
+        default: '0.5',
+        inputType: 'slider',
+        sliderConfig: { min: 0.1, max: 2, step: 0.1 }
+      },
+      { 
+        name: 'wb-show-cursor', 
+        description: 'Show/Hide cursor', 
+        default: 'true',
+        inputType: 'toggle'
+      },
+      { 
+        name: 'wb-variable-speed', 
+        description: 'Enable variable typing speed', 
+        default: 'false',
+        inputType: 'toggle'
+      },
+      { 
+        name: 'wb-variable-speed-min', 
+        description: 'Minimum variable typing speed in milliseconds', 
+        default: '30',
+        inputType: 'slider',
+        sliderConfig: { min: 10, max: 200, step: 5 }
+      },
+      { 
+        name: 'wb-variable-speed-max', 
+        description: 'Maximum variable typing speed in milliseconds', 
+        default: '100',
+        inputType: 'slider',
+        sliderConfig: { min: 50, max: 500, step: 10 }
+      },
+      { 
+        name: 'wb-loop', 
+        description: 'Loop through text array', 
+        default: 'true',
+        inputType: 'toggle'
+      },
+      { 
+        name: 'wb-start-on-visible', 
+        description: 'Start animation when element becomes visible', 
+        default: 'false',
+        inputType: 'toggle'
+      },
+      { 
+        name: 'wb-reverse-mode', 
+        description: 'Reverse character order', 
+        default: 'false',
+        inputType: 'toggle'
+      },
+      { 
+        name: 'wb-hide-cursor-while-typing', 
+        description: 'Hide cursor while typing', 
+        default: 'false',
+        inputType: 'toggle'
+      },
+      { 
+        name: 'wb-initial-delay', 
+        description: 'Initial delay in milliseconds', 
+        default: '0',
+        inputType: 'slider',
+        sliderConfig: { min: 0, max: 5000, step: 100 }
       }
-    ]
+    ],
+    example: {
+      title: 'Typewriter Effect',
+      code: '<div wb-component="text-type" wb-typing-speed="100" wb-pause-duration="2000"><p>First text to type</p><p>Second text to type</p><p>Third text to type</p></div>',
+      description: 'Typewriter effect with customizable cursor and timing'
+    }
   },
 
   'blur-text': {
@@ -117,26 +239,67 @@ export const componentsMetadata = {
     category: 'text',
     file: 'blurText.js',
     attributes: [
-      { name: 'wb-animate-by', description: 'Animation trigger: "words" or "chars"', default: 'words' },
-      { name: 'wb-direction', description: 'Blur animation direction: "top" or "bottom"', default: 'top' },
-      { name: 'wb-delay', description: 'Delay between elements in milliseconds', default: '200' },
-      { name: 'wb-threshold', description: 'Scroll trigger threshold', default: '0.1' },
-      { name: 'wb-root-margin', description: 'Scroll trigger margin', default: '0' },
-      { name: 'wb-ease', description: 'GSAP animation easing function', default: 'back.out(1.4)' },
-      { name: 'wb-duration', description: 'Animation duration in seconds', default: '0.6' }
-    ],
-    examples: [
-      {
-        title: 'Word Blur',
-        code: '<h1 wb-text-animate="blur-text" wb-animate-by="words">Blur to Clear</h1>',
-        description: 'Words blur in and clear up'
+      { 
+        name: 'wb-component', 
+        description: 'Enable blur text animation', 
+        default: 'blur-text',
+        inputType: 'text',
+        required: true
       },
-      {
-        title: 'Character Blur',
-        code: '<h2 wb-text-animate="blur-text" wb-animate-by="chars" wb-blur-amount="15">Character Blur</h2>',
-        description: 'Characters blur in and clear up'
+      { 
+        name: 'wb-animate-by', 
+        description: 'Animation trigger: "words" or "chars"', 
+        default: 'words',
+        inputType: 'dropdown',
+        options: ['words', 'chars']
+      },
+      { 
+        name: 'wb-direction', 
+        description: 'Blur animation direction: "top" or "bottom"', 
+        default: 'top',
+        inputType: 'dropdown',
+        options: ['top', 'bottom']
+      },
+      { 
+        name: 'wb-delay', 
+        description: 'Delay between elements in milliseconds', 
+        default: '200',
+        inputType: 'slider',
+        sliderConfig: { min: 0, max: 1000, step: 50 }
+      },
+      { 
+        name: 'wb-threshold', 
+        description: 'Scroll trigger threshold', 
+        default: '0.1',
+        inputType: 'slider',
+        sliderConfig: { min: 0, max: 1, step: 0.1 }
+      },
+      { 
+        name: 'wb-root-margin', 
+        description: 'Scroll trigger margin', 
+        default: '0',
+        inputType: 'text'
+      },
+      { 
+        name: 'wb-ease', 
+        description: 'GSAP animation easing function', 
+        default: 'back.out(1.4)',
+        inputType: 'dropdown',
+        options: ['power1.out', 'power2.out', 'power3.out', 'power4.out', 'back.out(1.4)', 'back.out(1.7)', 'elastic.out(1, 0.3)']
+      },
+      { 
+        name: 'wb-duration', 
+        description: 'Animation duration in seconds', 
+        default: '0.6',
+        inputType: 'slider',
+        sliderConfig: { min: 0.1, max: 3, step: 0.1 }
       }
-    ]
+    ],
+    example: {
+      title: 'Blur Text Animation',
+      code: '<h1 wb-component="blur-text" wb-animate-by="words" wb-delay="200">Blur to Clear</h1>',
+      description: 'Blur-to-clear transition effects with customizable timing'
+    }
   },
 
   'shiny-text': {
@@ -145,23 +308,44 @@ export const componentsMetadata = {
     category: 'text',
     file: 'shinyText.js',
     attributes: [
-      { name: 'wb-speed', description: 'Animation speed in seconds', default: '2' },
-      { name: 'wb-disable', description: 'Disable animation: "true" or "false"', default: 'false' },
-      { name: 'wb-text-color', description: 'Base text color', default: '#b5b5b5a4' },
-      { name: 'wb-shine-color', description: 'Shine color', default: 'rgba(255, 255, 255, 0.8)' },
-    ],
-    examples: [
-      {
-        title: 'Basic Shine',
-        code: '<h1 wb-text-animate="shiny-text">Shiny Text</h1>',
-        description: 'Basic shimmer effect'
+      { 
+        name: 'wb-component', 
+        description: 'Enable shiny text animation', 
+        default: 'shiny-text',
+        inputType: 'text',
+        required: true
       },
-      {
-        title: 'Fast Shine',
-        code: '<h2 wb-text-animate="shiny-text" wb-speed="3">Fast Shine</h2>',
-        description: 'Faster shimmer animation'
+      { 
+        name: 'wb-speed', 
+        description: 'Animation speed in seconds', 
+        default: '2',
+        inputType: 'slider',
+        sliderConfig: { min: 0.5, max: 10, step: 0.5 }
+      },
+      { 
+        name: 'wb-disable', 
+        description: 'Disable animation', 
+        default: 'false',
+        inputType: 'toggle'
+      },
+      { 
+        name: 'wb-text-color', 
+        description: 'Base text color', 
+        default: '#b5b5b5a4',
+        inputType: 'color'
+      },
+      { 
+        name: 'wb-shine-color', 
+        description: 'Shine color', 
+        default: 'rgba(255, 255, 255, 0.8)',
+        inputType: 'color'
       }
-    ]
+    ],
+    example: {
+      title: 'Shiny Text Effect',
+      code: '<h1 wb-component="shiny-text" wb-speed="2">Shiny Text</h1>',
+      description: 'Shimmer and shine text effects with customizable speed'
+    }
   },
 
   'count-up': {
@@ -170,32 +354,99 @@ export const componentsMetadata = {
     category: 'text',
     file: 'countUp.js',
     attributes: [
-      { name: 'wb-count-to', description: 'Target number to count to', default: '100' },
-      { name: 'wb-count-from', description: 'Starting number', default: '0' },
-      { name: 'wb-count-direction', description: 'Direction of counting: "up" or "down"', default: 'up'},
-      { name: 'wb-count-separator', description: 'Thousand separator', default: '""' },
-      { name: 'wb-count-precision', description: 'Number of decimal places', default: 'auto-detect' },
-      { name: 'wb-count-start', description: 'Start when element becomes visible', default: 'true' },
-      { name: 'wb-count-loop', description: 'Loop the animation: "true" or "false"', default: 'false' },
-      { name: 'wb-delay', description: 'Delay before animation starts in seconds', default: '0' },
-      { name: 'wb-duration', description: 'Animation duration in seconds', default: '2' },
-      { name: 'wb-ease', description: 'GSAP animation easing function', default: 'power2.out' },
-      { name: 'wb-threshold', description: 'Scroll trigger threshold', default: '0.1' },
-      { name: 'wb-root-margin', description: 'Scroll trigger margin', default: '0px' }
-    ],
-    examples: [
-      {
-        title: 'Basic Count',
-        code: '<span wb-text-animate="count-up" wb-count-to="1000">0</span>',
-        description: 'Count from 0 to 1000'
+      { 
+        name: 'wb-component', 
+        description: 'Enable count up animation', 
+        default: 'count-up',
+        inputType: 'text',
+        required: true
       },
-      {
-        title: 'Formatted Count',
-        code: `<span wb-text-animate="count-up" wb-count-to="1250" wb-count-separator=","> 0 </span>`,
-        code: `<span wb-text-animate="count-up" wb-count-to="1250" wb-count-separator=","> 0 </span>`,
-        description: 'Count with comma formatting'
+      { 
+        name: 'wb-count-to', 
+        description: 'Target number to count to', 
+        default: '100',
+        inputType: 'slider',
+        sliderConfig: { min: 0, max: 10000, step: 100 }
+      },
+      { 
+        name: 'wb-count-from', 
+        description: 'Starting number', 
+        default: '0',
+        inputType: 'slider',
+        sliderConfig: { min: 0, max: 1000, step: 10 }
+      },
+      { 
+        name: 'wb-count-direction', 
+        description: 'Direction of counting: "up" or "down"', 
+        default: 'up',
+        inputType: 'dropdown',
+        options: ['up', 'down']
+      },
+      { 
+        name: 'wb-count-separator', 
+        description: 'Thousand separator', 
+        default: '',
+        inputType: 'text'
+      },
+      { 
+        name: 'wb-count-precision', 
+        description: 'Number of decimal places', 
+        default: 'auto-detect',
+        inputType: 'dropdown',
+        options: ['auto-detect', '0', '1', '2', '3', '4']
+      },
+      { 
+        name: 'wb-count-start', 
+        description: 'Start when element becomes visible', 
+        default: 'true',
+        inputType: 'toggle'
+      },
+      { 
+        name: 'wb-count-loop', 
+        description: 'Loop the animation', 
+        default: 'false',
+        inputType: 'toggle'
+      },
+      { 
+        name: 'wb-delay', 
+        description: 'Delay before animation starts in seconds', 
+        default: '0',
+        inputType: 'slider',
+        sliderConfig: { min: 0, max: 5, step: 0.1 }
+      },
+      { 
+        name: 'wb-duration', 
+        description: 'Animation duration in seconds', 
+        default: '2',
+        inputType: 'slider',
+        sliderConfig: { min: 0.5, max: 10, step: 0.1 }
+      },
+      { 
+        name: 'wb-ease', 
+        description: 'GSAP animation easing function', 
+        default: 'power2.out',
+        inputType: 'dropdown',
+        options: ['power1.out', 'power2.out', 'power3.out', 'power4.out', 'back.out(1.7)', 'elastic.out(1, 0.3)']
+      },
+      { 
+        name: 'wb-threshold', 
+        description: 'Scroll trigger threshold', 
+        default: '0.1',
+        inputType: 'slider',
+        sliderConfig: { min: 0, max: 1, step: 0.1 }
+      },
+      { 
+        name: 'wb-root-margin', 
+        description: 'Scroll trigger margin', 
+        default: '0px',
+        inputType: 'text'
       }
-    ]
+    ],
+    example: {
+      title: 'Count Up Animation',
+      code: '<span wb-component="count-up" wb-count-to="1000" wb-count-separator=",">0</span>',
+      description: 'Animated number counting with customizable formatting'
+    }
   },
 
   'decrypted-text': {
@@ -204,24 +455,84 @@ export const componentsMetadata = {
     category: 'text',
     file: 'decryptedText.js',
     attributes: [
-      { name: 'wb-speed', description: 'Animation speed in milliseconds ', default: '50' },
-      { name: 'wb-max-iteration', description: 'Maximum iterations for random mode', default: '10' },
-      { name: 'wb-sequential', description: 'Sequential vs random reveal: "true" or "false"', default: 'false' },
-      { name: 'wb-reveal-direction', description: 'Reveal direction: "start", "end", "center"', default: 'start' },
-      { name: 'wb-use-original-chars', description: 'Use only original characters for decypting animation', default: 'false' },
-      { name: 'wb-characters', description: 'Characters to use for scrambling', default: 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789' },
-      { name: 'wb-animate-on', description: 'Trigger animation start: "view" or "hover"', default: 'hover' },
-      { name: 'wb-threshold', description: 'Scroll trigger threshold', default: '0.1' },
-      { name: 'wb-class-name', description: 'CSS class for revealed characters', default: '""' },
-      { name: 'wb-encrypted-class-name', description: 'CSS class for scrambled characters', debugger: '""' }
-    ],
-    examples: [
-      {
-        title: 'Basic Decryption',
-        code: '<h1 wb-text-animate="decrypted-text">SECRET MESSAGE</h1>',
-        description: 'Basic matrix-style decryption'
+      { 
+        name: 'wb-component', 
+        description: 'Enable decrypted text animation', 
+        default: 'decrypted-text',
+        inputType: 'text',
+        required: true
+      },
+      { 
+        name: 'wb-speed', 
+        description: 'Animation speed in milliseconds', 
+        default: '50',
+        inputType: 'slider',
+        sliderConfig: { min: 10, max: 200, step: 10 }
+      },
+      { 
+        name: 'wb-max-iteration', 
+        description: 'Maximum iterations for random mode', 
+        default: '10',
+        inputType: 'slider',
+        sliderConfig: { min: 1, max: 50, step: 1 }
+      },
+      { 
+        name: 'wb-sequential', 
+        description: 'Sequential vs random reveal', 
+        default: 'false',
+        inputType: 'toggle'
+      },
+      { 
+        name: 'wb-reveal-direction', 
+        description: 'Reveal direction: "start", "end", "center"', 
+        default: 'start',
+        inputType: 'dropdown',
+        options: ['start', 'end', 'center']
+      },
+      { 
+        name: 'wb-use-original-chars', 
+        description: 'Use only original characters for decrypting animation', 
+        default: 'false',
+        inputType: 'toggle'
+      },
+      { 
+        name: 'wb-characters', 
+        description: 'Characters to use for scrambling', 
+        default: 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789',
+        inputType: 'text'
+      },
+      { 
+        name: 'wb-animate-on', 
+        description: 'Trigger animation start: "view" or "hover"', 
+        default: 'hover',
+        inputType: 'dropdown',
+        options: ['view', 'hover']
+      },
+      { 
+        name: 'wb-threshold', 
+        description: 'Scroll trigger threshold', 
+        default: '0.1',
+        inputType: 'slider',
+        sliderConfig: { min: 0, max: 1, step: 0.1 }
+      },
+      { 
+        name: 'wb-class-name', 
+        description: 'CSS class for revealed characters', 
+        default: '',
+        inputType: 'text'
+      },
+      { 
+        name: 'wb-encrypted-class-name', 
+        description: 'CSS class for scrambled characters', 
+        default: '',
+        inputType: 'text'
       }
-    ]
+    ],
+    example: {
+      title: 'Decrypted Text Effect',
+      code: '<h1 wb-component="decrypted-text" wb-speed="50">SECRET MESSAGE</h1>',
+      description: 'Matrix-style decryption effects with customizable characters'
+    }
   },
 
   'scramble-text': {
@@ -230,20 +541,59 @@ export const componentsMetadata = {
     category: 'text',
     file: 'scrambleText.js',
     attributes: [
-      { name: 'wb-radius', description: 'Radius area for scramble effect in pixels', default: '100' },
-      { name: 'wb-duration', description: 'Animation duration in seconds ', default: '1.2' },
-      { name: 'wb-speed', description: 'Scrambling speed in seconds', default: '0.5' },
-      { name: 'wb-scramble-chars', description: 'Characters to use for scrambling', default: '.:' },
-      { name: 'wb-threshold', description: 'Scroll trigger threshold', default: '0.1' },
-      { name: 'wb-root-margin', description: 'Scroll trigger margin', default: '0px' }
-    ],
-    examples: [
-      {
-        title: 'Hover Scramble',
-        code: '<h1 wb-text-animate="scramble-text" wb-trigger="hover">Hover to Scramble</h1>',
-        description: 'Scrambles on hover'
+      { 
+        name: 'wb-component', 
+        description: 'Enable scramble text animation', 
+        default: 'scramble-text',
+        inputType: 'text',
+        required: true
+      },
+      { 
+        name: 'wb-radius', 
+        description: 'Radius area for scramble effect in pixels', 
+        default: '100',
+        inputType: 'slider',
+        sliderConfig: { min: 50, max: 500, step: 10 }
+      },
+      { 
+        name: 'wb-duration', 
+        description: 'Animation duration in seconds', 
+        default: '1.2',
+        inputType: 'slider',
+        sliderConfig: { min: 0.5, max: 5, step: 0.1 }
+      },
+      { 
+        name: 'wb-speed', 
+        description: 'Scrambling speed in seconds', 
+        default: '0.5',
+        inputType: 'slider',
+        sliderConfig: { min: 0.1, max: 2, step: 0.1 }
+      },
+      { 
+        name: 'wb-scramble-chars', 
+        description: 'Characters to use for scrambling', 
+        default: '.:',
+        inputType: 'text'
+      },
+      { 
+        name: 'wb-threshold', 
+        description: 'Scroll trigger threshold', 
+        default: '0.1',
+        inputType: 'slider',
+        sliderConfig: { min: 0, max: 1, step: 0.1 }
+      },
+      { 
+        name: 'wb-root-margin', 
+        description: 'Scroll trigger margin', 
+        default: '0px',
+        inputType: 'text'
       }
-    ]
+    ],
+    example: {
+      title: 'Scramble Text Effect',
+      code: '<h1 wb-component="scramble-text" wb-radius="100">Hover to Scramble</h1>',
+      description: 'Interactive character scrambling with customizable radius'
+    }
   },
 
   'variable-proximity': {
@@ -252,20 +602,58 @@ export const componentsMetadata = {
     category: 'text',
     file: 'variableProximity.js',
     attributes: [
-      { name: 'wb-from-font-variation', description: 'Starting font variation settings', default: `"'wght' 100, 'opsz' 8"` },
-      { name: 'wb-to-font-variation', description: 'Target font variation settings', default: `"'wght' 900, 'opsz' 144"` },
-      { name: 'wb-radius', description: 'Mouse proximity radius in pixels', default: '50' },
-      { name: 'wb-falloff', description: 'Falloff type: "linear, "exponential", "gaussian"', default: 'linear' },
-      { name: 'wb-threshold', description: 'Scroll trigger threshold', default: '0.1' },
-      { name: 'wb-root-margin', description: 'Scroll trigger margin', default: '0px' }
-    ],
-    examples: [
-      {
-        title: 'Proximity Effect',
-        code: '<h1 wb-text-animate="variable-proximity">Move Mouse Near</h1>',
-        description: 'Font changes based on mouse proximity'
+      { 
+        name: 'wb-component', 
+        description: 'Enable variable proximity animation', 
+        default: 'variable-proximity',
+        inputType: 'text',
+        required: true
+      },
+      { 
+        name: 'wb-from-font-variation', 
+        description: 'Starting font variation settings', 
+        default: "'wght' 100, 'opsz' 8",
+        inputType: 'text'
+      },
+      { 
+        name: 'wb-to-font-variation', 
+        description: 'Target font variation settings', 
+        default: "'wght' 900, 'opsz' 144",
+        inputType: 'text'
+      },
+      { 
+        name: 'wb-radius', 
+        description: 'Mouse proximity radius in pixels', 
+        default: '50',
+        inputType: 'slider',
+        sliderConfig: { min: 20, max: 200, step: 5 }
+      },
+      { 
+        name: 'wb-falloff', 
+        description: 'Falloff type: "linear", "exponential", "gaussian"', 
+        default: 'linear',
+        inputType: 'dropdown',
+        options: ['linear', 'exponential', 'gaussian']
+      },
+      { 
+        name: 'wb-threshold', 
+        description: 'Scroll trigger threshold', 
+        default: '0.1',
+        inputType: 'slider',
+        sliderConfig: { min: 0, max: 1, step: 0.1 }
+      },
+      { 
+        name: 'wb-root-margin', 
+        description: 'Scroll trigger margin', 
+        default: '0px',
+        inputType: 'text'
       }
-    ]
+    ],
+    example: {
+      title: 'Variable Proximity Effect',
+      code: '<h1 wb-component="variable-proximity" wb-radius="50">Move Mouse Near</h1>',
+      description: 'Mouse proximity font variations with customizable settings'
+    }
   },
 
   'rotating-text': {
@@ -274,60 +662,132 @@ export const componentsMetadata = {
     category: 'text',
     file: 'rotatingText.js',
     attributes: [
-      { name: 'wb-rotating-split-by', description: 'Split type: "characters", "words", "lines"', default: 'characters' },
-      { name: 'wb-rotation-interval', description: 'Time between rotations in milliseconds', default: '2000' },
-      { name: 'wb-rotating-stagger-duration', description: 'Delay between characters/words in milliseconds', default: '50' },
-      { name: 'wb-rotating-stagger-from', description: 'Stagger direction: first|last|center|random', default: 'first' },
-      { name: 'wb-rotating-auto', description: 'Enable auto-rotation: true|false', default: 'true' },
-      { name: 'wb-rotating-loop', description: 'Enable loop rotation: true|false', default: 'true' },
-      { name: 'wb-duration', description: 'Animation duration in seconds', default: '0.6' },
-      { name: 'wb-esase', description: 'GSAP animation easing function', default: 'back.out(1.7)' },
-      { name: 'wb-threshold', description: 'Scroll trigger threshold', default: '0.1' },
-      { name: 'wb-root-margin', description: 'Scroll trigger margin', default: '0px' },
-      { name: 'wb-delay', description: 'Animation delay in milliseconds', default: '0' },
-      { name: 'wb-rotating-initial-y', description: 'Initial Y position for characters', default: '100%' },
-      { name: 'wb-rotating-initial-opacity', description: 'Initial opacity for characters', default: '0' },
-      { name: 'wb-rotating-animate-y', description: 'Animate Y position for characters', default: '100%' },
-      { name: 'wb-rotating-animate-opacity', description: 'Animate opacity for characters', default: '0' },
-      { name: 'wb-rotating-exit-y', description: 'Exit Y position for characters', default: '100%' },
-      { name: 'wb-rotating-exit-opacity', description: 'Exit opacity for characters', default: '0' },
-    ],
-    examples: [
-      {
-        title: 'Rotating Text',
-        code: `
-          <div 
-            wb-text-animate="rotating-text"
-            wb-rotating-split-by="characters"
-            wb-rotating-stagger-duration="25"
-            wb-rotating-stagger-from="first"
-            wb-rotating-interval="2000"
-            wb-rotating-ease="back.out(1.7)"
-            style="padding: 0.5rem; background-color: cornflowerblue; border-radius: 8px;"
-          >
-            <p>Animated</p>
-            <p>Rotating</p>
-            <p>Text</p>
-          </div>
-        `,
-        code: `
-          <div 
-            wb-text-animate="rotating-text"
-            wb-rotating-split-by="characters"
-            wb-rotating-stagger-duration="25"
-            wb-rotating-stagger-from="first"
-            wb-rotating-interval="2000"
-            wb-rotating-ease="back.out(1.7)"
-            style="padding: 0.5rem; background-color: cornflowerblue; border-radius: 8px;"
-          >
-            <p>Animated</p>
-            <p>Rotating</p>
-            <p>Text</p>
-          </div>
-        `,
-        description: 'Text rotates automatically'
+      { 
+        name: 'wb-component', 
+        description: 'Enable rotating text animation', 
+        default: 'rotating-text',
+        inputType: 'text',
+        required: true
+      },
+      { 
+        name: 'wb-rotating-split-by', 
+        description: 'Split type: "characters", "words", "lines"', 
+        default: 'characters',
+        inputType: 'dropdown',
+        options: ['characters', 'words', 'lines']
+      },
+      { 
+        name: 'wb-rotation-interval', 
+        description: 'Time between rotations in milliseconds', 
+        default: '2000',
+        inputType: 'slider',
+        sliderConfig: { min: 500, max: 10000, step: 100 }
+      },
+      { 
+        name: 'wb-rotating-stagger-duration', 
+        description: 'Delay between characters/words in milliseconds', 
+        default: '50',
+        inputType: 'slider',
+        sliderConfig: { min: 10, max: 200, step: 10 }
+      },
+      { 
+        name: 'wb-rotating-stagger-from', 
+        description: 'Stagger direction: first|last|center|random', 
+        default: 'first',
+        inputType: 'dropdown',
+        options: ['first', 'last', 'center', 'random']
+      },
+      { 
+        name: 'wb-rotating-auto', 
+        description: 'Enable auto-rotation', 
+        default: 'true',
+        inputType: 'toggle'
+      },
+      { 
+        name: 'wb-rotating-loop', 
+        description: 'Enable loop rotation', 
+        default: 'true',
+        inputType: 'toggle'
+      },
+      { 
+        name: 'wb-duration', 
+        description: 'Animation duration in seconds', 
+        default: '0.6',
+        inputType: 'slider',
+        sliderConfig: { min: 0.1, max: 3, step: 0.1 }
+      },
+      { 
+        name: 'wb-ease', 
+        description: 'GSAP animation easing function', 
+        default: 'back.out(1.7)',
+        inputType: 'dropdown',
+        options: ['power1.out', 'power2.out', 'power3.out', 'power4.out', 'back.out(1.7)', 'elastic.out(1, 0.3)']
+      },
+      { 
+        name: 'wb-threshold', 
+        description: 'Scroll trigger threshold', 
+        default: '0.1',
+        inputType: 'slider',
+        sliderConfig: { min: 0, max: 1, step: 0.1 }
+      },
+      { 
+        name: 'wb-root-margin', 
+        description: 'Scroll trigger margin', 
+        default: '0px',
+        inputType: 'text'
+      },
+      { 
+        name: 'wb-delay', 
+        description: 'Animation delay in milliseconds', 
+        default: '0',
+        inputType: 'slider',
+        sliderConfig: { min: 0, max: 5000, step: 100 }
+      },
+      { 
+        name: 'wb-rotating-initial-y', 
+        description: 'Initial Y position for characters', 
+        default: '100%',
+        inputType: 'text'
+      },
+      { 
+        name: 'wb-rotating-initial-opacity', 
+        description: 'Initial opacity for characters', 
+        default: '0',
+        inputType: 'slider',
+        sliderConfig: { min: 0, max: 1, step: 0.1 }
+      },
+      { 
+        name: 'wb-rotating-animate-y', 
+        description: 'Animate Y position for characters', 
+        default: '100%',
+        inputType: 'text'
+      },
+      { 
+        name: 'wb-rotating-animate-opacity', 
+        description: 'Animate opacity for characters', 
+        default: '0',
+        inputType: 'slider',
+        sliderConfig: { min: 0, max: 1, step: 0.1 }
+      },
+      { 
+        name: 'wb-rotating-exit-y', 
+        description: 'Exit Y position for characters', 
+        default: '100%',
+        inputType: 'text'
+      },
+      { 
+        name: 'wb-rotating-exit-opacity', 
+        description: 'Exit opacity for characters', 
+        default: '0',
+        inputType: 'slider',
+        sliderConfig: { min: 0, max: 1, step: 0.1 }
       }
-    ]
+    ],
+    example: {
+      title: 'Rotating Text Animation',
+      code: '<div wb-component="rotating-text" wb-rotating-split-by="characters" wb-rotating-interval="2000" style="padding: 0.5rem; color: white; background-color: #0B64FF; border-radius: 8px;"><p>Animated</p><p>Rotating</p><p>Text</p></div>',
+      description: 'Auto-rotating text with stagger effects and customizable timing'
+    }
   },
 
   'text-pressure': {
@@ -336,24 +796,68 @@ export const componentsMetadata = {
     category: 'text',
     file: 'textPressure.js',
     attributes: [
-      { name: 'wb-text', description: 'Text to animate', default: 'PRESSURE' },
-      { name: 'wb-font-family', description: 'Font family used', default: 'Roboto Flex, sans-serif' },
-      { name: 'wb-width', description: 'Enable width variation: true|false', default: 'true' },
-      { name: 'wb-weight', description: 'Enable weight variation: true|false', default: 'true' },
-      { name: 'wb-italic', description: 'Enable italic/slant variation: true|false', default: 'true' },
-      { name: 'wb-alpha', description: 'Enable opacity variation: true|false', default: 'false' },
-      { name: 'wb-stroke', description: 'Enable stroke effect: true|false', default: 'false' },
-      { name: 'wb-text-color', description: 'Text color', default: '#FFFFFF' },
-      { name: 'wb-stroke-color', description: 'Stroke color', default: '#FF0000' },
-      { name: 'wb-min-font-size', description: 'Minimun font size', default: '24' }
-    ],
-    examples: [
-      {
-        title: 'Pressure Effect',
-        code: '<h1 wb-text-animate="text-pressure">Pressure Sensitive</h1>',
-        description: 'Font weight changes with mouse pressure'
+      { 
+        name: 'wb-component', 
+        description: 'Enable text pressure animation', 
+        default: 'text-pressure',
+        inputType: 'text',
+        required: true
+      },
+      { 
+        name: 'wb-text', 
+        description: 'Text to animate', 
+        default: 'PRESSURE',
+        inputType: 'text'
+      },
+      { 
+        name: 'wb-font-family', 
+        description: 'Font family used (optional - inherits from Webflow typography by default)', 
+        default: 'inherit',
+        inputType: 'text'
+      },
+      { 
+        name: 'wb-width', 
+        description: 'Enable width variation', 
+        default: 'true',
+        inputType: 'toggle'
+      },
+      { 
+        name: 'wb-weight', 
+        description: 'Enable weight variation', 
+        default: 'true',
+        inputType: 'toggle'
+      },
+      { 
+        name: 'wb-italic', 
+        description: 'Enable italic/slant variation', 
+        default: 'true',
+        inputType: 'toggle'
+      },
+      { 
+        name: 'wb-alpha', 
+        description: 'Enable opacity variation', 
+        default: 'false',
+        inputType: 'toggle'
+      },
+      { 
+        name: 'wb-always-active', 
+        description: 'Keep effect always active (for previews)', 
+        default: 'false',
+        inputType: 'toggle'
+      },
+      { 
+        name: 'wb-min-font-size', 
+        description: 'Minimum font size', 
+        default: '24',
+        inputType: 'slider',
+        sliderConfig: { min: 12, max: 100, step: 2 }
       }
-    ]
+    ],
+    example: {
+      title: 'Text Pressure Effect',
+      code: '<h1 wb-component="text-pressure" wb-always-active="true">Pressure Sensitive</h1>',
+      description: 'Mouse proximity font variations with variable fonts'
+    }
   },
 
   'text-cursor': {
@@ -362,31 +866,84 @@ export const componentsMetadata = {
     category: 'text',
     file: 'textCursor.js',
     attributes: [
-      { name: 'wb-cursor-text', description: 'Text to follow cursor', default: '🎯' },
-      { name: 'wb-cursor-delay', description: 'Animation delay in seconds', default: '0.01' },
-      { name: 'wb-cursor-spacing', description: 'Distance between trail items in pixels', default: '100' },
-      { name: 'wb-cursor-follow-direction', description: 'Rotate text to follow mouse direction: true|false', default: 'true' },
-      { name: 'wb-cursor-random-float', description: 'Enable random floating animation: true|false', default: 'true' },
-      { name: 'wb-cursor-exit-duration', description: 'Exit duration in seconds', default: '0.5' },
-      { name: 'wb-cursor-removal-interval', description: 'Interval for removing trail items in milliseconds', default: '30' },
-      { name: 'wb-cursor-max-points', description: 'Maximum number of trail items', default: '5' },
-      { name: 'wb-cursor-font-size', description: 'Font size', default: '1.875rem' },
-      { name: 'wb-cursor-color', description: 'Text color', default: 'currentColor' }
-    ],
-    examples: [
-      {
-        title: 'Text Cursor',
-        code: `
-          <div 
-            wb-text-animate="text-cursor" 
-            style="width: 800px; height: 400px; background: #1a1a1a; cursor: crosshair;"
-          >
-            Move your mouse here for emoji trail!
-          </div>
-        `,
-        description: 'Text follows mouse cursor'
+      { 
+        name: 'wb-component', 
+        description: 'Enable text cursor animation', 
+        default: 'text-cursor',
+        inputType: 'text',
+        required: true
+      },
+      { 
+        name: 'wb-cursor-text', 
+        description: 'Text to follow cursor', 
+        default: '🎯',
+        inputType: 'text'
+      },
+      { 
+        name: 'wb-cursor-delay', 
+        description: 'Animation delay in seconds', 
+        default: '0.01',
+        inputType: 'slider',
+        sliderConfig: { min: 0.001, max: 0.1, step: 0.001 }
+      },
+      { 
+        name: 'wb-cursor-spacing', 
+        description: 'Distance between trail items in pixels', 
+        default: '100',
+        inputType: 'slider',
+        sliderConfig: { min: 20, max: 300, step: 10 }
+      },
+      { 
+        name: 'wb-cursor-follow-direction', 
+        description: 'Rotate text to follow mouse direction', 
+        default: 'true',
+        inputType: 'toggle'
+      },
+      { 
+        name: 'wb-cursor-random-float', 
+        description: 'Enable random floating animation', 
+        default: 'true',
+        inputType: 'toggle'
+      },
+      { 
+        name: 'wb-cursor-exit-duration', 
+        description: 'Exit duration in seconds', 
+        default: '0.5',
+        inputType: 'slider',
+        sliderConfig: { min: 0.1, max: 3, step: 0.1 }
+      },
+      { 
+        name: 'wb-cursor-removal-interval', 
+        description: 'Interval for removing trail items in milliseconds', 
+        default: '30',
+        inputType: 'slider',
+        sliderConfig: { min: 10, max: 200, step: 10 }
+      },
+      { 
+        name: 'wb-cursor-max-points', 
+        description: 'Maximum number of trail items', 
+        default: '5',
+        inputType: 'slider',
+        sliderConfig: { min: 1, max: 20, step: 1 }
+      },
+      { 
+        name: 'wb-cursor-font-size', 
+        description: 'Font size', 
+        default: '1.875rem',
+        inputType: 'text'
+      },
+      { 
+        name: 'wb-cursor-color', 
+        description: 'Text color', 
+        default: 'currentColor',
+        inputType: 'color'
       }
-    ]
+    ],
+    example: {
+      title: 'Text Cursor Effect',
+      code: '<div wb-component="text-cursor" wb-cursor-text="🎯" style="width: 800px; height: 400px; background: #1a1a1a; cursor: crosshair;">Move your mouse here for emoji trail!</div>',
+      description: 'Mouse-following text/emoji trail effects'
+    }
   },
 
   'shuffle': {
@@ -395,52 +952,137 @@ export const componentsMetadata = {
     category: 'text',
     file: 'shuffle.js',
     attributes: [
-      { name: 'wb-shuffle-direction', description: 'Direction of shuffle: left|right', default: 'right' },
-      { name: 'wb-shuffle-times', description: 'Number of shuffle iterations', default: '1' },
-      { name: 'wb-animation-mode', description: 'Animation mode: evenodd|random', default: 'evenodd' },
-      { name: 'wb-duration', description: 'Animation duration in seconds', default: '0.35' },
-      { name: 'wb-max-delay', description: 'Maximum random delay for random mode in seconds', default: '0' },
-      { name: 'wb-ease', description: 'Animation easing', default: 'power3.out' },
-      { name: 'wb-threshold', description: 'Scroll trigger threshold', default: '0.1' },
-      { name: 'wb-root-margin', description: 'Scroll trigger margin', default: '"-100px"' },
-      { name: 'wb-loop', description: 'Loop animation continuously', default: 'false' },
-      { name: 'wb-loop-delay', description: 'Delay between loops in seconds', default: '0' },
-      { name: 'wb-stagger', description: 'Stagger delay between characters in seconds', default: '0.03' },
-      { name: 'wb-scramble-charset', description: 'Characters to use for scrambling effect', default: 'empty' },
-      { name: 'wb-color-from', description: 'Starting color for color transition', default: 'none' },
-      { name: 'wb-color-to', description: 'Ending color for color transition', default: 'none' },
-      { name: 'wb-trigger-once', description: 'Trigger animation only once on scroll', default: 'true' },
-      { name: 'wb-respect-reduced-motion', description: 'Respect reduced motion preference', default: 'true' },
-      { name: 'wb-trigger-on-hover', description: 'Enable hover trigger after initial animation', default: 'true' },
-      { name: 'wb-text-align', description: 'Text alignment for characters: left|center|right|justify', default: 'center' }
-    ],
-    examples: [
-      {
-        title: 'Basic Left-to-Right Shuffle',
-        code: '<h1 wb-text-animate="shuffle">SHUFFLE EFFECT</h1>',
-        description: 'Basic left-to-right shuffle animation'
+      { 
+        name: 'wb-component', 
+        description: 'Enable shuffle animation', 
+        default: 'shuffle',
+        inputType: 'text',
+        required: true
       },
-      {
-        title: 'Right-to-Left with Multiple Iterations',
-        code: '<p wb-text-animate="shuffle" wb-shuffle-direction="left" wb-shuffle-times="3" wb-duration="0.5">Multi-Shuffle Text</p>',
-        description: 'Right-to-left shuffle with multiple iterations'
+      { 
+        name: 'wb-shuffle-direction', 
+        description: 'Direction of shuffle: left|right', 
+        default: 'right',
+        inputType: 'dropdown',
+        options: ['left', 'right']
       },
-      {
-        title: 'Scrambled Shuffle with Custom Characters',
-        code: '<div wb-text-animate="shuffle" wb-shuffle-direction="right" wb-shuffle-times="2" wb-scramble-charset="ABCDEFGHIJKLMNOPQRSTUVWXYZ" wb-animation-mode="evenodd" wb-stagger="0.05">SCRAMBLED SHUFFLE</div>',
-        description: 'Shuffle with custom character scrambling'
+      { 
+        name: 'wb-shuffle-times', 
+        description: 'Number of shuffle iterations', 
+        default: '1',
+        inputType: 'slider',
+        sliderConfig: { min: 1, max: 10, step: 1 }
       },
-      {
-        title: 'Random Mode with Color Transition',
-        code: '<span wb-text-animate="shuffle" wb-animation-mode="random" wb-max-delay="0.5" wb-color-from="#ff0000" wb-color-to="#00ff00" wb-duration="0.8">Random Color Shuffle</span>',
-        description: 'Random timing with color transition'
+      { 
+        name: 'wb-animation-mode', 
+        description: 'Animation mode: evenodd|random', 
+        default: 'evenodd',
+        inputType: 'dropdown',
+        options: ['evenodd', 'random']
       },
-      {
-        title: 'Looping Shuffle with Hover Trigger',
-        code: '<h2 wb-text-animate="shuffle" wb-loop="true" wb-loop-delay="1" wb-trigger-on-hover="true" wb-duration="0.4">Hover to Trigger</h2>',
-        description: 'Continuous loop with hover re-trigger'
+      { 
+        name: 'wb-duration', 
+        description: 'Animation duration in seconds', 
+        default: '0.35',
+        inputType: 'slider',
+        sliderConfig: { min: 0.1, max: 2, step: 0.05 }
+      },
+      { 
+        name: 'wb-max-delay', 
+        description: 'Maximum random delay for random mode in seconds', 
+        default: '0',
+        inputType: 'slider',
+        sliderConfig: { min: 0, max: 1, step: 0.05 }
+      },
+      { 
+        name: 'wb-ease', 
+        description: 'Animation easing', 
+        default: 'power3.out',
+        inputType: 'dropdown',
+        options: ['power1.out', 'power2.out', 'power3.out', 'power4.out', 'back.out(1.7)', 'elastic.out(1, 0.3)']
+      },
+      { 
+        name: 'wb-threshold', 
+        description: 'Scroll trigger threshold', 
+        default: '0.1',
+        inputType: 'slider',
+        sliderConfig: { min: 0, max: 1, step: 0.1 }
+      },
+      { 
+        name: 'wb-root-margin', 
+        description: 'Scroll trigger margin', 
+        default: '"-100px"',
+        inputType: 'text'
+      },
+      { 
+        name: 'wb-loop', 
+        description: 'Loop animation continuously', 
+        default: 'false',
+        inputType: 'toggle'
+      },
+      { 
+        name: 'wb-loop-delay', 
+        description: 'Delay between loops in seconds', 
+        default: '0',
+        inputType: 'slider',
+        sliderConfig: { min: 0, max: 5, step: 0.1 }
+      },
+      { 
+        name: 'wb-stagger', 
+        description: 'Stagger delay between characters in seconds', 
+        default: '0.03',
+        inputType: 'slider',
+        sliderConfig: { min: 0, max: 0.5, step: 0.01 }
+      },
+      { 
+        name: 'wb-scramble-charset', 
+        description: 'Characters to use for scrambling effect', 
+        default: 'empty',
+        inputType: 'text'
+      },
+      { 
+        name: 'wb-color-from', 
+        description: 'Starting color for color transition', 
+        default: 'none',
+        inputType: 'color'
+      },
+      { 
+        name: 'wb-color-to', 
+        description: 'Ending color for color transition', 
+        default: 'none',
+        inputType: 'color'
+      },
+      { 
+        name: 'wb-trigger-once', 
+        description: 'Trigger animation only once on scroll', 
+        default: 'true',
+        inputType: 'toggle'
+      },
+      { 
+        name: 'wb-respect-reduced-motion', 
+        description: 'Respect reduced motion preference', 
+        default: 'true',
+        inputType: 'toggle'
+      },
+      { 
+        name: 'wb-trigger-on-hover', 
+        description: 'Enable hover trigger after initial animation', 
+        default: 'true',
+        inputType: 'toggle'
+      },
+      { 
+        name: 'wb-text-align', 
+        description: 'Text alignment for characters: left|center|right|justify', 
+        default: 'center',
+        inputType: 'dropdown',
+        options: ['left', 'center', 'right', 'justify']
       }
-    ]
+    ],
+    example: {
+      title: 'Shuffle Text Effect',
+      code: '<h1 wb-component="shuffle" wb-shuffle-direction="right" wb-duration="0.35">SHUFFLE EFFECT</h1>',
+      description: 'Character-based sliding shuffle effects with customizable direction'
+    }
   },
 
   // Interactive Components
@@ -450,71 +1092,75 @@ export const componentsMetadata = {
     category: 'interactive',
     file: 'shapeBlur.js',
     attributes: [
-      { name: 'wb-shape-variation', description: 'Shape type: 0=rounded rectangle, 1=filled circle, 2=circle stroke, 3=triangle', default: '0' },
-      { name: 'wb-shape-size', description: 'Shape size multiplier', default: '1.2' },
-      { name: 'wb-roundness', description: 'Shape roundness', default: '0.4' },
-      { name: 'wb-border-size', description: 'Border size', default: '0.05' },
-      { name: 'wb-circle-size', description: 'Circle size', default: '0.3' },
-      { name: 'wb-circle-edge', description: 'Circle edge sharpness', default: '0.5' },
-      { name: 'wb-mouse-damp', description: 'Mouse movement dampening', default: '8' },
-      { name: 'wb-pixel-ratio', description: 'Render quality', default: '2' }
-    ],
-    examples: [
-      {
-        title: 'Basic Rounded Rectacle Blur',
-        code: `
-          <div wb-animate="shape-blur" 
-            wb-shape-variation="0"
-            wb-shape-size="1.2"
-            wb-roundness="0.4"
-            style="height: 400px; width: 1000px; background: #1a1a1a;"
-          >
-          </div>
-        `,
-        description: 'Basic interactive shape effect'
+      { 
+        name: 'wb-component', 
+        description: 'Enable shape blur animation', 
+        default: 'shape-blur',
+        inputType: 'text',
+        required: true
       },
-      {
-        title: 'Filled Circle Blur',
-        code: `
-          <div wb-animate="shape-blur"
-            wb-shape-variation="1"
-            wb-circle-size="0.4"
-            wb-circle-edge="0.3"
-            wb-mouse-damp="12"
-            style="height: 400px; width: 1000px; background: linear-gradient(45deg, #667eea, #764ba2);"
-          >
-          </div>
-        `,
-        description: 'Filled Circle shape parameters'
+      { 
+        name: 'wb-shape-variation', 
+        description: 'Shape type: 0=rounded rectangle, 1=filled circle, 2=circle stroke, 3=triangle', 
+        default: '0',
+        inputType: 'dropdown',
+        options: ['0', '1', '2', '3']
       },
-      {
-        title: 'Circle Blur',
-        code: `
-          <div wb-animate="shape-blur"
-            wb-shape-variation="2"
-            wb-circle-size="0.5"
-            wb-circle-edge="0.8"
-            wb-pixel-ratio="3"
-            style="height: 400px; width: 1000px; background: #2c3e50;"
-          >
-          </div>
-        `,
-        description: 'Circle shape parameters'
+      { 
+        name: 'wb-shape-size', 
+        description: 'Shape size multiplier', 
+        default: '1.2',
+        inputType: 'slider',
+        sliderConfig: { min: 0.5, max: 3, step: 0.1 }
       },
-      {
-        title: 'Triagle Blur',
-        code: `
-          <div wb-animate="shape-blur"
-            wb-shape-variation="3"
-            wb-circle-size="0.4"
-            wb-mouse-damp="4"
-            style="height: 400px; width: 1000px; background: #8e44ad;"
-          >
-          </div>
-        `,
-        description: 'Triangle shape parameters'
+      { 
+        name: 'wb-roundness', 
+        description: 'Shape roundness', 
+        default: '0.4',
+        inputType: 'slider',
+        sliderConfig: { min: 0, max: 1, step: 0.1 }
+      },
+      { 
+        name: 'wb-border-size', 
+        description: 'Border size', 
+        default: '0.05',
+        inputType: 'slider',
+        sliderConfig: { min: 0, max: 0.5, step: 0.01 }
+      },
+      { 
+        name: 'wb-circle-size', 
+        description: 'Circle size', 
+        default: '0.3',
+        inputType: 'slider',
+        sliderConfig: { min: 0.1, max: 1, step: 0.1 }
+      },
+      { 
+        name: 'wb-circle-edge', 
+        description: 'Circle edge sharpness', 
+        default: '0.5',
+        inputType: 'slider',
+        sliderConfig: { min: 0, max: 1, step: 0.1 }
+      },
+      { 
+        name: 'wb-mouse-damp', 
+        description: 'Mouse movement dampening', 
+        default: '8',
+        inputType: 'slider',
+        sliderConfig: { min: 1, max: 20, step: 1 }
+      },
+      { 
+        name: 'wb-pixel-ratio', 
+        description: 'Render quality', 
+        default: '2',
+        inputType: 'slider',
+        sliderConfig: { min: 1, max: 4, step: 1 }
       }
-    ]
+    ],
+    example: {
+      title: 'Shape Blur Effect',
+      code: '<div wb-animate="shape-blur" wb-shape-variation="0" wb-shape-size="1.2" wb-roundness="0.4" style="height: 400px; width: 1000px; background: #1a1a1a;"></div>',
+      description: 'WebGL shader-based interactive shape effects'
+    }
   },
 
   'image-trail': {
@@ -523,33 +1169,64 @@ export const componentsMetadata = {
     category: 'interactive',
     file: 'imageTrail.js',
     attributes: [
-      { name: 'wb-varint', description: ' Effect variant 1 - 8', default: '1' },
-      { name: 'wb-threshold', description: 'Mouse movement threshold to trigger images', default: '80' },
-      { name: 'wb-item-width', description: 'Image width', default: '190px' },
-      { name: 'wb-item-height', description: 'Image height', default: 'auto' },
-      { name: 'wb-border-radius', description: 'Image border radius', default: '15px' },
-      { name: 'wb-visible-images', description: 'Maximum visible images for variant 7', default: '9' },
-      { name: 'wb-images', description: 'Required JSON array of image URLs', default: '""' }
-    ],
-    examples: [
-      {
-        title: 'Basic Trail',
-        code: `
-          <div 
-            wb-animate="image-trail" 
-            wb-variant="1"
-            wb-threshold="80"
-            wb-images='[
-              "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=300&h=400&fit=crop",
-              "https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=300&h=400&fit=crop",
-              "https://images.unsplash.com/photo-1506197603052-3cc9c3a201bd?w=300&h=400&fit=crop"
-            ]'
-            style="width: 800px; height: 400px; background: #1a1a1a; cursor: pointer;">
-          </div>
-        `,
-        description: 'Basic image trail effect'
+      { 
+        name: 'wb-component', 
+        description: 'Enable image trail animation', 
+        default: 'image-trail',
+        inputType: 'text',
+        required: true
+      },
+      { 
+        name: 'wb-varint', 
+        description: 'Effect variant 1 - 8', 
+        default: '1',
+        inputType: 'dropdown',
+        options: ['1', '2', '3', '4', '5', '6', '7', '8']
+      },
+      { 
+        name: 'wb-threshold', 
+        description: 'Mouse movement threshold to trigger images', 
+        default: '80',
+        inputType: 'slider',
+        sliderConfig: { min: 10, max: 200, step: 10 }
+      },
+      { 
+        name: 'wb-item-width', 
+        description: 'Image width', 
+        default: '190px',
+        inputType: 'text'
+      },
+      { 
+        name: 'wb-item-height', 
+        description: 'Image height', 
+        default: 'auto',
+        inputType: 'text'
+      },
+      { 
+        name: 'wb-border-radius', 
+        description: 'Image border radius', 
+        default: '15px',
+        inputType: 'text'
+      },
+      { 
+        name: 'wb-visible-images', 
+        description: 'Maximum visible images for variant 7', 
+        default: '9',
+        inputType: 'slider',
+        sliderConfig: { min: 1, max: 20, step: 1 }
+      },
+      { 
+        name: 'wb-images', 
+        description: 'Required JSON array of image URLs', 
+        default: '',
+        inputType: 'text'
       }
-    ]
+    ],
+    example: {
+      title: 'Image Trail Effect',
+      code: '<div wb-animate="image-trail" wb-varint="1" wb-threshold="80" wb-images=\'["https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=300&h=400&fit=crop","https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=300&h=400&fit=crop","https://images.unsplash.com/photo-1506197603052-3cc9c3a201bd?w=300&h=400&fit=crop"]\' style="width: 800px; height: 400px; background: #1a1a1a; cursor: pointer;"></div>',
+      description: 'Mouse-following image trail effects'
+    }
   },
 
   'magnet-lines': {
@@ -558,21 +1235,64 @@ export const componentsMetadata = {
     category: 'interactive',
     file: 'magnetLines.js',
     attributes: [
-      { name: 'wb-rows', description: 'Number of rows in the grid', default: '9' },
-      { name: 'wb-columns', description: 'Number of columns in the grid', default: '9' },
-      { name: 'wb-container-size', description: 'Container size', default: '80vmin' },
-      { name: 'wb-line-color', description: 'Line color', default: '#efefef' },
-      { name: 'wb-line-width', description: 'Line width', default: '1vmin'},
-      { name: 'wb-line-height', description: 'Line height', default: '6vmin' },
-      { name: 'wb-base-angle', description: 'Base rotation angle in degrees', default: '-10' }
-    ],
-    examples: [
-      {
-        title: 'Basic Magnet Lines',
-        code: '<div wb-animate="magnet-lines">Magnetic Grid</div>',
-        description: 'Basic magnetic line grid'
+      { 
+        name: 'wb-component', 
+        description: 'Enable magnet lines animation', 
+        default: 'magnet-lines',
+        inputType: 'text',
+        required: true
+      },
+      { 
+        name: 'wb-rows', 
+        description: 'Number of rows in the grid', 
+        default: '9',
+        inputType: 'slider',
+        sliderConfig: { min: 3, max: 20, step: 1 }
+      },
+      { 
+        name: 'wb-columns', 
+        description: 'Number of columns in the grid', 
+        default: '9',
+        inputType: 'slider',
+        sliderConfig: { min: 3, max: 20, step: 1 }
+      },
+      { 
+        name: 'wb-container-size', 
+        description: 'Container size', 
+        default: '80vmin',
+        inputType: 'text'
+      },
+      { 
+        name: 'wb-line-color', 
+        description: 'Line color', 
+        default: '#efefef',
+        inputType: 'color'
+      },
+      { 
+        name: 'wb-line-width', 
+        description: 'Line width', 
+        default: '1vmin',
+        inputType: 'text'
+      },
+      { 
+        name: 'wb-line-height', 
+        description: 'Line height', 
+        default: '6vmin',
+        inputType: 'text'
+      },
+      { 
+        name: 'wb-base-angle', 
+        description: 'Base rotation angle in degrees', 
+        default: '-10',
+        inputType: 'slider',
+        sliderConfig: { min: -45, max: 45, step: 5 }
       }
-    ]
+    ],
+    example: {
+      title: 'Magnet Lines Effect',
+      code: '<div wb-animate="magnet-lines" wb-rows="9" wb-columns="9" style="width: 80vmin; height: 80vmin;">Magnetic Grid</div>',
+      description: 'Interactive magnetic line grid'
+    }
   },
 
 }

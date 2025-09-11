@@ -202,7 +202,7 @@ class ShuffleAnimator {
       'wb-shuffle-char'
     ];
     
-    return checkCSSConflicts(testClasses, this.componentName, '[wb-text-animate="shuffle"]');
+    return checkCSSConflicts(testClasses, this.componentName, '[wb-component="shuffle"]');
   }
 
   /**
@@ -721,10 +721,10 @@ class ShuffleAnimator {
   }
 
   /**
-   * Initialize all elements with wb-text-animate="shuffle"
+   * Initialize all elements with wb-component="shuffle"
    */
   initAll() {
-    const elements = document.querySelectorAll('[wb-text-animate="shuffle"]');
+    const elements = document.querySelectorAll('[wb-component="shuffle"]');
     elements.forEach(element => this.initElement(element));
   }
 

@@ -108,7 +108,7 @@ export const getComponentTemplate = (name, category = 'text') => {
     examples: [
       {
         title: `Basic ${name}`,
-        code: `<h1 wb-text-animate="${key}">Your Text Here</h1>`,
+        code: `<h1 wb-component="${key}">Your Text Here</h1>`,
         description: `Basic ${name} effect`
       }
     ]

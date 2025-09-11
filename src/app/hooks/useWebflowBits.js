@@ -16,13 +16,10 @@ export const useWebflowBits = () => {
 
   const reinitializeComponents = useCallback(() => {
     try {
-      // Reinitialize components when content changes
-      webflowBits.init({
-        debug: false,
-        autoInit: true
-      })
+      // Refresh components when content changes
+      webflowBits.refresh()
     } catch (error) {
-      console.error('Failed to reinitialize WebflowBits:', error)
+      console.error('Failed to refresh WebflowBits:', error)
     }
   }, [])
 

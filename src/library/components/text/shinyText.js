@@ -265,10 +265,10 @@ class ShinyTextAnimator {
   }
 
   /**
-   * Initialize all elements with wb-text-animate="shiny-text"
+   * Initialize all elements with wb-component="shiny-text"
    */
   initAll() {
-    const elements = document.querySelectorAll('[wb-text-animate="shiny-text"]');
+    const elements = document.querySelectorAll('[wb-component="shiny-text"]');
     elements.forEach(element => this.initElement(element));
   }
 

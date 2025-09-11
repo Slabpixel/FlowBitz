@@ -10,10 +10,10 @@ gsap.registerPlugin();
 
 const componentCSS = `
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@100;200;300;400;500;600;700;800;900&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Oswald:wght@200;300;400;500;600;700&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wght,slnt@8..144,100..1000,-10..0&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Source+Sans+3:ital,opsz,wght@0,8..60;1,8..60;0,10..300;1,10..300;0,200..900;1,200..900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Recursive:wght@300;400;500;600;700;800;900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap");
 
 .wb-text-pressure {
   position: relative;
@@ -128,8 +128,8 @@ class TextPressureAnimator {
     this.componentClasses = webflowBitsClasses.forComponent('text-pressure');
     this.animationFrameId = null;
     this.defaultConfig = {
-      text: 'PRESSURE',
-      fontFamily: 'Roboto Flex, sans-serif',
+      text: 'PRESSURE', // Fallback text if no content is found
+      fontFamily: 'inherit',
       width: true,
       weight: true,
       italic: true,
@@ -137,11 +137,12 @@ class TextPressureAnimator {
       flex: true,
       stroke: false,
       scale: false,
-      textColor: '#FFFFFF',
+      textColor: 'currentColor', // Use current color for theme compatibility
       strokeColor: '#FF0000',
       minFontSize: 24,
       threshold: 0.1,
-      rootMargin: '0px'
+      rootMargin: '0px',
+      alwaysActive: false
     };
     
     this.mousePosition = { x: 0, y: 0 };
@@ -228,10 +229,23 @@ class TextPressureAnimator {
       strokeColor: { attribute: 'wb-stroke-color', type: 'string' },
       minFontSize: { attribute: 'wb-min-font-size', type: 'number', min: 8, max: 200 },
       threshold: { attribute: 'wb-threshold', type: 'threshold' },
-      rootMargin: { attribute: 'wb-root-margin', type: 'string' }
+      rootMargin: { attribute: 'wb-root-margin', type: 'string' },
+      alwaysActive: { attribute: 'wb-always-active', type: 'boolean' }
     };
 
-    return parseElementConfig(element, this.defaultConfig, attributeMap);
+    const config = parseElementConfig(element, this.defaultConfig, attributeMap);
+    
+    // Use the text content from the HTML element if no wb-text attribute is provided
+    if (!element.hasAttribute('wb-text')) {
+      config.text = element.textContent.trim() || this.defaultConfig.text;
+    }
+    
+    // Use currentColor for theme compatibility if no wb-text-color attribute is provided
+    if (!element.hasAttribute('wb-text-color')) {
+      config.textColor = 'currentColor';
+    }
+    
+    return config;
   }
 
   applyComponentClasses(element, config) {
@@ -249,8 +263,19 @@ class TextPressureAnimator {
       this.componentName
     );
     
-    element.style.setProperty('--wb-text-color', config.textColor);
-    element.style.setProperty('--wb-stroke-color', config.strokeColor);
+    // Only set CSS custom properties if they're explicitly provided via attributes
+    if (element.hasAttribute('wb-text-color')) {
+      element.style.setProperty('--wb-text-color', config.textColor);
+    } else {
+      // Remove the custom property if it exists
+      element.style.removeProperty('--wb-text-color');
+    }
+    if (element.hasAttribute('wb-stroke-color')) {
+      element.style.setProperty('--wb-stroke-color', config.strokeColor);
+    } else {
+      // Remove the custom property if it exists
+      element.style.removeProperty('--wb-stroke-color');
+    }
   }
 
   removeComponentClasses(element) {
@@ -301,7 +326,10 @@ class TextPressureAnimator {
       chars: chars.length
     });
 
-
+    // Auto-activate if alwaysActive is enabled
+    if (config.alwaysActive) {
+      this.activateInstance(instance);
+    }
   }
 
   createPressureStructure(instance) {
@@ -311,15 +339,26 @@ class TextPressureAnimator {
 
     const titleElement = document.createElement('h1');
     titleElement.className = 'wb-text-pressure__title';
-    titleElement.style.fontFamily = config.fontFamily;
-    titleElement.style.color = config.textColor;
+    // Only set font family if it's not inherit
+    if (config.fontFamily !== 'inherit') {
+      titleElement.style.fontFamily = config.fontFamily;
+    }
+    // Don't set color if it's currentColor - let it inherit from parent
+    if (config.textColor !== 'currentColor') {
+      titleElement.style.color = config.textColor;
+    }
 
     chars.forEach((char, index) => {
       const span = document.createElement('span');
       span.className = 'wb-text-pressure__char';
       span.textContent = char;
       span.setAttribute('data-char', char);
-      span.style.color = config.stroke ? undefined : config.textColor;
+      // Don't set color if it's currentColor - let it inherit from parent
+      if (config.stroke) {
+        span.style.color = undefined;
+      } else if (config.textColor !== 'currentColor') {
+        span.style.color = config.textColor;
+      }
       titleElement.appendChild(span);
       instance.charSpans.push(span);
     });
@@ -434,15 +473,37 @@ class TextPressureAnimator {
 
     instance.charSpans.forEach(span => {
       span.style.opacity = '1';
-      if (instance.config.fontFamily.includes('Compressa VF')) {
-        span.style.fontVariationSettings = `'wght' 400, 'wdth' 100, 'ital' 0`;
+      
+      // Reset font variations based on detected font family
+      if (instance.config.fontFamily === 'inherit' || !instance.config.fontFamily) {
+        const computedStyle = window.getComputedStyle(span);
+        const fontFamily = computedStyle.fontFamily;
+        
+        if (fontFamily.includes('Recursive')) {
+          span.style.fontVariationSettings = `'wght' 400`;
+        } else if (fontFamily.includes('Roboto Flex')) {
+          span.style.fontVariationSettings = `'wght' 400, 'opsz' 20, 'slnt' 0`;
+        } else if (fontFamily.includes('Source Sans 3')) {
+          span.style.fontVariationSettings = `'wght' 400, 'opsz' 20, 'ital' 0`;
+        } else if (fontFamily.includes('Space Grotesk')) {
+          span.style.fontVariationSettings = `'wght' 400`;
+        } else if (fontFamily.includes('Inter')) {
+          span.style.fontVariationSettings = `'wght' 400`;
+        } else {
+          span.style.fontVariationSettings = `'wght' 400`;
+        }
+      } else if (instance.config.fontFamily.includes('Recursive')) {
+        span.style.fontVariationSettings = `'wght' 400`;
       } else if (instance.config.fontFamily.includes('Roboto Flex')) {
         span.style.fontVariationSettings = `'wght' 400, 'opsz' 20, 'slnt' 0`;
       } else if (instance.config.fontFamily.includes('Source Sans 3')) {
         span.style.fontVariationSettings = `'wght' 400, 'opsz' 20, 'ital' 0`;
+      } else if (instance.config.fontFamily.includes('Space Grotesk')) {
+        span.style.fontVariationSettings = `'wght' 400`;
+      } else if (instance.config.fontFamily.includes('Inter')) {
+        span.style.fontVariationSettings = `'wght' 400`;
       } else {
-        // Fallback reset dengan variation axes yang sama seperti Compressa VF
-        span.style.fontVariationSettings = `'wght' 400, 'wdth' 100, 'ital' 0`;
+        span.style.fontVariationSettings = `'wght' 400`;
       }
     });
 
@@ -490,17 +551,39 @@ class TextPressureAnimator {
 
       span.style.opacity = alpha;
       
-      if (config.fontFamily.includes('Compressa VF')) {
-        span.style.fontVariationSettings = `'wght' ${weight}, 'wdth' ${width}, 'ital' ${italic}`;
+      // Apply font variations based on detected font family
+      if (config.fontFamily === 'inherit' || !config.fontFamily) {
+        // For inherited fonts, try to detect if it's a variable font
+        const computedStyle = window.getComputedStyle(span);
+        const fontFamily = computedStyle.fontFamily;
         
-
+        if (fontFamily.includes('Recursive')) {
+          span.style.fontVariationSettings = `'wght' ${weight}`;
+        } else if (fontFamily.includes('Roboto Flex')) {
+          span.style.fontVariationSettings = `'wght' ${weight}, 'opsz' ${Math.max(8, Math.min(144, width))}, 'slnt' ${italic}`;
+        } else if (fontFamily.includes('Source Sans 3')) {
+          span.style.fontVariationSettings = `'wght' ${weight}, 'opsz' ${Math.max(8, Math.min(300, width))}, 'ital' ${italic > 0 ? 1 : 0}`;
+        } else if (fontFamily.includes('Space Grotesk')) {
+          span.style.fontVariationSettings = `'wght' ${weight}`;
+        } else if (fontFamily.includes('Inter')) {
+          span.style.fontVariationSettings = `'wght' ${weight}`;
+        } else {
+          // Try weight variation as fallback for any font
+          span.style.fontVariationSettings = `'wght' ${weight}`;
+        }
+      } else if (config.fontFamily.includes('Recursive')) {
+        span.style.fontVariationSettings = `'wght' ${weight}`;
       } else if (config.fontFamily.includes('Roboto Flex')) {
         span.style.fontVariationSettings = `'wght' ${weight}, 'opsz' ${Math.max(8, Math.min(144, width))}, 'slnt' ${italic}`;
       } else if (config.fontFamily.includes('Source Sans 3')) {
         span.style.fontVariationSettings = `'wght' ${weight}, 'opsz' ${Math.max(8, Math.min(300, width))}, 'ital' ${italic > 0 ? 1 : 0}`;
+      } else if (config.fontFamily.includes('Space Grotesk')) {
+        span.style.fontVariationSettings = `'wght' ${weight}`;
+      } else if (config.fontFamily.includes('Inter')) {
+        span.style.fontVariationSettings = `'wght' ${weight}`;
       } else {
-        // Fallback dengan variation axes yang sama seperti Compressa VF
-        span.style.fontVariationSettings = `'wght' ${weight}, 'wdth' ${width}, 'ital' ${italic}`;
+        // Fallback for other fonts - try weight variation
+        span.style.fontVariationSettings = `'wght' ${weight}`;
       }
     });
   }
@@ -512,7 +595,7 @@ class TextPressureAnimator {
   }
 
   initAll() {
-    const elements = document.querySelectorAll('[wb-text-animate="text-pressure"]');
+    const elements = document.querySelectorAll('[wb-component="text-pressure"]');
     elements.forEach(element => this.initElement(element));
   }
 
@@ -574,11 +657,15 @@ class TextPressureAnimator {
       this.createPressureStructure(instance);
     }
 
-    if (newConfig.textColor) {
+    if (newConfig.textColor && element.hasAttribute('wb-text-color')) {
       element.style.setProperty('--wb-text-color', newConfig.textColor);
+    } else if (newConfig.textColor === 'currentColor') {
+      element.style.removeProperty('--wb-text-color');
     }
-    if (newConfig.strokeColor) {
+    if (newConfig.strokeColor && element.hasAttribute('wb-stroke-color')) {
       element.style.setProperty('--wb-stroke-color', newConfig.strokeColor);
+    } else if (newConfig.strokeColor === '#FF0000') {
+      element.style.removeProperty('--wb-stroke-color');
     }
 
     this.removeComponentClasses(element);

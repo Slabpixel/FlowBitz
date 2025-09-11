@@ -10,7 +10,7 @@
  * @param {string} selectorFilter - CSS selector to exclude from conflict check
  * @returns {Object[]|null} Array of conflicts or null if none found
  */
-export function checkCSSConflicts(testClasses, componentName, selectorFilter = '[wb-text-animate]') {
+export function checkCSSConflicts(testClasses, componentName, selectorFilter = '[wb-component]') {
   const conflicts = [];
   
   testClasses.forEach(className => {
@@ -47,7 +47,7 @@ export function analyzeConflicts(config) {
   const {
     testClasses,
     componentName,
-    selectorFilter = '[wb-text-animate]',
+    selectorFilter = '[wb-component]',
     excludeSelectors = [],
     severity = 'warning'
   } = config;
