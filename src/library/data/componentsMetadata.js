@@ -57,7 +57,7 @@ export const componentsMetadata = {
       { 
         name: 'wb-root-margin', 
         description: 'Scroll trigger margin', 
-        default: '"-100px"',
+        default: '-100px',
         inputType: 'text'
       }
     ],
