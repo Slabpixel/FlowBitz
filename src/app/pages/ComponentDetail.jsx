@@ -613,13 +613,13 @@ const ComponentDetail = () => {
 
 
   return (
-    <div className="bg-background text-foreground pt-[64px]">
+    <div className="bg-background text-foreground pt-[64px] min-h-screen">
       <div className="flex flex-col lg:flex-row">
         {/* Shared Sidebar */}
         <Sidebar showBackLink={false} />
 
         {/* Main Content */}
-        <main className="flex flex-col p-4 sm:p-8 lg:p-16 w-full items-center">
+        <main className="flex flex-col p-4 sm:p-8 lg:p-16 w-full items-center min-h-screen">
           <div className="w-full max-w-[970px] mb-6 sm:mb-8">
             <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-2 text-foreground">{component.name}</h1>
             <p className="text-muted-foreground text-base sm:text-lg">{component.description}</p>
