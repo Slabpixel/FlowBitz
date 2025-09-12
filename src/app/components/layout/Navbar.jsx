@@ -28,7 +28,7 @@ const Navbar = () => {
             onClick={() => navigate('/')}
             className="flex items-center gap-2 transition-opacity duration-200 hover:opacity-80"
           >
-            <Logo className="w-[80px] h-auto" />
+            <Logo className="h-6 w-auto" />
           </button>
         </div>
         <div className={`nav-menu ${isMenuOpen ? 'active' : ''} hidden md:flex items-center gap-1`} id="nav-menu">
