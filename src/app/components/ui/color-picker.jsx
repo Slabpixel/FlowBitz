@@ -187,7 +187,7 @@ const ColorPicker = React.forwardRef(({
             />
           </Button>
         </PopoverTrigger>
-        <PopoverContent className="w-[240px] p-2 rounded-lg" align="start">
+        <PopoverContent className="w-[240px] p-2 rounded-lg dark:border-border dark:border-muted-foreground/20" align="start">
           <div className="space-y-4">
             {/* Color Area */}
             <div className="relative">

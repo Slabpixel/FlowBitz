@@ -14,45 +14,8 @@ import { Badge } from '../components/ui/badge.jsx'
 import { ColorPicker } from '../components/ui/color-picker.jsx'
 import { Eye, Code, Copy, RotateCcw, Settings, Palette, Sliders } from 'lucide-react'
 import { useWebflowBits } from '../hooks/useWebflowBits'
-
-// Syntax highlighting function
-const highlightCode = (code) => {
-  // First escape HTML entities to prevent rendering
-  let highlighted = code
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;')
-    .replace(/'/g, '&#39;')
-  
-  // Use a single comprehensive regex to avoid conflicts
-  highlighted = highlighted.replace(/(&lt;!--[\s\S]*?--&gt;)|(&lt;\/?)([a-zA-Z][a-zA-Z0-9]*)([\s\S]*?)(&gt;?)|(\s)([a-zA-Z-]+)(=)(&quot;[^&]*&quot;|&#39;[^&]*&#39;)|(\b(function|const|let|var|if|else|for|while|return|true|false|null|undefined|new|this|class|extends|import|export|from|default)\b)|(\/\/.*$|\/\*[\s\S]*?\*\/)|(\b\d+\.?\d*\b)/g, (match, comment, openTag, tagName, tagContent, closeTag, attrSpace, attrName, attrEquals, attrValue, keyword, jsComment, number) => {
-    if (comment) {
-      return `<span class="text-gray-500 italic">${comment}</span>`
-    }
-    if (openTag && tagName) {
-      const highlightedContent = tagContent.replace(/(\s)([a-zA-Z-]+)(=)(&quot;[^&]*&quot;|&#39;[^&]*&#39;)/g, 
-        '<span class="text-gray-300">&nbsp;</span><span class="text-yellow-300">$2</span><span class="text-gray-300">$3</span><span class="text-green-400">$4</span>')
-      const closeTagSpan = closeTag ? `<span class="text-primary">${closeTag}</span>` : ''
-      return `<span class="text-primary">${openTag}</span><span class="text-orange-400">${tagName}</span>${highlightedContent}${closeTagSpan}`
-    }
-    if (attrSpace && attrName && attrEquals && attrValue) {
-      return `<span class="text-gray-300">&nbsp;</span><span class="text-yellow-300">${attrName}</span><span class="text-gray-300">${attrEquals}</span><span class="text-green-400">${attrValue}</span>`
-    }
-    if (keyword) {
-      return `<span class="text-white">${keyword}</span>`
-    }
-    if (jsComment) {
-      return `<span class="text-gray-500 italic">${jsComment}</span>`
-    }
-    if (number) {
-      return `<span class="text-orange-300">${number}</span>`
-    }
-    return match
-  })
-  
-  return highlighted
-}
+import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter'
+import { tomorrow } from 'react-syntax-highlighter/dist/esm/styles/prism'
 
 const ComponentDetail = () => {
   const { componentName } = useParams()
@@ -114,6 +77,39 @@ const ComponentDetail = () => {
   // Generate updated HTML code based on active attributes and values
   const generateUpdatedCode = () => {
     const baseCode = component.example.code
+    
+    // Find the element that has wb-component attribute (the actual component element)
+    const componentMatch = baseCode.match(/<(\w+)[^>]*wb-component="[^"]*"[^>]*>/)
+    
+    if (componentMatch) {
+      const componentTag = componentMatch[0]
+      const activeAttrList = []
+      
+      // Add active attributes with their current values (excluding wb-component)
+      component.attributes.forEach(attr => {
+        if (activeAttributes[attr.name] && attr.name !== 'wb-component') {
+          const value = attributeValues[attr.name] || attr.default || 'true'
+          activeAttrList.push(`${attr.name}="${value}"`)
+        }
+      })
+      
+      const attributesString = activeAttrList.length > 0 ? ' ' + activeAttrList.join(' ') : ''
+      
+      // Clean up the component tag and add new attributes
+      let cleanTag = componentTag.replace(/wb-[\w-]+="[^"]*"/g, '').trim()
+      if (cleanTag.endsWith('>')) {
+        cleanTag = cleanTag.slice(0, -1)
+      }
+      
+      // Always add wb-component attribute
+      cleanTag += ' wb-component="' + (attributeValues['wb-component'] || componentName) + '"'
+      
+      cleanTag += attributesString + '>'
+      
+      return baseCode.replace(componentTag, cleanTag)
+    }
+    
+    // Fallback: use the old method for components without wb-component in example
     const tagMatch = baseCode.match(/<(\w+)([^>]*)>(.*?)<\/\1>/)
     
     if (!tagMatch) return baseCode
@@ -163,16 +159,22 @@ const ComponentDetail = () => {
   // Extract wb- attributes from HTML code
   const extractWbAttributes = (htmlCode) => {
     const wbAttributes = []
+    const seenAttributes = new Set()
     const wbRegex = /wb-[\w-]+(?:="[^"]*")?/g
     let match
     
     while ((match = wbRegex.exec(htmlCode)) !== null) {
       const fullAttribute = match[0]
       const [name, value] = fullAttribute.split('=')
-      wbAttributes.push({
-        name: name,
-        value: value ? value.replace(/"/g, '') : null
-      })
+      
+      // Only add if we haven't seen this attribute name before
+      if (!seenAttributes.has(name)) {
+        seenAttributes.add(name)
+        wbAttributes.push({
+          name: name,
+          value: value ? value.replace(/"/g, '') : null
+        })
+      }
     }
     
     return wbAttributes
@@ -436,10 +438,29 @@ const ComponentDetail = () => {
                 <div>
                   <label className="text-sm font-medium text-foreground mb-2 block">Script Tag</label>
                   <div className="relative">
-                    <div 
-                      className="w-full bg-gray-800 dark:bg-background border border-border rounded-md px-3 py-2 pr-10 text-foreground font-mono text-sm focus:outline-none focus:ring-2 focus:ring-primary/20 min-h-[40px] flex items-center"
-                      dangerouslySetInnerHTML={{ __html: highlightCode('<script src="https://flowbitz.dev/flowbitz.umd.js"></script>') }}
-                    />
+                    <div className="relative">
+                      <SyntaxHighlighter
+                        language="html"
+                        style={tomorrow}
+                        customStyle={{
+                          margin: 0,
+                          padding: '0.75rem',
+                          fontSize: '0.875rem',
+                          borderRadius: '0.375rem',
+                          minHeight: '40px',
+                          display: 'flex',
+                          alignItems: 'center',
+                          backgroundColor: '#181b27'
+                        }}
+                        codeTagProps={{
+                          style: {
+                            fontFamily: 'Monaco, Menlo, "Ubuntu Mono", monospace'
+                          }
+                        }}
+                      >
+                        {'<script src="https://flowbitz.dev/flowbitz.umd.js"></script>'}
+                      </SyntaxHighlighter>
+                    </div>
                     <Button 
                       variant="ghost" 
                       size="sm"
