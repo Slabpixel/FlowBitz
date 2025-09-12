@@ -63,7 +63,7 @@ export const componentsMetadata = {
     ],
     example: {
       title: 'Split Text Animation',
-      code: '<div wb-component="split-text" wb-split-type="words" wb-stagger-delay="100">Lorem Ipsum Dolor Sit Amet Consectetur Adipisicing Elit</div>',
+      code: '<h1 wb-component="split-text" wb-split-type="words" wb-stagger-delay="100">Lorem Ipsum Dolor Sit Amet Consectetur Adipisicing Elit</h1>',
       description: 'Each word animates separately with customizable split type and timing'
     }
   },
@@ -139,6 +139,24 @@ export const componentsMetadata = {
         default: '|',
         inputType: 'dropdown',
         options: ['underscore', 'pipe', 'dot', 'block', 'full-block']
+      },
+      { 
+        name: 'wb-text-1', 
+        description: 'First text to type', 
+        default: '',
+        inputType: 'text'
+      },
+      { 
+        name: 'wb-text-2', 
+        description: 'Second text to type', 
+        default: '',
+        inputType: 'text'
+      },
+      { 
+        name: 'wb-text-3', 
+        description: 'Third text to type, you can add more texts by adding wb-text-4, wb-text-5, etc.', 
+        default: '',
+        inputType: 'text'
       },
       { 
         name: 'wb-typing-speed', 
@@ -228,7 +246,7 @@ export const componentsMetadata = {
     ],
     example: {
       title: 'Typewriter Effect',
-      code: '<div wb-component="text-type" wb-typing-speed="100" wb-pause-duration="2000"><p>First text to type</p><p>Second text to type</p><p>Third text to type</p></div>',
+      code: '<h1 class="h1">Learn more about <span wb-component="text-type" wb-typing-speed="100" wb-pause-duration="2000" wb-text-1="Coding" wb-text-2="Webflow" wb-text-3="Animation">Coding</span></h1>',
       description: 'Typewriter effect with customizable cursor and timing'
     }
   },
