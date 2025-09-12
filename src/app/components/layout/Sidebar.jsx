@@ -23,7 +23,7 @@ const Sidebar = ({ showBackLink = false }) => {
   const currentLink = location.pathname
 
   return (
-    <aside className="w-full lg:max-w-[240px] lg:min-w-[240px] bg-background border-r border-border lg:overflow-y-auto lg:sticky lg:top-16 h-auto lg:h-[calc(100vh-4rem)]">
+    <aside className="w-full lg:max-w-[240px] lg:min-w-[240px] bg-background border-r border-border lg:overflow-y-auto lg:sticky lg:top-16 lg:self-start h-auto lg:h-[calc(100vh-4rem)]">
       <div className="flex flex-col gap-4 sm:gap-6 p-4 sm:p-6">        
         {/* Mobile Dropdown Toggle */}
         <button

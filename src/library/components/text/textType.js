@@ -9,20 +9,24 @@ import { AnimationStateManager, PerformanceOptimizer } from '../../utils/animati
 const componentCSS = `
 /* FlowBitz - TextType Component Styles */
 .wb-text-type {
-  display: inline-block;
+  display: inline;
   white-space: pre-wrap;
   position: relative;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
 }
 
 .wb-text-type__content {
-  display: inline-block;
+  display: inline;
 }
 
 .wb-text-type__cursor {
-  margin-left: 0.25rem;
-  display: inline-block;
+  display: inline;
   opacity: 1;
   will-change: opacity;
+  vertical-align: baseline;
+  margin-left: 0.1em;
+  white-space: nowrap;
 }
 
 .wb-text-type__cursor--underscore::after { content: '_'; }
@@ -150,7 +154,13 @@ class TextTypeAnimator {
    * Parse text content from element
    */
   parseTextContent(element) {
-    // First priority: Check for <p> elements inside the container
+    // First priority: Check for wb-text-1, wb-text-2, wb-text-3, etc. attributes
+    const texts = this.parseTextsFromAttributes(element);
+    if (texts.length > 0) {
+      return texts;
+    }
+
+    // Second priority: Check for <p> elements inside the container
     const paragraphs = element.querySelectorAll('p');
     if (paragraphs.length > 0) {
       const textArray = Array.from(paragraphs).map(p => p.textContent.trim()).filter(text => text);
@@ -159,7 +169,7 @@ class TextTypeAnimator {
       }
     }
 
-    // Second priority: Check for wb-text-array attribute for multiple texts
+    // Third priority: Check for wb-text-array attribute for multiple texts
     const textArrayAttr = element.getAttribute('wb-text-array');
     if (textArrayAttr) {
       try {
@@ -172,6 +182,26 @@ class TextTypeAnimator {
     // Fallback: Use element text content (excluding nested elements)
     const textContent = element.textContent.trim();
     return textContent ? [textContent] : [''];
+  }
+
+  /**
+   * Parse texts from wb-text-* attributes (similar to rotating-text)
+   */
+  parseTextsFromAttributes(element) {
+    const texts = [];
+    let index = 1;
+    
+    while (true) {
+      const textAttr = element.getAttribute(`wb-text-${index}`);
+      if (textAttr) {
+        texts.push(textAttr.trim());
+        index++;
+      } else {
+        break;
+      }
+    }
+    
+    return texts;
   }
 
   /**
@@ -212,7 +242,7 @@ class TextTypeAnimator {
   /**
    * Create DOM structure for typewriter effect
    */
-  createDOMStructure(element, config) {
+  createDOMStructure(element, config, textArray) {
     // Store original content
     const originalContent = element.innerHTML;
     
@@ -230,6 +260,9 @@ class TextTypeAnimator {
     if (config.showCursor) {
       element.appendChild(cursorSpan);
     }
+
+    // Always start with empty content - the animation will handle typing
+    contentSpan.textContent = '';
 
     return {
       originalContent,
@@ -253,8 +286,8 @@ class TextTypeAnimator {
   initElement(element) {
     this.ensureStylesInjected();
     
-    if (!element || !element.textContent.trim()) {
-      console.warn('WebflowBits TextType: Element is empty or invalid');
+    if (!element) {
+      console.warn('WebflowBits TextType: Element is invalid');
       return;
     }
 
@@ -265,6 +298,12 @@ class TextTypeAnimator {
 
     const config = this.parseConfig(element);
     const textArray = this.parseTextContent(element);
+    
+    // Check if we have valid text content to animate
+    if (!textArray || textArray.length === 0 || textArray.every(text => !text.trim())) {
+      console.warn('WebflowBits TextType: No valid text content found for animation');
+      return;
+    }
     
     // Create instance object to track this animation
     const instance = {
@@ -292,7 +331,7 @@ class TextTypeAnimator {
       this.applyComponentClasses(element, config);
       
       // Create DOM structure
-      instance.domStructure = this.createDOMStructure(element, config);
+      instance.domStructure = this.createDOMStructure(element, config, textArray);
       
       // Apply performance optimizations
       PerformanceOptimizer.optimizeForAnimation([
