@@ -438,13 +438,13 @@ const ComponentDetail = () => {
                   <div className="relative">
                     <div 
                       className="w-full bg-gray-800 dark:bg-background border border-border rounded-md px-3 py-2 pr-10 text-foreground font-mono text-sm focus:outline-none focus:ring-2 focus:ring-primary/20 min-h-[40px] flex items-center"
-                      dangerouslySetInnerHTML={{ __html: highlightCode('<script src="https://flowbitz.dev/webflow-bits.umd.js"></script>') }}
+                      dangerouslySetInnerHTML={{ __html: highlightCode('<script src="https://flowbitz.dev/flowbitz.umd.js"></script>') }}
                     />
                     <Button 
                       variant="ghost" 
                       size="sm"
                       className="absolute right-1 top-1/2 -translate-y-1/2 h-8 w-8 p-0 hover:bg-gray-700" 
-                      onClick={() => copyToClipboard('<script src="https://flowbitz.dev/webflow-bits.umd.js"></script>', 'scriptTag')}
+                      onClick={() => copyToClipboard('<script src="https://flowbitz.dev/flowbitz.umd.js"></script>', 'scriptTag')}
                     >
                       {copyStates.scriptTag ? (
                         <span className="text-green-500 text-xs">✓</span>
