@@ -3,11 +3,11 @@ import { Link } from 'react-router-dom'
 
 const Footer = () => {
   return (
-    <footer className="w-full flex justify-center bg-background border-t border-border py-12">
-      <div className="w-full max-w-7xl mx-auto px-6">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
-          <div className="footer-section">
-            <h3 className="text-xl font-semibold mb-3 text-foreground">
+    <footer className="w-full flex justify-center bg-background border-t border-border py-8 sm:py-12">
+      <div className="w-full max-w-7xl mx-auto px-4 sm:px-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8 mb-6 sm:mb-8">
+          <div className="footer-section sm:col-span-2 lg:col-span-1">
+            <h3 className="text-lg sm:text-xl font-semibold mb-2 sm:mb-3 text-foreground">
               FlowBits
             </h3>
             <p className="text-muted-foreground leading-relaxed text-sm">
@@ -16,10 +16,10 @@ const Footer = () => {
           </div>
           
           <div className="footer-section">
-            <h4 className="text-sm font-semibold text-foreground mb-3 uppercase tracking-wide">
+            <h4 className="text-xs sm:text-sm font-semibold text-foreground mb-2 sm:mb-3 uppercase tracking-wide">
               Resources
             </h4>
-            <ul className="list-none space-y-2">
+            <ul className="list-none space-y-1 sm:space-y-2">
               <li>
                 <Link 
                   to="/components" 
@@ -48,13 +48,15 @@ const Footer = () => {
           </div>
           
           <div className="footer-section">
-            <h4 className="text-sm font-semibold text-foreground mb-3 uppercase tracking-wide">
+            <h4 className="text-xs sm:text-sm font-semibold text-foreground mb-2 sm:mb-3 uppercase tracking-wide">
               Community
             </h4>
-            <ul className="list-none space-y-2">
+            <ul className="list-none space-y-1 sm:space-y-2">
               <li>
                 <a 
-                  href="#github" 
+                  href="https://github.com/Slabpixel/Webflow-Bits" 
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="text-muted-foreground no-underline transition-colors duration-200 text-sm hover:text-foreground"
                 >
                   GitHub
@@ -80,13 +82,13 @@ const Footer = () => {
           </div>
 
           <div className="footer-section">
-            <h4 className="text-sm font-semibold text-foreground mb-3 uppercase tracking-wide">
+            <h4 className="text-xs sm:text-sm font-semibold text-foreground mb-2 sm:mb-3 uppercase tracking-wide">
               Social Media
             </h4>
-            <ul className="list-none space-y-2">
+            <ul className="list-none space-y-1 sm:space-y-2">
               <li>
                 <a 
-                  href="#github" 
+                  href="#instagram" 
                   className="text-muted-foreground no-underline transition-colors duration-200 text-sm hover:text-foreground"
                 >
                   Instagram
@@ -94,7 +96,7 @@ const Footer = () => {
               </li>
               <li>
                 <a 
-                  href="#discord" 
+                  href="#linkedin" 
                   className="text-muted-foreground no-underline transition-colors duration-200 text-sm hover:text-foreground"
                 >
                   LinkedIn
@@ -102,7 +104,7 @@ const Footer = () => {
               </li>
               <li>
                 <a 
-                  href="#twitter" 
+                  href="#facebook" 
                   className="text-muted-foreground no-underline transition-colors duration-200 text-sm hover:text-foreground"
                 >
                   Facebook

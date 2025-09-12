@@ -12,19 +12,24 @@ export const useTheme = () => {
 
 export const ThemeProvider = ({ children }) => {
   const [theme, setTheme] = useState(() => {
-    // Check localStorage first, then system preference
-    const savedTheme = localStorage.getItem('theme')
-    if (savedTheme) {
-      return savedTheme
+    // Check localStorage first, then default to dark
+    if (typeof window !== 'undefined') {
+      const savedTheme = localStorage.getItem('theme')
+      if (savedTheme) {
+        return savedTheme
+      }
     }
-    return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
+    // Default to dark theme
+    return 'dark'
   })
 
   useEffect(() => {
-    const root = window.document.documentElement
-    root.classList.remove('light', 'dark')
-    root.classList.add(theme)
-    localStorage.setItem('theme', theme)
+    if (typeof window !== 'undefined') {
+      const root = window.document.documentElement
+      root.classList.remove('light', 'dark')
+      root.classList.add(theme)
+      localStorage.setItem('theme', theme)
+    }
   }, [theme])
 
   const toggleTheme = () => {
