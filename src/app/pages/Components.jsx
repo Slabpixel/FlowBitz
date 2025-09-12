@@ -63,7 +63,7 @@ const Components = () => {
               </div>
             </div>
 
-            <div className="mb-12">
+            <div className="mb-0">
               <h3 className="text-2xl font-semibold mb-4 text-foreground">Performance</h3>
               <p className="text-muted-foreground text-lg leading-relaxed mb-6">
                 While we do everything possible to optimize components for Webflow, here are some tips to keep in mind when using FlowBits:
@@ -89,6 +89,9 @@ const Components = () => {
                 </div>
               </div>
             </div>
+          </div>
+          <div className="w-full max-w-[970px] text-center text-muted-foreground text-sm mt-12">
+            Made with 💙 by <a href="https://slabpixel.com" target="_blank" rel="noopener noreferrer" className="text-primary">SlabPixel</a>
           </div>
         </main>
       </div>

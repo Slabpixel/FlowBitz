@@ -227,7 +227,7 @@ const ComponentDetail = () => {
               onCheckedChange={(checked) => handleValueChange(checked ? 'true' : 'false')}
             />
             <Label className="text-sm text-muted-foreground">
-              {currentValue === 'true' || currentValue === true ? 'Enabled' : 'Disabled'}
+              {currentValue === 'true' || currentValue === true ? 'True' : 'False'}
             </Label>
           </div>
         )
@@ -303,7 +303,7 @@ const ComponentDetail = () => {
     const wbAttributes = extractWbAttributes(currentCode)
     
     return (
-      <div className="space-y-8">
+      <div className="space-y-4">
         {/* Preview */}
         <div className="relative bg-muted/50 rounded-lg p-12 overflow-hidden border border-border min-h-[470px] flex items-center justify-center">
           <Button 
@@ -320,15 +320,36 @@ const ComponentDetail = () => {
           {wbAttributes.length > 0 && (
             <div className="absolute bottom-4 left-4 flex flex-wrap gap-2 z-10">
               {wbAttributes.map((attr, attrIndex) => (
-                <span
+                <div
                   key={attrIndex}
-                  className="inline-flex items-center px-1.5 py-0.5 rounded-sm text-xs font-medium bg-background/90 backdrop-blur-sm text-foreground border border-border/50 shadow-sm"
+                  className="inline-flex items-center px-2 py-1 rounded-md text-xs font-medium bg-background/90 backdrop-blur-sm text-foreground border border-border/50 shadow-sm"
                 >
-                  {attr.name}
+                  <span
+                    className="cursor-pointer hover:text-primary transition-colors duration-200 relative group"
+                    onClick={() => copyToClipboard(attr.name, `attrName_${attrIndex}`)}
+                  >
+                    {attr.name}
+                    {/* Tooltip for attribute name */}
+                    <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-2 py-1 text-xs text-white bg-gray-800 rounded shadow-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none whitespace-nowrap z-20">
+                      {copyStates[`attrName_${attrIndex}`] ? 'Copied!' : 'Click to copy'}
+                    </div>
+                  </span>
                   {attr.value && (
-                    <span className="ml-1 text-muted-foreground">= {attr.value}</span>
+                    <>
+                      <span className="mx-1 text-muted-foreground">=</span>
+                      <span
+                        className="cursor-pointer hover:text-primary transition-colors duration-200 relative group"
+                        onClick={() => copyToClipboard(attr.value, `attrValue_${attrIndex}`)}
+                      >
+                        {attr.value}
+                        {/* Tooltip for attribute value */}
+                        <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-2 py-1 text-xs text-white bg-gray-800 rounded shadow-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none whitespace-nowrap z-20">
+                          {copyStates[`attrValue_${attrIndex}`] ? 'Copied!' : 'Click to copy'}
+                        </div>
+                      </span>
+                    </>
                   )}
-                </span>
+                </div>
               ))}
             </div>
           )}
@@ -377,6 +398,7 @@ const ComponentDetail = () => {
                     <div className={`w-full transition-opacity duration-200 ${!isActive ? 'opacity-50' : ''}`}>
                       <Label className="text-sm font-medium text-foreground">
                         {formatAttributeName(attr.name)}
+                        {attr.required && <span className="text-white text-xs ml-1 rounded-sm px-[6px] py-[1px] bg-primary">Required</span>}
                       </Label>
                       <p className="text-xs text-muted-foreground">{attr.description}</p>
                     </div>
@@ -399,15 +421,13 @@ const ComponentDetail = () => {
 
   const renderInstallationContent = () => {
     return (
-      <div className="space-y-8">
+      <div className="space-y-4">
         <div>
-          <h3 className="text-2xl font-semibold mb-6 text-foreground">Installation Guide</h3>
-          
           {/* Step 1: Add Script */}
-          <div className="space-y-4 mb-8 p-8 card rounded-lg border border-border">
+          <div className="space-y-4 mb-4 p-8 card rounded-lg border border-border">
             <div className="flex items-center gap-3">
               <div className="w-8 h-8 bg-primary text-white rounded-full flex items-center justify-center font-semibold text-sm">1</div>
-              <h4 className="text-xl font-medium text-foreground">Add WebflowBits Script</h4>
+              <h4 className="text-xl font-medium text-foreground">Add FlowBits Script</h4>
             </div>
             <p className="text-muted-foreground ml-11">Add the WebflowBits script to your Webflow project's custom code section.</p>
             
@@ -418,13 +438,13 @@ const ComponentDetail = () => {
                   <div className="relative">
                     <div 
                       className="w-full bg-gray-800 dark:bg-background border border-border rounded-md px-3 py-2 pr-10 text-foreground font-mono text-sm focus:outline-none focus:ring-2 focus:ring-primary/20 min-h-[40px] flex items-center"
-                      dangerouslySetInnerHTML={{ __html: highlightCode('<script src="https://webflow-bits.vercel.app/webflow-bits.umd.js"></script>') }}
+                      dangerouslySetInnerHTML={{ __html: highlightCode('<script src="https://flowbitz.dev/flowbitz.umd.js"></script>') }}
                     />
                     <Button 
                       variant="ghost" 
                       size="sm"
                       className="absolute right-1 top-1/2 -translate-y-1/2 h-8 w-8 p-0 hover:bg-gray-700" 
-                      onClick={() => copyToClipboard('<script src="https://webflow-bits.vercel.app/webflow-bits.umd.js"></script>', 'scriptTag')}
+                      onClick={() => copyToClipboard('<script src="https://flowbitz.dev/flowbitz.umd.js"></script>', 'scriptTag')}
                     >
                       {copyStates.scriptTag ? (
                         <span className="text-green-500 text-xs">✓</span>
@@ -445,7 +465,7 @@ const ComponentDetail = () => {
           </div>
 
           {/* Step 2: Add Attributes */}
-          <div className="space-y-4 mb-8 p-8 card rounded-lg border border-border">
+          <div className="space-y-4 mb-4 p-8 card rounded-lg border border-border">
             <div className="flex items-center gap-3">
               <div className="w-8 h-8 bg-primary text-white rounded-full flex items-center justify-center font-semibold text-sm">2</div>
               <h4 className="text-xl font-medium text-foreground">Add Component Attributes</h4>
@@ -511,7 +531,7 @@ const ComponentDetail = () => {
           </div>
 
           {/* Step 3: Available Attributes */}
-          <div className="space-y-4 mb-8 p-8 card rounded-lg border border-border">
+          <div className="space-y-4 mb-4 p-8 card rounded-lg border border-border">
             <div className="flex items-center gap-3">
               <div className="w-8 h-8 bg-primary text-white rounded-full flex items-center justify-center font-semibold text-sm">3</div>
               <h4 className="text-xl font-medium text-foreground">Available Attributes</h4>
@@ -549,7 +569,7 @@ const ComponentDetail = () => {
           </div>
 
           {/* Step 4: Publish */}
-          <div className="space-y-4 mb-8 p-8 card rounded-lg border border-border">
+          <div className="space-y-4 mb-4 p-8 card rounded-lg border border-border">
             <div className="flex items-center gap-3">
               <div className="w-8 h-8 bg-green-500 text-white rounded-full flex items-center justify-center font-semibold text-sm">4</div>
               <h4 className="text-xl font-medium text-foreground">Publish Your Site</h4>
@@ -585,7 +605,7 @@ const ComponentDetail = () => {
           {/* Tabs */}
           <div className="w-full max-w-[970px]">
             <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-              <TabsList className="flex w-fit flex-row mb-8 bg-muted border border-border">
+              <TabsList className="flex w-fit flex-row mb-4 bg-muted border border-border">
                 <TabsTrigger value="preview" className="data-[state=active]:bg-background data-[state=active]:text-foreground flex items-center gap-2">
                   <Eye className="w-4 h-4" />
                   Preview
@@ -604,6 +624,9 @@ const ComponentDetail = () => {
                 {renderInstallationContent()}
               </TabsContent>
             </Tabs>
+          </div>
+          <div className="w-full max-w-[970px] text-center text-muted-foreground text-sm mt-12">
+            Made with 💙 by <a href="https://slabpixel.com" target="_blank" rel="noopener noreferrer" className="text-primary">SlabPixel</a>
           </div>
         </main>
       </div>

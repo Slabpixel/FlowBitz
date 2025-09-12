@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { Routes, Route } from 'react-router-dom'
+import { Routes, Route, useLocation } from 'react-router-dom'
 import Navbar from './components/layout/Navbar'
 import Footer from './components/layout/Footer'
 import Home from './pages/Home'
@@ -10,11 +10,15 @@ import { ThemeProvider } from './contexts/ThemeContext'
 
 function App() {
   const { initializeWebflowBits } = useWebflowBits()
+  const location = useLocation()
 
   useEffect(() => {
     // Initialize WebflowBits when the app loads
     initializeWebflowBits()
   }, [])
+
+  // Show footer only on home page
+  const showFooter = location.pathname === '/'
 
   return (
     <ThemeProvider>
@@ -27,7 +31,7 @@ function App() {
             <Route path="/components/:componentName" element={<ComponentDetail />} />
           </Routes>
         </main>
-        <Footer />
+        {showFooter && <Footer />}
       </div>
     </ThemeProvider>
   )

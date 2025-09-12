@@ -26,8 +26,7 @@ const Home = () => {
                 wb-component="blur-text" wb-animate-by="words" wb-delay="200">
               Interactive Components for Webflow
             </h1>
-            <p className="text-xl text-muted-foreground leading-relaxed" 
-               wb-component="blur-text" wb-animate-by="words" wb-delay="200">
+            <p className="text-xl text-muted-foreground leading-relaxed">
               Create stunning animations and interactive effects with our powerful library components. 
               Easy to use, performant, and designed specifically for Webflow.
             </p>
@@ -35,7 +34,7 @@ const Home = () => {
               <Button 
                 size="lg" 
                 className="bg-primary" 
-                onClick={() => navigate('/components')}
+                onClick={() => navigate('/components/split-text')}
               >
                 <Zap className="w-5 h-5" />
                 Explore Components
@@ -127,7 +126,7 @@ const Home = () => {
               <Button 
                 size="lg" 
                 className="bg-primary"
-                onClick={() => navigate('/components')}
+                onClick={() => navigate('/components/split-text')}
               >
                 <Zap className="w-5 h-5" />
                 Explore Components

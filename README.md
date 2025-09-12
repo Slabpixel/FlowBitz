@@ -9,7 +9,7 @@ Interactive components library for Webflow powered by GSAP.
 Add this script tag to your Webflow project's custom code (before `</body>`):
 
 ```html
-<script src="https://webflow-bits.vercel.app/webflow-bits.umd.js"></script>
+<script src="https://flowbitz.app/flowbitz.umd.js"></script>
 ```
 
 The library will auto-initialize and start working with elements that have the proper attributes.
