@@ -180,14 +180,15 @@ class TextPressureAnimator {
     };
 
     const updateTouchPosition = (event) => {
-      event.preventDefault();
-      const touch = event.touches[0];
-      this.cursorPosition.x = touch.clientX;
-      this.cursorPosition.y = touch.clientY;
+      if (event.touches.length > 0) {
+        const touch = event.touches[0];
+        this.cursorPosition.x = touch.clientX;
+        this.cursorPosition.y = touch.clientY;
+      }
     };
 
     window.addEventListener('mousemove', updateMousePosition);
-    window.addEventListener('touchmove', updateTouchPosition, { passive: false });
+    window.addEventListener('touchmove', updateTouchPosition, { passive: true });
   }
 
   startAnimationLoop() {
