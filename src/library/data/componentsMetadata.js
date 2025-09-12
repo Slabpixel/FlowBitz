@@ -4,6 +4,21 @@
  * Used to automatically generate component pages and documentation
  */
 
+/**
+ * Installation Requirements
+ * All components now work with a single script tag!
+ * 
+ * Basic Installation (for most components):
+ * <script src="https://flowbitz.dev/flowbitz.umd.js"></script>
+ * 
+ * The library automatically handles:
+ * - GSAP and all plugins (bundled)
+ * - Three.js auto-loading (for shape-blur component)
+ * - All dependencies
+ * 
+ * No additional scripts needed!
+ */
+
 export const componentsMetadata = {
   // Text Components
   'split-text': {
@@ -1363,4 +1378,31 @@ export const getComponent = (key) => {
  */
 export const getAllComponentKeys = () => {
   return Object.keys(componentsMetadata)
+}
+
+/**
+ * Get installation requirements for all components
+ */
+export const getInstallationRequirements = () => {
+  return {
+    basic: {
+      description: 'Single script tag - works for all components',
+      script: '<script src="https://flowbitz.dev/flowbitz.umd.js"></script>',
+      includes: [
+        'GSAP and all plugins (bundled)',
+        'Three.js auto-loading (for shape-blur)',
+        'All component dependencies'
+      ]
+    },
+    components: {
+      'shape-blur': {
+        description: 'Auto-loads Three.js when needed',
+        note: 'No additional setup required - Three.js loads automatically'
+      },
+      'all-others': {
+        description: 'Work immediately with basic installation',
+        note: 'All GSAP dependencies are bundled'
+      }
+    }
+  }
 }
