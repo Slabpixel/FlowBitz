@@ -228,7 +228,7 @@ class ShapeBlurAnimator {
   }
 
   /**
-   * Initialize Three.js if available
+   * Initialize Three.js if available, auto-load if needed
    */
   initThreeJS() {
     try {
@@ -236,15 +236,61 @@ class ShapeBlurAnimator {
         this.THREE = window.THREE;
         this.isSupported = true;
         console.log('WebflowBits ShapeBlur: Three.js detected');
+        return true;
       } else {
-        this.isSupported = false;
-        console.warn('WebflowBits ShapeBlur: Three.js not found. Please include Three.js to use this component.');
-        console.info('Add this to your HTML head: <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>');
+        // Auto-load Three.js
+        this.autoLoadThreeJS();
+        return false;
       }
     } catch (error) {
       console.warn('WebflowBits ShapeBlur: Failed to initialize Three.js', error);
       this.isSupported = false;
+      return false;
     }
+  }
+
+  /**
+   * Auto-load Three.js from CDN
+   */
+  autoLoadThreeJS() {
+    // Check if Three.js is already being loaded
+    if (this.isLoadingThreeJS) {
+      return;
+    }
+
+    this.isLoadingThreeJS = true;
+    console.log('WebflowBits ShapeBlur: Auto-loading Three.js...');
+
+    const script = document.createElement('script');
+    script.src = 'https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js';
+    script.async = true;
+    
+    script.onload = () => {
+      console.log('WebflowBits ShapeBlur: Three.js loaded successfully');
+      this.THREE = window.THREE;
+      this.isSupported = true;
+      this.isLoadingThreeJS = false;
+      
+      // Process any pending elements that were waiting for Three.js
+      if (this.pendingElements) {
+        console.log(`WebflowBits ShapeBlur: Processing ${this.pendingElements.size} pending elements`);
+        this.pendingElements.forEach(element => {
+          this.initElement(element);
+        });
+        this.pendingElements.clear();
+      }
+      
+      // Re-initialize the component now that Three.js is available
+      this.initWebGL();
+    };
+    
+    script.onerror = () => {
+      console.error('WebflowBits ShapeBlur: Failed to load Three.js from CDN');
+      this.isSupported = false;
+      this.isLoadingThreeJS = false;
+    };
+    
+    document.head.appendChild(script);
   }
 
   /**
@@ -279,8 +325,16 @@ class ShapeBlurAnimator {
 
     // Check Three.js availability
     if (!this.isSupported) {
-      this.showError(element, 'Three.js required');
-      return;
+      if (this.isLoadingThreeJS) {
+        // Three.js is loading, wait for it
+        console.log('WebflowBits ShapeBlur: Waiting for Three.js to load...');
+        this.pendingElements = this.pendingElements || new Set();
+        this.pendingElements.add(element);
+        return;
+      } else {
+        this.showError(element, 'Three.js required');
+        return;
+      }
     }
 
     try {
