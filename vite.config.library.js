@@ -5,7 +5,7 @@ export default defineConfig({
   build: {
     lib: {
       entry: resolve(__dirname, 'src/library/index.js'),
-      name: 'WebflowBits',
+      name: 'FlowBitz',
       fileName: (format) => `flowbitz.${format}.js`,
       formats: ['es', 'umd']
     },

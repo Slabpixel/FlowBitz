@@ -431,7 +431,7 @@ const ComponentDetail = () => {
               <div className="w-6 h-6 sm:w-8 sm:h-8 bg-primary text-white rounded-full flex items-center justify-center font-semibold text-xs sm:text-sm">1</div>
               <h4 className="text-lg sm:text-xl font-medium text-foreground">Add FlowBitz Script</h4>
             </div>
-            <p className="text-muted-foreground text-sm sm:text-base ml-0 sm:ml-11">Add the WebflowBits script to your Webflow project's custom code section.</p>
+            <p className="text-muted-foreground text-sm sm:text-base ml-0 sm:ml-11">Add the FlowBitz script to your Webflow project's custom code section.</p>
             
             <div className="ml-0 sm:ml-11 space-y-4">
               <div className="p-3 sm:p-4 border border-border rounded-lg">
@@ -631,11 +631,11 @@ const ComponentDetail = () => {
               <TabsList className="flex w-full sm:w-fit flex-row mb-4 bg-muted border border-border">
                 <TabsTrigger value="preview" className="data-[state=active]:bg-background data-[state=active]:text-foreground flex items-center gap-2 flex-1 sm:flex-none">
                   <Eye className="w-4 h-4" />
-                  <span className="hidden sm:inline">Preview</span>
+                  <span className="inline">Preview</span>
                 </TabsTrigger>
                 <TabsTrigger value="installation" className="data-[state=active]:bg-background data-[state=active]:text-foreground flex items-center gap-2 flex-1 sm:flex-none">
                   <Code className="w-4 h-4" />
-                  <span className="hidden sm:inline">Installation Guide</span>
+                  <span className="inline">Installation Guide</span>
                 </TabsTrigger>
               </TabsList>
               
