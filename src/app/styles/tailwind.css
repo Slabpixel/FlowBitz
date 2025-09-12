@@ -83,20 +83,6 @@ body {
   line-height: 1.6;
   color: var(--text-primary);
   background-color: var(--bg-primary);
-  overflow-x: hidden;
-  overflow-y: auto;
-  -webkit-overflow-scrolling: touch;
-}
-
-/* Ensure proper scrolling on mobile */
-html, body {
-  height: 100%;
-  overflow-y: auto;
-}
-
-.app {
-  min-height: 100vh;
-  overflow-y: auto;
 }
 
 /* Custom component styles that can't be easily replaced with Tailwind */
