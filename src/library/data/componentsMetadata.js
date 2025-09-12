@@ -84,7 +84,7 @@ export const componentsMetadata = {
       { 
         name: 'wb-colors', 
         description: 'Gradient colors (comma-separated or JSON array)', 
-        default: '#40ffaa,#4079ff,#40ffaa,#4079ff,#40ffaa',
+        default: '#40ffaa, #4079ff, #40ffaa, #4079ff, #40ffaa',
         inputType: 'text'
       },
       { 
@@ -364,16 +364,14 @@ export const componentsMetadata = {
       { 
         name: 'wb-count-to', 
         description: 'Target number to count to', 
-        default: '100',
-        inputType: 'slider',
-        sliderConfig: { min: 0, max: 10000, step: 100 }
+        default: '1250',
+        inputType: 'string',
       },
       { 
         name: 'wb-count-from', 
         description: 'Starting number', 
         default: '0',
-        inputType: 'slider',
-        sliderConfig: { min: 0, max: 1000, step: 10 }
+        inputType: 'string',
       },
       { 
         name: 'wb-count-direction', 
@@ -444,7 +442,7 @@ export const componentsMetadata = {
     ],
     example: {
       title: 'Count Up Animation',
-      code: '<span wb-component="count-up" wb-count-to="1000" wb-count-separator=",">0</span>',
+      code: '<span wb-component="count-up" wb-count-to="1250" wb-count-separator=",">0</span>',
       description: 'Animated number counting with customizable formatting'
     }
   },

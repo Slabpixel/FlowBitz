@@ -320,15 +320,36 @@ const ComponentDetail = () => {
           {wbAttributes.length > 0 && (
             <div className="absolute bottom-4 left-4 flex flex-wrap gap-2 z-10">
               {wbAttributes.map((attr, attrIndex) => (
-                <span
+                <div
                   key={attrIndex}
                   className="inline-flex items-center px-2 py-1 rounded-md text-xs font-medium bg-background/90 backdrop-blur-sm text-foreground border border-border/50 shadow-sm"
                 >
-                  {attr.name}
+                  <span
+                    className="cursor-pointer hover:text-primary transition-colors duration-200 relative group"
+                    onClick={() => copyToClipboard(attr.name, `attrName_${attrIndex}`)}
+                  >
+                    {attr.name}
+                    {/* Tooltip for attribute name */}
+                    <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-2 py-1 text-xs text-white bg-gray-800 rounded shadow-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none whitespace-nowrap z-20">
+                      {copyStates[`attrName_${attrIndex}`] ? 'Copied!' : 'Click to copy'}
+                    </div>
+                  </span>
                   {attr.value && (
-                    <span className="ml-1 text-muted-foreground">= {attr.value}</span>
+                    <>
+                      <span className="mx-1 text-muted-foreground">=</span>
+                      <span
+                        className="cursor-pointer hover:text-primary transition-colors duration-200 relative group"
+                        onClick={() => copyToClipboard(attr.value, `attrValue_${attrIndex}`)}
+                      >
+                        {attr.value}
+                        {/* Tooltip for attribute value */}
+                        <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-2 py-1 text-xs text-white bg-gray-800 rounded shadow-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none whitespace-nowrap z-20">
+                          {copyStates[`attrValue_${attrIndex}`] ? 'Copied!' : 'Click to copy'}
+                        </div>
+                      </span>
+                    </>
                   )}
-                </span>
+                </div>
               ))}
             </div>
           )}
@@ -417,13 +438,13 @@ const ComponentDetail = () => {
                   <div className="relative">
                     <div 
                       className="w-full bg-gray-800 dark:bg-background border border-border rounded-md px-3 py-2 pr-10 text-foreground font-mono text-sm focus:outline-none focus:ring-2 focus:ring-primary/20 min-h-[40px] flex items-center"
-                      dangerouslySetInnerHTML={{ __html: highlightCode('<script src="https://webflow-bits.vercel.app/webflow-bits.umd.js"></script>') }}
+                      dangerouslySetInnerHTML={{ __html: highlightCode('<script src="https://flowbitz.dev/webflow-bits.umd.js"></script>') }}
                     />
                     <Button 
                       variant="ghost" 
                       size="sm"
                       className="absolute right-1 top-1/2 -translate-y-1/2 h-8 w-8 p-0 hover:bg-gray-700" 
-                      onClick={() => copyToClipboard('<script src="https://webflow-bits.vercel.app/webflow-bits.umd.js"></script>', 'scriptTag')}
+                      onClick={() => copyToClipboard('<script src="https://flowbitz.dev/webflow-bits.umd.js"></script>', 'scriptTag')}
                     >
                       {copyStates.scriptTag ? (
                         <span className="text-green-500 text-xs">✓</span>

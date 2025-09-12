@@ -6,7 +6,7 @@ export default defineConfig({
     lib: {
       entry: resolve(__dirname, 'src/library/index.js'),
       name: 'WebflowBits',
-      fileName: (format) => `webflow-bits.${format}.js`,
+      fileName: (format) => `flowbitz.${format}.js`,
       formats: ['es', 'umd']
     },
     outDir: 'dist',
