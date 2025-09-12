@@ -21,7 +21,9 @@ const Navbar = () => {
   }
 
   return (
-    <nav className="w-full fixed top-0 left-0 bg-background/95 backdrop-blur-sm border-b border-border z-50 transition-all duration-200">
+    <nav className={`w-full fixed top-0 left-0 z-50 ${
+      location.pathname.startsWith('/components') ? 'border-b border-border bg-background/80 backdrop-blur-sm' : ''
+    }`}>
       <div className="mx-auto px-4 sm:px-6 flex items-center justify-between h-16">
         <div className="nav-logo">
           <button 
@@ -31,7 +33,7 @@ const Navbar = () => {
             <Logo className="h-6 w-auto" />
           </button>
         </div>
-        <div className={`nav-menu ${isMenuOpen ? 'active' : ''} hidden md:flex items-center gap-1`} id="nav-menu">
+        <div className={`nav-menu ${isMenuOpen ? 'active' : ''} ${location.pathname === '/' ? 'hidden' : 'hidden md:flex'} items-center gap-1`} id="nav-menu">
           <button 
             onClick={() => navigate('/')}
             className={`px-3 lg:px-4 py-2 rounded-md font-medium text-sm transition-all duration-200 flex items-center gap-2 ${
@@ -64,20 +66,22 @@ const Navbar = () => {
         </div>
         <div className="flex items-center gap-2">
           <ThemeToggle />
-          <div 
-            className="md:hidden flex flex-col gap-1 p-2 rounded-md transition-colors duration-200 hover:bg-accent cursor-pointer" 
-            id="nav-toggle" 
-            onClick={toggleMenu}
-          >
+          {location.pathname !== '/' && (
+            <div 
+              className="md:hidden flex flex-col gap-1 p-2 rounded-md transition-colors duration-200 hover:bg-accent cursor-pointer" 
+              id="nav-toggle" 
+              onClick={toggleMenu}
+            >
           <span className={`w-5 h-0.5 bg-foreground transition-all duration-200 rounded-sm ${isMenuOpen ? 'rotate-45 translate-y-1.5' : ''}`}></span>
           <span className={`w-5 h-0.5 bg-foreground transition-all duration-200 rounded-sm ${isMenuOpen ? 'opacity-0' : ''}`}></span>
           <span className={`w-5 h-0.5 bg-foreground transition-all duration-200 rounded-sm ${isMenuOpen ? '-rotate-45 -translate-y-1.5' : ''}`}></span>
           </div>
+          )}
         </div>
       </div>
       
       {/* Mobile Menu Overlay */}
-      {isMenuOpen && (
+      {isMenuOpen && location.pathname !== '/' && (
         <div 
           className="md:hidden fixed inset-0 bg-black/50 backdrop-blur-sm z-40"
           onClick={() => setIsMenuOpen(false)}
@@ -85,9 +89,10 @@ const Navbar = () => {
       )}
       
       {/* Mobile Menu */}
-      <div className={`md:hidden fixed top-16 left-0 w-80 h-[calc(100vh-4rem)] bg-background border-r border-border z-50 transition-transform duration-300 ease-in-out ${
-        isMenuOpen ? 'translate-x-0' : '-translate-x-full'
-      }`}>
+      {location.pathname !== '/' && (
+        <div className={`md:hidden fixed top-16 left-0 w-80 h-[calc(100vh-4rem)] bg-background border-r border-border z-50 transition-transform duration-300 ease-in-out ${
+          isMenuOpen ? 'translate-x-0' : '-translate-x-full'
+        }`}>
         <div className="flex flex-col items-start justify-start pt-6 px-4 space-y-1 h-full overflow-y-auto">
           <button 
             onClick={() => {
@@ -129,6 +134,7 @@ const Navbar = () => {
           </button>
         </div>
       </div>
+      )}
     </nav>
   )
 }
