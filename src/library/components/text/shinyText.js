@@ -8,12 +8,11 @@ import { AnimationStateManager } from '../../utils/animation/animationStateManag
 const componentCSS = `
 /* Webflow Bits - ShinyText Component Styles */
 .wb-shiny-text {
-  color: #b5b5b5a4;
   background: linear-gradient(
     120deg,
-    rgba(255, 255, 255, 0) 40%,
-    rgba(255, 255, 255, 0.8) 50%,
-    rgba(255, 255, 255, 0) 60%
+    currentColor 40%,
+    #0a70ff 50%,
+    currentColor 60%
   );
   background-size: 200% 100%;
   -webkit-background-clip: text;
@@ -50,8 +49,8 @@ class ShinyTextAnimator {
     this.defaultConfig = {
       speed: 5,        // animation speed in seconds
       disabled: false, // whether animation is disabled
-      textColor: '#b5b5b5a4', // base text color
-      shineColor: 'rgba(255, 255, 255, 0.8)' // shine color
+      textColor: null, // base text color - will inherit from Webflow element
+      shineColor: '#0a70ff' // shine color
     };
     
     // this.injectComponentStyles();
@@ -82,18 +81,36 @@ class ShinyTextAnimator {
     }
 
   /**
+   * Normalize color value to ensure it has # prefix
+   */
+  normalizeColor(color) {
+    if (!color) return color;
+    return color.startsWith('#') ? color : `#${color}`;
+  }
+
+  /**
    * Parse custom attributes from element using utility functions
    */
   parseConfig(element) {
     const attributeMap = {
       // ShinyText-specific attributes
       speed: { attribute: 'wb-speed', type: 'duration' },
-      disabled: { attribute: 'wb-disabled', type: 'boolean' },
+      disabled: { attribute: 'wb-disable', type: 'boolean' },
       textColor: { attribute: 'wb-text-color', type: 'string' },
       shineColor: { attribute: 'wb-shine-color', type: 'string' }
     };
     
-    return parseElementConfig(element, this.defaultConfig, attributeMap);
+    const config = parseElementConfig(element, this.defaultConfig, attributeMap);
+    
+    // Normalize color values
+    if (config.textColor) {
+      config.textColor = this.normalizeColor(config.textColor);
+    }
+    if (config.shineColor) {
+      config.shineColor = this.normalizeColor(config.shineColor);
+    }
+    
+    return config;
   }
 
   /**
@@ -138,18 +155,20 @@ class ShinyTextAnimator {
     // Set animation duration
     element.style.animationDuration = `${config.speed}s`;
     
-    // Create custom gradient if colors are specified
-    if (config.textColor !== this.defaultConfig.textColor || 
-        config.shineColor !== this.defaultConfig.shineColor) {
+    // Only apply custom gradient if custom colors are specified
+    if (config.textColor !== null || config.shineColor !== this.defaultConfig.shineColor) {
+      // If textColor is null, use transparent to let Webflow's color show through
+      const baseColor = config.textColor || 'transparent';
       
       const gradient = `linear-gradient(
         120deg,
-        transparent 40%,
+        ${baseColor} 40%,
         ${config.shineColor} 50%,
-        transparent 60%
+        ${baseColor} 60%
       )`;
       
-      element.style.color = config.textColor;
+      // Use the gradient as the text color, not as background
+      element.style.color = 'transparent';
       element.style.background = gradient;
       element.style.backgroundSize = '200% 100%';
       element.style.webkitBackgroundClip = 'text';

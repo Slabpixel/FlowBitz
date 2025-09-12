@@ -117,5 +117,7 @@ pre code .value {
   color: hsl(var(--primary));
 }
 
+/* Syntax highlighting is now handled by react-syntax-highlighter */
+
 /* Keep existing component-specific styles for now */
 /* These will be gradually migrated to Tailwind classes */

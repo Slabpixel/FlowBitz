@@ -4,11 +4,14 @@ import webflowBits from '../../library/core/WebflowBits.js'
 export const useWebflowBits = () => {
   const initializeWebflowBits = useCallback(() => {
     try {
-      // Initialize WebflowBits with debug mode for development
-      webflowBits.init({
-        debug: true,
-        autoInit: true
-      })
+      // Check if already initialized to avoid duplicate initialization
+      if (!webflowBits.initialized) {
+        // Initialize WebflowBits with debug mode for development
+        webflowBits.init({
+          debug: true,
+          autoInit: true
+        })
+      }
     } catch (error) {
       console.error('Failed to initialize WebflowBits:', error)
     }
@@ -24,7 +27,7 @@ export const useWebflowBits = () => {
   }, [])
 
   useEffect(() => {
-    // Initialize on mount
+    // Initialize on mount only if not already initialized
     initializeWebflowBits()
 
     // Cleanup function

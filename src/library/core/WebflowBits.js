@@ -1127,7 +1127,7 @@ if (typeof window !== 'undefined') {
   window.WebflowBits = webflowBits;
   
   // Auto-init if script is loaded normally (not as module)
-  if (!document.currentScript?.type?.includes('module')) {
+  if (!document.currentScript?.type?.includes('module') && !webflowBits.initialized) {
     webflowBits.init();
   }
 

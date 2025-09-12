@@ -330,20 +330,20 @@ export const componentsMetadata = {
       },
       { 
         name: 'wb-text-color', 
-        description: 'Base text color', 
-        default: '#b5b5b5a4',
+        description: 'Base text color (inherits from Webflow element if not specified)', 
+        default: '#0a70ff',
         inputType: 'color'
       },
       { 
         name: 'wb-shine-color', 
         description: 'Shine color', 
-        default: 'rgba(255, 255, 255, 0.8)',
+        default: '#8cbcff',
         inputType: 'color'
       }
     ],
     example: {
       title: 'Shiny Text Effect',
-      code: '<h1 wb-component="shiny-text" wb-speed="2">Shiny Text</h1>',
+      code: '<h1 wb-component="shiny-text" wb-text-color="#0a70ff" wb-shine-color="#8cbcff">Shiny Text</h1>',
       description: 'Shimmer and shine text effects with customizable speed'
     }
   },
@@ -674,6 +674,25 @@ export const componentsMetadata = {
         inputType: 'dropdown',
         options: ['characters', 'words', 'lines']
       },
+      ,
+      { 
+        name: 'wb-text-1', 
+        description: 'First rotating text', 
+        default: '',
+        inputType: 'text'
+      },
+      { 
+        name: 'wb-text-2', 
+        description: 'Second rotating text', 
+        default: '',
+        inputType: 'text'
+      },
+      { 
+        name: 'wb-text-3', 
+        description: 'Third rotating text, you can add more texts by adding wb-text-4, wb-text-5, etc.', 
+        default: '',
+        inputType: 'text'
+      },
       { 
         name: 'wb-rotation-interval', 
         description: 'Time between rotations in milliseconds', 
@@ -783,7 +802,7 @@ export const componentsMetadata = {
     ],
     example: {
       title: 'Rotating Text Animation',
-      code: '<div wb-component="rotating-text" wb-rotating-split-by="characters" wb-rotating-interval="2000" style="padding: 0.5rem; color: white; background-color: #0B64FF; border-radius: 8px;"><p>Animated</p><p>Rotating</p><p>Text</p></div>',
+      code: '<h1 class="h1">The Sample of <span wb-component="rotating-text" wb-rotating-split-by="characters" wb-text-1="Animated" wb-text-2="Rotating" wb-text-3="Text">Animated</span></h1>',
       description: 'Auto-rotating text with stagger effects and customizable timing'
     }
   },
