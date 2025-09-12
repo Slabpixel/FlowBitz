@@ -2,6 +2,8 @@ import React from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Button } from '../components/ui/button.jsx'
 import { Zap, Plus, Layers, Github } from 'lucide-react'
+import GridDistortion from '../components/ui/grid-distortion.jsx';
+import DarkVeil from '../components/ui/background.jsx';
 
 const Home = () => {
   const navigate = useNavigate()
@@ -11,13 +13,18 @@ const Home = () => {
   }
 
   return (
-    <div className="bg-background text-foreground pt-[64px]">
+    <div className="relative text-foreground">
+      {/* Dark Veil Background */}
+      <div style={{ width: '100%', height: '100vh', position: 'absolute', zIndex: -1 }}>
+        <DarkVeil />
+      </div>
+
       {/* Hero Section */}
-      <section className="relative flex items-center justify-center px-4 sm:px-6 lg:px-8 py-8 sm:py-12 lg:py-[64px]">
+      <section className="relative flex items-center justify-center px-4 sm:px-6 lg:px-8 py-8 sm:py-12 lg:py-[100px]">
         <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
           <div className="space-y-6 lg:space-y-8 order-2 lg:order-1">
             {/* Component Count Pill */}
-            <div className="inline-flex items-center gap-2 px-3 sm:px-4 py-2 bg-gradient-to-r from-primary/10 to-purple-600/10 border border-primary/20 rounded-full text-xs sm:text-sm font-medium text-primary">
+            <div className="inline-flex items-center gap-2 px-3 sm:px-4 py-2 bg-gradient-to-r from-white/25 to-primary/25 dark:from-black/25 dark:to-black/10 rounded-full text-xs sm:text-sm font-medium text-black dark:text-white">
               <span className="w-2 h-2 bg-primary rounded-full animate-pulse"></span>
               <span>16 Components Available</span>
             </div>
@@ -51,24 +58,17 @@ const Home = () => {
             </div>
           </div>
           <div className="hidden sm:flex justify-center order-1 lg:order-2">
-            <div className="w-full max-w-sm sm:max-w-md lg:max-w-lg max-h-[300px] sm:max-h-[400px] lg:max-h-[500px] bg-card border border-border rounded-2xl sm:rounded-3xl flex items-center justify-center p-4 sm:p-6 lg:p-8" 
-                 wb-animate="shape-blur"
-                 wb-shape-variation="0"
-                 wb-shape-size="1.2"
-                 wb-roundness="0.4"
-                 wb-border-size="0.05"
-                 wb-circle-size="0.3"
-                 wb-circle-edge="0.5"
-                 wb-mouse-damp="8">
+            <div className="w-full h-[500px] position-relative max-w-sm sm:max-w-md lg:max-w-lg sm:rounded-3xl flex items-center justify-center p-4 sm:p-6 lg:p-8">
+              <GridDistortion imageSrc="/flowbitz-3d.png" grid={10} mouse={0.2} strength={0.15} relaxation={0.9} className="w-full h-auto"/>
             </div>
           </div>
         </div>
       </section>
 
       {/* Features Section */}
-      <section className="py-12 sm:py-16 lg:py-20 px-4 sm:px-6 lg:px-8">
+      <section className="bg-background py-12 sm:py-16 lg:py-20 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-12 sm:mb-16">
+          <div className="flex flex-col items-center justify-center text-center mb-12 sm:mb-16">
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4 sm:mb-6" 
                 wb-component="text-type" wb-typing-speed="50" wb-deleting-speed="25">
               Powerful Features
@@ -78,32 +78,32 @@ const Home = () => {
             </p>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
-            <div className="bg-card bg-muted rounded-xl p-6 sm:p-8 text-center hover:bg-accent transition-all duration-300">
+            <div className="bg-neutral-200/30 dark:bg-neutral-800/20 backdrop-blur-lg rounded-xl p-6 sm:p-8 text-center hover:bg-white/20 dark:hover:bg-black/30 transition-all duration-300 hover:scale-105">
               <div className="text-3xl sm:text-4xl mb-3 sm:mb-4">🎨</div>
               <h3 className="text-lg sm:text-xl font-semibold mb-2 sm:mb-3 text-foreground">16 Components</h3>
               <p className="text-sm sm:text-base text-muted-foreground">Comprehensive library of text animations and interactive effects</p>
             </div>
-            <div className="bg-card bg-muted rounded-xl p-6 sm:p-8 text-center hover:bg-accent transition-all duration-300">
+            <div className="bg-neutral-200/30 dark:bg-neutral-800/20 backdrop-blur-lg rounded-xl p-6 sm:p-8 text-center hover:bg-white/20 dark:hover:bg-black/30 transition-all duration-300 hover:scale-105">
               <div className="text-3xl sm:text-4xl mb-3 sm:mb-4">⚡</div>
               <h3 className="text-lg sm:text-xl font-semibold mb-2 sm:mb-3 text-foreground">GSAP Powered</h3>
               <p className="text-sm sm:text-base text-muted-foreground">Built on industry-standard animation library for smooth performance</p>
             </div>
-            <div className="bg-card bg-muted rounded-xl p-6 sm:p-8 text-center hover:bg-accent transition-all duration-300">
+            <div className="bg-neutral-200/30 dark:bg-neutral-800/20 backdrop-blur-lg rounded-xl p-6 sm:p-8 text-center hover:bg-white/20 dark:hover:bg-black/30 transition-all duration-300 hover:scale-105">
               <div className="text-3xl sm:text-4xl mb-3 sm:mb-4">🔧</div>
               <h3 className="text-lg sm:text-xl font-semibold mb-2 sm:mb-3 text-foreground">Easy Integration</h3>
               <p className="text-sm sm:text-base text-muted-foreground">Simple HTML attributes - no complex JavaScript required</p>
             </div>
-            <div className="bg-card bg-muted rounded-xl p-6 sm:p-8 text-center hover:bg-accent transition-all duration-300">
+            <div className="bg-neutral-200/30 dark:bg-neutral-800/20 backdrop-blur-lg rounded-xl p-6 sm:p-8 text-center hover:bg-white/20 dark:hover:bg-black/30 transition-all duration-300 hover:scale-105">
               <div className="text-3xl sm:text-4xl mb-3 sm:mb-4">📱</div>
               <h3 className="text-lg sm:text-xl font-semibold mb-2 sm:mb-3 text-foreground">Responsive</h3>
               <p className="text-sm sm:text-base text-muted-foreground">Works perfectly across all devices and screen sizes</p>
             </div>
-            <div className="bg-card bg-muted rounded-xl p-6 sm:p-8 text-center hover:bg-accent transition-all duration-300">
+            <div className="bg-neutral-200/30 dark:bg-neutral-800/20 backdrop-blur-lg rounded-xl p-6 sm:p-8 text-center hover:bg-white/20 dark:hover:bg-black/30 transition-all duration-300 hover:scale-105">
               <div className="text-3xl sm:text-4xl mb-3 sm:mb-4">🎯</div>
               <h3 className="text-lg sm:text-xl font-semibold mb-2 sm:mb-3 text-foreground">Webflow Ready</h3>
               <p className="text-sm sm:text-base text-muted-foreground">Designed specifically for Webflow's visual editor</p>
             </div>
-            <div className="bg-card bg-muted rounded-xl p-6 sm:p-8 text-center hover:bg-accent transition-all duration-300">
+            <div className="bg-neutral-200/30 dark:bg-neutral-800/20 backdrop-blur-lg rounded-xl p-6 sm:p-8 text-center hover:bg-white/20 dark:hover:bg-black/30 transition-all duration-300 hover:scale-105">
               <div className="text-3xl sm:text-4xl mb-3 sm:mb-4">🚀</div>
               <h3 className="text-lg sm:text-xl font-semibold mb-2 sm:mb-3 text-foreground">Performance</h3>
               <p className="text-sm sm:text-base text-muted-foreground">Optimized for speed with minimal impact on page load</p>
@@ -113,10 +113,11 @@ const Home = () => {
       </section>
 
       {/* CTA Section */}
-      <section className="pt-12 sm:pt-16 lg:pt-20 pb-20 sm:pb-32 lg:pb-40 px-4 sm:px-6 lg:px-8">
+      <section className="bg-background pt-12 sm:pt-16 lg:pt-20 pb-20 sm:pb-32 lg:pb-40 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto text-center">
           <div className="flex flex-col items-center justify-center">
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4 sm:mb-6 text-foreground">
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4 sm:mb-6 text-foreground"
+            wb-component="text-type" wb-typing-speed="50" wb-deleting-speed="25">
               Ready to enhance your Webflow projects?
             </h2>
             <p className="text-lg sm:text-xl text-muted-foreground mb-6 sm:mb-8 max-w-2xl">
