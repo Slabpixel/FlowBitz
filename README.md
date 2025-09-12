@@ -1,4 +1,4 @@
-# Webflow Bits
+# FlowBitz
 
 Interactive components library for Webflow powered by GSAP.
 

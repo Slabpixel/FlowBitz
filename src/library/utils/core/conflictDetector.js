@@ -1,5 +1,5 @@
 /**
- * Webflow Bits - Conflict Detector Utilities
+ * FlowBitz - Conflict Detector Utilities
  * Provides CSS class conflict detection and resolution suggestions
  */
 

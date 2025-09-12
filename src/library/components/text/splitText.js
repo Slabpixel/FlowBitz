@@ -13,7 +13,7 @@ gsap.registerPlugin(ScrollTrigger, SplitText);
 
 // Inject component-specific CSS with unique namespace
 const componentCSS = `
-/* Webflow Bits - SplitText Component Styles */
+/* FlowBitz - SplitText Component Styles */
 .wb-split-parent {
   overflow: hidden !important;
   display: inline-block;

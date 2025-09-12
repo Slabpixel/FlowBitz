@@ -1,5 +1,5 @@
 /**
- * Webflow Bits - Attribute Parser Utilities
+ * FlowBitz - Attribute Parser Utilities
  * Provides type-safe attribute parsing and generic configuration building
  */
 

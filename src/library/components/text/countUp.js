@@ -9,7 +9,7 @@ gsap.registerPlugin();
 
 // Inject component-specific CSS with unique namespace
 const componentCSS = `
-/* Webflow Bits - CountUp Component Styles */
+/* FlowBitz - CountUp Component Styles */
 .wb-count-up {
   display: inline-block;
   position: relative;

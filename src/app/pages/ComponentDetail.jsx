@@ -429,7 +429,7 @@ const ComponentDetail = () => {
           <div className="space-y-4 mb-4 p-4 sm:p-6 lg:p-8 card rounded-lg border border-border">
             <div className="flex items-center gap-3">
               <div className="w-6 h-6 sm:w-8 sm:h-8 bg-primary text-white rounded-full flex items-center justify-center font-semibold text-xs sm:text-sm">1</div>
-              <h4 className="text-lg sm:text-xl font-medium text-foreground">Add FlowBits Script</h4>
+              <h4 className="text-lg sm:text-xl font-medium text-foreground">Add FlowBitz Script</h4>
             </div>
             <p className="text-muted-foreground text-sm sm:text-base ml-0 sm:ml-11">Add the WebflowBits script to your Webflow project's custom code section.</p>
             

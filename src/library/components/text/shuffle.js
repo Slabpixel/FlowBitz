@@ -13,7 +13,7 @@ gsap.registerPlugin(ScrollTrigger, SplitText);
 
 // Inject component-specific CSS with unique namespace
 const componentCSS = `
-/* Webflow Bits - Shuffle Component Styles */
+/* FlowBitz - Shuffle Component Styles */
 .wb-shuffle-parent {
   display: inline-block;
   white-space: normal;

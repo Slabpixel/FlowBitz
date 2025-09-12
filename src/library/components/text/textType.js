@@ -7,7 +7,7 @@ import { AnimationStateManager, PerformanceOptimizer } from '../../utils/animati
 
 // Inject component-specific CSS with unique namespace
 const componentCSS = `
-/* Webflow Bits - TextType Component Styles */
+/* FlowBitz - TextType Component Styles */
 .wb-text-type {
   display: inline-block;
   white-space: pre-wrap;

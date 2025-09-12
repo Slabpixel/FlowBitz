@@ -1,5 +1,5 @@
 /**
- * Webflow Bits - Class Manager Utilities
+ * FlowBitz - Class Manager Utilities
  * Provides centralized CSS class management with tracking and cleanup
  */
 
@@ -130,7 +130,7 @@ export class ComponentClassManager {
  */
 export const webflowBitsClasses = {
   /**
-   * Generate Webflow Bits namespaced class name
+   * Generate FlowBitz namespaced class name
    * @param {string} component - Component name
    * @param {string} element - Element name
    * @param {string} modifier - Optional modifier

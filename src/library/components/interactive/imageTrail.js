@@ -7,7 +7,7 @@ import { AnimationStateManager } from '../../utils/animation/animationStateManag
 
 // Inject component-specific CSS with unique namespace
 const componentCSS = `
-/* Webflow Bits - ImageTrail Component Styles */
+/* FlowBitz - ImageTrail Component Styles */
 .wb-image-trail {
   width: 100%;
   height: 100%;

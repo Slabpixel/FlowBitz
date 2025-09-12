@@ -6,7 +6,7 @@ import { AnimationStateManager } from '../../utils/animation/animationStateManag
 
 // Inject component-specific CSS with unique namespace
 const componentCSS = `
-/* Webflow Bits - GradientText Component Styles */
+/* FlowBitz - GradientText Component Styles */
 .wb-gradient-text {
   position: relative;
   margin: 0 auto;

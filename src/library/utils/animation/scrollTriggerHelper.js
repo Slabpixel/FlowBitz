@@ -1,5 +1,5 @@
 /**
- * Webflow Bits - ScrollTrigger Helper Utilities
+ * FlowBitz - ScrollTrigger Helper Utilities
  * Provides reusable ScrollTrigger configuration and calculation functions
  */
 

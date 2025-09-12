@@ -140,7 +140,7 @@ void main() {
 
 // Simple CSS
 const componentCSS = `
-/* Webflow Bits - ShapeBlur Component Styles */
+/* FlowBitz - ShapeBlur Component Styles */
 .wb-shape-blur {
   position: relative;
   overflow: hidden;

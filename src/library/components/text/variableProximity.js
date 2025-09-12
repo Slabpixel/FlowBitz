@@ -10,7 +10,7 @@ gsap.registerPlugin(SplitText);
 
 // Inject component-specific CSS with unique namespace
 const componentCSS = `
-/* Webflow Bits - VariableProximity Component Styles */
+/* FlowBitz - VariableProximity Component Styles */
 @import url("https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wght@8..144,100..1000&display=swap");
 
 .wb-variable-proximity {
