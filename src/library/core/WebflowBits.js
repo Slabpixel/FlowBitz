@@ -1,5 +1,5 @@
 /**
- * Webflow Bits - CDN Entry Point
+ * FlowBitz - CDN Entry Point
  * A collection of interactive components for Webflow
  * 
  * @version 1.0.0

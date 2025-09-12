@@ -6,7 +6,7 @@ import { AnimationStateManager, PerformanceOptimizer } from '../../utils/animati
 
 // Inject component-specific CSS with unique namespace
 const componentCSS = `
-/* Webflow Bits - DecryptedText Component Styles */
+/* FlowBitz - DecryptedText Component Styles */
 .wb-decrypt-text {
   display: inline-block;
   position: relative;

@@ -1,5 +1,5 @@
 /**
- * Webflow Bits - Animation State Manager Utilities
+ * FlowBitz - Animation State Manager Utilities
  * Provides centralized animation state management and event dispatching
  */
 

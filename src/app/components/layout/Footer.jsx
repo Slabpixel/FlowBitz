@@ -8,7 +8,7 @@ const Footer = () => {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8 mb-6 sm:mb-8">
           <div className="footer-section sm:col-span-2 lg:col-span-1">
             <h3 className="text-lg sm:text-xl font-semibold mb-2 sm:mb-3 text-foreground">
-              FlowBits
+              FlowBitz
             </h3>
             <p className="text-muted-foreground leading-relaxed text-sm">
               Interactive components for Webflow
@@ -116,7 +116,7 @@ const Footer = () => {
         
         <div className="text-center text-muted-foreground text-sm">
           <p className="text-muted-foreground leading-relaxed text-sm">
-            &copy; 2024 FlowBits. All rights reserved.
+            &copy; 2025 FlowBitz. All rights reserved.
           </p>
         </div>
       </div>

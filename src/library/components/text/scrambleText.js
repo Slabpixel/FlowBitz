@@ -12,7 +12,7 @@ gsap.registerPlugin(SplitText, ScrambleTextPlugin);
 
 // Inject component-specific CSS with unique namespace
 const componentCSS = `
-/* Webflow Bits - ScrambleText Component Styles */
+/* FlowBitz - ScrambleText Component Styles */
 .wb-scramble-text {
   display: inline-block;
   position: relative;

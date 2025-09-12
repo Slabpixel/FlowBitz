@@ -12,7 +12,7 @@ gsap.registerPlugin(ScrollTrigger);
 
 // Inject component-specific CSS with unique namespace
 const componentCSS = `
-/* Webflow Bits - BlurText Component Styles */
+/* FlowBitz - BlurText Component Styles */
 .wb-blur-text {
   display: flex;
   flex-wrap: wrap;

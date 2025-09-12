@@ -7,7 +7,7 @@ import { AnimationStateManager } from '../../utils/animation/animationStateManag
 
 // Inject component-specific CSS with unique namespace
 const componentCSS = `
-/* Webflow Bits - TextCursor Component Styles */
+/* FlowBitz - TextCursor Component Styles */
 .wb-text-cursor {
   width: 100%;
   height: 100%;

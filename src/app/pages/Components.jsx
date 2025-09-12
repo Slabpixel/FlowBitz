@@ -19,9 +19,9 @@ const Components = () => {
           {/* Introduction Content */}
           <div className="w-full max-w-[970px]">
             <div className="mb-8 sm:mb-12">
-              <h2 className="text-xl sm:text-2xl font-semibold mb-4 sm:mb-6 text-foreground">FlowBits</h2>
+              <h2 className="text-xl sm:text-2xl font-semibold mb-4 sm:mb-6 text-foreground">FlowBitz</h2>
               <p className="text-muted-foreground text-base sm:text-lg leading-relaxed mb-4">
-                FlowBits is an open-source collection of carefully designed interactive components that enhance your Webflow projects.
+                FlowBitz is an open-source collection of carefully designed interactive components that enhance your Webflow projects.
                 This is not your typical component library, which means you won't find a set of generic buttons, inputs, or other common UI elements here.
                 These components are designed to help you stand out and make a statement visually by adding a touch of creativity to your Webflow sites.
               </p>
@@ -30,7 +30,7 @@ const Components = () => {
             <div className="mb-8 sm:mb-12">
               <h3 className="text-xl sm:text-2xl font-semibold mb-3 sm:mb-4 text-foreground">Mission</h3>
               <p className="text-muted-foreground text-base sm:text-lg leading-relaxed mb-4">
-                The goal of FlowBits is simple - provide flexible, visually stunning and most importantly, free components that take your Webflow projects to the next level.
+                The goal of FlowBitz is simple - provide flexible, visually stunning and most importantly, free components that take your Webflow projects to the next level.
               </p>
               <p className="text-muted-foreground text-base sm:text-lg leading-relaxed">
                 To make that happen, the project is committed to the following principles:
@@ -53,7 +53,7 @@ const Components = () => {
               <div className="bg-card bg-muted rounded-xl p-4 sm:p-6 hover:bg-accent transition-all duration-300">
                 <div className="text-2xl sm:text-3xl mb-3 sm:mb-4">🧩</div>
                 <h4 className="text-lg sm:text-xl font-semibold mb-2 sm:mb-3 text-foreground">Copy & Paste Ready</h4>
-                <p className="text-muted-foreground text-sm sm:text-base leading-relaxed">FlowBits components are designed for easy integration - simply copy the code and paste it into your Webflow project's custom code section or embed it directly.</p>
+                <p className="text-muted-foreground text-sm sm:text-base leading-relaxed">FlowBitz components are designed for easy integration - simply copy the code and paste it into your Webflow project's custom code section or embed it directly.</p>
               </div>
               
               <div className="bg-card bg-muted rounded-xl p-4 sm:p-6 hover:bg-accent transition-all duration-300">
@@ -66,7 +66,7 @@ const Components = () => {
             <div className="mb-0">
               <h3 className="text-xl sm:text-2xl font-semibold mb-3 sm:mb-4 text-foreground">Performance</h3>
               <p className="text-muted-foreground text-base sm:text-lg leading-relaxed mb-4 sm:mb-6">
-                While we do everything possible to optimize components for Webflow, here are some tips to keep in mind when using FlowBits:
+                While we do everything possible to optimize components for Webflow, here are some tips to keep in mind when using FlowBitz:
               </p>
               
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
