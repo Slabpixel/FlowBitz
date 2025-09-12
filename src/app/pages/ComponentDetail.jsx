@@ -307,24 +307,24 @@ const ComponentDetail = () => {
     return (
       <div className="space-y-4">
         {/* Preview */}
-        <div className="relative bg-muted/50 rounded-lg p-12 overflow-hidden border border-border min-h-[470px] flex items-center justify-center">
+        <div className="relative bg-muted/50 rounded-lg p-4 sm:p-8 lg:p-12 overflow-hidden border border-border min-h-[300px] sm:min-h-[400px] lg:min-h-[470px] flex items-center justify-center">
           <Button 
             variant="outline" 
             size="sm"
-            className="absolute top-4 right-4 bg-background border-border text-foreground hover:bg-accent z-10" 
+            className="absolute top-2 right-2 sm:top-4 sm:right-4 bg-background border-border text-foreground hover:bg-accent z-10" 
             onClick={reloadPreview}
             title="Reload animation"
           >
-            <RotateCcw className="w-4 h-4" />
+            <RotateCcw className="w-3 h-3 sm:w-4 sm:h-4" />
           </Button>
           
           {/* Attributes Pills - Bottom Left */}
           {wbAttributes.length > 0 && (
-            <div className="absolute bottom-4 left-4 flex flex-wrap gap-2 z-10">
+            <div className="absolute bottom-2 left-2 sm:bottom-4 sm:left-4 flex flex-wrap gap-1 sm:gap-2 z-10 max-w-[calc(100%-4rem)] sm:max-w-none">
               {wbAttributes.map((attr, attrIndex) => (
                 <div
                   key={attrIndex}
-                  className="inline-flex items-center px-2 py-1 rounded-md text-xs font-medium bg-background/90 backdrop-blur-sm text-foreground border border-border/50 shadow-sm"
+                  className="inline-flex items-center px-1.5 sm:px-2 py-0.5 sm:py-1 rounded-md text-xs font-medium bg-background/90 backdrop-blur-sm text-foreground border border-border/50 shadow-sm"
                 >
                   <span
                     className="cursor-pointer hover:text-primary transition-colors duration-200 relative group"
@@ -356,26 +356,26 @@ const ComponentDetail = () => {
             </div>
           )}
           
-          <div key={reloadKey} className="text-center [&_*]:text-6xl [&_*]:font-medium" dangerouslySetInnerHTML={{ __html: currentCode }} />
+          <div key={reloadKey} className="text-center [&_*]:text-3xl sm:[&_*]:text-4xl lg:[&_*]:text-6xl [&_*]:font-medium" dangerouslySetInnerHTML={{ __html: currentCode }} />
         </div>
         
         {/* Attribute Editor */}
         <Card className="!border-border">
-          <CardHeader className="space-y-4">
-            <CardTitle>Attribute Editor</CardTitle>
-            <CardDescription>
-              Toggle attributes on/off and adjust their values to see live updates in the preview above. The <code className="text-primary font-mono text-sm bg-accent/50 px-1 py-0.5 rounded">wb-component</code> attribute is required and cannot be disabled.
+          <CardHeader className="space-y-3 sm:space-y-4 p-4 sm:p-6">
+            <CardTitle className="text-lg sm:text-xl">Attribute Editor</CardTitle>
+            <CardDescription className="text-sm sm:text-base">
+              Toggle attributes on/off and adjust their values to see live updates in the preview above. The <code className="text-primary font-mono text-xs sm:text-sm bg-accent/50 px-1 py-0.5 rounded">wb-component</code> attribute is required and cannot be disabled.
             </CardDescription>
           </CardHeader>
-          <CardContent>
-            <div className="space-y-3">
+          <CardContent className="p-4 sm:p-6">
+            <div className="space-y-3 sm:space-y-4">
               {component.attributes.map((attr, index) => {
                 const isRequired = attr.required || attr.name === 'wb-component'
                 const inputType = getInputType(attr)
                 const isActive = activeAttributes[attr.name] || false
                 
                 return (
-                  <div key={index} className={`flex items-center gap-4 p-3 rounded-lg border transition-all duration-200 ${
+                  <div key={index} className={`flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-4 p-3 sm:p-4 rounded-lg border transition-all duration-200 ${
                     isRequired 
                       ? 'border-primary/30 bg-primary/5' 
                       : isActive 
@@ -383,7 +383,7 @@ const ComponentDetail = () => {
                         : 'border-border bg-background/50'
                   }`}>
                     {/* Toggle Switch */}
-                    <div className="flex items-center gap-2 min-w-[40px]">
+                    <div className="flex items-center gap-2 min-w-[40px] order-2 sm:order-1">
                       <Switch
                         checked={isActive}
                         disabled={isRequired}
@@ -397,16 +397,16 @@ const ComponentDetail = () => {
                     </div>
                     
                     {/* Attribute Name */}
-                    <div className={`w-full transition-opacity duration-200 ${!isActive ? 'opacity-50' : ''}`}>
+                    <div className={`w-full transition-opacity duration-200 order-1 sm:order-2 ${!isActive ? 'opacity-50' : ''}`}>
                       <Label className="text-sm font-medium text-foreground">
                         {formatAttributeName(attr.name)}
                         {attr.required && <span className="text-white text-xs ml-1 rounded-sm px-[6px] py-[1px] bg-primary">Required</span>}
                       </Label>
-                      <p className="text-xs text-muted-foreground">{attr.description}</p>
+                      <p className="text-xs text-muted-foreground mt-1">{attr.description}</p>
                     </div>
                     
                     {/* Input Control */}
-                    <div className="flex-1 min-w-[320px]">
+                    <div className="flex-1 w-full sm:min-w-[320px] order-3">
                       <div className={`space-y-1 transition-opacity duration-200 ${!isActive ? 'opacity-50 pointer-events-none' : ''}`}>
                         {renderInputControl(attr)}
                       </div>
@@ -426,15 +426,15 @@ const ComponentDetail = () => {
       <div className="space-y-4">
         <div>
           {/* Step 1: Add Script */}
-          <div className="space-y-4 mb-4 p-8 card rounded-lg border border-border">
+          <div className="space-y-4 mb-4 p-4 sm:p-6 lg:p-8 card rounded-lg border border-border">
             <div className="flex items-center gap-3">
-              <div className="w-8 h-8 bg-primary text-white rounded-full flex items-center justify-center font-semibold text-sm">1</div>
-              <h4 className="text-xl font-medium text-foreground">Add FlowBits Script</h4>
+              <div className="w-6 h-6 sm:w-8 sm:h-8 bg-primary text-white rounded-full flex items-center justify-center font-semibold text-xs sm:text-sm">1</div>
+              <h4 className="text-lg sm:text-xl font-medium text-foreground">Add FlowBits Script</h4>
             </div>
-            <p className="text-muted-foreground ml-11">Add the WebflowBits script to your Webflow project's custom code section.</p>
+            <p className="text-muted-foreground text-sm sm:text-base ml-0 sm:ml-11">Add the WebflowBits script to your Webflow project's custom code section.</p>
             
-            <div className="ml-11 space-y-4">
-              <div className="p-4 border border-border rounded-lg">
+            <div className="ml-0 sm:ml-11 space-y-4">
+              <div className="p-3 sm:p-4 border border-border rounded-lg">
                 <div>
                   <label className="text-sm font-medium text-foreground mb-2 block">Script Tag</label>
                   <div className="relative">
@@ -444,8 +444,8 @@ const ComponentDetail = () => {
                         style={tomorrow}
                         customStyle={{
                           margin: 0,
-                          padding: '0.75rem',
-                          fontSize: '0.875rem',
+                          padding: '0.5rem',
+                          fontSize: '0.75rem',
                           borderRadius: '0.375rem',
                           minHeight: '40px',
                           display: 'flex',
@@ -464,13 +464,13 @@ const ComponentDetail = () => {
                     <Button 
                       variant="ghost" 
                       size="sm"
-                      className="absolute right-1 top-1/2 -translate-y-1/2 h-8 w-8 p-0 hover:bg-gray-700" 
+                      className="absolute right-1 top-1/2 -translate-y-1/2 h-6 w-6 sm:h-8 sm:w-8 p-0 hover:bg-gray-700" 
                       onClick={() => copyToClipboard('<script src="https://flowbitz.dev/flowbitz.umd.js"></script>', 'scriptTag')}
                     >
                       {copyStates.scriptTag ? (
                         <span className="text-green-500 text-xs">✓</span>
                       ) : (
-                        <Copy className="w-4 h-4 text-white" />
+                        <Copy className="w-3 h-3 sm:w-4 sm:h-4 text-white" />
                       )}
                     </Button>
                   </div>
@@ -478,23 +478,23 @@ const ComponentDetail = () => {
               </div>
             </div>
             
-            <div className="ml-11 bg-primary/10 border border-primary/20 rounded-lg p-4">
-              <p className="text-sm text-primary">
+            <div className="ml-0 sm:ml-11 bg-primary/10 border border-primary/20 rounded-lg p-3 sm:p-4">
+              <p className="text-xs sm:text-sm text-primary">
                 <strong>💡 Pro Tip:</strong> Go to your Webflow project settings → Custom Code → Footer Code, and paste the script there.
               </p>
             </div>
           </div>
 
           {/* Step 2: Add Attributes */}
-          <div className="space-y-4 mb-4 p-8 card rounded-lg border border-border">
+          <div className="space-y-4 mb-4 p-4 sm:p-6 lg:p-8 card rounded-lg border border-border">
             <div className="flex items-center gap-3">
-              <div className="w-8 h-8 bg-primary text-white rounded-full flex items-center justify-center font-semibold text-sm">2</div>
-              <h4 className="text-xl font-medium text-foreground">Add Component Attributes</h4>
+              <div className="w-6 h-6 sm:w-8 sm:h-8 bg-primary text-white rounded-full flex items-center justify-center font-semibold text-xs sm:text-sm">2</div>
+              <h4 className="text-lg sm:text-xl font-medium text-foreground">Add Component Attributes</h4>
             </div>
-            <p className="text-muted-foreground ml-11">Add this attribute to any text element in your Webflow project.</p>
+            <p className="text-muted-foreground text-sm sm:text-base ml-0 sm:ml-11">Add this attribute to any text element in your Webflow project.</p>
             
-            <div className="ml-11 space-y-4">
-              <div className="space-y-3 p-4 border border-border rounded-lg">
+            <div className="ml-0 sm:ml-11 space-y-4">
+              <div className="space-y-3 p-3 sm:p-4 border border-border rounded-lg">
                 <div>
                   <label className="text-sm font-medium text-foreground mb-2 block">Attribute Name</label>
                   <div className="relative">
@@ -507,13 +507,13 @@ const ComponentDetail = () => {
                     <Button 
                       variant="ghost" 
                       size="sm"
-                      className="absolute right-1 top-1/2 -translate-y-1/2 h-8 w-8 p-0 hover:bg-accent" 
+                      className="absolute right-1 top-1/2 -translate-y-1/2 h-6 w-6 sm:h-8 sm:w-8 p-0 hover:bg-accent" 
                       onClick={() => copyToClipboard('wb-component', 'attributeName')}
                     >
                       {copyStates.attributeName ? (
                         <span className="text-green-500 text-xs">✓</span>
                       ) : (
-                        <Copy className="w-4 h-4" />
+                        <Copy className="w-3 h-3 sm:w-4 sm:h-4" />
                       )}
                     </Button>
                   </div>
@@ -530,13 +530,13 @@ const ComponentDetail = () => {
                     <Button 
                       variant="ghost" 
                       size="sm"
-                      className="absolute right-1 top-1/2 -translate-y-1/2 h-8 w-8 p-0 hover:bg-accent" 
+                      className="absolute right-1 top-1/2 -translate-y-1/2 h-6 w-6 sm:h-8 sm:w-8 p-0 hover:bg-accent" 
                       onClick={() => copyToClipboard(componentName, 'attributeValue')}
                     >
                       {copyStates.attributeValue ? (
                         <span className="text-green-500 text-xs">✓</span>
                       ) : (
-                        <Copy className="w-4 h-4" />
+                        <Copy className="w-3 h-3 sm:w-4 sm:h-4" />
                       )}
                     </Button>
                   </div>
@@ -544,61 +544,63 @@ const ComponentDetail = () => {
               </div>
             </div>
             
-            <div className="ml-11 bg-primary/10 border border-primary/20 rounded-lg p-4">
-              <p className="text-sm text-primary">
+            <div className="ml-0 sm:ml-11 bg-primary/10 border border-primary/20 rounded-lg p-3 sm:p-4">
+              <p className="text-xs sm:text-sm text-primary">
                 <strong>📝 Note:</strong> In Webflow, you can add custom attributes by selecting your element, going to Element Settings → Custom Attributes, and adding the attribute name and value.
               </p>
             </div>
           </div>
 
           {/* Step 3: Available Attributes */}
-          <div className="space-y-4 mb-4 p-8 card rounded-lg border border-border">
+          <div className="space-y-4 mb-4 p-4 sm:p-6 lg:p-8 card rounded-lg border border-border">
             <div className="flex items-center gap-3">
-              <div className="w-8 h-8 bg-primary text-white rounded-full flex items-center justify-center font-semibold text-sm">3</div>
-              <h4 className="text-xl font-medium text-foreground">Available Attributes</h4>
+              <div className="w-6 h-6 sm:w-8 sm:h-8 bg-primary text-white rounded-full flex items-center justify-center font-semibold text-xs sm:text-sm">3</div>
+              <h4 className="text-lg sm:text-xl font-medium text-foreground">Available Attributes</h4>
             </div>
-            <p className="text-muted-foreground ml-11">Use these attributes to customize the animation behavior and appearance.</p>
+            <p className="text-muted-foreground text-sm sm:text-base ml-0 sm:ml-11">Use these attributes to customize the animation behavior and appearance.</p>
             
-            <div className="ml-11">
+            <div className="ml-0 sm:ml-11">
               <div className="overflow-hidden border border-border rounded-lg">
-                <table className="w-full">
-                  <thead className="bg-muted/50">
-                    <tr>
-                      <th className="px-4 py-3 text-left text-sm font-medium text-foreground">Attribute</th>
-                      <th className="px-4 py-3 text-left text-sm font-medium text-foreground">Description</th>
-                    </tr>
-                  </thead>
-                  <tbody className="divide-y divide-border">
-                    {component.attributes.map((attr, index) => (
-                      <tr key={index} className="hover:bg-muted/30">
-                        <td className="px-4 py-3">
-                          <code className="text-primary font-mono text-sm bg-accent px-2 py-1 rounded">{attr.name}</code>
-                        </td>
-                        <td className="px-4 py-3 text-sm text-muted-foreground">{attr.description}</td>
+                <div className="overflow-x-auto">
+                  <table className="w-full min-w-[400px]">
+                    <thead className="bg-muted/50">
+                      <tr>
+                        <th className="px-3 sm:px-4 py-2 sm:py-3 text-left text-xs sm:text-sm font-medium text-foreground">Attribute</th>
+                        <th className="px-3 sm:px-4 py-2 sm:py-3 text-left text-xs sm:text-sm font-medium text-foreground">Description</th>
                       </tr>
-                    ))}
-                  </tbody>
-                </table>
+                    </thead>
+                    <tbody className="divide-y divide-border">
+                      {component.attributes.map((attr, index) => (
+                        <tr key={index} className="hover:bg-muted/30">
+                          <td className="px-3 sm:px-4 py-2 sm:py-3">
+                            <code className="text-primary font-mono text-xs sm:text-sm bg-accent px-1.5 sm:px-2 py-0.5 sm:py-1 rounded">{attr.name}</code>
+                          </td>
+                          <td className="px-3 sm:px-4 py-2 sm:py-3 text-xs sm:text-sm text-muted-foreground">{attr.description}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
               </div>
             </div>
             
-            <div className="ml-11 bg-primary/10 border border-primary/20 rounded-lg p-4">
-              <p className="text-sm text-primary">
+            <div className="ml-0 sm:ml-11 bg-primary/10 border border-primary/20 rounded-lg p-3 sm:p-4">
+              <p className="text-xs sm:text-sm text-primary">
                 <strong>🎨 Customization:</strong> Add any of these attributes to your element to customize the animation behavior, timing, and appearance.
               </p>
             </div>
           </div>
 
           {/* Step 4: Publish */}
-          <div className="space-y-4 mb-4 p-8 card rounded-lg border border-border">
+          <div className="space-y-4 mb-4 p-4 sm:p-6 lg:p-8 card rounded-lg border border-border">
             <div className="flex items-center gap-3">
-              <div className="w-8 h-8 bg-green-500 text-white rounded-full flex items-center justify-center font-semibold text-sm">4</div>
-              <h4 className="text-xl font-medium text-foreground">Publish Your Site</h4>
+              <div className="w-6 h-6 sm:w-8 sm:h-8 bg-green-500 text-white rounded-full flex items-center justify-center font-semibold text-xs sm:text-sm">4</div>
+              <h4 className="text-lg sm:text-xl font-medium text-foreground">Publish Your Site</h4>
             </div>
-            <p className="text-muted-foreground ml-11">Publish your Webflow site to see the animations in action.</p>
+            <p className="text-muted-foreground text-sm sm:text-base ml-0 sm:ml-11">Publish your Webflow site to see the animations in action.</p>
             
-            <div className="ml-11 bg-green-50 dark:bg-green-950/20 border border-green-200 dark:border-green-800 rounded-lg p-4">
-              <p className="text-sm text-green-800 dark:text-green-200">
+            <div className="ml-0 sm:ml-11 bg-green-50 dark:bg-green-950/20 border border-green-200 dark:border-green-800 rounded-lg p-3 sm:p-4">
+              <p className="text-xs sm:text-sm text-green-800 dark:text-green-200">
                 <strong>🚀 Ready to Go:</strong> Once published, your animations will work automatically. The script loads asynchronously and initializes all components on page load.
               </p>
             </div>
@@ -611,29 +613,29 @@ const ComponentDetail = () => {
 
 
   return (
-    <div className="bg-background text-foreground mt-[64px]">
-      <div className="flex">
+    <div className="bg-background text-foreground pt-[64px]">
+      <div className="flex flex-col lg:flex-row">
         {/* Shared Sidebar */}
         <Sidebar showBackLink={false} />
 
         {/* Main Content */}
-        <main className="flex flex-col p-16 w-full items-center">
-          <div className="w-full max-w-[970px] mb-8">
-            <h1 className="text-4xl font-bold mb-2 text-foreground">{component.name}</h1>
-            <p className="text-muted-foreground text-lg">{component.description}</p>
+        <main className="flex flex-col p-4 sm:p-8 lg:p-16 w-full items-center">
+          <div className="w-full max-w-[970px] mb-6 sm:mb-8">
+            <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-2 text-foreground">{component.name}</h1>
+            <p className="text-muted-foreground text-base sm:text-lg">{component.description}</p>
           </div>
 
           {/* Tabs */}
           <div className="w-full max-w-[970px]">
             <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-              <TabsList className="flex w-fit flex-row mb-4 bg-muted border border-border">
-                <TabsTrigger value="preview" className="data-[state=active]:bg-background data-[state=active]:text-foreground flex items-center gap-2">
+              <TabsList className="flex w-full sm:w-fit flex-row mb-4 bg-muted border border-border">
+                <TabsTrigger value="preview" className="data-[state=active]:bg-background data-[state=active]:text-foreground flex items-center gap-2 flex-1 sm:flex-none">
                   <Eye className="w-4 h-4" />
-                  Preview
+                  <span className="hidden sm:inline">Preview</span>
                 </TabsTrigger>
-                <TabsTrigger value="installation" className="data-[state=active]:bg-background data-[state=active]:text-foreground flex items-center gap-2">
+                <TabsTrigger value="installation" className="data-[state=active]:bg-background data-[state=active]:text-foreground flex items-center gap-2 flex-1 sm:flex-none">
                   <Code className="w-4 h-4" />
-                  Installation Guide
+                  <span className="hidden sm:inline">Installation Guide</span>
                 </TabsTrigger>
               </TabsList>
               
@@ -646,7 +648,7 @@ const ComponentDetail = () => {
               </TabsContent>
             </Tabs>
           </div>
-          <div className="w-full max-w-[970px] text-center text-muted-foreground text-sm mt-12">
+          <div className="w-full max-w-[970px] text-center text-muted-foreground text-sm mt-8 sm:mt-12">
             Made with 💙 by <a href="https://slabpixel.com" target="_blank" rel="noopener noreferrer" className="text-primary">SlabPixel</a>
           </div>
         </main>

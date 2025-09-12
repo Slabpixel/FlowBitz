@@ -21,8 +21,8 @@ const Navbar = () => {
   }
 
   return (
-    <nav className="w-full fixed top-0 left-0 bg-background border-b border-border z-50 transition-all duration-200">
-      <div className="mx-auto px-6 flex items-center justify-between h-16">
+    <nav className="w-full fixed top-0 left-0 bg-background/95 backdrop-blur-sm border-b border-border z-50 transition-all duration-200">
+      <div className="mx-auto px-4 sm:px-6 flex items-center justify-between h-16">
         <div className="nav-logo">
           <button 
             onClick={() => navigate('/')}
@@ -34,32 +34,32 @@ const Navbar = () => {
         <div className={`nav-menu ${isMenuOpen ? 'active' : ''} hidden md:flex items-center gap-1`} id="nav-menu">
           <button 
             onClick={() => navigate('/')}
-            className={`px-4 py-2 rounded-md font-medium text-sm transition-all duration-200 flex items-center gap-2 ${
+            className={`px-3 lg:px-4 py-2 rounded-md font-medium text-sm transition-all duration-200 flex items-center gap-2 ${
               isActive('/') 
                 ? 'text-foreground bg-accent' 
                 : 'text-muted-foreground hover:text-foreground hover:bg-accent'
             }`}
           >
             <Home className="w-4 h-4" />
-            Home
+            <span className="hidden lg:inline">Home</span>
           </button>
           <button 
             onClick={() => navigate('/components')}
-            className={`px-4 py-2 rounded-md font-medium text-sm transition-all duration-200 flex items-center gap-2 ${
+            className={`px-3 lg:px-4 py-2 rounded-md font-medium text-sm transition-all duration-200 flex items-center gap-2 ${
               isActive('/components') 
                 ? 'text-foreground bg-accent' 
                 : 'text-muted-foreground hover:text-foreground hover:bg-accent'
             }`}
           >
             <Layers className="w-4 h-4" />
-            Components
+            <span className="hidden lg:inline">Components</span>
           </button>
           <button 
             onClick={() => window.open('https://github.com/Slabpixel/Webflow-Bits', '_blank')}
-            className="px-4 py-2 rounded-md font-medium text-sm transition-all duration-200 text-muted-foreground hover:text-foreground hover:bg-accent flex items-center gap-2"
+            className="px-3 lg:px-4 py-2 rounded-md font-medium text-sm transition-all duration-200 text-muted-foreground hover:text-foreground hover:bg-accent flex items-center gap-2"
           >
             <Github className="w-4 h-4" />
-            GitHub
+            <span className="hidden lg:inline">GitHub</span>
           </button>
         </div>
         <div className="flex items-center gap-2">
@@ -76,11 +76,19 @@ const Navbar = () => {
         </div>
       </div>
       
+      {/* Mobile Menu Overlay */}
+      {isMenuOpen && (
+        <div 
+          className="md:hidden fixed inset-0 bg-black/50 backdrop-blur-sm z-40"
+          onClick={() => setIsMenuOpen(false)}
+        />
+      )}
+      
       {/* Mobile Menu */}
-      <div className={`md:hidden fixed top-16 left-0 w-full h-[calc(100vh-4rem)] bg-background transition-all duration-200 border-r border-border ${
-        isMenuOpen ? 'left-0' : '-left-full'
+      <div className={`md:hidden fixed top-16 left-0 w-80 h-[calc(100vh-4rem)] bg-background border-r border-border z-50 transition-transform duration-300 ease-in-out ${
+        isMenuOpen ? 'translate-x-0' : '-translate-x-full'
       }`}>
-        <div className="flex flex-col items-start justify-start pt-6 px-6 space-y-1">
+        <div className="flex flex-col items-start justify-start pt-6 px-4 space-y-1 h-full overflow-y-auto">
           <button 
             onClick={() => {
               navigate('/')
@@ -108,16 +116,6 @@ const Navbar = () => {
           >
             <Layers className="w-5 h-5" />
             Components
-          </button>
-          <button 
-            onClick={() => {
-              window.open('#docs', '_blank')
-              setIsMenuOpen(false)
-            }}
-            className="w-full py-3 px-4 rounded-lg font-medium transition-all duration-200 text-muted-foreground hover:text-foreground hover:bg-accent flex items-center gap-3"
-          >
-            <BookOpen className="w-5 h-5" />
-            Documentation
           </button>
           <button 
             onClick={() => {

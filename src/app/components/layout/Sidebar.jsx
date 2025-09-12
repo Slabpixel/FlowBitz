@@ -1,9 +1,11 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { getComponentsByCategory } from '../../../library/data/componentsMetadata.js'
+import { ChevronDown, ChevronUp } from 'lucide-react'
 
 const Sidebar = ({ showBackLink = false }) => {
   const location = useLocation()
+  const [isComponentsOpen, setIsComponentsOpen] = useState(false)
   const componentsByCategory = getComponentsByCategory()
   const textComponents = componentsByCategory.text
   const interactiveComponents = componentsByCategory.interactive
@@ -21,72 +23,93 @@ const Sidebar = ({ showBackLink = false }) => {
   const currentLink = location.pathname
 
   return (
-    <aside className="w-full max-w-[240px] min-w-[240px] bg-background border-r border-border overflow-y-auto sticky top-16 h-[calc(100vh-4rem)]">
-      <div className="flex flex-col gap-6 p-6">        
-        <div className="sidebar-section">
-          <h3 className="text-lg font-semibold mb-3 text-foreground">
-            Get Started
-          </h3>
-          <ul className="list-none">
-            <li>
-              <Link to="/components" className={`block px-0 py-2 text-muted-foreground no-underline rounded-md transition-all duration-200 text-sm font-medium ${
-                currentLink !== '/components'
-                  ? 'px-0 hover:px-3 hover:text-foreground hover:bg-accent' 
-                  : 'px-3 hover:px-3 text-foreground dark:text-white bg-accent font-medium'
-              }`}>
-                Introduction
-              </Link>
-            </li>
-          </ul>
-        </div>
+    <aside className="w-full lg:max-w-[240px] lg:min-w-[240px] bg-background border-r border-border overflow-y-auto lg:sticky lg:top-16 h-auto lg:h-[calc(100vh-4rem)]">
+      <div className="flex flex-col gap-4 sm:gap-6 p-4 sm:p-6">        
+        {/* Mobile Dropdown Toggle */}
+        <button
+          onClick={() => setIsComponentsOpen(!isComponentsOpen)}
+          className="lg:hidden flex items-center justify-between w-full py-3 px-4 text-base font-semibold text-foreground bg-muted hover:bg-accent rounded-lg transition-all duration-200 border border-border"
+        >
+          <span>Navigations</span>
+          {isComponentsOpen ? (
+            <ChevronUp className="w-4 h-4" />
+          ) : (
+            <ChevronDown className="w-4 h-4" />
+          )}
+        </button>
         
-        <div className="sidebar-section">
-          <h3 className="text-lg font-semibold mb-3 text-foreground">
-            Components
-          </h3>
-          <div className="component-categories">
-            <div className="category mb-6">
-              <h4 className="text-sm font-medium text-muted-foreground mb-2 text-xs">
-                Text Components ({textComponents.length})
-              </h4>
-              <ul className="list-none">
-                {textComponents.map((component) => (
-                  <li key={component.key} className="mb-0.5">
-                    <Link 
-                      to={`/components/${component.key}`} 
-                      className={`block px-0 py-2 text-muted-foreground no-underline rounded-md transition-all duration-200 text-sm font-medium ${
-                        currentComponentName !== component.key 
-                          ? 'px-0 hover:px-3 hover:text-foreground hover:bg-accent' 
-                          : 'px-3 hover:px-3 text-foreground dark:text-white bg-accent font-medium'
-                      }`}
-                    >
-                      {component.name}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
-            
-            <div className="category">
-              <h4 className="text-sm font-medium text-muted-foreground mb-2 text-xs">
-                Interactive Components ({interactiveComponents.length})
-              </h4>
-              <ul className="list-none">
-                {interactiveComponents.map((component) => (
-                  <li key={component.key} className="mb-0.5">
-                    <Link 
-                      to={`/components/${component.key}`} 
-                      className={`block px-0 py-2 text-muted-foreground no-underline rounded-md transition-all duration-200 text-sm font-medium ${
-                        currentComponentName !== component.key 
-                          ? 'px-0 hover:px-3 hover:text-foreground hover:bg-accent' 
-                          : 'px-3 hover:px-3 text-foreground dark:text-white bg-accent font-medium'
-                      }`}
-                    >
-                      {component.name}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
+        {/* Mobile Dropdown Content */}
+        <div className={`lg:block ${isComponentsOpen ? 'block' : 'hidden'}`}>
+          <div className="sidebar-section mb-4">
+            <h3 className="text-base sm:text-lg font-semibold mb-2 sm:mb-3 text-foreground">
+              Get Started
+            </h3>
+            <ul className="list-none">
+              <li>
+                <Link 
+                  to="/components" 
+                  onClick={() => setIsComponentsOpen(false)}
+                  className={`block px-0 py-2 text-muted-foreground no-underline rounded-md transition-all duration-200 text-sm font-medium ${
+                    currentLink !== '/components'
+                      ? 'px-0 hover:px-3 hover:text-foreground hover:bg-accent' 
+                      : 'px-3 hover:px-3 text-foreground dark:text-white bg-accent font-medium'
+                  }`}>
+                  Introduction
+                </Link>
+              </li>
+            </ul>
+          </div>
+          
+          <div className="sidebar-section">
+            <h3 className="text-base sm:text-lg font-semibold mb-2 sm:mb-3 text-foreground">
+              Components
+            </h3>
+            <div className="component-categories">
+              <div className="category mb-4 sm:mb-6">
+                <h4 className="text-xs sm:text-sm font-medium text-muted-foreground mb-2">
+                  Text Components ({textComponents.length})
+                </h4>
+                <ul className="list-none">
+                  {textComponents.map((component) => (
+                    <li key={component.key} className="mb-0.5">
+                      <Link 
+                        to={`/components/${component.key}`} 
+                        onClick={() => setIsComponentsOpen(false)}
+                        className={`block px-0 py-2 text-muted-foreground no-underline rounded-md transition-all duration-200 text-sm font-medium ${
+                          currentComponentName !== component.key 
+                            ? 'px-0 hover:px-3 hover:text-foreground hover:bg-accent' 
+                            : 'px-3 hover:px-3 text-foreground dark:text-white bg-accent font-medium'
+                        }`}
+                      >
+                        {component.name}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              
+              <div className="category">
+                <h4 className="text-xs sm:text-sm font-medium text-muted-foreground mb-2">
+                  Interactive Components ({interactiveComponents.length})
+                </h4>
+                <ul className="list-none">
+                  {interactiveComponents.map((component) => (
+                    <li key={component.key} className="mb-0.5">
+                      <Link 
+                        to={`/components/${component.key}`} 
+                        onClick={() => setIsComponentsOpen(false)}
+                        className={`block px-0 py-2 text-muted-foreground no-underline rounded-md transition-all duration-200 text-sm font-medium ${
+                          currentComponentName !== component.key 
+                            ? 'px-0 hover:px-3 hover:text-foreground hover:bg-accent' 
+                            : 'px-3 hover:px-3 text-foreground dark:text-white bg-accent font-medium'
+                        }`}
+                      >
+                        {component.name}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
             </div>
           </div>
         </div>

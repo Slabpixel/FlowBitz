@@ -11,47 +11,47 @@ const Home = () => {
   }
 
   return (
-    <div className="bg-background text-foreground mt-[64px]">
+    <div className="bg-background text-foreground pt-[64px]">
       {/* Hero Section */}
-      <section className="relative flex items-center justify-center px-8 py-[64px]">
-        <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-12 items-center">
-          <div className="space-y-8">
+      <section className="relative flex items-center justify-center px-4 sm:px-6 lg:px-8 py-8 sm:py-12 lg:py-[64px]">
+        <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
+          <div className="space-y-6 lg:space-y-8 order-2 lg:order-1">
             {/* Component Count Pill */}
-            <div className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-primary/10 to-purple-600/10 border border-primary/20 rounded-full text-sm font-medium text-primary">
-              <span className="w-2 h-2 bg-primary  rounded-full animate-pulse"></span>
+            <div className="inline-flex items-center gap-2 px-3 sm:px-4 py-2 bg-gradient-to-r from-primary/10 to-purple-600/10 border border-primary/20 rounded-full text-xs sm:text-sm font-medium text-primary">
+              <span className="w-2 h-2 bg-primary rounded-full animate-pulse"></span>
               <span>16 Components Available</span>
             </div>
             
-            <h1 className="text-5xl lg:text-6xl font-bold leading-tight text-foreground" 
+            <h1 className="text-5xl sm:text-5xl md:text-5xl lg:text-6xl font-bold leading-tight text-foreground" 
                 wb-component="blur-text" wb-animate-by="words" wb-delay="200">
               Interactive Components for Webflow
             </h1>
-            <p className="text-xl text-muted-foreground leading-relaxed">
+            <p className="text-base sm:text-lg lg:text-xl text-muted-foreground leading-relaxed">
               Create stunning animations and interactive effects with our powerful library components. 
               Easy to use, performant, and designed specifically for Webflow.
             </p>
-            <div className="flex flex-col sm:flex-row gap-4">
+            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
               <Button 
                 size="lg" 
-                className="bg-primary" 
+                className="bg-primary w-full sm:w-auto" 
                 onClick={() => navigate('/components/split-text')}
               >
-                <Zap className="w-5 h-5" />
-                Explore Components
+                <Zap className="w-4 h-4 sm:w-5 sm:h-5" />
+                <span>Explore Components</span>
               </Button>
               <Button 
                 variant="outline" 
                 size="lg" 
-                className="border-border hover:bg-accent"
+                className="border-border hover:bg-accent w-full sm:w-auto"
                 onClick={handleGitHub}
               >
-                <Github className="w-5 h-5" />
-                GitHub
+                <Github className="w-4 h-4 sm:w-5 sm:h-5" />
+                <span>GitHub</span>
               </Button>
             </div>
           </div>
-          <div className="flex justify-center">
-            <div className="w-full max-h-[500px] bg-card border border-border rounded-3xl flex items-center justify-center p-8" 
+          <div className="hidden sm:flex justify-center order-1 lg:order-2">
+            <div className="w-full max-w-sm sm:max-w-md lg:max-w-lg max-h-[300px] sm:max-h-[400px] lg:max-h-[500px] bg-card border border-border rounded-2xl sm:rounded-3xl flex items-center justify-center p-4 sm:p-6 lg:p-8" 
                  wb-animate="shape-blur"
                  wb-shape-variation="0"
                  wb-shape-size="1.2"
@@ -66,79 +66,79 @@ const Home = () => {
       </section>
 
       {/* Features Section */}
-      <section className="py-20 px-8">
+      <section className="py-12 sm:py-16 lg:py-20 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl lg:text-5xl font-bold mb-6" 
+          <div className="text-center mb-12 sm:mb-16">
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4 sm:mb-6" 
                 wb-component="text-type" wb-typing-speed="50" wb-deleting-speed="25">
               Powerful Features
             </h2>
-            <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+            <p className="text-lg sm:text-xl text-muted-foreground max-w-2xl mx-auto">
               Everything you need to create engaging web experiences
             </p>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <div className="bg-card bg-muted rounded-xl p-8 text-center hover:bg-accent transition-all duration-300">
-              <div className="text-4xl mb-4">🎨</div>
-              <h3 className="text-xl font-semibold mb-3 text-foreground">16 Components</h3>
-              <p className="text-muted-foreground">Comprehensive library of text animations and interactive effects</p>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
+            <div className="bg-card bg-muted rounded-xl p-6 sm:p-8 text-center hover:bg-accent transition-all duration-300">
+              <div className="text-3xl sm:text-4xl mb-3 sm:mb-4">🎨</div>
+              <h3 className="text-lg sm:text-xl font-semibold mb-2 sm:mb-3 text-foreground">16 Components</h3>
+              <p className="text-sm sm:text-base text-muted-foreground">Comprehensive library of text animations and interactive effects</p>
             </div>
-            <div className="bg-card bg-muted rounded-xl p-8 text-center hover:bg-accent transition-all duration-300">
-              <div className="text-4xl mb-4">⚡</div>
-              <h3 className="text-xl font-semibold mb-3 text-foreground">GSAP Powered</h3>
-              <p className="text-muted-foreground">Built on industry-standard animation library for smooth performance</p>
+            <div className="bg-card bg-muted rounded-xl p-6 sm:p-8 text-center hover:bg-accent transition-all duration-300">
+              <div className="text-3xl sm:text-4xl mb-3 sm:mb-4">⚡</div>
+              <h3 className="text-lg sm:text-xl font-semibold mb-2 sm:mb-3 text-foreground">GSAP Powered</h3>
+              <p className="text-sm sm:text-base text-muted-foreground">Built on industry-standard animation library for smooth performance</p>
             </div>
-            <div className="bg-card bg-muted rounded-xl p-8 text-center hover:bg-accent transition-all duration-300">
-              <div className="text-4xl mb-4">🔧</div>
-              <h3 className="text-xl font-semibold mb-3 text-foreground">Easy Integration</h3>
-              <p className="text-muted-foreground">Simple HTML attributes - no complex JavaScript required</p>
+            <div className="bg-card bg-muted rounded-xl p-6 sm:p-8 text-center hover:bg-accent transition-all duration-300">
+              <div className="text-3xl sm:text-4xl mb-3 sm:mb-4">🔧</div>
+              <h3 className="text-lg sm:text-xl font-semibold mb-2 sm:mb-3 text-foreground">Easy Integration</h3>
+              <p className="text-sm sm:text-base text-muted-foreground">Simple HTML attributes - no complex JavaScript required</p>
             </div>
-            <div className="bg-card bg-muted rounded-xl p-8 text-center hover:bg-accent transition-all duration-300">
-              <div className="text-4xl mb-4">📱</div>
-              <h3 className="text-xl font-semibold mb-3 text-foreground">Responsive</h3>
-              <p className="text-muted-foreground">Works perfectly across all devices and screen sizes</p>
+            <div className="bg-card bg-muted rounded-xl p-6 sm:p-8 text-center hover:bg-accent transition-all duration-300">
+              <div className="text-3xl sm:text-4xl mb-3 sm:mb-4">📱</div>
+              <h3 className="text-lg sm:text-xl font-semibold mb-2 sm:mb-3 text-foreground">Responsive</h3>
+              <p className="text-sm sm:text-base text-muted-foreground">Works perfectly across all devices and screen sizes</p>
             </div>
-            <div className="bg-card bg-muted rounded-xl p-8 text-center hover:bg-accent transition-all duration-300">
-              <div className="text-4xl mb-4">🎯</div>
-              <h3 className="text-xl font-semibold mb-3 text-foreground">Webflow Ready</h3>
-              <p className="text-muted-foreground">Designed specifically for Webflow's visual editor</p>
+            <div className="bg-card bg-muted rounded-xl p-6 sm:p-8 text-center hover:bg-accent transition-all duration-300">
+              <div className="text-3xl sm:text-4xl mb-3 sm:mb-4">🎯</div>
+              <h3 className="text-lg sm:text-xl font-semibold mb-2 sm:mb-3 text-foreground">Webflow Ready</h3>
+              <p className="text-sm sm:text-base text-muted-foreground">Designed specifically for Webflow's visual editor</p>
             </div>
-            <div className="bg-card bg-muted rounded-xl p-8 text-center hover:bg-accent transition-all duration-300">
-              <div className="text-4xl mb-4">🚀</div>
-              <h3 className="text-xl font-semibold mb-3 text-foreground">Performance</h3>
-              <p className="text-muted-foreground">Optimized for speed with minimal impact on page load</p>
+            <div className="bg-card bg-muted rounded-xl p-6 sm:p-8 text-center hover:bg-accent transition-all duration-300">
+              <div className="text-3xl sm:text-4xl mb-3 sm:mb-4">🚀</div>
+              <h3 className="text-lg sm:text-xl font-semibold mb-2 sm:mb-3 text-foreground">Performance</h3>
+              <p className="text-sm sm:text-base text-muted-foreground">Optimized for speed with minimal impact on page load</p>
             </div>
           </div>
         </div>
       </section>
 
       {/* CTA Section */}
-      <section className="pt-20 pb-40 px-8">
+      <section className="pt-12 sm:pt-16 lg:pt-20 pb-20 sm:pb-32 lg:pb-40 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto text-center">
           <div className="flex flex-col items-center justify-center">
-            <h2 className="text-4xl lg:text-5xl font-bold mb-6 text-foreground">
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4 sm:mb-6 text-foreground">
               Ready to enhance your Webflow projects?
             </h2>
-            <p className="text-xl text-muted-foreground mb-8">
+            <p className="text-lg sm:text-xl text-muted-foreground mb-6 sm:mb-8 max-w-2xl">
               Join thousands of developers creating amazing experiences
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center w-full max-w-md sm:max-w-none">
               <Button 
                 size="lg" 
-                className="bg-primary"
+                className="bg-primary w-full sm:w-auto"
                 onClick={() => navigate('/components/split-text')}
               >
-                <Zap className="w-5 h-5" />
-                Explore Components
+                <Zap className="w-4 h-4 sm:w-5 sm:h-5" />
+                <span className="ml-2">Explore Components</span>
               </Button>
               <Button 
                 variant="outline" 
                 size="lg" 
-                className="border-border hover:bg-accent"
+                className="border-border hover:bg-accent w-full sm:w-auto"
                 onClick={handleGitHub}
               >
-                <Github className="w-5 h-5" />
-                GitHub
+                <Github className="w-4 h-4 sm:w-5 sm:h-5" />
+                <span className="ml-2">GitHub</span>
               </Button>
             </div>
           </div>
