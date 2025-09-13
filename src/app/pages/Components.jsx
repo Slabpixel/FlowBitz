@@ -1,7 +1,7 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Button } from '../components/ui/button.jsx'
-import { Zap } from 'lucide-react'
+import { Zap, Gift, Settings, Copy, Palette } from 'lucide-react'
 import Sidebar from '../components/layout/Sidebar.jsx'
 
 const Components = () => {
@@ -41,27 +41,35 @@ const Components = () => {
               </p>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 mb-8 sm:mb-12">
-              <div className="bg-card bg-muted rounded-xl p-4 sm:p-6 hover:bg-accent transition-all duration-300">
-                <div className="text-2xl sm:text-3xl mb-3 sm:mb-4">🆓</div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 sm:gap-8 mb-8 sm:mb-12">
+              <div className="group relative p-6 bg-background/60 backdrop-blur-sm rounded-2xl border border-border/50 hover:border-primary/30 transition-all duration-300 hover:shadow-lg hover:shadow-primary/10">
+                <div className="w-12 h-12 bg-gradient-to-br from-green-500 to-green-600 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
+                  <Gift className="w-6 h-6 text-white" />
+                </div>
                 <h4 className="text-lg sm:text-xl font-semibold mb-2 sm:mb-3 text-foreground">Free For All</h4>
                 <p className="text-muted-foreground text-sm sm:text-base leading-relaxed">Every component you choose to add to your Webflow project is yours to modify or extend, with full access to the code and complete customization freedom.</p>
               </div>
               
-              <div className="bg-card bg-muted rounded-xl p-4 sm:p-6 hover:bg-accent transition-all duration-300">
-                <div className="text-2xl sm:text-3xl mb-3 sm:mb-4">⚙️</div>
+              <div className="group relative p-6 bg-background/60 backdrop-blur-sm rounded-2xl border border-border/50 hover:border-primary/30 transition-all duration-300 hover:shadow-lg hover:shadow-primary/10">
+                <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
+                  <Settings className="w-6 h-6 text-white" />
+                </div>
                 <h4 className="text-lg sm:text-xl font-semibold mb-2 sm:mb-3 text-foreground">Webflow-Friendly</h4>
                 <p className="text-muted-foreground text-sm sm:text-base leading-relaxed">Every component is designed to work seamlessly with Webflow's visual editor, using HTML attributes and custom code that integrates perfectly with your existing designs.</p>
               </div>
               
-              <div className="bg-card bg-muted rounded-xl p-4 sm:p-6 hover:bg-accent transition-all duration-300">
-                <div className="text-2xl sm:text-3xl mb-3 sm:mb-4">🧩</div>
+              <div className="group relative p-6 bg-background/60 backdrop-blur-sm rounded-2xl border border-border/50 hover:border-primary/30 transition-all duration-300 hover:shadow-lg hover:shadow-primary/10">
+                <div className="w-12 h-12 bg-gradient-to-br from-purple-500 to-purple-600 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
+                  <Copy className="w-6 h-6 text-white" />
+                </div>
                 <h4 className="text-lg sm:text-xl font-semibold mb-2 sm:mb-3 text-foreground">Copy & Paste Ready</h4>
                 <p className="text-muted-foreground text-sm sm:text-base leading-relaxed">FlowBitz components are designed for easy integration - simply copy the code and paste it into your Webflow project's custom code section or embed it directly.</p>
               </div>
               
-              <div className="bg-card bg-muted rounded-xl p-4 sm:p-6 hover:bg-accent transition-all duration-300">
-                <div className="text-2xl sm:text-3xl mb-3 sm:mb-4">🎨</div>
+              <div className="group relative p-6 bg-background/60 backdrop-blur-sm rounded-2xl border border-border/50 hover:border-primary/30 transition-all duration-300 hover:shadow-lg hover:shadow-primary/10">
+                <div className="w-12 h-12 bg-gradient-to-br from-pink-500 to-pink-600 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
+                  <Palette className="w-6 h-6 text-white" />
+                </div>
                 <h4 className="text-lg sm:text-xl font-semibold mb-2 sm:mb-3 text-foreground">Design Freedom</h4>
                 <p className="text-muted-foreground text-sm sm:text-base leading-relaxed">Whether you're using Webflow's visual editor or custom code, these components adapt to your workflow and give you complete creative control over your projects.</p>
               </div>
@@ -73,21 +81,31 @@ const Components = () => {
                 While we do everything possible to optimize components for Webflow, here are some tips to keep in mind when using FlowBitz:
               </p>
               
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
-                <div className="bg-card bg-muted rounded-xl p-4 sm:p-6">
-                  <div className="text-2xl sm:text-3xl mb-3 sm:mb-4">⚡</div>
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+                <div className="group relative p-6 bg-background/60 backdrop-blur-sm rounded-2xl border border-border/50 hover:border-primary/30 transition-all duration-300 hover:shadow-lg hover:shadow-primary/10">
+                  <div className="w-12 h-12 bg-gradient-to-br from-yellow-500 to-orange-500 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
+                    <Zap className="w-6 h-6 text-white" />
+                  </div>
                   <h4 className="text-lg sm:text-xl font-semibold mb-2 sm:mb-3 text-foreground">Less Is More</h4>
                   <p className="text-muted-foreground text-sm sm:text-base leading-relaxed">Using more than 2-3 components on a page is not advised, as it can overload your Webflow site with animations, potentially impacting performance or user experience</p>
                 </div>
                 
-                <div className="bg-card bg-muted rounded-xl p-4 sm:p-6">
-                  <div className="text-2xl sm:text-3xl mb-3 sm:mb-4">📱</div>
+                <div className="group relative p-6 bg-background/60 backdrop-blur-sm rounded-2xl border border-border/50 hover:border-primary/30 transition-all duration-300 hover:shadow-lg hover:shadow-primary/10">
+                  <div className="w-12 h-12 bg-gradient-to-br from-purple-500 to-purple-600 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
+                    <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z" />
+                    </svg>
+                  </div>
                   <h4 className="text-lg sm:text-xl font-semibold mb-2 sm:mb-3 text-foreground">Mobile Optimization</h4>
                   <p className="text-muted-foreground text-sm sm:text-base leading-relaxed">Consider disabling certain effects on mobile devices and replacing them with static placeholders instead, using Webflow's responsive design features</p>
                 </div>
                 
-                <div className="bg-card bg-muted rounded-xl p-4 sm:p-6 sm:col-span-2 lg:col-span-1">
-                  <div className="text-2xl sm:text-3xl mb-3 sm:mb-4">🔍</div>
+                <div className="group relative p-6 bg-background/60 backdrop-blur-sm rounded-2xl border border-border/50 hover:border-primary/30 transition-all duration-300 hover:shadow-lg hover:shadow-primary/10 sm:col-span-2 lg:col-span-1">
+                  <div className="w-12 h-12 bg-gradient-to-br from-indigo-500 to-indigo-600 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
+                    <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                    </svg>
+                  </div>
                   <h4 className="text-lg sm:text-xl font-semibold mb-2 sm:mb-3 text-foreground">Test Thoroughly</h4>
                   <p className="text-muted-foreground text-sm sm:text-base leading-relaxed">Always test your Webflow site on multiple devices and browsers before publishing, ensuring the best experience for all your users</p>
                 </div>

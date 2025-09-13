@@ -1,341 +1,214 @@
-import React, { useState } from 'react'
+import React from 'react'
+import { useNavigate } from 'react-router-dom'
 import { Button } from '../components/ui/button.jsx'
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../components/ui/card.jsx'
-import { Input } from '../components/ui/input.jsx'
-import { Label } from '../components/ui/label.jsx'
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../components/ui/select.jsx'
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '../components/ui/tabs.jsx'
-import { Badge } from '../components/ui/badge.jsx'
-import { Send, Mail, MessageSquare, Bug, HelpCircle, CheckCircle, ExternalLink } from 'lucide-react'
+import { Mail, MessageSquare, Bug, HelpCircle, ExternalLink, Github, BookOpen, Users } from 'lucide-react'
+import Sidebar from '../components/layout/Sidebar.jsx'
 
 const Support = () => {
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    subject: '',
-    type: 'general',
-    message: ''
-  })
-  const [isSubmitting, setIsSubmitting] = useState(false)
-  const [isSubmitted, setIsSubmitted] = useState(false)
-
-  const handleInputChange = (field, value) => {
-    setFormData(prev => ({
-      ...prev,
-      [field]: value
-    }))
-  }
-
-  const handleSubmit = async (e) => {
-    e.preventDefault()
-    setIsSubmitting(true)
-
-    try {
-      // Try Vercel function first
-      const response = await fetch('/api/send-email', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData),
-      })
-
-      if (response.ok) {
-        const result = await response.json()
-        setIsSubmitted(true)
-        setTimeout(() => {
-          setIsSubmitted(false)
-          setFormData({
-            name: '',
-            email: '',
-            subject: '',
-            type: 'general',
-            message: ''
-          })
-        }, 3000)
-      } else {
-        throw new Error('API not available')
-      }
-    } catch (error) {
-      console.error('Error submitting form:', error)
-      
-      // Fallback: Open email client
-      const subject = encodeURIComponent(`[${formData.type.toUpperCase()}] ${formData.subject}`)
-      const body = encodeURIComponent(`
-Name: ${formData.name}
-Email: ${formData.email}
-Type: ${formData.type}
-Subject: ${formData.subject}
-
-Message:
-${formData.message}
-      `)
-      
-      const mailtoLink = `mailto:hello@slabpixel.com?subject=${subject}&body=${body}`
-      window.open(mailtoLink)
-      
-      // Show success message anyway
-      setIsSubmitted(true)
-      setTimeout(() => {
-        setIsSubmitted(false)
-        setFormData({
-          name: '',
-          email: '',
-          subject: '',
-          type: 'general',
-          message: ''
-        })
-      }, 3000)
-    } finally {
-      setIsSubmitting(false)
-    }
-  }
+  const navigate = useNavigate()
 
   const handleFAQ = () => {
-    window.location.href = '/faq'
+    navigate('/faq')
+  }
+
+  const handleBugReport = () => {
+    window.open('https://github.com/Slabpixel/Webflow-Bits/issues/new?template=bug_report.md&title=%5BBUG%5D%3A%20General-Report&labels=bug', '_blank')
+  }
+
+  const handleFeatureRequest = () => {
+    window.open('https://github.com/Slabpixel/Webflow-Bits/issues/new?template=feature_request.md&title=%5BFEAT%5D%3A%20Feature-Request&labels=enhancement', '_blank')
+  }
+
+  const handleEmail = () => {
+    window.open('mailto:hello@slabpixel.com?subject=FlowBitz Support Inquiry', '_blank')
+  }
+
+  const handleGitHub = () => {
+    window.open('https://github.com/Slabpixel/Webflow-Bits', '_blank')
+  }
+
+  const handleSlabPixel = () => {
+    window.open('https://slabpixel.com', '_blank')
+  }
+
+  const handleComponents = () => {
+    navigate('/components')
   }
 
   return (
     <div className="bg-background text-foreground pt-[64px] min-h-screen">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 lg:py-20">
-        {/* Hero Section */}
-        <div className="text-center mb-16">
-          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-foreground mb-6">
-            Support & Help
-          </h1>
-          <p className="text-lg sm:text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-            Need help with FlowBitz? We're here to assist you. Find answers to common questions or get in touch with our team.
-          </p>
-        </div>
+      <div className="flex flex-col lg:flex-row lg:h-[calc(100vh-4rem)]">
+        {/* Shared Sidebar */}
+        <Sidebar showBackLink={false} />
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          {/* Contact Form */}
-          <div className="lg:col-span-2">
-            <div className="w-full">
-                <Card className="border-border bg-card">
-                  <CardHeader>
-                    <CardTitle className="text-2xl">Get in Touch</CardTitle>
-                    <CardDescription>
-                      Send us a message and we'll get back to you as soon as possible.
-                    </CardDescription>
-                  </CardHeader>
-                  <CardContent>
-                    {isSubmitted ? (
-                      <div className="text-center py-8">
-                        <CheckCircle className="w-16 h-16 text-green-500 mx-auto mb-4" />
-                        <h3 className="text-xl font-semibold text-foreground mb-2">Message Sent!</h3>
-                        <p className="text-muted-foreground">
-                          Thank you for your message. We'll get back to you soon.
-                        </p>
+        {/* Main Content */}
+        <main className="flex flex-col p-4 sm:p-8 lg:p-16 w-full items-center lg:overflow-y-auto lg:h-full">
+          <div className="w-full max-w-[970px] mb-6 sm:mb-8">
+            <h1 className="text-3xl sm:text-4xl font-bold mb-2 text-foreground">Support & Help</h1>
+            <p className="text-muted-foreground text-base sm:text-lg">Need help with FlowBitz? We're here to assist you. Find answers to common questions or get in touch with our team.</p>
+          </div>
+
+          <div className="w-full max-w-[970px]">
+            {/* Support Options */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 mb-8">
+              {/* FAQ */}
+              <div className="group relative p-6 bg-background/60 backdrop-blur-sm rounded-2xl border border-border/50 hover:border-primary/30 transition-all duration-300 hover:shadow-lg hover:shadow-primary/10">
+                <div className="h-full flex flex-col justify-between text-center">
+                  <div className="flex flex-col">
+                    <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
+                      <HelpCircle className="w-8 h-8 text-white" />
+                    </div>
+                    <h3 className="text-lg font-semibold text-foreground mb-2">FAQ</h3>
+                    <p className="text-sm text-muted-foreground mb-4">
+                      Find answers to common questions about FlowBitz components
+                    </p>
+                  </div>
+                  <Button 
+                    onClick={handleFAQ}
+                    variant="outline"
+                    className="w-full"
+                  >
+                    <BookOpen className="w-4 h-4" />
+                    Browse FAQ
+                  </Button>
+                </div>
+              </div>
+
+              {/* Email Support */}
+              <div className="group relative p-6 bg-background/60 backdrop-blur-sm rounded-2xl border border-border/50 hover:border-primary/30 transition-all duration-300 hover:shadow-lg hover:shadow-primary/10">
+                <div className="h-full flex flex-col justify-between text-center">
+                  <div className="flex flex-col">
+                    <div className="w-16 h-16 bg-gradient-to-br from-green-500 to-green-600 rounded-xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
+                      <Mail className="w-8 h-8 text-white" />
+                    </div>
+                    <h3 className="text-lg font-semibold text-foreground mb-2">Email Support</h3>
+                    <p className="text-sm text-muted-foreground mb-4">
+                      Get direct help from our support team
+                    </p>
+                  </div>
+                  <Button 
+                    onClick={handleEmail}
+                    variant="outline"
+                    className="w-full"
+                  >
+                    <Mail className="w-4 h-4" />
+                    Send Email
+                  </Button>
+                </div>
+              </div>
+
+              {/* GitHub Issues */}
+              <div className="group relative p-6 bg-background/60 backdrop-blur-sm rounded-2xl border border-border/50 hover:border-primary/30 transition-all duration-300 hover:shadow-lg hover:shadow-primary/10">
+                <div className="h-full flex flex-col justify-between text-center">
+                  <div className="flex flex-col">
+                    <div className="w-16 h-16 bg-gradient-to-br from-purple-500 to-purple-600 rounded-xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
+                      <Github className="w-8 h-8 text-white" />
+                    </div>
+                    <h3 className="text-lg font-semibold text-foreground mb-2">GitHub</h3>
+                    <p className="text-sm text-muted-foreground mb-4">
+                      Report bugs and request features on GitHub
+                    </p>
+                  </div>
+                  <Button 
+                    onClick={handleGitHub}
+                    variant="outline"
+                    className="w-full"
+                  >
+                    <Github className="w-4 h-4" />
+                    View Repository
+                  </Button>
+                </div>
+              </div>
+            </div>
+
+            {/* Quick Actions */}
+            <div className="mb-8">
+              <h2 className="text-2xl font-bold text-foreground mb-6">Quick Actions</h2>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                <div className="group relative p-6 bg-background/60 backdrop-blur-sm rounded-2xl border border-border/50 hover:border-primary/30 transition-all duration-300 hover:shadow-lg hover:shadow-primary/10">
+                  <Button 
+                    onClick={handleBugReport}
+                    variant="outline"
+                    size="lg"
+                    className="w-full justify-start p-0 border-none hover:bg-white"
+                  >
+                    <div className="flex items-center gap-4">
+                      <div className="w-12 h-12 bg-gradient-to-br from-red-500 to-red-600 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                        <Bug className="w-6 h-6 text-white" />
                       </div>
-                    ) : (
-                      <form onSubmit={handleSubmit} className="space-y-6">
-                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                          <div className="space-y-2">
-                            <Label htmlFor="name">Name *</Label>
-                            <Input
-                              id="name"
-                              value={formData.name}
-                              onChange={(e) => handleInputChange('name', e.target.value)}
-                              placeholder="Your name"
-                              required
-                            />
-                          </div>
-                          <div className="space-y-2">
-                            <Label htmlFor="email">Email *</Label>
-                            <Input
-                              id="email"
-                              type="email"
-                              value={formData.email}
-                              onChange={(e) => handleInputChange('email', e.target.value)}
-                              placeholder="your@email.com"
-                              required
-                            />
-                          </div>
-                        </div>
+                      <div className="text-left">
+                        <div className="font-semibold">Report a Bug</div>
+                        <div className="text-sm text-muted-foreground">Found an issue? Let us know</div>
+                      </div>
+                    </div>
+                  </Button>
+                </div>
 
-                        <div className="space-y-2">
-                          <Label htmlFor="type">Type of Inquiry</Label>
-                          <Select value={formData.type} onValueChange={(value) => handleInputChange('type', value)}>
-                            <SelectTrigger>
-                              <SelectValue placeholder="Select inquiry type" />
-                            </SelectTrigger>
-                            <SelectContent>
-                              <SelectItem value="general">
-                                <div className="flex items-center gap-2">
-                                  <MessageSquare className="w-4 h-4" />
-                                  General Question
-                                </div>
-                              </SelectItem>
-                              <SelectItem value="bug">
-                                <div className="flex items-center gap-2">
-                                  <Bug className="w-4 h-4" />
-                                  Bug Report
-                                </div>
-                              </SelectItem>
-                              <SelectItem value="feature">
-                                <div className="flex items-center gap-2">
-                                  <HelpCircle className="w-4 h-4" />
-                                  Feature Request
-                                </div>
-                              </SelectItem>
-                              <SelectItem value="support">
-                                <div className="flex items-center gap-2">
-                                  <Mail className="w-4 h-4" />
-                                  Technical Support
-                                </div>
-                              </SelectItem>
-                            </SelectContent>
-                          </Select>
-                        </div>
+                <div className="group relative p-6 bg-background/60 backdrop-blur-sm rounded-2xl border border-border/50 hover:border-primary/30 transition-all duration-300 hover:shadow-lg hover:shadow-primary/10">
+                  <Button 
+                    onClick={handleFeatureRequest}
+                    variant="outline"
+                    size="lg"
+                    className="w-full justify-start p-0 border-none hover:bg-white"
+                  >
+                    <div className="flex items-center gap-4">
+                      <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                        <HelpCircle className="w-6 h-6 text-white" />
+                      </div>
+                      <div className="text-left">
+                        <div className="font-semibold">Request Feature</div>
+                        <div className="text-sm text-muted-foreground">Suggest new functionality</div>
+                      </div>
+                    </div>
+                  </Button>
+                </div>
 
-                        <div className="space-y-2">
-                          <Label htmlFor="subject">Subject *</Label>
-                          <Input
-                            id="subject"
-                            value={formData.subject}
-                            onChange={(e) => handleInputChange('subject', e.target.value)}
-                            placeholder="Brief description of your inquiry"
-                            required
-                          />
-                        </div>
+                <div className="group relative p-6 bg-background/60 backdrop-blur-sm rounded-2xl border border-border/50 hover:border-primary/30 transition-all duration-300 hover:shadow-lg hover:shadow-primary/10">
+                  <Button 
+                    onClick={handleComponents}
+                    variant="outline"
+                    size="lg"
+                    className="w-full justify-start p-0 border-none hover:bg-white"
+                  >
+                    <div className="flex items-center gap-4">
+                      <div className="w-12 h-12 bg-gradient-to-br from-green-500 to-green-600 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                        <MessageSquare className="w-6 h-6 text-white" />
+                      </div>
+                      <div className="text-left">
+                        <div className="font-semibold">Browse Components</div>
+                        <div className="text-sm text-muted-foreground">Explore our component library</div>
+                      </div>
+                    </div>
+                  </Button>
+                </div>
 
-                        <div className="space-y-2">
-                          <Label htmlFor="message">Message *</Label>
-                          <textarea
-                            id="message"
-                            value={formData.message}
-                            onChange={(e) => handleInputChange('message', e.target.value)}
-                            placeholder="Please provide details about your inquiry..."
-                            className="w-full min-h-[120px] px-3 py-2 border border-border rounded-md bg-background text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary"
-                            required
-                          />
-                        </div>
+                <div className="group relative p-6 bg-background/60 backdrop-blur-sm rounded-2xl border border-border/50 hover:border-primary/30 transition-all duration-300 hover:shadow-lg hover:shadow-primary/10">
+                  <Button 
+                    onClick={handleSlabPixel}
+                    variant="outline"
+                    size="lg"
+                    className="w-full justify-start p-0 border-none hover:bg-white"
+                  >
+                    <div className="flex items-center gap-4">
+                      <div className="w-12 h-12 bg-gradient-to-br from-purple-500 to-purple-600 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                        <Users className="w-6 h-6 text-white" />
+                      </div>
+                      <div className="text-left">
+                        <div className="font-semibold">Visit SlabPixel</div>
+                        <div className="text-sm text-muted-foreground">Learn more about our team</div>
+                      </div>
+                    </div>
+                  </Button>
+                </div>
+              </div>
+            </div>
 
-                        <Button 
-                          type="submit" 
-                          className="w-full bg-primary hover:bg-primary/90 text-white"
-                          disabled={isSubmitting}
-                        >
-                          {isSubmitting ? (
-                            <>
-                              <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin mr-2" />
-                              Sending...
-                            </>
-                          ) : (
-                            <>
-                              <Send className="w-4 h-4 mr-2" />
-                              Send Message
-                            </>
-                          )}
-                        </Button>
-                      </form>
-                    )}
-                  </CardContent>
-                </Card>
+            {/* Footer */}
+            <div className="w-full max-w-[970px] text-center text-muted-foreground text-sm mt-8 sm:mt-12">
+              Made with 💙 by <a href="https://slabpixel.com" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">SlabPixel</a>
             </div>
           </div>
-
-          {/* Sidebar */}
-          <div className="space-y-6">
-            {/* Contact Info */}
-            <Card className="border-border bg-card">
-              <CardHeader>
-                <CardTitle className="text-xl">Contact Information</CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                <div className="flex items-center gap-3">
-                  <Mail className="w-5 h-5 text-primary" />
-                  <div>
-                    <p className="font-medium text-foreground">Email</p>
-                    <p className="text-sm text-muted-foreground">hello@slabpixel.com</p>
-                  </div>
-                </div>
-                <div className="flex items-center gap-3">
-                  <MessageSquare className="w-5 h-5 text-primary" />
-                  <div>
-                    <p className="font-medium text-foreground">Response Time</p>
-                    <p className="text-sm text-muted-foreground">Within 24 hours</p>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-
-            {/* Quick Links */}
-            <Card className="border-border bg-card">
-              <CardHeader>
-                <CardTitle className="text-xl">Quick Links</CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-3">
-                <Button 
-                  variant="outline" 
-                  className="w-full justify-start"
-                  onClick={handleFAQ}
-                >
-                  <HelpCircle className="w-4 h-4 mr-2" />
-                  <span>FAQ</span>
-                  <ExternalLink className="w-3 h-3 ml-auto" />
-                </Button>
-                <Button 
-                  variant="outline" 
-                  className="w-full justify-start"
-                  onClick={() => window.location.href = '/components'}
-                >
-                  <MessageSquare className="w-4 h-4 mr-2" />
-                  Browse Components
-                </Button>
-                <Button 
-                  variant="outline" 
-                  className="w-full justify-start"
-                  onClick={() => window.open('https://github.com/Slabpixel/Webflow-Bits', '_blank')}
-                >
-                  <Bug className="w-4 h-4 mr-2" />
-                  GitHub Issues
-                </Button>
-                <Button 
-                  variant="outline" 
-                  className="w-full justify-start"
-                  onClick={() => window.open('https://slabpixel.com', '_blank')}
-                >
-                  <MessageSquare className="w-4 h-4 mr-2" />
-                  Visit SlabPixel
-                </Button>
-              </CardContent>
-            </Card>
-
-            {/* Support Types */}
-            <Card className="border-border bg-card">
-              <CardHeader>
-                <CardTitle className="text-xl">Support Types</CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-3">
-                <div className="flex items-center gap-2">
-                  <Badge variant="secondary">General</Badge>
-                  <span className="text-sm text-muted-foreground">Questions about usage</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <Badge variant="destructive">Bug Report</Badge>
-                  <span className="text-sm text-muted-foreground">Report issues</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <Badge variant="outline">Feature</Badge>
-                  <span className="text-sm text-muted-foreground">Request new features</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <Badge variant="default">Support</Badge>
-                  <span className="text-sm text-muted-foreground">Technical assistance</span>
-                </div>
-              </CardContent>
-            </Card>
-          </div>
-        </div>
-
-        {/* Footer */}
-        <div className="mt-16 text-center text-muted-foreground">
-          <p>
-            Made with 💙 by <a href="https://slabpixel.com" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">SlabPixel</a>
-          </p>
-        </div>
+        </main>
       </div>
     </div>
   )

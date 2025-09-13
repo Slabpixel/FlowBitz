@@ -2,12 +2,12 @@ import React, { useState } from 'react'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../components/ui/card.jsx'
 import { Button } from '../components/ui/button.jsx'
 import { Badge } from '../components/ui/badge.jsx'
-import { ChevronDown, ChevronUp, Search, HelpCircle, MessageSquare, ExternalLink, Github } from 'lucide-react'
+import { ChevronDown, ChevronUp, Search, HelpCircle, MessageSquare, ExternalLink, Github, Bug } from 'lucide-react'
+import Sidebar from '../components/layout/Sidebar.jsx'
 
 const FAQ = () => {
   const [openItems, setOpenItems] = useState({})
   const [searchQuery, setSearchQuery] = useState('')
-  const [selectedCategory, setSelectedCategory] = useState('all')
 
   const toggleItem = (index) => {
     setOpenItems(prev => ({
@@ -17,12 +17,11 @@ const FAQ = () => {
   }
 
   const faqCategories = [
-    { key: 'all', label: 'All Questions', count: 0 },
-    { key: 'installation', label: 'Installation', count: 0 },
-    { key: 'usage', label: 'Usage', count: 0 },
-    { key: 'customization', label: 'Customization', count: 0 },
-    { key: 'troubleshooting', label: 'Troubleshooting', count: 0 },
-    { key: 'general', label: 'General', count: 0 }
+    { key: 'installation', label: 'Installation', icon: '🔧' },
+    { key: 'usage', label: 'Usage', icon: '💡' },
+    { key: 'customization', label: 'Customization', icon: '🎨' },
+    { key: 'troubleshooting', label: 'Troubleshooting', icon: '🔧' },
+    { key: 'general', label: 'General', icon: '❓' }
   ]
 
   const faqItems = [
@@ -142,168 +141,169 @@ const FAQ = () => {
     }
   ]
 
-  // Count items per category
-  faqCategories.forEach(category => {
-    if (category.key === 'all') {
-      category.count = faqItems.length
-    } else {
-      category.count = faqItems.filter(item => item.category === category.key).length
-    }
-  })
-
-  // Filter items based on search and category
+  // Filter items based on search
   const filteredItems = faqItems.filter(item => {
     const matchesSearch = item.question.toLowerCase().includes(searchQuery.toLowerCase()) ||
                          item.answer.toLowerCase().includes(searchQuery.toLowerCase())
-    const matchesCategory = selectedCategory === 'all' || item.category === selectedCategory
-    return matchesSearch && matchesCategory
+    return matchesSearch
   })
+
+  // Group items by category
+  const groupedItems = faqCategories.map(category => ({
+    ...category,
+    items: filteredItems.filter(item => item.category === category.key)
+  })).filter(category => category.items.length > 0)
 
   const handleSupport = () => {
     window.location.href = '/support'
   }
 
-  const handleGitHub = () => {
-    window.open('https://github.com/Slabpixel/Webflow-Bits', '_blank')
+  const handleBugReport = () => {
+    window.open('https://github.com/Slabpixel/Webflow-Bits/issues/new?template=bug_report.md&title=%5BBUG%5D%3A%20General-Report&labels=bug', '_blank')
+  }
+
+  const handleFeatureRequest = () => {
+    window.open('https://github.com/Slabpixel/Webflow-Bits/issues/new?template=feature_request.md&title=%5BFEAT%5D%3A%20Feature-Request&labels=enhancement', '_blank')
   }
 
   return (
     <div className="bg-background text-foreground pt-[64px] min-h-screen">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 lg:py-20">
-        {/* Hero Section */}
-        <div className="text-center mb-16">
-          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-foreground mb-6">
-            Frequently Asked Questions
-          </h1>
-          <p className="text-lg sm:text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-            Find answers to common questions about FlowBitz components, installation, usage, and troubleshooting.
-          </p>
-        </div>
+      <div className="flex flex-col lg:flex-row lg:h-[calc(100vh-4rem)]">
+        {/* Shared Sidebar */}
+        <Sidebar showBackLink={false} />
 
-        {/* Search and Filters */}
-        <div className="mb-12">
-          <div className="max-w-2xl mx-auto mb-8">
-            <div className="relative">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground w-4 h-4" />
-              <input
-                type="text"
-                placeholder="Search FAQs..."
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full pl-10 pr-4 py-3 border border-border rounded-lg bg-background text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary"
-              />
-            </div>
+        {/* Main Content */}
+        <main className="flex flex-col p-4 sm:p-8 lg:p-16 w-full items-center lg:overflow-y-auto lg:h-full">
+          <div className="w-full max-w-[970px] mb-6 sm:mb-8">
+            <h1 className="text-3xl sm:text-4xl font-bold mb-2 text-foreground">Frequently Asked Questions</h1>
+            <p className="text-muted-foreground text-base sm:text-lg">Find answers to common questions about FlowBitz components, installation, usage, and troubleshooting.</p>
           </div>
 
-          {/* Category Filters */}
-          <div className="flex flex-wrap gap-2 justify-center">
-            {faqCategories.map((category) => (
-              <Button
-                key={category.key}
-                variant={selectedCategory === category.key ? "default" : "outline"}
-                size="sm"
-                onClick={() => setSelectedCategory(category.key)}
-                className="flex items-center gap-2"
-              >
-                {category.label}
-                <Badge variant="secondary" className="ml-1">
-                  {category.count}
-                </Badge>
-              </Button>
-            ))}
-          </div>
-        </div>
+          <div className="w-full max-w-[970px]">
+             {/* Search */}
+             <div className="mb-8">
+               <div className="mx-auto mb-6">
+                 <div className="relative">
+                   <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground w-4 h-4" />
+                   <input
+                     type="text"
+                     placeholder="Search FAQs..."
+                     value={searchQuery}
+                     onChange={(e) => setSearchQuery(e.target.value)}
+                     className="w-full pl-10 pr-4 py-3 border border-border rounded-lg bg-background text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary"
+                   />
+                 </div>
+               </div>
+             </div>
 
-        {/* FAQ Items */}
-        <div className="max-w-4xl mx-auto space-y-4 mb-12">
-          {filteredItems.length === 0 ? (
-            <Card className="border-border bg-card">
-              <CardContent className="text-center py-12">
-                <HelpCircle className="w-16 h-16 text-muted-foreground mx-auto mb-4" />
-                <h3 className="text-xl font-semibold text-foreground mb-2">No questions found</h3>
-                <p className="text-muted-foreground mb-4">
-                  Try adjusting your search terms or category filter.
-                </p>
-                <Button variant="outline" onClick={() => {
-                  setSearchQuery('')
-                  setSelectedCategory('all')
-                }}>
-                  Clear Filters
-                </Button>
-              </CardContent>
-            </Card>
-          ) : (
-            filteredItems.map((item, index) => (
-              <Card key={index} className="border-border bg-card hover:bg-accent/50 transition-all duration-200">
-                <CardHeader 
-                  className="cursor-pointer"
-                  onClick={() => toggleItem(index)}
-                >
-                  <div className="flex items-center justify-between">
-                    <CardTitle className="text-lg pr-4">{item.question}</CardTitle>
-                    <div className="flex items-center gap-2">
-                      <Badge variant="outline" className="text-xs">
-                        {item.category}
+            {/* FAQ Items */}
+            <div className="mx-auto space-y-8 mb-12">
+              {groupedItems.length === 0 ? (
+                <div className="bg-card bg-muted rounded-xl p-4 sm:p-6 hover:bg-accent transition-all duration-300 text-center py-12">
+                  <HelpCircle className="w-16 h-16 text-muted-foreground mx-auto mb-4" />
+                  <h3 className="text-xl font-semibold text-foreground mb-2">No questions found</h3>
+                  <p className="text-muted-foreground mb-4">
+                    Try adjusting your search terms.
+                  </p>
+                  <Button variant="outline" onClick={() => setSearchQuery('')}>
+                    Clear Search
+                  </Button>
+                </div>
+              ) : (
+                groupedItems.map((category) => (
+                  <div key={category.key} className="space-y-4">
+                    {/* Category Header */}
+                    <div className="flex items-center gap-3 mb-4">
+                      <span className="text-2xl">{category.icon}</span>
+                      <h3 className="text-xl sm:text-2xl font-semibold text-foreground">{category.label}</h3>
+                      <Badge variant="secondary" className="ml-2">
+                        {category.items.length}
                       </Badge>
-                      {openItems[index] ? (
-                        <ChevronUp className="w-5 h-5 text-muted-foreground" />
-                      ) : (
-                        <ChevronDown className="w-5 h-5 text-muted-foreground" />
-                      )}
+                    </div>
+                    
+                    {/* Category Items */}
+                    <div className="space-y-3">
+                      {category.items.map((item, index) => {
+                        const globalIndex = faqItems.findIndex(faqItem => faqItem === item)
+                        return (
+                          <div key={globalIndex} className="bg-card bg-muted rounded-xl p-4 sm:p-6 hover:bg-accent transition-all duration-300">
+                            <div 
+                              className="cursor-pointer"
+                              onClick={() => toggleItem(globalIndex)}
+                            >
+                              <div className="flex items-center justify-between">
+                                <h4 className="text-lg font-semibold pr-4 text-foreground">{item.question}</h4>
+                                <div className="flex items-center gap-2">
+                                  {openItems[globalIndex] ? (
+                                    <ChevronUp className="w-5 h-5 text-muted-foreground" />
+                                  ) : (
+                                    <ChevronDown className="w-5 h-5 text-muted-foreground" />
+                                  )}
+                                </div>
+                              </div>
+                            </div>
+                            {openItems[globalIndex] && (
+                              <div className="mt-4 pt-4 border-t border-border">
+                                <div className="prose prose-sm max-w-none text-muted-foreground">
+                                  <p className="whitespace-pre-line">{item.answer}</p>
+                                </div>
+                              </div>
+                            )}
+                          </div>
+                        )
+                      })}
                     </div>
                   </div>
-                </CardHeader>
-                {openItems[index] && (
-                  <CardContent>
-                    <div className="prose prose-sm max-w-none text-muted-foreground">
-                      <p className="whitespace-pre-line">{item.answer}</p>
-                    </div>
-                  </CardContent>
-                )}
-              </Card>
-            ))
-          )}
-        </div>
+                ))
+              )}
+            </div>
 
-        {/* Still Need Help */}
-        <div className="text-center">
-          <Card className="border-primary/20 bg-gradient-to-r from-primary/5 to-muted-foreground/5">
-            <CardHeader>
-              <CardTitle className="text-2xl">Still Need Help?</CardTitle>
-              <CardDescription className="text-lg">
-                Can't find the answer you're looking for? We're here to help!
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Button 
-                  size="lg" 
-                  className="bg-primary hover:bg-primary/90 text-white px-8 py-3"
-                  onClick={handleSupport}
-                >
-                  <MessageSquare className="w-5 h-5 mr-2" />
-                  Contact Support
-                </Button>
-                <Button 
-                  variant="outline" 
-                  size="lg" 
-                  className="border-border hover:bg-accent px-8 py-3"
-                  onClick={handleGitHub}
-                >
-                  <Github className="w-5 h-5 mr-2" />
-                  GitHub Issues
-                </Button>
+            {/* Still Need Help */}
+            <div className="text-center">
+              <div className="bg-gradient-to-r from-primary/10 to-muted-foreground/5 rounded-2xl p-8 sm:p-12">
+                <h3 className="text-2xl sm:text-3xl font-bold mb-4 text-foreground">
+                  Still Need Help?
+                </h3>
+                <p className="text-muted-foreground text-base sm:text-lg mb-6 sm:mb-8 max-w-2xl mx-auto">
+                  Can't find the answer you're looking for? We're here to help!
+                </p>
+                 <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                   <Button 
+                     size="lg" 
+                     className="bg-primary hover:bg-primary/90 text-white px-8 py-3"
+                     onClick={handleSupport}
+                   >
+                     <MessageSquare className="w-5 h-5" />
+                     Contact Support
+                   </Button>
+                   <Button 
+                     variant="outline" 
+                     size="lg" 
+                     className="border-border hover:bg-accent px-8 py-3"
+                     onClick={handleBugReport}
+                   >
+                     <Bug className="w-5 h-5" />
+                     Report Bug
+                   </Button>
+                   <Button 
+                     variant="outline" 
+                     size="lg" 
+                     className="border-border hover:bg-accent px-8 py-3"
+                     onClick={handleFeatureRequest}
+                   >
+                     <Github className="w-5 h-5" />
+                     Request Feature
+                   </Button>
+                 </div>
               </div>
-            </CardContent>
-          </Card>
-        </div>
+            </div>
 
-        {/* Footer */}
-        <div className="mt-16 text-center text-muted-foreground">
-          <p>
-            Made with 💙 by <a href="https://slabpixel.com" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">SlabPixel</a>
-          </p>
-        </div>
+            {/* Footer */}
+            <div className="w-full max-w-[970px] text-center text-muted-foreground text-sm mt-8 sm:mt-12">
+              Made with 💙 by <a href="https://slabpixel.com" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">SlabPixel</a>
+            </div>
+          </div>
+        </main>
       </div>
     </div>
   )
