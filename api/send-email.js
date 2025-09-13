@@ -1,6 +1,6 @@
-import { google } from 'googleapis';
+const { google } = require('googleapis');
 
-export default async function handler(req, res) {
+module.exports = async function handler(req, res) {
   // Enable CORS
   res.setHeader('Access-Control-Allow-Credentials', true);
   res.setHeader('Access-Control-Allow-Origin', '*');
@@ -19,6 +19,8 @@ export default async function handler(req, res) {
   try {
     const { name, email, type, subject, message } = req.body;
 
+    console.log('Received request:', { name, email, type, subject, message: message?.substring(0, 50) + '...' });
+
     // Validate required fields
     if (!name || !email || !subject || !message) {
       return res.status(400).json({ error: 'Missing required fields' });
@@ -28,6 +30,12 @@ export default async function handler(req, res) {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) {
       return res.status(400).json({ error: 'Invalid email format' });
+    }
+
+    // Check if environment variables are available
+    if (!process.env.GOOGLE_PROJECT_ID || !process.env.GOOGLE_PRIVATE_KEY || !process.env.GOOGLE_CLIENT_EMAIL) {
+      console.error('Missing environment variables');
+      return res.status(500).json({ error: 'Server configuration error' });
     }
 
     // Set up Gmail API with environment variables

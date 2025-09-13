@@ -7,9 +7,17 @@
       "config": {
         "distDir": "dist"
       }
+    },
+    {
+      "src": "api/**/*.js",
+      "use": "@vercel/node"
     }
   ],
   "routes": [
+    {
+      "src": "/api/(.*)",
+      "dest": "/api/$1"
+    },
     {
       "src": "/flowbitz.umd.js",
       "dest": "/flowbitz.umd.js",
@@ -22,8 +30,7 @@
       "src": "/flowbitz.es.js",
       "dest": "/flowbitz.es.js", 
       "headers": {
-        "Cache-Control": "public, max-age=31536000, immutable",
-        "Content-Type": "application/javascript"
+        "Cache-Control": "public, max-age=31536000, immutable"
       }
     },
     {

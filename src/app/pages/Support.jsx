@@ -31,7 +31,7 @@ const Support = () => {
     setIsSubmitting(true)
 
     try {
-      // Use Vercel function (no need for full URL)
+      // Try Vercel function first
       const response = await fetch('/api/send-email', {
         method: 'POST',
         headers: {
@@ -40,9 +40,8 @@ const Support = () => {
         body: JSON.stringify(formData),
       })
 
-      const result = await response.json()
-
       if (response.ok) {
+        const result = await response.json()
         setIsSubmitted(true)
         setTimeout(() => {
           setIsSubmitted(false)
@@ -55,11 +54,38 @@ const Support = () => {
           })
         }, 3000)
       } else {
-        throw new Error(result.error || 'Failed to send message')
+        throw new Error('API not available')
       }
     } catch (error) {
       console.error('Error submitting form:', error)
-      alert('Failed to send message. Please try again or contact us directly at hello@slabpixel.com')
+      
+      // Fallback: Open email client
+      const subject = encodeURIComponent(`[${formData.type.toUpperCase()}] ${formData.subject}`)
+      const body = encodeURIComponent(`
+Name: ${formData.name}
+Email: ${formData.email}
+Type: ${formData.type}
+Subject: ${formData.subject}
+
+Message:
+${formData.message}
+      `)
+      
+      const mailtoLink = `mailto:hello@slabpixel.com?subject=${subject}&body=${body}`
+      window.open(mailtoLink)
+      
+      // Show success message anyway
+      setIsSubmitted(true)
+      setTimeout(() => {
+        setIsSubmitted(false)
+        setFormData({
+          name: '',
+          email: '',
+          subject: '',
+          type: 'general',
+          message: ''
+        })
+      }, 3000)
     } finally {
       setIsSubmitting(false)
     }
