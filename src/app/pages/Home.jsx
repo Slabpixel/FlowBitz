@@ -13,23 +13,18 @@ const Home = () => {
   }
 
   return (
-    <div className="relative text-foreground">
-      {/* Dark Veil Background */}
-      <div style={{ width: '100%', height: '100vh', position: 'absolute', zIndex: -1 }}>
-        <DarkVeil />
-      </div>
-
+    <div className="relative bg-background text-foreground">
       {/* Hero Section */}
-      <section className="relative flex items-center justify-center px-4 sm:px-6 lg:px-8 py-8 sm:py-12 lg:py-[100px]">
-        <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
-          <div className="space-y-6 lg:space-y-8 order-2 lg:order-1">
+      <section className="relative flex items-center justify-center px-4 sm:px-6 lg:px-8 py-[100px] sm:py-[100px] lg:py-[100px]">
+        <div className="max-w-6xl mx-auto grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
+          <div className="space-y-4 lg:space-y-8 order-1 lg:order-1">
             {/* Component Count Pill */}
-            <div className="inline-flex items-center gap-2 px-3 sm:px-4 py-2 bg-gradient-to-r from-white/25 to-primary/25 dark:from-black/25 dark:to-black/10 rounded-full text-xs sm:text-sm font-medium text-black dark:text-white">
+            <div className="inline-flex items-center gap-2 px-3 sm:px-4 py-2 bg-gradient-to-r from-primary/20 to-muted-foreground/10 dark:from-primary/20 dark:to-white/10 rounded-full text-xs sm:text-sm font-medium text-black dark:text-white">
               <span className="w-2 h-2 bg-primary rounded-full animate-pulse"></span>
               <span>16 Components Available</span>
             </div>
             
-            <h1 className="text-5xl sm:text-5xl md:text-5xl lg:text-6xl font-bold leading-tight text-foreground" 
+            <h1 className="text-5xl sm:text-5xl md:text-5xl lg:text-6xl font-bold text-foreground" 
                 wb-component="blur-text" wb-animate-by="words" wb-delay="200">
               Interactive Components for Webflow
             </h1>
@@ -37,6 +32,7 @@ const Home = () => {
               Create stunning animations and interactive effects with our powerful library components. 
               Easy to use, performant, and designed specifically for Webflow.
             </p>
+            
             <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
               <Button 
                 size="lg" 
@@ -56,9 +52,18 @@ const Home = () => {
                 <span>GitHub</span>
               </Button>
             </div>
+
+            {/* Mobile 3D Image */}
+            <div className="flex justify-center sm:hidden">
+              <img 
+                src="/flowbitz-3d.png" 
+                alt="Flowbitz 3D Logo" 
+                className="w-[90%] h-auto max-w-full"
+              />
+            </div>
           </div>
           <div className="hidden sm:flex justify-center order-1 lg:order-2">
-            <div className="w-full h-[500px] position-relative max-w-sm sm:max-w-md lg:max-w-lg sm:rounded-3xl flex items-center justify-center p-4 sm:p-6 lg:p-8">
+            <div className="w-full h-[540px] sm:h-[420px] md:h-[420px] lg:h-[540px] position-relative max-w-sm sm:max-w-md lg:max-w-lg sm:rounded-3xl flex items-center justify-center p-4 sm:p-6 lg:p-8">
               <GridDistortion imageSrc="/flowbitz-3d.png" grid={10} mouse={0.2} strength={0.15} relaxation={0.9} className="w-full h-auto"/>
             </div>
           </div>
@@ -67,7 +72,7 @@ const Home = () => {
 
       {/* Features Section */}
       <section className="bg-background py-12 sm:py-16 lg:py-20 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-7xl mx-auto">
+        <div className="max-w-6xl mx-auto">
           <div className="flex flex-col items-center justify-center text-center mb-12 sm:mb-16">
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4 sm:mb-6" 
                 wb-component="text-type" wb-typing-speed="50" wb-deleting-speed="25">
@@ -114,7 +119,7 @@ const Home = () => {
 
       {/* CTA Section */}
       <section className="bg-background pt-12 sm:pt-16 lg:pt-20 pb-20 sm:pb-32 lg:pb-40 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-7xl mx-auto text-center">
+        <div className="max-w-6xl mx-auto text-center">
           <div className="flex flex-col items-center justify-center">
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4 sm:mb-6 text-foreground"
             wb-component="text-type" wb-typing-speed="50" wb-deleting-speed="25">
