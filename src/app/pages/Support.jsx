@@ -153,7 +153,7 @@ const Support = () => {
                     onClick={handleBugReport}
                     variant="outline"
                     size="lg"
-                    className="w-full justify-start p-0 border-none hover:bg-white"
+                    className="w-full justify-start p-0 border-none hover:bg-background"
                   >
                     <div className="flex items-center gap-4">
                       <div className="w-12 h-12 bg-gradient-to-br from-red-500 to-red-600 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
@@ -172,7 +172,7 @@ const Support = () => {
                     onClick={handleFeatureRequest}
                     variant="outline"
                     size="lg"
-                    className="w-full justify-start p-0 border-none hover:bg-white"
+                    className="w-full justify-start p-0 border-none hover:bg-background"
                   >
                     <div className="flex items-center gap-4">
                       <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
@@ -191,7 +191,7 @@ const Support = () => {
                     onClick={handleComponents}
                     variant="outline"
                     size="lg"
-                    className="w-full justify-start p-0 border-none hover:bg-white"
+                    className="w-full justify-start p-0 border-none hover:bg-background"
                   >
                     <div className="flex items-center gap-4">
                       <div className="w-12 h-12 bg-gradient-to-br from-green-500 to-green-600 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
@@ -210,7 +210,7 @@ const Support = () => {
                     onClick={handleSlabPixel}
                     variant="outline"
                     size="lg"
-                    className="w-full justify-start p-0 border-none hover:bg-white"
+                    className="w-full justify-start p-0 border-none hover:bg-background"
                   >
                     <div className="flex items-center gap-4">
                       <div className="w-12 h-12 bg-gradient-to-br from-purple-500 to-purple-600 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
