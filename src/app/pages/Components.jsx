@@ -1,7 +1,11 @@
 import React from 'react'
+import { useNavigate } from 'react-router-dom'
+import { Button } from '../components/ui/button.jsx'
+import { Zap } from 'lucide-react'
 import Sidebar from '../components/layout/Sidebar.jsx'
 
 const Components = () => {
+  const navigate = useNavigate()
 
   return (
     <div className="bg-background text-foreground pt-[64px] min-h-screen">
@@ -87,6 +91,26 @@ const Components = () => {
                   <h4 className="text-lg sm:text-xl font-semibold mb-2 sm:mb-3 text-foreground">Test Thoroughly</h4>
                   <p className="text-muted-foreground text-sm sm:text-base leading-relaxed">Always test your Webflow site on multiple devices and browsers before publishing, ensuring the best experience for all your users</p>
                 </div>
+              </div>
+            </div>
+
+            {/* CTA Section */}
+            <div className="mt-12 sm:mt-16 text-center">
+              <div className="bg-gradient-to-r from-primary/10 to-muted-foreground/5 rounded-2xl p-8 sm:p-12">
+                <h3 className="text-2xl sm:text-3xl font-bold mb-4 text-foreground">
+                  Ready to explore our components?
+                </h3>
+                <p className="text-muted-foreground text-base sm:text-lg mb-6 sm:mb-8 max-w-2xl mx-auto">
+                  Start with our most popular component and see how easy it is to add stunning animations to your Webflow projects.
+                </p>
+                <Button 
+                  size="lg" 
+                  className="bg-primary hover:bg-primary/90 text-white px-8 py-3"
+                  onClick={() => navigate('/components/split-text')}
+                >
+                  <Zap className="w-5 h-5" />
+                  Explore Component
+                </Button>
               </div>
             </div>
           </div>

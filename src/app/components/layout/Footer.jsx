@@ -4,9 +4,9 @@ import { Link } from 'react-router-dom'
 const Footer = () => {
   return (
     <footer className="w-full flex justify-center bg-background border-t border-border py-8 sm:py-12">
-      <div className="w-full max-w-7xl mx-auto px-4 sm:px-6">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8 mb-6 sm:mb-8">
-          <div className="footer-section sm:col-span-2 lg:col-span-1">
+      <div className="w-full max-w-6xl mx-auto px-4 sm:px-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6 sm:gap-8 mb-6 sm:mb-8">
+          <div className="footer-section sm:col-span-2 lg:col-span-2">
             <h3 className="text-lg sm:text-xl font-semibold mb-2 sm:mb-3 text-foreground">
               FlowBitz
             </h3>
