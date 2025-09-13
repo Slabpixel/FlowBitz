@@ -559,6 +559,23 @@ const ComponentDetail = () => {
             </div>
             <p className="text-muted-foreground text-sm sm:text-base ml-0 sm:ml-11">Use these attributes to customize the animation behavior and appearance.</p>
             
+            {/* Tutorial Video */}
+            <div className="ml-0 sm:ml-11 mb-6">
+              <div className="relative w-full">
+                <video 
+                  className="w-full rounded-lg border border-border shadow-lg"
+                  autoPlay
+                  loop
+                  muted
+                  playsInline
+                  preload="metadata"
+                >
+                  <source src="https://slabpixel.dev/videos/flowbitz-tutorial.mp4" type="video/mp4" />
+                  Your browser does not support the video tag.
+                </video>
+              </div>
+            </div>
+            
             <div className="ml-0 sm:ml-11">
               <div className="overflow-hidden border border-border rounded-lg">
                 <div className="overflow-x-auto">
