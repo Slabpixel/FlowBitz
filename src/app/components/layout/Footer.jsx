@@ -1,123 +1,202 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import { Github, Heart, ExternalLink, Layers, HelpCircle, User, MessageSquare, Sparkles, Download, Bug, MessageCircle, FileText } from 'lucide-react'
+import { getAllComponentKeys } from '../../../library/data/componentsMetadata.js'
 
 const Footer = () => {
+  const componentCount = getAllComponentKeys().length
+
+  const handleGitHub = () => {
+    window.open('https://github.com/Slabpixel/Webflow-Bits', '_blank')
+  }
+
+  const handleSlabPixel = () => {
+    window.open('https://slabpixel.com', '_blank')
+  }
+
   return (
-    <footer className="w-full flex justify-center bg-background border-t border-border py-8 sm:py-12">
-      <div className="w-full max-w-6xl mx-auto px-4 sm:px-6">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6 sm:gap-8 mb-6 sm:mb-8">
-          <div className="footer-section sm:col-span-2 lg:col-span-2">
-            <h3 className="text-lg sm:text-xl font-semibold mb-2 sm:mb-3 text-foreground">
+    <footer className="w-full bg-background border-t border-border">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 py-12 sm:py-16">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-8 sm:gap-12 mb-8 sm:mb-12">
+          {/* Brand Section */}
+          <div className="sm:col-span-2 lg:col-span-2">
+            <h3 className="text-xl font-bold mb-4 text-foreground">
               FlowBitz
             </h3>
-            <p className="text-muted-foreground leading-relaxed text-sm">
-              Interactive components for Webflow
+            <p className="text-muted-foreground leading-relaxed text-sm mb-4">
+              Interactive components for Webflow. Create stunning animations and effects with our powerful library of {componentCount}+ components.
             </p>
+            <div className="flex items-center gap-2 text-sm text-muted-foreground">
+              <span>Made with</span>
+              <Heart className="w-4 h-4 text-red-500" />
+              <span>by</span>
+              <button 
+                onClick={handleSlabPixel}
+                className="text-primary hover:underline transition-colors duration-200"
+              >
+                SlabPixel
+              </button>
+            </div>
           </div>
           
-          <div className="footer-section">
-            <h4 className="text-xs sm:text-sm font-semibold text-foreground mb-2 sm:mb-3 uppercase tracking-wide">
-              Resources
+          {/* Navigation */}
+          <div>
+            <h4 className="text-sm font-semibold text-foreground mb-4 uppercase tracking-wide">
+              Navigation
             </h4>
-            <ul className="list-none space-y-1 sm:space-y-2">
+            <ul className="space-y-3">
+              <li>
+                <Link 
+                  to="/" 
+                  className="text-muted-foreground hover:text-foreground transition-colors duration-200 text-sm flex items-center gap-2"
+                >
+                  <Layers className="w-4 h-4" />
+                  Home
+                </Link>
+              </li>
               <li>
                 <Link 
                   to="/components" 
-                  className="text-muted-foreground no-underline transition-colors duration-200 text-sm hover:text-foreground"
+                  className="text-muted-foreground hover:text-foreground transition-colors duration-200 text-sm flex items-center gap-2"
                 >
+                  <Layers className="w-4 h-4" />
                   Components
                 </Link>
               </li>
               <li>
-                <a 
-                  href="#docs" 
-                  className="text-muted-foreground no-underline transition-colors duration-200 text-sm hover:text-foreground"
+                <Link 
+                  to="/showcase" 
+                  className="text-muted-foreground hover:text-foreground transition-colors duration-200 text-sm flex items-center gap-2"
                 >
-                  Documentation
-                </a>
+                  <Sparkles className="w-4 h-4" />
+                  Showcase
+                </Link>
               </li>
               <li>
-                <a 
-                  href="#examples" 
-                  className="text-muted-foreground no-underline transition-colors duration-200 text-sm hover:text-foreground"
+                <Link 
+                  to="/about" 
+                  className="text-muted-foreground hover:text-foreground transition-colors duration-200 text-sm flex items-center gap-2"
                 >
-                  Examples
-                </a>
+                  <User className="w-4 h-4" />
+                  About
+                </Link>
               </li>
             </ul>
           </div>
           
-          <div className="footer-section">
-            <h4 className="text-xs sm:text-sm font-semibold text-foreground mb-2 sm:mb-3 uppercase tracking-wide">
-              Community
+          {/* Support */}
+          <div>
+            <h4 className="text-sm font-semibold text-foreground mb-4 uppercase tracking-wide">
+              Support
             </h4>
-            <ul className="list-none space-y-1 sm:space-y-2">
+            <ul className="space-y-3">
               <li>
-                <a 
-                  href="https://github.com/Slabpixel/Webflow-Bits" 
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-muted-foreground no-underline transition-colors duration-200 text-sm hover:text-foreground"
+                <Link 
+                  to="/faq" 
+                  className="text-muted-foreground hover:text-foreground transition-colors duration-200 text-sm flex items-center gap-2"
                 >
+                  <MessageSquare className="w-4 h-4" />
+                  FAQ
+                </Link>
+              </li>
+              <li>
+                <Link 
+                  to="/support" 
+                  className="text-muted-foreground hover:text-foreground transition-colors duration-200 text-sm flex items-center gap-2"
+                >
+                  <HelpCircle className="w-4 h-4" />
+                  Support
+                </Link>
+              </li>
+              <li>
+                <button 
+                  onClick={handleGitHub}
+                  className="text-muted-foreground hover:text-foreground transition-colors duration-200 text-sm flex items-center gap-2"
+                >
+                  <Github className="w-4 h-4" />
                   GitHub
-                </a>
+                </button>
               </li>
               <li>
-                <a 
-                  href="#discord" 
-                  className="text-muted-foreground no-underline transition-colors duration-200 text-sm hover:text-foreground"
+                <button 
+                  onClick={handleSlabPixel}
+                  className="text-muted-foreground hover:text-foreground transition-colors duration-200 text-sm flex items-center gap-2"
                 >
-                  Discord
-                </a>
-              </li>
-              <li>
-                <a 
-                  href="#twitter" 
-                  className="text-muted-foreground no-underline transition-colors duration-200 text-sm hover:text-foreground"
-                >
-                  Twitter
-                </a>
+                  <ExternalLink className="w-4 h-4" />
+                  SlabPixel
+                </button>
               </li>
             </ul>
           </div>
 
-          <div className="footer-section">
-            <h4 className="text-xs sm:text-sm font-semibold text-foreground mb-2 sm:mb-3 uppercase tracking-wide">
-              Social Media
+          {/* Resources */}
+          <div>
+            <h4 className="text-sm font-semibold text-foreground mb-4 uppercase tracking-wide">
+              Resources
             </h4>
-            <ul className="list-none space-y-1 sm:space-y-2">
+            <ul className="space-y-3">
               <li>
                 <a 
-                  href="#instagram" 
-                  className="text-muted-foreground no-underline transition-colors duration-200 text-sm hover:text-foreground"
+                  href="https://github.com/Slabpixel/Webflow-Bits/releases" 
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-muted-foreground hover:text-foreground transition-colors duration-200 text-sm flex items-center gap-2"
                 >
-                  Instagram
+                  <Download className="w-4 h-4" />
+                  Releases
                 </a>
               </li>
               <li>
                 <a 
-                  href="#linkedin" 
-                  className="text-muted-foreground no-underline transition-colors duration-200 text-sm hover:text-foreground"
+                  href="https://github.com/Slabpixel/Webflow-Bits/issues" 
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-muted-foreground hover:text-foreground transition-colors duration-200 text-sm flex items-center gap-2"
                 >
-                  LinkedIn
+                  <Bug className="w-4 h-4" />
+                  Issues
                 </a>
               </li>
               <li>
                 <a 
-                  href="#facebook" 
-                  className="text-muted-foreground no-underline transition-colors duration-200 text-sm hover:text-foreground"
+                  href="https://github.com/Slabpixel/Webflow-Bits/discussions" 
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-muted-foreground hover:text-foreground transition-colors duration-200 text-sm flex items-center gap-2"
                 >
-                  Facebook
+                  <MessageCircle className="w-4 h-4" />
+                  Discussions
+                </a>
+              </li>
+              <li>
+                <a 
+                  href="https://github.com/Slabpixel/Webflow-Bits/blob/main/LICENSE" 
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-muted-foreground hover:text-foreground transition-colors duration-200 text-sm flex items-center gap-2"
+                >
+                  <FileText className="w-4 h-4" />
+                  License
                 </a>
               </li>
             </ul>
           </div>
         </div>
         
-        <div className="text-center text-muted-foreground text-sm">
-          <p className="text-muted-foreground leading-relaxed text-sm">
-            &copy; 2025 FlowBitz. All rights reserved.
-          </p>
+        {/* Bottom Section */}
+        <div className="pt-8 border-t border-border">
+          <div className="flex flex-col sm:flex-row justify-between items-center gap-4">
+            <div className="text-sm text-muted-foreground">
+              <p>&copy; 2025 FlowBitz. All rights reserved.</p>
+            </div>
+            <div className="flex items-center gap-6 text-sm text-muted-foreground">
+              <span>{componentCount} Components</span>
+              <span>•</span>
+              <span>100% Free</span>
+              <span>•</span>
+              <span>Open Source</span>
+            </div>
+          </div>
         </div>
       </div>
     </footer>
