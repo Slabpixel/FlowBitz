@@ -51,7 +51,7 @@ const Home = () => {
       <div className="relative bg-background text-foreground">
       {/* Hero Section */}
       <section className="relative flex items-center justify-center px-4 sm:px-6 lg:px-8 py-[100px] sm:py-[100px] lg:py-[100px]">
-        <div className="max-w-6xl mx-auto grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
+        <div className="max-w-6xl mx-auto grid md:grid-cols-2 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
           <div className="space-y-8 lg:space-y-8 order-1 lg:order-1">
             {/* Component Count Pill */}
             <div className="inline-flex items-center gap-2 px-3 sm:px-4 py-2 bg-gradient-to-r from-primary/20 to-muted-foreground/10 dark:from-primary/20 dark:to-white/10 rounded-full text-xs sm:text-sm font-medium text-black dark:text-white">
@@ -59,7 +59,7 @@ const Home = () => {
               <span>{componentCount} Components Available</span>
             </div>
             
-            <h1 className="text-5xl sm:text-5xl md:text-5xl lg:text-7xl font-bold text-foreground">
+            <h1 className="text-[12.5vw] sm:text-6xl md:text-6xl lg:text-7xl font-bold text-foreground" style={{ lineHeight: '1' }}>
               <div>Interactive</div>
               <div>Components</div>
               <div>for <span wb-component="text-type" 
