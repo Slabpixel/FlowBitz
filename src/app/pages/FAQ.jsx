@@ -173,7 +173,7 @@ const FAQ = () => {
     "name": "FlowBitz FAQ",
     "description": "Frequently asked questions about FlowBitz - the free interactive components library for Webflow. Get help with installation, usage, and troubleshooting.",
     "url": "https://flowbitz.dev/faq",
-    "mainEntity": faqData.map(faq => ({
+    "mainEntity": faqItems.map(faq => ({
       "@type": "Question",
       "name": faq.question,
       "acceptedAnswer": {
