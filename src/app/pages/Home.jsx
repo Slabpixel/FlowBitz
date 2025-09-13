@@ -2,7 +2,8 @@ import React from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Button } from '../components/ui/button.jsx'
 import { Zap, Plus, Layers, Github } from 'lucide-react'
-import GridDistortion from '../components/ui/grid-distortion.jsx';
+import GridDistortion from '../components/ui/grid-distortion.jsx'
+import SEO from '../components/SEO.jsx'
 
 const Home = () => {
   const navigate = useNavigate()
@@ -11,8 +12,41 @@ const Home = () => {
     window.open('https://github.com/Slabpixel/Webflow-Bits', '_blank')
   }
 
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "FlowBitz",
+    "description": "Create stunning animations and interactive effects with FlowBitz - a powerful library of 16+ components designed specifically for Webflow. Easy to use, performant, and completely free.",
+    "url": "https://flowbitz.dev",
+    "publisher": {
+      "@type": "Organization",
+      "name": "SlabPixel Studio",
+      "url": "https://slabpixel.com"
+    },
+    "potentialAction": {
+      "@type": "SearchAction",
+      "target": "https://flowbitz.dev/components?search={search_term_string}",
+      "query-input": "required name=search_term_string"
+    },
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD",
+      "description": "Free interactive components for Webflow"
+    }
+  }
+
   return (
-    <div className="relative bg-background text-foreground">
+    <>
+      <SEO 
+        title="FlowBitz - Interactive Components for Webflow"
+        description="Create stunning animations and interactive effects with FlowBitz - a powerful library of 16+ components designed specifically for Webflow. Easy to use, performant, and completely free."
+        keywords="webflow, components, animations, gsap, interactive, text effects, webflow library, webflow components, webflow animations, split text, gradient text, webflow plugins, free webflow components"
+        image="/flowbitz-3d.png"
+        url="https://flowbitz.dev"
+        structuredData={structuredData}
+      />
+      <div className="relative bg-background text-foreground">
       {/* Hero Section */}
       <section className="relative flex items-center justify-center px-4 sm:px-6 lg:px-8 py-[100px] sm:py-[100px] lg:py-[100px]">
         <div className="max-w-6xl mx-auto grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
@@ -196,6 +230,7 @@ const Home = () => {
         </div>
       </section>
     </div>
+    </>
   )
 }
 

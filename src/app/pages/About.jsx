@@ -4,6 +4,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../co
 import { Badge } from '../components/ui/badge.jsx'
 import { Github, ExternalLink, Heart, Users, Lightbulb, Target, Gift, Zap, Settings, Palette, Smartphone, Rocket } from 'lucide-react'
 import Sidebar from '../components/layout/Sidebar.jsx'
+import SEO from '../components/SEO.jsx'
 
 const About = () => {
   const handleGitHub = () => {
@@ -14,8 +15,31 @@ const About = () => {
     window.open('https://slabpixel.com', '_blank')
   }
 
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@type": "AboutPage",
+    "name": "About FlowBitz",
+    "description": "Learn about FlowBitz - the free interactive components library for Webflow. Created by SlabPixel Studio to help designers and developers create stunning web experiences.",
+    "url": "https://flowbitz.dev/about",
+    "mainEntity": {
+      "@type": "Organization",
+      "name": "SlabPixel Studio",
+      "url": "https://slabpixel.com",
+      "description": "Creative studio specializing in web development and design"
+    }
+  }
+
   return (
-    <div className="bg-background text-foreground pt-[64px] min-h-screen">
+    <>
+      <SEO 
+        title="About FlowBitz - Interactive Components for Webflow"
+        description="Learn about FlowBitz - the free interactive components library for Webflow. Created by SlabPixel Studio to help designers and developers create stunning web experiences."
+        keywords="about flowbitz, webflow components, slabpixel studio, interactive components, webflow library, free components"
+        image="/flowbitz-3d.png"
+        url="https://flowbitz.dev/about"
+        structuredData={structuredData}
+      />
+      <div className="bg-background text-foreground pt-[64px] min-h-screen">
       <div className="flex flex-col lg:flex-row lg:h-[calc(100vh-4rem)]">
         {/* Shared Sidebar */}
         <Sidebar showBackLink={false} />
@@ -238,6 +262,7 @@ const About = () => {
         </main>
       </div>
     </div>
+    </>
   )
 }
 

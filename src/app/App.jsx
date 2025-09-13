@@ -1,5 +1,6 @@
 import React from 'react'
 import { Routes, Route, useLocation } from 'react-router-dom'
+import { HelmetProvider } from 'react-helmet-async'
 import Navbar from './components/layout/Navbar'
 import Footer from './components/layout/Footer'
 import Home from './pages/Home'
@@ -19,24 +20,26 @@ function App() {
   const showFooter = location.pathname === '/'
 
   return (
-    <ThemeProvider>
-      <div className="app">
-        <Navbar />
-        <main id="main-content">
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/components" element={<Components />} />
-            <Route path="/components/:componentName" element={<ComponentDetail />} />
-            <Route path="/about" element={<About />} />
-            <Route path="/support" element={<Support />} />
-            <Route path="/faq" element={<FAQ />} />
-            <Route path="/showcase" element={<Showcase />} />
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-        </main>
-        {showFooter && <Footer />}
-      </div>
-    </ThemeProvider>
+    <HelmetProvider>
+      <ThemeProvider>
+        <div className="app">
+          <Navbar />
+          <main id="main-content">
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/components" element={<Components />} />
+              <Route path="/components/:componentName" element={<ComponentDetail />} />
+              <Route path="/about" element={<About />} />
+              <Route path="/support" element={<Support />} />
+              <Route path="/faq" element={<FAQ />} />
+              <Route path="/showcase" element={<Showcase />} />
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+          </main>
+          {showFooter && <Footer />}
+        </div>
+      </ThemeProvider>
+    </HelmetProvider>
   )
 }
 

@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import { Button } from '../components/ui/button.jsx'
 import { Mail, MessageSquare, Bug, HelpCircle, ExternalLink, Github, BookOpen, Users } from 'lucide-react'
 import Sidebar from '../components/layout/Sidebar.jsx'
+import SEO from '../components/SEO.jsx'
 
 const Support = () => {
   const navigate = useNavigate()
@@ -35,8 +36,30 @@ const Support = () => {
     navigate('/components')
   }
 
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@type": "SupportPage",
+    "name": "FlowBitz Support",
+    "description": "Get help and support for FlowBitz - the free interactive components library for Webflow. Find documentation, report bugs, and request features.",
+    "url": "https://flowbitz.dev/support",
+    "mainEntity": {
+      "@type": "Organization",
+      "name": "SlabPixel Studio",
+      "url": "https://slabpixel.com"
+    }
+  }
+
   return (
-    <div className="bg-background text-foreground pt-[64px] min-h-screen">
+    <>
+      <SEO 
+        title="Support - FlowBitz Components"
+        description="Get help and support for FlowBitz - the free interactive components library for Webflow. Find documentation, report bugs, and request features."
+        keywords="flowbitz support, webflow components help, webflow components support, flowbitz documentation, webflow components bug report"
+        image="/flowbitz-3d.png"
+        url="https://flowbitz.dev/support"
+        structuredData={structuredData}
+      />
+      <div className="bg-background text-foreground pt-[64px] min-h-screen">
       <div className="flex flex-col lg:flex-row lg:h-[calc(100vh-4rem)]">
         {/* Shared Sidebar */}
         <Sidebar showBackLink={false} />
@@ -211,6 +234,7 @@ const Support = () => {
         </main>
       </div>
     </div>
+    </>
   )
 }
 
