@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import { getComponent } from '../../library/data/componentsMetadata.js'
 import Sidebar from '../components/layout/Sidebar.jsx'
+import SEO from '../components/SEO.jsx'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '../components/ui/tabs.jsx'
 import { Button } from '../components/ui/button.jsx'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../components/ui/card.jsx'
@@ -639,8 +640,50 @@ const ComponentDetail = () => {
   }
 
 
+  if (!component) {
+    return (
+      <div className="bg-background text-foreground pt-[64px] min-h-screen flex items-center justify-center">
+        <div className="text-center">
+          <h1 className="text-2xl font-bold mb-4">Component Not Found</h1>
+          <p className="text-muted-foreground">The component "{componentName}" could not be found.</p>
+        </div>
+      </div>
+    )
+  }
+
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": component.name,
+    "description": component.description,
+    "url": `https://flowbitz.dev/components/${componentName}`,
+    "applicationCategory": "Web Development Tool",
+    "operatingSystem": "Web",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD",
+      "description": "Free Webflow component"
+    },
+    "creator": {
+      "@type": "Organization",
+      "name": "SlabPixel Studio",
+      "url": "https://slabpixel.com"
+    },
+    "keywords": `webflow, ${component.name.toLowerCase()}, ${component.category}, interactive components, webflow library`
+  }
+
   return (
-    <div className="bg-background text-foreground pt-[64px] min-h-screen">
+    <>
+      <SEO 
+        title={`${component.name} - FlowBitz Component`}
+        description={`${component.description} - Free Webflow component with easy integration and customization options.`}
+        keywords={`webflow, ${component.name.toLowerCase()}, ${component.category}, interactive components, webflow library, ${componentName}, webflow effects`}
+        image="/flowbitz-3d.png"
+        url={`https://flowbitz.dev/components/${componentName}`}
+        structuredData={structuredData}
+      />
+      <div className="bg-background text-foreground pt-[64px] min-h-screen">
       <div className="flex flex-col lg:flex-row lg:h-[calc(100vh-4rem)]">
         {/* Shared Sidebar */}
         <Sidebar showBackLink={false} />
@@ -710,6 +753,7 @@ const ComponentDetail = () => {
         </main>
       </div>
     </div>
+    </>
   )
 }
 

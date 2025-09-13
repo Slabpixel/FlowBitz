@@ -3,12 +3,36 @@ import { useNavigate } from 'react-router-dom'
 import { Button } from '../components/ui/button.jsx'
 import { Zap, Gift, Settings, Copy, Palette } from 'lucide-react'
 import Sidebar from '../components/layout/Sidebar.jsx'
+import SEO from '../components/SEO.jsx'
 
 const Components = () => {
   const navigate = useNavigate()
 
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    "name": "FlowBitz Components Library",
+    "description": "Explore our comprehensive library of 16+ interactive components designed specifically for Webflow. Free, easy to use, and performance optimized.",
+    "url": "https://flowbitz.dev/components",
+    "mainEntity": {
+      "@type": "ItemList",
+      "name": "Webflow Components",
+      "description": "Interactive components for Webflow including text animations, effects, and interactive elements",
+      "numberOfItems": 16
+    }
+  }
+
   return (
-    <div className="bg-background text-foreground pt-[64px] min-h-screen">
+    <>
+      <SEO 
+        title="Components Library - FlowBitz"
+        description="Explore our comprehensive library of 16+ interactive components designed specifically for Webflow. Free, easy to use, and performance optimized."
+        keywords="webflow components, interactive components, text animations, webflow library, split text, gradient text, webflow effects, free components"
+        image="/flowbitz-3d.png"
+        url="https://flowbitz.dev/components"
+        structuredData={structuredData}
+      />
+      <div className="bg-background text-foreground pt-[64px] min-h-screen">
       <div className="flex flex-col lg:flex-row lg:h-[calc(100vh-4rem)]">
         {/* Shared Sidebar */}
         <Sidebar showBackLink={false} />
@@ -138,6 +162,7 @@ const Components = () => {
         </main>
       </div>
     </div>
+    </>
   )
 }
 

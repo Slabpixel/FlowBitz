@@ -4,6 +4,7 @@ import { Button } from '../components/ui/button.jsx'
 import { Badge } from '../components/ui/badge.jsx'
 import { ChevronDown, ChevronUp, Search, HelpCircle, MessageSquare, ExternalLink, Github, Bug } from 'lucide-react'
 import Sidebar from '../components/layout/Sidebar.jsx'
+import SEO from '../components/SEO.jsx'
 
 const FAQ = () => {
   const [openItems, setOpenItems] = useState({})
@@ -166,8 +167,33 @@ const FAQ = () => {
     window.open('https://github.com/Slabpixel/Webflow-Bits/issues/new?template=feature_request.md&title=%5BFEAT%5D%3A%20Feature-Request&labels=enhancement', '_blank')
   }
 
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "name": "FlowBitz FAQ",
+    "description": "Frequently asked questions about FlowBitz - the free interactive components library for Webflow. Get help with installation, usage, and troubleshooting.",
+    "url": "https://flowbitz.dev/faq",
+    "mainEntity": faqData.map(faq => ({
+      "@type": "Question",
+      "name": faq.question,
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": faq.answer
+      }
+    }))
+  }
+
   return (
-    <div className="bg-background text-foreground pt-[64px] min-h-screen">
+    <>
+      <SEO 
+        title="FAQ - FlowBitz Components"
+        description="Frequently asked questions about FlowBitz - the free interactive components library for Webflow. Get help with installation, usage, and troubleshooting."
+        keywords="flowbitz faq, webflow components help, webflow components installation, webflow components troubleshooting, flowbitz support"
+        image="/flowbitz-3d.png"
+        url="https://flowbitz.dev/faq"
+        structuredData={structuredData}
+      />
+      <div className="bg-background text-foreground pt-[64px] min-h-screen">
       <div className="flex flex-col lg:flex-row lg:h-[calc(100vh-4rem)]">
         {/* Shared Sidebar */}
         <Sidebar showBackLink={false} />
@@ -306,6 +332,7 @@ const FAQ = () => {
         </main>
       </div>
     </div>
+    </>
   )
 }
 

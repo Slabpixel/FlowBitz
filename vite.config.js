@@ -31,11 +31,28 @@ export default defineConfig({
     outDir: 'dist',
     emptyOutDir: true,
     sourcemap: true,
+    minify: 'terser',
+    terserOptions: {
+      compress: {
+        drop_console: true,
+        drop_debugger: true
+      }
+    },
     rollupOptions: {
       input: {
         main: resolve(__dirname, 'index.html')
+      },
+      output: {
+        manualChunks: {
+          vendor: ['react', 'react-dom', 'react-router-dom'],
+          gsap: ['gsap'],
+          ui: ['lucide-react', '@radix-ui/react-slot']
+        }
       }
-    }
+    },
+    // Performance optimizations
+    chunkSizeWarningLimit: 1000,
+    assetsInlineLimit: 4096
   },
 
   // Resolve configuration for new structure

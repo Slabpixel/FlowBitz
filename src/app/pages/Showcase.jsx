@@ -4,6 +4,7 @@ import { Button } from '../components/ui/button.jsx'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../components/ui/card.jsx'
 import { Badge } from '../components/ui/badge.jsx'
 import { Clock, Sparkles, Layers, ExternalLink, Github } from 'lucide-react'
+import SEO from '../components/SEO.jsx'
 
 const Showcase = () => {
   const navigate = useNavigate()
@@ -16,8 +17,30 @@ const Showcase = () => {
     navigate('/components')
   }
 
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    "name": "FlowBitz Showcase",
+    "description": "Explore real-world examples and showcases of FlowBitz components in action. See how developers are using our interactive components in their Webflow projects.",
+    "url": "https://flowbitz.dev/showcase",
+    "mainEntity": {
+      "@type": "ItemList",
+      "name": "FlowBitz Component Showcases",
+      "description": "Real-world examples of FlowBitz components in Webflow projects"
+    }
+  }
+
   return (
-    <div className="bg-background text-foreground pt-[64px] min-h-screen">
+    <>
+      <SEO 
+        title="Showcase - FlowBitz Components"
+        description="Explore real-world examples and showcases of FlowBitz components in action. See how developers are using our interactive components in their Webflow projects."
+        keywords="flowbitz showcase, webflow components examples, webflow components showcase, flowbitz projects, webflow components in action"
+        image="/flowbitz-3d.png"
+        url="https://flowbitz.dev/showcase"
+        structuredData={structuredData}
+      />
+      <div className="bg-background text-foreground pt-[64px] min-h-screen">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 lg:py-20">
         {/* Hero Section */}
         <div className="text-center mb-16">
@@ -206,6 +229,7 @@ const Showcase = () => {
         </div>
       </div>
     </div>
+    </>
   )
 }
 
