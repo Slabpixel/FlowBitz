@@ -94,7 +94,8 @@ const GridDistortion = ({
 
     const textureLoader = new THREE.TextureLoader();
     
-    // Safari-compatible image loading
+    // Safari-compatible image loading with CORS
+    textureLoader.setCrossOrigin('anonymous');
     textureLoader.load(
       imageSrc, 
       texture => {
@@ -108,18 +109,10 @@ const GridDistortion = ({
       },
       undefined, // onProgress
       error => {
-        console.warn('Failed to load texture, trying fallback:', error);
-        // Try fallback path
-        const fallbackSrc = imageSrc.startsWith('/') ? `.${imageSrc}` : imageSrc.startsWith('./') ? imageSrc.substring(2) : `./${imageSrc}`;
-        textureLoader.load(fallbackSrc, texture => {
-          texture.minFilter = THREE.LinearFilter;
-          texture.magFilter = THREE.LinearFilter;
-          texture.wrapS = THREE.ClampToEdgeWrapping;
-          texture.wrapT = THREE.ClampToEdgeWrapping;
-          imageAspectRef.current = texture.image.width / texture.image.height;
-          uniforms.uTexture.value = texture;
-          handleResize();
-        });
+        console.warn('Failed to load texture from external domain:', error);
+        console.warn('This is likely due to CORS restrictions. Falling back to static image.');
+        // Trigger fallback to static image
+        setWebglError(true);
       }
     );
 
