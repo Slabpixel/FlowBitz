@@ -59,8 +59,6 @@ const Home = () => {
                 alt="Flowbitz 3D Logo" 
                 className="w-[90%] h-auto max-w-full"
                 loading="eager"
-                decoding="async"
-                crossOrigin="anonymous"
               />
             </div>
           </div>
@@ -78,8 +76,6 @@ const Home = () => {
                     src="https://slabpixel.dev/images/FlowBitz-3D.png" 
                     alt="Flowbitz 3D Logo" 
                     className="w-full h-auto"
-                    loading="eager"
-                    crossOrigin="anonymous"
                   />
                 }
               />
