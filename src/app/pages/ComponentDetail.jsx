@@ -12,7 +12,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '.
 import { Input } from '../components/ui/input.jsx'
 import { Badge } from '../components/ui/badge.jsx'
 import { ColorPicker } from '../components/ui/color-picker.jsx'
-import { Eye, Code, Copy, RotateCcw, Settings, Palette, Sliders } from 'lucide-react'
+import { Eye, Code, Copy, RotateCcw, Settings, Palette, Sliders, Bug, HelpCircle } from 'lucide-react'
 import { useWebflowBits } from '../hooks/useWebflowBits'
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter'
 import { tomorrow } from 'react-syntax-highlighter/dist/esm/styles/prism'
@@ -154,6 +154,16 @@ const ComponentDetail = () => {
     }).catch(err => {
       console.error('Failed to copy code: ', err)
     })
+  }
+
+  const handleBugReport = () => {
+    const componentParam = encodeURIComponent(`[BUG] component/${componentName}`)
+    window.open(`https://github.com/Slabpixel/Webflow-Bits/issues/new?template=bug_report.md&title=${componentParam}&labels=bug`, '_blank')
+  }
+
+  const handleFeatureRequest = () => {
+    const componentParam = encodeURIComponent(`[FEAT] component/${componentName}`)
+    window.open(`https://github.com/Slabpixel/Webflow-Bits/issues/new?template=feature_request.md&title=${componentParam}&labels=enhancement`, '_blank')
   }
 
   // Extract wb- attributes from HTML code
@@ -665,6 +675,35 @@ const ComponentDetail = () => {
               </TabsContent>
             </Tabs>
           </div>
+
+          {/* Report & Feature Request Buttons */}
+          <div className="w-full max-w-[970px] mt-8 sm:mt-12">
+            <div className="bg-card bg-muted rounded-xl p-6 hover:bg-accent transition-all duration-300">
+              <h3 className="text-lg font-semibold text-foreground mb-4 text-center">Found an Issue or Have a Suggestion?</h3>
+              <p className="text-sm text-muted-foreground mb-6 text-center">
+                Help us improve this component by reporting bugs or requesting new features.
+              </p>
+              <div className="flex flex-col sm:flex-row gap-3 justify-center">
+                <Button 
+                  onClick={handleBugReport}
+                  variant="outline"
+                  className="flex items-center gap-2"
+                >
+                  <Bug className="w-4 h-4" />
+                  Report Bug
+                </Button>
+                <Button 
+                  onClick={handleFeatureRequest}
+                  variant="outline"
+                  className="flex items-center gap-2"
+                >
+                  <HelpCircle className="w-4 h-4" />
+                  Request Feature
+                </Button>
+              </div>
+            </div>
+          </div>
+
           <div className="w-full max-w-[970px] text-center text-muted-foreground text-sm mt-8 sm:mt-12">
             Made with 💙 by <a href="https://slabpixel.com" target="_blank" rel="noopener noreferrer" className="text-primary">SlabPixel</a>
           </div>

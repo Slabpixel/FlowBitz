@@ -1,16 +1,19 @@
 import React from 'react'
+import { useNavigate } from 'react-router-dom'
 import { Button } from '../components/ui/button.jsx'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../components/ui/card.jsx'
 import { Badge } from '../components/ui/badge.jsx'
 import { Clock, Sparkles, Layers, ExternalLink, Github } from 'lucide-react'
 
 const Showcase = () => {
+  const navigate = useNavigate()
+
   const handleGitHub = () => {
     window.open('https://github.com/Slabpixel/Webflow-Bits', '_blank')
   }
 
   const handleComponents = () => {
-    window.location.href = '/components'
+    navigate('/components')
   }
 
   return (
@@ -33,85 +36,109 @@ const Showcase = () => {
         </div>
 
         {/* Coming Soon Content */}
-        <div className="max-w-4xl mx-auto">
-          <Card className="border-primary/20 bg-gradient-to-r from-primary/5 to-muted-foreground/5">
-            <CardHeader className="text-center">
-              <div className="w-20 h-20 bg-gradient-to-br from-primary/20 to-muted-foreground/20 rounded-full mx-auto mb-6 flex items-center justify-center">
-                <Sparkles className="w-10 h-10 text-primary" />
-              </div>
-              <CardTitle className="text-3xl sm:text-4xl text-foreground mb-4">
-                Something Amazing is Coming
-              </CardTitle>
-              <CardDescription className="text-lg sm:text-xl text-muted-foreground">
-                We're working hard to bring you an incredible showcase of FlowBitz components in action.
-              </CardDescription>
-            </CardHeader>
-            <CardContent className="text-center space-y-6">
-              <p className="text-muted-foreground leading-relaxed">
-                Our showcase will feature real-world examples, creative implementations, and inspiring use cases 
-                that demonstrate the full potential of FlowBitz components. You'll see how designers and developers 
-                around the world are using our components to create stunning web experiences.
-              </p>
-
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-2xl mx-auto">
-                <div className="flex items-center gap-3 p-4 bg-background/50 rounded-lg">
-                  <Layers className="w-6 h-6 text-primary" />
-                  <div className="text-left">
-                    <p className="font-medium text-foreground">Live Examples</p>
-                    <p className="text-sm text-muted-foreground">Interactive demos</p>
+        <div className="max-w-7xl mx-auto">
+          {/* Main Hero Card */}
+          <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-primary/10 via-background to-muted-foreground/5 border border-primary/20 p-4 pt-8 sm:p-12 lg:p-16">
+            {/* Background Pattern */}
+            <div className="absolute inset-0 opacity-5">
+              <div className="absolute top-10 left-10 w-32 h-32 bg-primary rounded-full blur-3xl"></div>
+              <div className="absolute bottom-10 right-10 w-40 h-40 bg-muted-foreground rounded-full blur-3xl"></div>
+              <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-60 h-60 bg-primary/30 rounded-full blur-3xl"></div>
+            </div>
+            
+            <div className="relative z-10">
+              {/* Icon and Title Section */}
+              <div className="text-center mb-12">
+                <div className="relative inline-block mb-8">
+                  <div className="w-24 h-24 bg-gradient-to-br from-primary to-primary/70 rounded-2xl mx-auto flex items-center justify-center shadow-2xl shadow-primary/25">
+                    <Sparkles className="w-12 h-12 text-white" />
+                  </div>
+                  <div className="absolute -top-2 -right-2 w-8 h-8 bg-gradient-to-br from-yellow-400 to-orange-500 rounded-full flex items-center justify-center">
+                    <div className="w-4 h-4 bg-white rounded-full animate-pulse"></div>
                   </div>
                 </div>
-                <div className="flex items-center gap-3 p-4 bg-background/50 rounded-lg">
-                  <ExternalLink className="w-6 h-6 text-primary" />
-                  <div className="text-left">
-                    <p className="font-medium text-foreground">Real Projects</p>
-                    <p className="text-sm text-muted-foreground">Actual implementations</p>
-                  </div>
-                </div>
-                <div className="flex items-center gap-3 p-4 bg-background/50 rounded-lg">
-                  <Github className="w-6 h-6 text-primary" />
-                  <div className="text-left">
-                    <p className="font-medium text-foreground">Code Snippets</p>
-                    <p className="text-sm text-muted-foreground">Copy & paste ready</p>
-                  </div>
-                </div>
-                <div className="flex items-center gap-3 p-4 bg-background/50 rounded-lg">
-                  <Sparkles className="w-6 h-6 text-primary" />
-                  <div className="text-left">
-                    <p className="font-medium text-foreground">Inspiration</p>
-                    <p className="text-sm text-muted-foreground">Creative ideas</p>
-                  </div>
-                </div>
+                
+                <h2 className="text-3xl sm:text-4xl lg:text-4xl font-bold text-foreground mb-6 leading-tight">
+                  Something Amazing is
+                  <span className="block bg-gradient-to-r from-primary to-primary/70 bg-clip-text text-transparent">
+                    Coming Soon
+                  </span>
+                </h2>
+                
+                <p className="text-xl sm:text-2xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
+                  We're crafting an incredible showcase that will transform how you see and use FlowBitz components.
+                </p>
               </div>
 
-              <div className="pt-6">
-                <h3 className="text-xl font-semibold text-foreground mb-4">What to Expect</h3>
-                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 text-sm text-muted-foreground">
-                  <div className="text-center">
-                    <div className="w-12 h-12 bg-primary/10 rounded-full mx-auto mb-2 flex items-center justify-center">
-                      <span className="text-primary font-bold">1</span>
-                    </div>
-                    <p className="font-medium text-foreground">Component Galleries</p>
-                    <p>Browse by category and see all variations</p>
+              {/* Features Grid */}
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+                <div className="group relative p-6 bg-background/60 backdrop-blur-sm rounded-2xl border border-border/50 hover:border-primary/30 transition-all duration-300 hover:shadow-lg hover:shadow-primary/10">
+                  <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
+                    <Layers className="w-6 h-6 text-white" />
                   </div>
-                  <div className="text-center">
-                    <div className="w-12 h-12 bg-primary/10 rounded-full mx-auto mb-2 flex items-center justify-center">
-                      <span className="text-primary font-bold">2</span>
-                    </div>
-                    <p className="font-medium text-foreground">Use Case Examples</p>
-                    <p>See components in real website contexts</p>
+                  <h3 className="font-semibold text-foreground mb-2">Live Examples</h3>
+                  <p className="text-sm text-muted-foreground">Interactive demos that showcase real functionality</p>
+                </div>
+                
+                <div className="group relative p-6 bg-background/60 backdrop-blur-sm rounded-2xl border border-border/50 hover:border-primary/30 transition-all duration-300 hover:shadow-lg hover:shadow-primary/10">
+                  <div className="w-12 h-12 bg-gradient-to-br from-green-500 to-green-600 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
+                    <ExternalLink className="w-6 h-6 text-white" />
                   </div>
-                  <div className="text-center">
-                    <div className="w-12 h-12 bg-primary/10 rounded-full mx-auto mb-2 flex items-center justify-center">
-                      <span className="text-primary font-bold">3</span>
+                  <h3 className="font-semibold text-foreground mb-2">Real Projects</h3>
+                  <p className="text-sm text-muted-foreground">Actual implementations from real websites</p>
+                </div>
+                
+                <div className="group relative p-6 bg-background/60 backdrop-blur-sm rounded-2xl border border-border/50 hover:border-primary/30 transition-all duration-300 hover:shadow-lg hover:shadow-primary/10">
+                  <div className="w-12 h-12 bg-gradient-to-br from-purple-500 to-purple-600 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
+                    <Github className="w-6 h-6 text-white" />
+                  </div>
+                  <h3 className="font-semibold text-foreground mb-2">Code Snippets</h3>
+                  <p className="text-sm text-muted-foreground">Ready-to-use code you can copy instantly</p>
+                </div>
+                
+                <div className="group relative p-6 bg-background/60 backdrop-blur-sm rounded-2xl border border-border/50 hover:border-primary/30 transition-all duration-300 hover:shadow-lg hover:shadow-primary/10">
+                  <div className="w-12 h-12 bg-gradient-to-br from-pink-500 to-pink-600 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
+                    <Sparkles className="w-6 h-6 text-white" />
+                  </div>
+                  <h3 className="font-semibold text-foreground mb-2">Inspiration</h3>
+                  <p className="text-sm text-muted-foreground">Creative ideas to spark your imagination</p>
+                </div>
+              </div>
+
+              {/* What to Expect Section */}
+              <div className="text-center">
+                <h3 className="text-2xl sm:text-3xl font-bold text-foreground mb-8">What to Expect</h3>
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-8">
+                  <div className="group">
+                    <div className="relative w-20 h-20 bg-gradient-to-br from-primary/20 to-primary/10 rounded-2xl mx-auto mb-4 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                      <span className="text-2xl font-bold text-primary">1</span>
+                      <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-transparent rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                     </div>
-                    <p className="font-medium text-foreground">Code Playground</p>
-                    <p>Experiment with different configurations</p>
+                    <h4 className="text-lg font-semibold text-foreground mb-2">Component Galleries</h4>
+                    <p className="text-muted-foreground">Browse by category and explore all component variations with live previews</p>
+                  </div>
+                  
+                  <div className="group">
+                    <div className="relative w-20 h-20 bg-gradient-to-br from-primary/20 to-primary/10 rounded-2xl mx-auto mb-4 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                      <span className="text-2xl font-bold text-primary">2</span>
+                      <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-transparent rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                    </div>
+                    <h4 className="text-lg font-semibold text-foreground mb-2">Use Case Examples</h4>
+                    <p className="text-muted-foreground">See components in action within real website contexts and layouts</p>
+                  </div>
+                  
+                  <div className="group">
+                    <div className="relative w-20 h-20 bg-gradient-to-br from-primary/20 to-primary/10 rounded-2xl mx-auto mb-4 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                      <span className="text-2xl font-bold text-primary">3</span>
+                      <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-transparent rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                    </div>
+                    <h4 className="text-lg font-semibold text-foreground mb-2">Code Playground</h4>
+                    <p className="text-muted-foreground">Experiment with different configurations and see instant results</p>
                   </div>
                 </div>
               </div>
-            </CardContent>
-          </Card>
+            </div>
+          </div>
         </div>
 
         {/* Alternative Actions */}
@@ -129,7 +156,7 @@ const Showcase = () => {
               className="bg-primary hover:bg-primary/90 text-white px-8 py-3"
               onClick={handleComponents}
             >
-              <Layers className="w-5 h-5 mr-2" />
+              <Layers className="w-5 h-5"/>
               Browse Components
             </Button>
             <Button 
@@ -138,7 +165,7 @@ const Showcase = () => {
               className="border-border hover:bg-accent px-8 py-3"
               onClick={handleGitHub}
             >
-              <Github className="w-5 h-5 mr-2" />
+              <Github className="w-5 h-5"/>
               View on GitHub
             </Button>
           </div>
@@ -163,7 +190,7 @@ const Showcase = () => {
                   onClick={handleGitHub}
                   className="w-full sm:w-auto"
                 >
-                  <Github className="w-4 h-4 mr-2" />
+                  <Github className="w-4 h-4" />
                   Follow on GitHub
                 </Button>
               </div>

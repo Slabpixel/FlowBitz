@@ -9,18 +9,9 @@ const componentCSS = `
 /* FlowBitz - GradientText Component Styles */
 .wb-gradient-text {
   position: relative;
-  margin: 0 auto;
-  display: flex;
-  max-width: fit-content;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-  border-radius: 1.25rem;
-  font-weight: 500;
-  backdrop-filter: blur(10px);
+  display: inline-block;
+  font-weight: inherit;
   transition: box-shadow 0.5s ease-out;
-  overflow: hidden;
-  cursor: pointer;
 }
 
 .wb-gradient-text__overlay {
@@ -31,7 +22,6 @@ const componentCSS = `
   bottom: 0;
   background-size: 300% 100%;
   animation: wb-gradient-animation linear infinite;
-  border-radius: inherit;
   z-index: 0;
   pointer-events: none;
 }
@@ -39,14 +29,11 @@ const componentCSS = `
 .wb-gradient-text__overlay::before {
   content: "";
   position: absolute;
-  left: 0;
-  top: 0;
-  border-radius: inherit;
-  width: calc(100% - 2px);
-  height: calc(100% - 2px);
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
+  width: calc(100% - 2px);
+  height: calc(100% - 2px);
   background-color: #060010;
   z-index: -1;
 }
@@ -60,6 +47,10 @@ const componentCSS = `
   -webkit-background-clip: text;
   color: transparent;
   animation: wb-gradient-animation linear infinite;
+  font-weight: inherit;
+  font-size: inherit;
+  font-family: inherit;
+  line-height: inherit;
 }
 
 @keyframes wb-gradient-animation {
@@ -202,6 +193,17 @@ class GradientTextAnimator {
     const originalContent = element.innerHTML;
     const textContent = element.textContent.trim();
     
+    // Get computed styles from parent element
+    const computedStyle = window.getComputedStyle(element);
+    const parentStyles = {
+      fontWeight: computedStyle.fontWeight,
+      fontSize: computedStyle.fontSize,
+      fontFamily: computedStyle.fontFamily,
+      lineHeight: computedStyle.lineHeight,
+      letterSpacing: computedStyle.letterSpacing,
+      textTransform: computedStyle.textTransform
+    };
+    
     // Clear element
     element.innerHTML = '';
     
@@ -238,13 +240,21 @@ class GradientTextAnimator {
     contentElement.style.animationDuration = `${config.animationSpeed}s`;
     contentElement.textContent = textContent;
     
+    // Apply parent styles to content element
+    Object.keys(parentStyles).forEach(property => {
+      if (parentStyles[property] && parentStyles[property] !== 'normal') {
+        contentElement.style[property] = parentStyles[property];
+      }
+    });
+    
     element.appendChild(contentElement);
 
     return {
       originalContent,
       contentElement,
       overlayElement,
-      gradientStyle
+      gradientStyle,
+      parentStyles
     };
   }
 

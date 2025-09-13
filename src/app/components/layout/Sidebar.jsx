@@ -45,7 +45,7 @@ const Sidebar = ({ showBackLink = false }) => {
               Get Started
             </h3>
             <ul className="list-none">
-              <li>
+              <li className="mb-0.5">
                 <Link 
                   to="/components" 
                   onClick={() => setIsComponentsOpen(false)}
@@ -55,6 +55,42 @@ const Sidebar = ({ showBackLink = false }) => {
                       : 'px-3 hover:px-3 text-foreground dark:text-white bg-accent font-medium'
                   }`}>
                   Introduction
+                </Link>
+              </li>
+              <li className="mb-0.5">
+                <Link 
+                  to="/about" 
+                  onClick={() => setIsComponentsOpen(false)}
+                  className={`block px-0 py-2 text-muted-foreground no-underline rounded-md transition-all duration-200 text-sm font-medium ${
+                    currentLink !== '/about'
+                      ? 'px-0 hover:px-3 hover:text-foreground hover:bg-accent' 
+                      : 'px-3 hover:px-3 text-foreground dark:text-white bg-accent font-medium'
+                  }`}>
+                  About
+                </Link>
+              </li>
+              <li className="mb-0.5">
+                <Link 
+                  to="/support" 
+                  onClick={() => setIsComponentsOpen(false)}
+                  className={`block px-0 py-2 text-muted-foreground no-underline rounded-md transition-all duration-200 text-sm font-medium ${
+                    currentLink !== '/support'
+                      ? 'px-0 hover:px-3 hover:text-foreground hover:bg-accent' 
+                      : 'px-3 hover:px-3 text-foreground dark:text-white bg-accent font-medium'
+                  }`}>
+                  Support
+                </Link>
+              </li>
+              <li className="mb-0.5">
+                <Link 
+                  to="/faq" 
+                  onClick={() => setIsComponentsOpen(false)}
+                  className={`block px-0 py-2 text-muted-foreground no-underline rounded-md transition-all duration-200 text-sm font-medium ${
+                    currentLink !== '/faq'
+                      ? 'px-0 hover:px-3 hover:text-foreground hover:bg-accent' 
+                      : 'px-3 hover:px-3 text-foreground dark:text-white bg-accent font-medium'
+                  }`}>
+                  FAQ
                 </Link>
               </li>
             </ul>
