@@ -110,7 +110,7 @@ const GridDistortion = ({
       error => {
         console.warn('Failed to load texture, trying fallback:', error);
         // Try fallback path
-        const fallbackSrc = imageSrc.startsWith('/') ? `.${imageSrc}` : `./${imageSrc}`;
+        const fallbackSrc = imageSrc.startsWith('/') ? `.${imageSrc}` : imageSrc.startsWith('./') ? imageSrc.substring(2) : `./${imageSrc}`;
         textureLoader.load(fallbackSrc, texture => {
           texture.minFilter = THREE.LinearFilter;
           texture.magFilter = THREE.LinearFilter;
