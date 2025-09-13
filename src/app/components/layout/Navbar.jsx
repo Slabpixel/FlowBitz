@@ -22,7 +22,7 @@ const Navbar = () => {
   }
 
   return (
-    <nav className="w-full fixed top-0 bg-background left-0 border-b border-border z-50 transition-all duration-200">
+    <nav className="w-full fixed top-0 bg-background left-0 border-b border-border z-[70] transition-all duration-200">
       <div className="mx-auto px-4 sm:px-6 flex items-center justify-between h-16">
         <div className="nav-logo">
           <button 
@@ -92,13 +92,13 @@ const Navbar = () => {
       {/* Mobile Menu Overlay */}
       {isMenuOpen && (
         <div 
-          className="md:hidden fixed inset-0 bg-black/50 backdrop-blur-sm z-40"
+          className="md:hidden fixed top-16 left-0 right-0 bottom-0 bg-black/50 backdrop-blur-sm z-[55]"
           onClick={() => setIsMenuOpen(false)}
         />
       )}
       
       {/* Mobile Menu */}
-      <div className={`md:hidden fixed top-16 left-0 w-80 h-[calc(100vh-4rem)] bg-background border-r border-border z-50 transition-transform duration-300 ease-in-out ${
+      <div className={`md:hidden fixed top-16 left-0 w-80 h-[calc(100vh-4rem)] bg-background border-none z-[65] transition-transform duration-300 ease-in-out ${
         isMenuOpen ? 'translate-x-0' : '-translate-x-full'
       }`}>
         <div className="flex flex-col items-start justify-start pt-6 px-4 space-y-1 h-full overflow-y-auto">
@@ -143,7 +143,7 @@ const Navbar = () => {
           >
             <Sparkles className="w-5 h-5" />
             <span>Showcase</span>
-            <Badge variant="secondary" className="ml-auto text-xs">Soon</Badge>
+            <Badge variant="secondary" className="text-xs bg-primary text-white">Soon</Badge>
           </button>
           <button 
             onClick={() => {
