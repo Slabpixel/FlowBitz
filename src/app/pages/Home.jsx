@@ -55,7 +55,7 @@ const Home = () => {
             {/* Mobile 3D Image */}
             <div className="flex justify-center sm:hidden">
               <img 
-                src="./flowbitz-3d.png" 
+                src="https://slabpixel.dev/images/FlowBitz-3D.png" 
                 alt="Flowbitz 3D Logo" 
                 className="w-[90%] h-auto max-w-full"
                 loading="eager"
@@ -67,7 +67,7 @@ const Home = () => {
           <div className="hidden sm:flex justify-center order-1 lg:order-2">
             <div className="w-full h-[540px] sm:h-[420px] md:h-[420px] lg:h-[540px] position-relative max-w-sm sm:max-w-md lg:max-w-lg sm:rounded-3xl flex items-center justify-center p-4 sm:p-6 lg:p-8">
               <GridDistortion 
-                imageSrc="./flowbitz-3d.png" 
+                imageSrc="https://slabpixel.dev/images/FlowBitz-3D.png" 
                 grid={10} 
                 mouse={0.2} 
                 strength={0.15} 
@@ -75,7 +75,7 @@ const Home = () => {
                 className="w-full h-auto"
                 fallbackImage={
                   <img 
-                    src="./flowbitz-3d.png" 
+                    src="https://slabpixel.dev/images/FlowBitz-3D.png" 
                     alt="Flowbitz 3D Logo" 
                     className="w-full h-auto"
                     loading="eager"
