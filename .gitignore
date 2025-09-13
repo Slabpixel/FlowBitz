@@ -23,6 +23,11 @@ dist-ssr
 *.sln
 *.sw?
 
+# Enviroment Variables
+.env.local
+.env
+*.env
+
 # Build outputs
 build/
 out/

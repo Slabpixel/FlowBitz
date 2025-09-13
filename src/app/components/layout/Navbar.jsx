@@ -2,7 +2,8 @@ import React, { useState } from 'react'
 import { useNavigate, useLocation } from 'react-router-dom'
 import ThemeToggle from '../ThemeToggle'
 import Logo from '../Logo'
-import { Home, Layers, BookOpen, Github } from 'lucide-react'
+import { Badge } from '../ui/badge.jsx'
+import { Home, Layers, BookOpen, Github, Sparkles, HelpCircle, User, MessageSquare } from 'lucide-react'
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
@@ -53,6 +54,51 @@ const Navbar = () => {
           >
             <Layers className="w-4 h-4" />
             <span className="hidden lg:inline">Components</span>
+          </button>
+          <button 
+            onClick={() => navigate('/showcase')}
+            className={`px-3 lg:px-4 py-2 rounded-md font-medium text-sm transition-all duration-200 flex items-center gap-2 ${
+              isActive('/showcase') 
+                ? 'text-foreground bg-accent' 
+                : 'text-muted-foreground hover:text-foreground hover:bg-accent'
+            }`}
+          >
+            <Sparkles className="w-4 h-4" />
+            <span className="hidden lg:inline">Showcase</span>
+            <Badge variant="secondary" className="ml-1 text-xs">Soon</Badge>
+          </button>
+          <button 
+            onClick={() => navigate('/about')}
+            className={`px-3 lg:px-4 py-2 rounded-md font-medium text-sm transition-all duration-200 flex items-center gap-2 ${
+              isActive('/about') 
+                ? 'text-foreground bg-accent' 
+                : 'text-muted-foreground hover:text-foreground hover:bg-accent'
+            }`}
+          >
+            <User className="w-4 h-4" />
+            <span className="hidden lg:inline">About</span>
+          </button>
+          <button 
+            onClick={() => navigate('/faq')}
+            className={`px-3 lg:px-4 py-2 rounded-md font-medium text-sm transition-all duration-200 flex items-center gap-2 ${
+              isActive('/faq') 
+                ? 'text-foreground bg-accent' 
+                : 'text-muted-foreground hover:text-foreground hover:bg-accent'
+            }`}
+          >
+            <MessageSquare className="w-4 h-4" />
+            <span className="hidden lg:inline">FAQ</span>
+          </button>
+          <button 
+            onClick={() => navigate('/support')}
+            className={`px-3 lg:px-4 py-2 rounded-md font-medium text-sm transition-all duration-200 flex items-center gap-2 ${
+              isActive('/support') 
+                ? 'text-foreground bg-accent' 
+                : 'text-muted-foreground hover:text-foreground hover:bg-accent'
+            }`}
+          >
+            <HelpCircle className="w-4 h-4" />
+            <span className="hidden lg:inline">Support</span>
           </button>
           <button 
             onClick={() => window.open('https://github.com/Slabpixel/Webflow-Bits', '_blank')}
@@ -116,6 +162,63 @@ const Navbar = () => {
           >
             <Layers className="w-5 h-5" />
             Components
+          </button>
+          <button 
+            onClick={() => {
+              navigate('/showcase')
+              setIsMenuOpen(false)
+            }}
+            className={`w-full py-3 px-4 rounded-lg font-medium transition-all duration-200 flex items-center gap-3 ${
+              isActive('/showcase') 
+                ? 'text-foreground bg-accent' 
+                : 'text-muted-foreground hover:text-foreground hover:bg-accent'
+            }`}
+          >
+            <Sparkles className="w-5 h-5" />
+            <span>Showcase</span>
+            <Badge variant="secondary" className="ml-auto text-xs">Soon</Badge>
+          </button>
+          <button 
+            onClick={() => {
+              navigate('/about')
+              setIsMenuOpen(false)
+            }}
+            className={`w-full py-3 px-4 rounded-lg font-medium transition-all duration-200 flex items-center gap-3 ${
+              isActive('/about') 
+                ? 'text-foreground bg-accent' 
+                : 'text-muted-foreground hover:text-foreground hover:bg-accent'
+            }`}
+          >
+            <User className="w-5 h-5" />
+            About
+          </button>
+          <button 
+            onClick={() => {
+              navigate('/faq')
+              setIsMenuOpen(false)
+            }}
+            className={`w-full py-3 px-4 rounded-lg font-medium transition-all duration-200 flex items-center gap-3 ${
+              isActive('/faq') 
+                ? 'text-foreground bg-accent' 
+                : 'text-muted-foreground hover:text-foreground hover:bg-accent'
+            }`}
+          >
+            <MessageSquare className="w-5 h-5" />
+            FAQ
+          </button>
+          <button 
+            onClick={() => {
+              navigate('/support')
+              setIsMenuOpen(false)
+            }}
+            className={`w-full py-3 px-4 rounded-lg font-medium transition-all duration-200 flex items-center gap-3 ${
+              isActive('/support') 
+                ? 'text-foreground bg-accent' 
+                : 'text-muted-foreground hover:text-foreground hover:bg-accent'
+            }`}
+          >
+            <HelpCircle className="w-5 h-5" />
+            Support
           </button>
           <button 
             onClick={() => {
