@@ -5,8 +5,11 @@ import { Badge } from '../components/ui/badge.jsx'
 import { Github, ExternalLink, Heart, Users, Lightbulb, Target, Gift, Zap, Settings, Palette, Smartphone, Rocket } from 'lucide-react'
 import Sidebar from '../components/layout/Sidebar.jsx'
 import SEO from '../components/SEO.jsx'
+import { getAllComponentKeys } from '../../library/data/componentsMetadata.js'
 
 const About = () => {
+  const componentCount = getAllComponentKeys().length
+
   const handleGitHub = () => {
     window.open('https://github.com/Slabpixel/Webflow-Bits', '_blank')
   }
@@ -101,7 +104,7 @@ const About = () => {
               </p>
               <p className="text-lg leading-relaxed mb-6">
                 We believe that every web project deserves to stand out. That's why we've created FlowBitz 
-                - a comprehensive library of 16 carefully crafted components that bring your Webflow projects 
+                - a comprehensive library of {componentCount} carefully crafted components that bring your Webflow projects 
                 to life with smooth animations and interactive effects.
               </p>
               <p className="text-lg leading-relaxed">
@@ -185,7 +188,7 @@ const About = () => {
         <div className="mb-16">
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-6">
             <div className="text-center">
-              <div className="text-3xl sm:text-4xl font-bold text-primary mb-2">16</div>
+              <div className="text-3xl sm:text-4xl font-bold text-primary mb-2">{componentCount}</div>
               <div className="text-sm text-muted-foreground">Components</div>
             </div>
             <div className="text-center">

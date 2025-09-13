@@ -4,9 +4,11 @@ import { Button } from '../components/ui/button.jsx'
 import { Zap, Plus, Layers, Github } from 'lucide-react'
 import GridDistortion from '../components/ui/grid-distortion.jsx'
 import SEO from '../components/SEO.jsx'
+import { getAllComponentKeys } from '../../library/data/componentsMetadata.js'
 
 const Home = () => {
   const navigate = useNavigate()
+  const componentCount = getAllComponentKeys().length
 
   const handleGitHub = () => {
     window.open('https://github.com/Slabpixel/Webflow-Bits', '_blank')
@@ -54,7 +56,7 @@ const Home = () => {
             {/* Component Count Pill */}
             <div className="inline-flex items-center gap-2 px-3 sm:px-4 py-2 bg-gradient-to-r from-primary/20 to-muted-foreground/10 dark:from-primary/20 dark:to-white/10 rounded-full text-xs sm:text-sm font-medium text-black dark:text-white">
               <span className="w-2 h-2 bg-primary rounded-full animate-pulse"></span>
-              <span>16 Components Available</span>
+              <span>{componentCount} Components Available</span>
             </div>
             
             <h1 className="text-5xl sm:text-5xl md:text-5xl lg:text-7xl font-bold text-foreground">
@@ -144,7 +146,7 @@ const Home = () => {
               <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
                 <Layers className="w-6 h-6 text-white" />
               </div>
-              <h3 className="text-lg sm:text-xl font-semibold mb-2 sm:mb-3 text-foreground">16 Components</h3>
+              <h3 className="text-lg sm:text-xl font-semibold mb-2 sm:mb-3 text-foreground">{componentCount} Components</h3>
               <p className="text-sm sm:text-base text-muted-foreground">Comprehensive library of text animations and interactive effects</p>
             </div>
             
