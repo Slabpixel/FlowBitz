@@ -21,7 +21,7 @@ const Navbar = () => {
   }
 
   return (
-    <nav className="w-full fixed top-0 bg-white dark:bg-black left-0 border-b border-border z-50 transition-all duration-200">
+    <nav className="w-full fixed top-0 bg-background left-0 border-b border-border z-50 transition-all duration-200">
       <div className="mx-auto px-4 sm:px-6 flex items-center justify-between h-16">
         <div className="nav-logo">
           <button 

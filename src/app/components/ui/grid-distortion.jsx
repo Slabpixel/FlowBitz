@@ -32,7 +32,8 @@ const GridDistortion = ({
   strength = 0.15,
   relaxation = 0.9,
   imageSrc,
-  className = ''
+  className = '',
+  fallbackImage = null
 }) => {
   const containerRef = useRef(null);
   const sceneRef = useRef(null);
@@ -40,6 +41,7 @@ const GridDistortion = ({
   const cameraRef = useRef(null);
   const planeRef = useRef(null);
   const imageAspectRef = useRef(1);
+  const [webglError, setWebglError] = React.useState(false);
   const animationIdRef = useRef(null);
   const resizeObserverRef = useRef(null);
 
@@ -48,13 +50,29 @@ const GridDistortion = ({
 
     const container = containerRef.current;
 
+    // Check WebGL support
+    try {
+      const canvas = document.createElement('canvas');
+      const gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
+      if (!gl) {
+        console.warn('WebGL not supported, using fallback image');
+        setWebglError(true);
+        return;
+      }
+    } catch (error) {
+      console.warn('WebGL error, using fallback image:', error);
+      setWebglError(true);
+      return;
+    }
+
     const scene = new THREE.Scene();
     sceneRef.current = scene;
 
     const renderer = new THREE.WebGLRenderer({
       antialias: true,
       alpha: true,
-      powerPreference: 'high-performance'
+      powerPreference: 'high-performance',
+      preserveDrawingBuffer: true // Safari compatibility
     });
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
     renderer.setClearColor(0x000000, 0);
@@ -75,15 +93,35 @@ const GridDistortion = ({
     };
 
     const textureLoader = new THREE.TextureLoader();
-    textureLoader.load(imageSrc, texture => {
-      texture.minFilter = THREE.LinearFilter;
-      texture.magFilter = THREE.LinearFilter;
-      texture.wrapS = THREE.ClampToEdgeWrapping;
-      texture.wrapT = THREE.ClampToEdgeWrapping;
-      imageAspectRef.current = texture.image.width / texture.image.height;
-      uniforms.uTexture.value = texture;
-      handleResize();
-    });
+    
+    // Safari-compatible image loading
+    textureLoader.load(
+      imageSrc, 
+      texture => {
+        texture.minFilter = THREE.LinearFilter;
+        texture.magFilter = THREE.LinearFilter;
+        texture.wrapS = THREE.ClampToEdgeWrapping;
+        texture.wrapT = THREE.ClampToEdgeWrapping;
+        imageAspectRef.current = texture.image.width / texture.image.height;
+        uniforms.uTexture.value = texture;
+        handleResize();
+      },
+      undefined, // onProgress
+      error => {
+        console.warn('Failed to load texture, trying fallback:', error);
+        // Try fallback path
+        const fallbackSrc = imageSrc.startsWith('/') ? `.${imageSrc}` : `./${imageSrc}`;
+        textureLoader.load(fallbackSrc, texture => {
+          texture.minFilter = THREE.LinearFilter;
+          texture.magFilter = THREE.LinearFilter;
+          texture.wrapS = THREE.ClampToEdgeWrapping;
+          texture.wrapT = THREE.ClampToEdgeWrapping;
+          imageAspectRef.current = texture.image.width / texture.image.height;
+          uniforms.uTexture.value = texture;
+          handleResize();
+        });
+      }
+    );
 
     const size = grid;
     const data = new Float32Array(4 * size * size);
@@ -255,6 +293,15 @@ const GridDistortion = ({
       planeRef.current = null;
     };
   }, [grid, mouse, strength, relaxation, imageSrc]);
+
+  // Show fallback image if WebGL fails
+  if (webglError && fallbackImage) {
+    return (
+      <div className={`relative overflow-hidden ${className}`} style={{ width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+        {fallbackImage}
+      </div>
+    );
+  }
 
   return (
     <div
