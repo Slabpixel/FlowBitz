@@ -5,10 +5,12 @@ import { Badge } from '../components/ui/badge.jsx'
 import { ChevronDown, ChevronUp, Search, HelpCircle, MessageSquare, ExternalLink, Github, Bug } from 'lucide-react'
 import Sidebar from '../components/layout/Sidebar.jsx'
 import SEO from '../components/SEO.jsx'
+import { useNavigate } from 'react-router-dom'
 
 const FAQ = () => {
   const [openItems, setOpenItems] = useState({})
   const [searchQuery, setSearchQuery] = useState('')
+  const navigate = useNavigate()
 
   const toggleItem = (index) => {
     setOpenItems(prev => ({
@@ -155,10 +157,6 @@ const FAQ = () => {
     items: filteredItems.filter(item => item.category === category.key)
   })).filter(category => category.items.length > 0)
 
-  const handleSupport = () => {
-    window.location.href = '/support'
-  }
-
   const handleBugReport = () => {
     window.open('https://github.com/Slabpixel/Webflow-Bits/issues/new?template=bug_report.md&title=%5BBUG%5D%3A%20General-Report&labels=bug', '_blank')
   }
@@ -297,7 +295,7 @@ const FAQ = () => {
                    <Button 
                      size="lg" 
                      className="bg-primary hover:bg-primary/90 text-white px-8 py-3"
-                     onClick={handleSupport}
+                     onClick={() => navigate('/support')}
                    >
                      <MessageSquare className="w-5 h-5" />
                      Contact Support
