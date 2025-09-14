@@ -15,18 +15,46 @@
       "dest": "/api/$1"
     },
     {
-      "src": "/flowbitz.umd.js",
-      "dest": "/flowbitz.umd.js",
+      "src": "/v([0-9]+)\\.([0-9]+)\\.([0-9]+)/(.*)",
+      "dest": "/$4",
       "headers": {
         "Cache-Control": "public, max-age=31536000, immutable",
+        "X-Version": "$1.$2.$3",
         "Content-Type": "application/javascript"
       }
     },
     {
-      "src": "/flowbitz.es.js",
-      "dest": "/flowbitz.es.js", 
+      "src": "/latest/(.*)",
+      "dest": "/$1",
       "headers": {
-        "Cache-Control": "public, max-age=31536000, immutable"
+        "Cache-Control": "public, max-age=3600",
+        "X-Version": "latest",
+        "Content-Type": "application/javascript"
+      }
+    },
+    {
+      "src": "/beta/(.*)",
+      "dest": "/$1",
+      "headers": {
+        "Cache-Control": "public, max-age=300",
+        "X-Version": "beta",
+        "Content-Type": "application/javascript"
+      }
+    },
+    {
+      "src": "/flowbitz.umd.js",
+      "dest": "/latest/flowbitz.umd.js",
+      "status": 301,
+      "headers": {
+        "Cache-Control": "public, max-age=3600"
+      }
+    },
+    {
+      "src": "/flowbitz.es.js",
+      "dest": "/latest/flowbitz.es.js",
+      "status": 301,
+      "headers": {
+        "Cache-Control": "public, max-age=3600"
       }
     },
     {
