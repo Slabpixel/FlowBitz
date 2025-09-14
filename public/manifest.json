@@ -12,13 +12,13 @@
   "categories": ["developer", "productivity", "utilities"],
   "icons": [
     {
-      "src": "/favicon-32.png",
+      "src": "https://slabpixel.dev/images/favicon-32.png",
       "sizes": "32x32",
       "type": "image/png",
       "purpose": "any"
     },
     {
-      "src": "/favicon-256.png",
+      "src": "https://slabpixel.dev/images/favicon-256.png",
       "sizes": "256x256",
       "type": "image/png",
       "purpose": "any maskable"
@@ -26,7 +26,7 @@
   ],
   "screenshots": [
     {
-      "src": "/flowbitz-3d.png",
+      "src": "https://slabpixel.dev/images/FlowBitz-OpenGraph.webp",
       "sizes": "1200x630",
       "type": "image/png",
       "form_factor": "wide"
