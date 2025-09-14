@@ -19,9 +19,15 @@
     "build": "vite build && vite build --config vite.config.library.js",
     "build:app": "vite build",
     "build:library": "vite build --config vite.config.library.js",
+    "build:all": "npm run build:app && npm run build:library",
+    "build:beta": "npm run build:library && npm run create-beta",
+    "build:stable": "npm run build:library && npm run create-version",
     "build:watch": "vite build --watch",
     "preview": "vite preview",
-    "clean": "rm -rf dist"
+    "clean": "rm -rf dist",
+    "create-beta": "node scripts/create-beta.js",
+    "create-version": "node scripts/create-version.js",
+    "promote-beta": "node scripts/promote-beta.js"
   },
   "keywords": [
     "webflow",

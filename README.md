@@ -9,14 +9,45 @@ Interactive components library for Webflow powered by GSAP.
 Add this script tag to your Webflow project's custom code (before `</body>`):
 
 ```html
-<script src="https://flowbitz.app/flowbitz.umd.js"></script>
+<!-- Latest stable version (recommended) -->
+<script src="https://flowbitz.dev/latest/flowbitz.umd.js"></script>
+
+<!-- Or use the simple URL (redirects to latest) -->
+<script src="https://flowbitz.dev/flowbitz.umd.js"></script>
 ```
 
 The library will auto-initialize and start working with elements that have the proper attributes.
 
-### Available Components
+### Version Options
 
-WebflowBits includes fifteen powerful animation components:
+```html
+<!-- Latest stable (auto-updates) -->
+<script src="https://flowbitz.dev/latest/flowbitz.umd.js"></script>
+
+<!-- Specific version (locked) -->
+<script src="https://flowbitz.dev/v1.0.0/flowbitz.umd.js"></script>
+
+<!-- Beta version (for testing) -->
+<script src="https://flowbitz.dev/beta/flowbitz.umd.js"></script>
+```
+
+## 🚀 Development Workflow
+
+FlowBitz uses a beta/stable release workflow:
+
+### For Users
+- **Latest stable**: Always tested and reliable
+- **Specific versions**: Lock to a version for production
+- **Beta versions**: Test new features before they're released
+
+### For Developers
+- **Daily development**: Use beta for testing new features
+- **Release process**: Promote beta to stable when ready
+- **Version management**: Automatic versioning and CDN updates
+
+## Available Components
+
+FlowBitz includes fifteen powerful animation components:
 
 ### Text Animation Components:
 1. **SplitText** - Character, word, or line-based split animations
