@@ -87,6 +87,13 @@ vercel --prod
 - `npm run build:beta` - Build library and create beta version
 - `npm run build:stable` - Build library and create stable version
 
+### Build + Deploy Scripts
+- `npm run deploy:app` - Build React showcase website + deploys to Vercel
+- `npm run deploy:library` - Build FlowBitz library + deploys to Vercel
+- `npm run deploy:all` - Build both app and library + deploys to Vercel
+- `npm run deploy:beta` - Build library and create beta version + deploys to Vercel
+- `npm run deploy:stable` - Build library and create stable version + deploys to Vercel
+
 ### Release Scripts
 - `npm run create-beta` - Create beta version from current build
 - `npm run create-version` - Create stable version from current build
@@ -96,6 +103,12 @@ vercel --prod
 - `npm run dev` - Start development server
 - `npm run preview` - Preview production build
 - `npm run clean` - Clean dist directory
+
+### Version Scripts
+- `npm version patch` - Patch Release (Bug Fixes) Result: v1.0.0 → v1.0.1
+- `npm version minor` - Minor Release (New Features) Result: v1.0.0 → v1.1.0
+- `npm version major` - Major Release (Breaking Changes) Result: v1.0.0 → v2.0.0
+
 
 ## 🌐 CDN Structure
 

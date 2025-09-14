@@ -93,9 +93,6 @@ const GridDistortion = ({
     };
 
     const textureLoader = new THREE.TextureLoader();
-    
-    // Safari-compatible image loading with CORS
-    textureLoader.setCrossOrigin('anonymous');
     textureLoader.load(
       imageSrc, 
       texture => {
