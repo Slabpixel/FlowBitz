@@ -13,7 +13,7 @@ const About = () => {
   const navigate = useNavigate()
 
   const handleGitHub = () => {
-    window.open('https://github.com/Slabpixel/Webflow-Bits', '_blank')
+    window.open('https://github.com/Slabpixel/FlowBitz', '_blank')
   }
 
   const handleSlabPixel = () => {

@@ -3,6 +3,7 @@ import { Routes, Route, useLocation } from 'react-router-dom'
 import { HelmetProvider } from 'react-helmet-async'
 import Navbar from './components/layout/Navbar'
 import Footer from './components/layout/Footer'
+import ScrollToTop from './components/ScrollToTop'
 import Home from './pages/Home'
 import Components from './pages/Components'
 import ComponentDetail from './pages/ComponentDetail'
@@ -23,6 +24,7 @@ function App() {
     <HelmetProvider>
       <ThemeProvider>
         <div className="app">
+          <ScrollToTop />
           <Navbar />
           <main id="main-content">
             <Routes>

@@ -13,11 +13,11 @@ const Support = () => {
   }
 
   const handleBugReport = () => {
-    window.open('https://github.com/Slabpixel/Webflow-Bits/issues/new?template=bug_report.md&title=%5BBUG%5D%3A%20General-Report&labels=bug', '_blank')
+    window.open('https://github.com/Slabpixel/FlowBitz/issues/new?template=bug_report.md&title=%5BBUG%5D%3A%20General-Report&labels=bug', '_blank')
   }
 
   const handleFeatureRequest = () => {
-    window.open('https://github.com/Slabpixel/Webflow-Bits/issues/new?template=feature_request.md&title=%5BFEAT%5D%3A%20Feature-Request&labels=enhancement', '_blank')
+    window.open('https://github.com/Slabpixel/FlowBitz/issues/new?template=feature_request.md&title=%5BFEAT%5D%3A%20Feature-Request&labels=enhancement', '_blank')
   }
 
   const handleEmail = () => {
@@ -25,7 +25,7 @@ const Support = () => {
   }
 
   const handleGitHub = () => {
-    window.open('https://github.com/Slabpixel/Webflow-Bits', '_blank')
+    window.open('https://github.com/Slabpixel/FlowBitz', '_blank')
   }
 
   const handleSlabPixel = () => {

@@ -1,6 +1,6 @@
 /**
  * Components Metadata
- * This file contains metadata for all WebflowBits components
+ * This file contains metadata for all FlowBitz components
  * Used to automatically generate component pages and documentation
  */
 
