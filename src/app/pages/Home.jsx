@@ -44,7 +44,7 @@ const Home = () => {
         title="FlowBitz - Interactive Components for Webflow"
         description="Create stunning animations and interactive effects with FlowBitz - a powerful library of 16+ components designed specifically for Webflow. Easy to use, performant, and completely free."
         keywords="webflow, components, animations, gsap, interactive, text effects, webflow library, webflow components, webflow animations, split text, gradient text, webflow plugins, free webflow components"
-        image="/flowbitz-3d.png"
+        image="https://slabpixel.dev/images/FlowBitz-OpenGraph.webp"
         url="https://flowbitz.dev"
         structuredData={structuredData}
       />

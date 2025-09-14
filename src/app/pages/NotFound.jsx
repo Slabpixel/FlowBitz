@@ -13,7 +13,7 @@ const NotFound = () => {
         title="404 - Page Not Found | FlowBitz"
         description="The page you're looking for doesn't exist. Explore our collection of interactive Webflow components or return to the homepage."
         keywords="404, page not found, flowbitz, webflow components"
-        image="/flowbitz-3d.png"
+        image="https://slabpixel.dev/images/FlowBitz-OpenGraph.webp"
         url="https://flowbitz.dev/404"
       />
       <div className="bg-background text-foreground min-h-screen flex items-center justify-center px-4">

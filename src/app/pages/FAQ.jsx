@@ -187,7 +187,7 @@ const FAQ = () => {
         title="FAQ - FlowBitz Components"
         description="Frequently asked questions about FlowBitz - the free interactive components library for Webflow. Get help with installation, usage, and troubleshooting."
         keywords="flowbitz faq, webflow components help, webflow components installation, webflow components troubleshooting, flowbitz support"
-        image="/flowbitz-3d.png"
+        image="https://slabpixel.dev/images/FlowBitz-OpenGraph.webp"
         url="https://flowbitz.dev/faq"
         structuredData={structuredData}
       />

@@ -40,7 +40,7 @@ const About = () => {
         title="About FlowBitz - Interactive Components for Webflow"
         description="Learn about FlowBitz - the free interactive components library for Webflow. Created by SlabPixel Studio to help designers and developers create stunning web experiences."
         keywords="about flowbitz, webflow components, slabpixel studio, interactive components, webflow library, free components"
-        image="/flowbitz-3d.png"
+        image="https://slabpixel.dev/images/FlowBitz-OpenGraph.webp"
         url="https://flowbitz.dev/about"
         structuredData={structuredData}
       />

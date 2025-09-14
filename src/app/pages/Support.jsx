@@ -59,7 +59,7 @@ const Support = () => {
         title="Support - FlowBitz Components"
         description="Get help and support for FlowBitz - the free interactive components library for Webflow. Find documentation, report bugs, and request features."
         keywords="flowbitz support, webflow components help, webflow components support, flowbitz documentation, webflow components bug report"
-        image="/flowbitz-3d.png"
+        image="https://slabpixel.dev/images/FlowBitz-OpenGraph.webp"
         url="https://flowbitz.dev/support"
         structuredData={structuredData}
       />
