@@ -41,7 +41,7 @@ const Sidebar = ({ showBackLink = false }) => {
         {/* Mobile Dropdown Content */}
         <div className={`lg:block ${isComponentsOpen ? 'block' : 'hidden'}`}>
           <div className="sidebar-section mb-4">
-            <h3 className="text-base sm:text-lg font-semibold mb-2 sm:mb-3 text-foreground">
+            <h3 className="text-base sm:text-xl font-semibold mb-2 sm:mb-3 text-foreground">
               Get Started
             </h3>
             <ul className="list-none">
@@ -49,10 +49,10 @@ const Sidebar = ({ showBackLink = false }) => {
                 <Link 
                   to="/components" 
                   onClick={() => setIsComponentsOpen(false)}
-                  className={`block px-0 py-2 text-muted-foreground no-underline rounded-md transition-all duration-200 text-sm font-medium ${
+                  className={`block px-0 py-2 text-black dark:text-white no-underline rounded-md transition-all duration-200 text-sm font-medium ${
                     currentLink !== '/components'
                       ? 'px-0 hover:px-3 hover:text-foreground hover:bg-accent' 
-                      : 'px-3 hover:px-3 text-foreground dark:text-white bg-accent font-medium'
+                      : 'px-3 hover:px-3 text-white bg-primary font-medium'
                   }`}>
                   Introduction
                 </Link>
@@ -61,22 +61,22 @@ const Sidebar = ({ showBackLink = false }) => {
                 <Link 
                   to="/about" 
                   onClick={() => setIsComponentsOpen(false)}
-                  className={`block px-0 py-2 text-muted-foreground no-underline rounded-md transition-all duration-200 text-sm font-medium ${
+                  className={`block px-0 py-2 text-black dark:text-white no-underline rounded-md transition-all duration-200 text-sm font-medium ${
                     currentLink !== '/about'
                       ? 'px-0 hover:px-3 hover:text-foreground hover:bg-accent' 
-                      : 'px-3 hover:px-3 text-foreground dark:text-white bg-accent font-medium'
+                      : 'px-3 hover:px-3 text-white bg-primary font-medium'
                   }`}>
-                  About
+                  About Us
                 </Link>
               </li>
               <li className="mb-0.5">
                 <Link 
                   to="/support" 
                   onClick={() => setIsComponentsOpen(false)}
-                  className={`block px-0 py-2 text-muted-foreground no-underline rounded-md transition-all duration-200 text-sm font-medium ${
+                  className={`block px-0 py-2 text-black dark:text-white no-underline rounded-md transition-all duration-200 text-sm font-medium ${
                     currentLink !== '/support'
                       ? 'px-0 hover:px-3 hover:text-foreground hover:bg-accent' 
-                      : 'px-3 hover:px-3 text-foreground dark:text-white bg-accent font-medium'
+                      : 'px-3 hover:px-3 text-white bg-primary font-medium'
                   }`}>
                   Support
                 </Link>
@@ -85,10 +85,10 @@ const Sidebar = ({ showBackLink = false }) => {
                 <Link 
                   to="/faq" 
                   onClick={() => setIsComponentsOpen(false)}
-                  className={`block px-0 py-2 text-muted-foreground no-underline rounded-md transition-all duration-200 text-sm font-medium ${
+                  className={`block px-0 py-2 text-black dark:text-white no-underline rounded-md transition-all duration-200 text-sm font-medium ${
                     currentLink !== '/faq'
                       ? 'px-0 hover:px-3 hover:text-foreground hover:bg-accent' 
-                      : 'px-3 hover:px-3 text-foreground dark:text-white bg-accent font-medium'
+                      : 'px-3 hover:px-3 text-white bg-primary font-medium'
                   }`}>
                   FAQ
                 </Link>
@@ -97,7 +97,7 @@ const Sidebar = ({ showBackLink = false }) => {
           </div>
           
           <div className="sidebar-section">
-            <h3 className="text-base sm:text-lg font-semibold mb-2 sm:mb-3 text-foreground">
+            <h3 className="text-base sm:text-xl font-semibold mb-2 sm:mb-3 text-foreground">
               Components
             </h3>
             <div className="component-categories">
@@ -111,10 +111,10 @@ const Sidebar = ({ showBackLink = false }) => {
                       <Link 
                         to={`/components/${component.key}`} 
                         onClick={() => setIsComponentsOpen(false)}
-                        className={`block px-0 py-2 text-muted-foreground no-underline rounded-md transition-all duration-200 text-sm font-medium ${
+                        className={`block px-0 py-2 text-black dark:text-white no-underline rounded-md transition-all duration-200 text-sm font-medium ${
                           currentComponentName !== component.key 
                             ? 'px-0 hover:px-3 hover:text-foreground hover:bg-accent' 
-                            : 'px-3 hover:px-3 text-foreground dark:text-white bg-accent font-medium'
+                            : 'px-3 hover:px-3 text-white bg-primary font-medium'
                         }`}
                       >
                         {component.name}
@@ -134,10 +134,10 @@ const Sidebar = ({ showBackLink = false }) => {
                       <Link 
                         to={`/components/${component.key}`} 
                         onClick={() => setIsComponentsOpen(false)}
-                        className={`block px-0 py-2 text-muted-foreground no-underline rounded-md transition-all duration-200 text-sm font-medium ${
+                        className={`block px-0 py-2 text-black dark:text-white no-underline rounded-md transition-all duration-200 text-sm font-medium ${
                           currentComponentName !== component.key 
                             ? 'px-0 hover:px-3 hover:text-foreground hover:bg-accent' 
-                            : 'px-3 hover:px-3 text-foreground dark:text-white bg-accent font-medium'
+                            : 'px-3 hover:px-3 text-white bg-primary font-medium'
                         }`}
                       >
                         {component.name}

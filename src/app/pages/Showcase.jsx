@@ -94,7 +94,7 @@ const Showcase = () => {
               </div>
 
               {/* Features Grid */}
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                 <div className="group relative p-6 bg-background/60 backdrop-blur-sm rounded-2xl border border-border/50 hover:border-primary/30 transition-all duration-300 hover:shadow-lg hover:shadow-primary/10">
                   <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
                     <Layers className="w-6 h-6 text-white" />
@@ -125,39 +125,6 @@ const Showcase = () => {
                   </div>
                   <h3 className="font-semibold text-foreground mb-2">Inspiration</h3>
                   <p className="text-sm text-muted-foreground">Creative ideas to spark your imagination</p>
-                </div>
-              </div>
-
-              {/* What to Expect Section */}
-              <div className="text-center">
-                <h3 className="text-2xl sm:text-3xl font-bold text-foreground mb-8">What to Expect</h3>
-                <div className="grid grid-cols-1 sm:grid-cols-3 gap-8">
-                  <div className="group">
-                    <div className="relative w-20 h-20 bg-gradient-to-br from-primary/20 to-primary/10 rounded-2xl mx-auto mb-4 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                      <span className="text-2xl font-bold text-primary">1</span>
-                      <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-transparent rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                    </div>
-                    <h4 className="text-lg font-semibold text-foreground mb-2">Component Galleries</h4>
-                    <p className="text-muted-foreground">Browse by category and explore all component variations with live previews</p>
-                  </div>
-                  
-                  <div className="group">
-                    <div className="relative w-20 h-20 bg-gradient-to-br from-primary/20 to-primary/10 rounded-2xl mx-auto mb-4 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                      <span className="text-2xl font-bold text-primary">2</span>
-                      <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-transparent rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                    </div>
-                    <h4 className="text-lg font-semibold text-foreground mb-2">Use Case Examples</h4>
-                    <p className="text-muted-foreground">See components in action within real website contexts and layouts</p>
-                  </div>
-                  
-                  <div className="group">
-                    <div className="relative w-20 h-20 bg-gradient-to-br from-primary/20 to-primary/10 rounded-2xl mx-auto mb-4 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                      <span className="text-2xl font-bold text-primary">3</span>
-                      <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-transparent rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                    </div>
-                    <h4 className="text-lg font-semibold text-foreground mb-2">Code Playground</h4>
-                    <p className="text-muted-foreground">Experiment with different configurations and see instant results</p>
-                  </div>
                 </div>
               </div>
             </div>
@@ -192,33 +159,6 @@ const Showcase = () => {
               View on GitHub
             </Button>
           </div>
-        </div>
-
-        {/* Newsletter Signup */}
-        <div className="mt-16">
-          <Card className="border-border bg-card">
-            <CardHeader className="text-center">
-              <CardTitle className="text-2xl">Stay Updated</CardTitle>
-              <CardDescription>
-                Get notified when the showcase is ready and receive updates about new components.
-              </CardDescription>
-            </CardHeader>
-            <CardContent className="text-center">
-              <div className="max-w-md mx-auto">
-                <p className="text-muted-foreground mb-4">
-                  Follow us on GitHub to stay updated with the latest developments and be the first to know when the showcase launches.
-                </p>
-                <Button 
-                  variant="outline" 
-                  onClick={handleGitHub}
-                  className="w-full sm:w-auto"
-                >
-                  <Github className="w-4 h-4" />
-                  Follow on GitHub
-                </Button>
-              </div>
-            </CardContent>
-          </Card>
         </div>
 
         {/* Footer */}

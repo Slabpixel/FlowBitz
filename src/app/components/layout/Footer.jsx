@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { Github, Heart, ExternalLink, Layers, HelpCircle, User, MessageSquare, Sparkles, Download, Bug, MessageCircle, FileText } from 'lucide-react'
+import { Github, Heart, ExternalLink, Layers, HelpCircle, User, MessageSquare, Sparkles, Download, Bug, MessageCircle, FileText, Home } from 'lucide-react'
 import { getAllComponentKeys } from '../../../library/data/componentsMetadata.js'
 
 const Footer = () => {
@@ -50,7 +50,7 @@ const Footer = () => {
                   to="/" 
                   className="text-muted-foreground hover:text-foreground transition-colors duration-200 text-sm flex items-center gap-2"
                 >
-                  <Layers className="w-4 h-4" />
+                  <Home className="w-4 h-4" />
                   Home
                 </Link>
               </li>

@@ -1,7 +1,7 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Button } from '../components/ui/button.jsx'
-import { Mail, MessageSquare, Bug, HelpCircle, ExternalLink, Github, BookOpen, Users } from 'lucide-react'
+import { Mail, MessageSquare, Bug, HelpCircle, ExternalLink, Github, BookOpen, Users, Heart, Zap } from 'lucide-react'
 import Sidebar from '../components/layout/Sidebar.jsx'
 import SEO from '../components/SEO.jsx'
 
@@ -30,6 +30,10 @@ const Support = () => {
 
   const handleSlabPixel = () => {
     window.open('https://slabpixel.com', '_blank')
+  }
+
+  const handleDonate = () => {
+    window.open('https://paypal.me/slabpixel', '_blank')
   }
 
   const handleComponents = () => {
@@ -73,7 +77,7 @@ const Support = () => {
 
           <div className="w-full max-w-[970px]">
             {/* Support Options */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 mb-8">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8 mb-8">
               {/* FAQ */}
               <div className="group relative p-6 bg-background/60 backdrop-blur-sm rounded-2xl border border-border/50 hover:border-primary/30 transition-all duration-300 hover:shadow-lg hover:shadow-primary/10">
                 <div className="h-full flex flex-col justify-between text-center">
@@ -142,12 +146,34 @@ const Support = () => {
                   </Button>
                 </div>
               </div>
+
+              {/* Donation */}
+              <div className="group relative p-6 bg-background/60 backdrop-blur-sm rounded-2xl border border-border/50 hover:border-primary/30 transition-all duration-300 hover:shadow-lg hover:shadow-primary/10">
+                <div className="h-full flex flex-col justify-between text-center">
+                  <div className="flex flex-col">
+                    <div className="w-16 h-16 bg-gradient-to-br from-pink-500 to-pink-600 rounded-xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
+                      <Heart className="w-8 h-8 text-white" />
+                    </div>
+                    <h3 className="text-lg font-semibold text-foreground mb-2">Support Us</h3>
+                    <p className="text-sm text-muted-foreground mb-4">
+                      Help us keep FlowBitz free and open source
+                    </p>
+                  </div>
+                  <Button 
+                    onClick={handleDonate}
+                    className="w-full bg-gradient-to-r from-pink-500 to-pink-600 hover:from-pink-600 hover:to-pink-700 text-white border-none"
+                  >
+                    <Heart className="w-4 h-4" />
+                    Donate via PayPal
+                  </Button>
+                </div>
+              </div>
             </div>
 
             {/* Quick Actions */}
             <div className="mb-8">
               <h2 className="text-2xl font-bold text-foreground mb-6">Quick Actions</h2>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                 <div className="group relative p-6 bg-background/60 backdrop-blur-sm rounded-2xl border border-border/50 hover:border-primary/30 transition-all duration-300 hover:shadow-lg hover:shadow-primary/10">
                   <Button 
                     onClick={handleBugReport}
@@ -223,6 +249,45 @@ const Support = () => {
                     </div>
                   </Button>
                 </div>
+
+                <div className="group relative p-6 bg-background/60 backdrop-blur-sm rounded-2xl border border-border/50 hover:border-primary/30 transition-all duration-300 hover:shadow-lg hover:shadow-primary/10">
+                  <Button 
+                    onClick={handleDonate}
+                    variant="outline"
+                    size="lg"
+                    className="w-full justify-start p-0 border-none hover:bg-background"
+                  >
+                    <div className="flex items-center gap-4">
+                      <div className="w-12 h-12 bg-gradient-to-br from-pink-500 to-pink-600 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                        <Heart className="w-6 h-6 text-white" />
+                      </div>
+                      <div className="text-left">
+                        <div className="font-semibold">Support Our Work</div>
+                        <div className="text-sm text-muted-foreground">Help keep FlowBitz free</div>
+                      </div>
+                    </div>
+                  </Button>
+                </div>
+              </div>
+            </div>
+
+            {/* CTA Section */}
+            <div className="mt-12 sm:mt-16 text-center">
+              <div className="bg-gradient-to-r from-primary/10 to-muted-foreground/5 rounded-2xl p-8 sm:p-12">
+                <h3 className="text-2xl sm:text-3xl font-bold mb-4 text-foreground">
+                  Ready to explore our components?
+                </h3>
+                <p className="text-muted-foreground text-base sm:text-lg mb-6 sm:mb-8 max-w-2xl mx-auto">
+                  Start with our most popular component and see how easy it is to add stunning animations to your Webflow projects.
+                </p>
+                <Button 
+                  size="lg" 
+                  className="bg-primary hover:bg-primary/90 text-white px-8 py-3"
+                  onClick={() => navigate('/components/split-text')}
+                >
+                  <Zap className="w-5 h-5" />
+                  Explore Component
+                </Button>
               </div>
             </div>
 

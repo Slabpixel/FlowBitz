@@ -6,9 +6,11 @@ import { Github, ExternalLink, Heart, Users, Lightbulb, Target, Gift, Zap, Setti
 import Sidebar from '../components/layout/Sidebar.jsx'
 import SEO from '../components/SEO.jsx'
 import { getAllComponentKeys } from '../../library/data/componentsMetadata.js'
+import { useNavigate } from 'react-router-dom'
 
 const About = () => {
   const componentCount = getAllComponentKeys().length
+  const navigate = useNavigate()
 
   const handleGitHub = () => {
     window.open('https://github.com/Slabpixel/Webflow-Bits', '_blank')
@@ -207,46 +209,23 @@ const About = () => {
         </div>
 
         {/* CTA Section */}
-        <div className="text-center">
-          <Card className="bg-gradient-to-r from-primary/10 to-muted-foreground/5 rounded-2xl p-8 sm:p-12 border-none">
-            <CardHeader>
-              <CardTitle className="text-2xl sm:text-3xl text-foreground">
-                Ready to Get Started?
-              </CardTitle>
-              <CardDescription className="text-lg">
-                Join thousands of developers creating amazing experiences with FlowBitz
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Button 
-                  size="lg" 
-                  className="bg-primary hover:bg-primary/90 text-white px-8 py-3"
-                  onClick={() => window.location.href = '/components/split-text'}
-                >
-                  Explore Components
-                </Button>
-                <Button 
-                  variant="outline" 
-                  size="lg" 
-                  className="border-border hover:bg-accent px-8 py-3"
-                  onClick={handleGitHub}
-                >
-                  <Github className="w-5 h-5 mr-2" />
-                  View on GitHub
-                </Button>
-                <Button 
-                  variant="outline" 
-                  size="lg" 
-                  className="border-border hover:bg-accent px-8 py-3"
-                  onClick={handleSlabPixel}
-                >
-                  <ExternalLink className="w-5 h-5 mr-2" />
-                  Visit SlabPixel
-                </Button>
-              </div>
-            </CardContent>
-          </Card>
+        <div className="mt-12 sm:mt-16 text-center">
+          <div className="bg-gradient-to-r from-primary/10 to-muted-foreground/5 rounded-2xl p-8 sm:p-12">
+            <h3 className="text-2xl sm:text-3xl font-bold mb-4 text-foreground">
+              Ready to explore our components?
+            </h3>
+            <p className="text-muted-foreground text-base sm:text-lg mb-6 sm:mb-8 max-w-2xl mx-auto">
+              Start with our most popular component and see how easy it is to add stunning animations to your Webflow projects.
+            </p>
+            <Button 
+              size="lg" 
+              className="bg-primary hover:bg-primary/90 text-white px-8 py-3"
+              onClick={() => navigate('/components/split-text')}
+            >
+              <Zap className="w-5 h-5" />
+              Explore Component
+            </Button>
+          </div>
         </div>
 
             {/* Footer */}
