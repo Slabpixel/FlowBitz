@@ -27,7 +27,13 @@
     "clean": "rm -rf dist",
     "create-beta": "node scripts/create-beta.js",
     "create-version": "node scripts/create-version.js",
-    "promote-beta": "node scripts/promote-beta.js"
+    "promote-beta": "node scripts/promote-beta.js",
+    "deploy:app": "npm run build:app && npx vercel --prod",
+    "deploy:library": "npm run build:library && npx vercel --prod",
+    "deploy:all": "npm run build:all && npx vercel --prod",
+    "deploy:beta": "npm run build:beta && npx vercel --prod",
+    "deploy:stable": "npm run build:stable && npx vercel --prod",
+    "deploy:promote": "npm run promote-beta && npx vercel --prod"
   },
   "keywords": [
     "webflow",
