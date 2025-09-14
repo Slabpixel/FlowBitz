@@ -5,6 +5,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../co
 import { Badge } from '../components/ui/badge.jsx'
 import { Clock, Sparkles, Layers, ExternalLink, Github } from 'lucide-react'
 import SEO from '../components/SEO.jsx'
+import Footer from '../components/layout/Footer.jsx'
 
 const Showcase = () => {
   const navigate = useNavigate()
@@ -36,7 +37,7 @@ const Showcase = () => {
         title="Showcase - FlowBitz Components"
         description="Explore real-world examples and showcases of FlowBitz components in action. See how developers are using our interactive components in their Webflow projects."
         keywords="flowbitz showcase, webflow components examples, webflow components showcase, flowbitz projects, webflow components in action"
-        image="/flowbitz-3d.png"
+        image="https://slabpixel.dev/images/FlowBitz-OpenGraph.webp"
         url="https://flowbitz.dev/showcase"
         structuredData={structuredData}
       />
@@ -161,14 +162,11 @@ const Showcase = () => {
           </div>
         </div>
 
-        {/* Footer */}
-        <div className="mt-16 text-center text-muted-foreground">
-          <p>
-            Made with 💙 by <a href="https://slabpixel.com" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">SlabPixel</a>
-          </p>
-        </div>
       </div>
     </div>
+    
+    {/* Footer */}
+    <Footer />
     </>
   )
 }

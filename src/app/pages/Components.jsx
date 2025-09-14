@@ -28,7 +28,7 @@ const Components = () => {
         title="Components Library - FlowBitz"
         description="Explore our comprehensive library of 16+ interactive components designed specifically for Webflow. Free, easy to use, and performance optimized."
         keywords="webflow components, interactive components, text animations, webflow library, split text, gradient text, webflow effects, free components"
-        image="/flowbitz-3d.png"
+        image="https://slabpixel.dev/images/FlowBitz-OpenGraph.webp"
         url="https://flowbitz.dev/components"
         structuredData={structuredData}
       />

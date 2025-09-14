@@ -679,7 +679,7 @@ const ComponentDetail = () => {
         title={`${component.name} - FlowBitz Component`}
         description={`${component.description} - Free Webflow component with easy integration and customization options.`}
         keywords={`webflow, ${component.name.toLowerCase()}, ${component.category}, interactive components, webflow library, ${componentName}, webflow effects`}
-        image="/flowbitz-3d.png"
+        image="https://slabpixel.dev/images/FlowBitz-OpenGraph.webp"
         url={`https://flowbitz.dev/components/${componentName}`}
         structuredData={structuredData}
       />
