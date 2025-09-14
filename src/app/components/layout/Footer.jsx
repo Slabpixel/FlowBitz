@@ -190,6 +190,8 @@ const Footer = () => {
               <p>&copy; 2025 FlowBitz. All rights reserved.</p>
             </div>
             <div className="flex items-center gap-6 text-sm text-muted-foreground">
+              <span>v{process.env.REACT_APP_VERSION || '1.0.0'}</span>
+              <span>•</span>
               <span>{componentCount} Components</span>
               <span>•</span>
               <span>100% Free</span>

@@ -30,6 +30,7 @@ export default defineConfig({
   },
   
   define: {
-    'process.env.NODE_ENV': '"production"'
+    'process.env.NODE_ENV': '"production"',
+    'process.env.REACT_APP_VERSION': JSON.stringify(process.env.npm_package_version || '1.0.0')
   }
 });
