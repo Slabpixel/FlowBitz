@@ -29,7 +29,7 @@ export default defineConfig({
   // Build configuration for React app
   build: {
     outDir: 'dist',
-    emptyOutDir: true,
+    emptyOutDir: false,
     sourcemap: true,
     minify: 'terser',
     terserOptions: {
@@ -65,6 +65,7 @@ export default defineConfig({
   },
   
   define: {
-    'process.env.NODE_ENV': '"production"'
+    'process.env.NODE_ENV': '"production"',
+    'process.env.REACT_APP_VERSION': JSON.stringify(process.env.npm_package_version || '1.0.0')
   }
 });
