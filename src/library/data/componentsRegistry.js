@@ -1,6 +1,6 @@
 /**
  * Components Registry
- * Dynamic loading system for WebflowBits components
+ * Dynamic loading system for FlowBitz components
  */
 
 import { getAllComponentKeys } from './componentsMetadata.js'

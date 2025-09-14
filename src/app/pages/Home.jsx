@@ -11,7 +11,7 @@ const Home = () => {
   const componentCount = getAllComponentKeys().length
 
   const handleGitHub = () => {
-    window.open('https://github.com/Slabpixel/Webflow-Bits', '_blank')
+    window.open('https://github.com/Slabpixel/FlowBitz', '_blank')
   }
 
   const structuredData = {

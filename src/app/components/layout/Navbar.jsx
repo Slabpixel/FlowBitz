@@ -68,7 +68,7 @@ const Navbar = () => {
             <Badge variant="secondary" className="bg-primary text-xs text-white dark:text-white">Soon</Badge>
           </button>
           <button 
-            onClick={() => window.open('https://github.com/Slabpixel/Webflow-Bits', '_blank')}
+            onClick={() => window.open('https://github.com/Slabpixel/FlowBitz', '_blank')}
             className="px-3 lg:px-4 py-2 rounded-md font-medium text-sm transition-all duration-200 text-muted-foreground hover:text-foreground hover:bg-accent flex items-center gap-2"
           >
             <Github className="w-4 h-4" />
@@ -189,7 +189,7 @@ const Navbar = () => {
           </button>
           <button 
             onClick={() => {
-              window.open('https://github.com/Slabpixel/Webflow-Bits', '_blank')
+              window.open('https://github.com/Slabpixel/FlowBitz', '_blank')
               setIsMenuOpen(false)
             }}
             className="w-full py-3 px-4 rounded-lg font-medium transition-all duration-200 text-muted-foreground hover:text-foreground hover:bg-accent flex items-center gap-3"

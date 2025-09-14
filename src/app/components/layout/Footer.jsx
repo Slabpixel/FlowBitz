@@ -7,7 +7,7 @@ const Footer = () => {
   const componentCount = getAllComponentKeys().length
 
   const handleGitHub = () => {
-    window.open('https://github.com/Slabpixel/Webflow-Bits', '_blank')
+    window.open('https://github.com/Slabpixel/FlowBitz', '_blank')
   }
 
   const handleSlabPixel = () => {
@@ -137,7 +137,7 @@ const Footer = () => {
             <ul className="space-y-3">
               <li>
                 <a 
-                  href="https://github.com/Slabpixel/Webflow-Bits/releases" 
+                  href="https://github.com/Slabpixel/FlowBitz/releases" 
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-muted-foreground hover:text-foreground transition-colors duration-200 text-sm flex items-center gap-2"
@@ -148,7 +148,7 @@ const Footer = () => {
               </li>
               <li>
                 <a 
-                  href="https://github.com/Slabpixel/Webflow-Bits/issues" 
+                  href="https://github.com/Slabpixel/FlowBitz/issues" 
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-muted-foreground hover:text-foreground transition-colors duration-200 text-sm flex items-center gap-2"
@@ -159,7 +159,7 @@ const Footer = () => {
               </li>
               <li>
                 <a 
-                  href="https://github.com/Slabpixel/Webflow-Bits/discussions" 
+                  href="https://github.com/Slabpixel/FlowBitz/discussions" 
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-muted-foreground hover:text-foreground transition-colors duration-200 text-sm flex items-center gap-2"
@@ -170,7 +170,7 @@ const Footer = () => {
               </li>
               <li>
                 <a 
-                  href="https://github.com/Slabpixel/Webflow-Bits/blob/main/LICENSE" 
+                  href="https://github.com/Slabpixel/FlowBitz/blob/main/LICENSE" 
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-muted-foreground hover:text-foreground transition-colors duration-200 text-sm flex items-center gap-2"

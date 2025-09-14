@@ -67,6 +67,18 @@ const ComponentDetail = () => {
     }
   }, [activeAttributes, attributeValues, reinitializeComponents])
 
+  // Scroll to top when component changes
+  useEffect(() => {
+    // Scroll to top when componentName changes
+    requestAnimationFrame(() => {
+      window.scrollTo({
+        top: 0,
+        left: 0,
+        behavior: 'smooth'
+      })
+    })
+  }, [componentName])
+
   const reloadPreview = () => {
     setReloadKey(prev => prev + 1)
     // Refresh components after reload
@@ -159,12 +171,12 @@ const ComponentDetail = () => {
 
   const handleBugReport = () => {
     const componentParam = encodeURIComponent(`[BUG] component/${componentName}`)
-    window.open(`https://github.com/Slabpixel/Webflow-Bits/issues/new?template=bug_report.md&title=${componentParam}&labels=bug`, '_blank')
+    window.open(`https://github.com/Slabpixel/FlowBitz/issues/new?template=bug_report.md&title=${componentParam}&labels=bug`, '_blank')
   }
 
   const handleFeatureRequest = () => {
     const componentParam = encodeURIComponent(`[FEAT] component/${componentName}`)
-    window.open(`https://github.com/Slabpixel/Webflow-Bits/issues/new?template=feature_request.md&title=${componentParam}&labels=enhancement`, '_blank')
+    window.open(`https://github.com/Slabpixel/FlowBitz/issues/new?template=feature_request.md&title=${componentParam}&labels=enhancement`, '_blank')
   }
 
   // Extract wb- attributes from HTML code
