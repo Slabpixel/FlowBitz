@@ -2,7 +2,7 @@ import React from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Button } from '../components/ui/button.jsx'
 import { Zap, Plus, Layers, Github } from 'lucide-react'
-import GridDistortion from '../components/ui/grid-distortion.jsx'
+import FlowBitz3D from '../components/ui/flowbitz-3d.jsx'
 import SEO from '../components/SEO.jsx'
 import { getAllComponentKeys } from '../../library/data/componentsMetadata.js'
 
@@ -109,19 +109,31 @@ const Home = () => {
             </div>
           </div>
           <div className="hidden sm:flex justify-center order-1 lg:order-2">
-            <div className="w-full h-[540px] sm:h-[420px] md:h-[420px] lg:h-[540px] position-relative max-w-sm sm:max-w-md lg:max-w-lg sm:rounded-3xl flex items-center justify-center p-4 sm:p-6 lg:p-8">
-              <GridDistortion 
-                imageSrc="https://slabpixel.dev/images/FlowBitz-3D.png" 
-                grid={10} 
-                mouse={0.2} 
-                strength={0.15} 
-                relaxation={0.9} 
-                className="w-full h-auto"
+            <div className="w-full h-[540px] sm:h-[420px] md:h-[420px] lg:h-[540px] max-w-sm sm:max-w-md lg:max-w-lg sm:rounded-3xl flex items-center justify-center">
+              <FlowBitz3D 
+                modelPath="/3d/FlowBitz-3D.glb"
+                autoRotate={false}
+                rotateSpeed={0}
+                enableZoom={false}
+                enableRotate={false}
+                enablePan={true}
+                enableOrbit={true}
+                orbitMinDistance={3}
+                orbitMaxDistance={8}
+                yMin={80}
+                yMax={110}
+                xMin={-22.5}
+                xMax={22.5}
+                enableMouseTracking={true}
+                mouseSensitivity={0.5}
+                orbitDamping={true}
+                orbitDampingFactor={0.05}
+                className="w-full h-full rounded-3xl"
                 fallbackImage={
                   <img 
                     src="https://slabpixel.dev/images/FlowBitz-3D.png" 
                     alt="Flowbitz 3D Logo" 
-                    className="w-full h-auto"
+                    className="w-full h-full"
                   />
                 }
               />
