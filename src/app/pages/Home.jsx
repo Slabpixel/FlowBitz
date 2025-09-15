@@ -111,7 +111,7 @@ const Home = () => {
           <div className="hidden sm:flex justify-center order-1 lg:order-2">
             <div className="w-full h-[540px] sm:h-[420px] md:h-[420px] lg:h-[540px] max-w-sm sm:max-w-md lg:max-w-lg sm:rounded-3xl flex items-center justify-center">
               <FlowBitz3D 
-                modelPath="/3d/FlowBitz-3D.glb"
+                modelPath="https://www.slabpixel.dev/3d/FlowBitz-3D.glb"
                 autoRotate={false}
                 rotateSpeed={0}
                 enableZoom={false}
