@@ -6,33 +6,66 @@ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 // Helper function to convert degrees to radians
 const degToRad = (degrees) => (degrees * Math.PI) / 180;
 
-const FlowBitz3D = ({
-  modelPath = 'https://www.slabpixel.dev/3d/FlowBitz-3D.glb',
+const Three3D = ({
+  modelPath = '/3d/model.glb',
   className = '',
   fallbackImage = null,
   autoRotate = false,
   rotateSpeed = 0.5,
-  enableZoom = false,
+  enableZoom = true,
   enablePan = true,
   enableRotate = true,
-  rotationX = -0.3,
-  rotationY = -0.2,
+  rotationX = 0,
+  rotationY = 0,
   rotationZ = 0,
   // Simple orbit controls settings (in degrees - much easier to understand!)
   enableOrbit = true,
-  orbitMinDistance = 3,
-  orbitMaxDistance = 8,
+  orbitMinDistance = 2,
+  orbitMaxDistance = 10,
   // Vertical rotation limits (up/down movement)
-  yMin = 30,   // Minimum vertical angle (degrees)
-  yMax = 150,  // Maximum vertical angle (degrees)
+  yMin = 0,     // Minimum vertical angle (degrees)
+  yMax = 180,   // Maximum vertical angle (degrees)
   // Horizontal rotation limits (left/right movement)
-  xMin = -45,  // Minimum horizontal angle (degrees)
-  xMax = 45,   // Maximum horizontal angle (degrees)
+  xMin = -180,  // Minimum horizontal angle (degrees)
+  xMax = 180,   // Maximum horizontal angle (degrees)
   orbitDamping = true,
   orbitDampingFactor = 0.05,
   // Simple mouse tracking (optional - doesn't interfere with orbit controls)
   enableMouseTracking = false,  // Set to true to enable mouse following
-  mouseSensitivity = 0.4        // How much the model follows mouse (0.1-1.0)
+  mouseSensitivity = 0.3,       // How much the model follows mouse (0.1-1.0)
+  // 3D Object Customization Props
+  modelSize = 2,                // Model size multiplier (1=small, 2=normal, 4=large)
+  modelPosition = [0, 0, 0],    // Model position [x, y, z] (manual override)
+  useManualPosition = false,    // Use manual position instead of auto-centering
+  // Camera Settings
+  cameraPosition = [0, 0, 5],   // Camera position [x, y, z]
+  cameraFOV = 50,               // Camera field of view (30-90 degrees)
+  // Material Settings
+  metalness = 0.0,              // Material metalness (0.0-1.0)
+  roughness = 1.0,              // Material roughness (0.0-1.0)
+  modelColor = null,            // Model color (hex string like "#ff0000" or null for original)
+  // Lighting Settings
+  ambientLightIntensity = 1.0,  // Ambient light intensity (0.0-2.0)
+  directionalLightIntensity = 1.0, // Directional light intensity (0.0-2.0)
+  directionalLightPosition = [5, 5, 5], // Directional light position [x, y, z]
+  pointLightIntensity = 0.5,    // Point light intensity (0.0-2.0)
+  pointLightPosition = [-5, -5, 5], // Point light position [x, y, z]
+  // Light Colors (hex strings)
+  ambientLightColor = "#ffffff",    // Ambient light color
+  directionalLightColor = "#ffffff", // Directional light color
+  pointLightColor = "#ffffff",       // Point light color
+  // Advanced Lighting Settings
+  directionalLightCastShadow = false, // Directional light casts shadows
+  directionalLightShadowMapSize = 2048, // Shadow map resolution (512, 1024, 2048, 4096)
+  directionalLightShadowCameraSize = 10, // Shadow camera frustum size
+  pointLightCastShadow = false,      // Point light casts shadows
+  pointLightShadowMapSize = 1024,    // Point light shadow map resolution
+  pointLightDistance = 0,            // Point light distance (0 = infinite)
+  pointLightDecay = 2,               // Point light decay factor (0 = no decay)
+  // Model Static Rotation (in degrees)
+  modelRotationX = 0,                // Model X rotation (degrees)
+  modelRotationY = 0,                // Model Y rotation (degrees) 
+  modelRotationZ = 0                 // Model Z rotation (degrees)
 }) => {
   // Convert degrees to radians for Three.js (internal conversion)
   const orbitMinPolarAngle = degToRad(yMin);
@@ -89,13 +122,13 @@ const FlowBitz3D = ({
 
     // ===== CAMERA SETTINGS =====
     const camera = new THREE.PerspectiveCamera(
-      52, // FOV: 30-90 degrees (50=normal, 30=zoomed, 90=wide)
+      cameraFOV, // FOV: 30-90 degrees (50=normal, 30=zoomed, 90=wide)
       container.clientWidth / container.clientHeight,
       0.1, // Near clipping plane
       1000 // Far clipping plane
     );
-    camera.position.set(0.5, 1, 5); // Camera position (x, y, z)
-    // camera.lookAt(0, 0, 0); // Uncomment to force camera to look at center
+    // Camera position from props [x, y, z]
+    camera.position.set(cameraPosition[0], cameraPosition[1], cameraPosition[2]);
     cameraRef.current = camera;
 
     // ===== RENDERER SETTINGS =====
@@ -187,19 +220,44 @@ const FlowBitz3D = ({
     }
 
     // ===== LIGHTING SETTINGS =====
-    // Ambient Light - Overall brightness (0.0 to 2.0)
-    const ambientLight = new THREE.AmbientLight(0xffffff, 2.0);
+    // Ambient Light - Overall brightness from props
+    const ambientLight = new THREE.AmbientLight(ambientLightColor, ambientLightIntensity);
     scene.add(ambientLight);
 
-    // Directional Light - Main light source (0.0 to 2.0)
-    const directionalLight = new THREE.DirectionalLight(0xffffff, 2.0);
-    directionalLight.position.set(5, 5, 5); // Light position (x, y, z)
-    directionalLight.castShadow = true;
+    // Directional Light - Main light source from props
+    const directionalLight = new THREE.DirectionalLight(directionalLightColor, directionalLightIntensity);
+    directionalLight.position.set(directionalLightPosition[0], directionalLightPosition[1], directionalLightPosition[2]);
+    directionalLight.castShadow = directionalLightCastShadow;
+    
+    // Advanced directional light settings
+    if (directionalLightCastShadow) {
+      directionalLight.shadow.mapSize.width = directionalLightShadowMapSize;
+      directionalLight.shadow.mapSize.height = directionalLightShadowMapSize;
+      directionalLight.shadow.camera.left = -directionalLightShadowCameraSize;
+      directionalLight.shadow.camera.right = directionalLightShadowCameraSize;
+      directionalLight.shadow.camera.top = directionalLightShadowCameraSize;
+      directionalLight.shadow.camera.bottom = -directionalLightShadowCameraSize;
+      directionalLight.shadow.camera.near = 0.1;
+      directionalLight.shadow.camera.far = 50;
+    }
+    
     scene.add(directionalLight);
 
-    // Point Light - Secondary light (0.0 to 2.0)
-    const pointLight = new THREE.PointLight(0xffffff, 0.8);
-    pointLight.position.set(-5, -5, 5); // Light position (x, y, z)
+    // Point Light - Secondary light from props
+    const pointLight = new THREE.PointLight(pointLightColor, pointLightIntensity);
+    
+    // Advanced point light settings
+    pointLight.castShadow = pointLightCastShadow;
+    pointLight.distance = pointLightDistance;
+    pointLight.decay = pointLightDecay;
+    
+    if (pointLightCastShadow) {
+      pointLight.shadow.mapSize.width = pointLightShadowMapSize;
+      pointLight.shadow.mapSize.height = pointLightShadowMapSize;
+      pointLight.shadow.camera.near = 0.1;
+      pointLight.shadow.camera.far = 50;
+    }
+    pointLight.position.set(pointLightPosition[0], pointLightPosition[1], pointLightPosition[2]);
     scene.add(pointLight);
 
     // ===== MODEL LOADING =====
@@ -214,11 +272,25 @@ const FlowBitz3D = ({
         const center = box.getCenter(new THREE.Vector3());
         const size = box.getSize(new THREE.Vector3());
         const maxDim = Math.max(size.x, size.y, size.z);
-        const scale = 4 / maxDim; // Model size: 2 = normal, 1 = smaller, 3 = larger
+        
+        // Model size from props
+        const scale = modelSize / maxDim; 
         
         model.scale.setScalar(scale);
-        model.position.sub(center.multiplyScalar(scale));
-        // model.position.set(0, 0, 0); // Force position (uncomment if needed)
+        
+        if (useManualPosition) {
+          // Use manual position from props
+          model.position.set(modelPosition[0], modelPosition[1], modelPosition[2]);
+        } else {
+          // Auto-center the model
+          model.position.sub(center.multiplyScalar(scale));
+        }
+        
+        // ===== MODEL ROTATION SETTINGS =====
+        // Apply static rotation from props (convert degrees to radians)
+        model.rotation.x = (modelRotationX * Math.PI) / 180;
+        model.rotation.y = (modelRotationY * Math.PI) / 180;
+        model.rotation.z = (modelRotationZ * Math.PI) / 180;
 
         // ===== MODEL MATERIAL SETTINGS =====
         model.traverse((child) => {
@@ -226,9 +298,14 @@ const FlowBitz3D = ({
             child.castShadow = true;
             child.receiveShadow = true;
             if (child.material) {
-              child.material.metalness = 0.1; // 0.0-1.0 (0=not metallic, 1=very metallic)
-              child.material.roughness = 0.8; // 0.0-1.0 (0=mirror, 1=very rough)
-              // child.material.color = new THREE.Color(0x00ff00); // Change model color (uncomment)
+              // Material properties from props
+              child.material.metalness = metalness;
+              child.material.roughness = roughness;
+              
+              // Apply color if provided
+              if (modelColor) {
+                child.material.color = new THREE.Color(modelColor);
+              }
             }
           }
         });
@@ -320,7 +397,7 @@ const FlowBitz3D = ({
       renderer.dispose();
       initializedRef.current = false;
     };
-  }, [loading, modelPath, rotationX, rotationY, rotationZ, enableOrbit, orbitMinDistance, orbitMaxDistance, yMin, yMax, xMin, xMax, orbitDamping, orbitDampingFactor, enableZoom, enablePan, enableRotate, enableMouseTracking, mouseSensitivity]); // Re-run when settings change
+  }, [loading, modelPath, rotationX, rotationY, rotationZ, enableOrbit, orbitMinDistance, orbitMaxDistance, yMin, yMax, xMin, xMax, orbitDamping, orbitDampingFactor, enableZoom, enablePan, enableRotate, enableMouseTracking, mouseSensitivity, modelSize, modelPosition, useManualPosition, cameraPosition, cameraFOV, metalness, roughness, modelColor, ambientLightIntensity, directionalLightIntensity, directionalLightPosition, pointLightIntensity, pointLightPosition, ambientLightColor, directionalLightColor, pointLightColor, directionalLightCastShadow, directionalLightShadowMapSize, directionalLightShadowCameraSize, pointLightCastShadow, pointLightShadowMapSize, pointLightDistance, pointLightDecay, modelRotationX, modelRotationY, modelRotationZ]); // Re-run when settings change
 
   if (loading) {
     return (
@@ -377,4 +454,4 @@ const FlowBitz3D = ({
   );
 };
 
-export default FlowBitz3D;
+export default Three3D;

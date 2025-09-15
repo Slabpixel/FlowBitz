@@ -2,7 +2,7 @@ import React from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Button } from '../components/ui/button.jsx'
 import { Zap, Plus, Layers, Github } from 'lucide-react'
-import FlowBitz3D from '../components/ui/flowbitz-3d.jsx'
+import Three3D from '../components/ui/three-3d.jsx'
 import SEO from '../components/SEO.jsx'
 import { getAllComponentKeys } from '../../library/data/componentsMetadata.js'
 
@@ -110,24 +110,61 @@ const Home = () => {
           </div>
           <div className="hidden sm:flex justify-center order-1 lg:order-2">
             <div className="w-full h-[540px] sm:h-[420px] md:h-[420px] lg:h-[540px] max-w-sm sm:max-w-md lg:max-w-lg sm:rounded-3xl flex items-center justify-center">
-              <FlowBitz3D 
+              <Three3D 
+                // Model Settings - FlowBitz specific
                 modelPath="https://www.slabpixel.dev/3d/FlowBitz-3D.glb"
+                // 3D Object Customization - FlowBitz specific
+                modelSize={4.2}                 // Model size (1=small, 4=normal, 8=large)
+                modelPosition={[-2, -0.5, 0.2]} // Manual position [x, y, z] (if useManualPosition=true)
+                useManualPosition={true}        // Use manual position instead of auto-centering
+                // Model Rotation (in degrees)
+                modelRotationX={0}            // Model X rotation (degrees)
+                modelRotationY={0}             // Model Y rotation (degrees)
+                modelRotationZ={0}              // Model Z rotation (degrees)
+                // Animation Settings
                 autoRotate={false}
                 rotateSpeed={0}
                 enableZoom={false}
                 enableRotate={false}
-                enablePan={true}
+                enablePan={false}
                 enableOrbit={true}
-                orbitMinDistance={3}
-                orbitMaxDistance={8}
-                yMin={80}
+                // Mouse Tracking
+                enableMouseTracking={true}
+                mouseSensitivity={0.5}
+                // Orbit Controls Settings - FlowBitz specific limits
+                yMin={70}
                 yMax={110}
                 xMin={-22.5}
                 xMax={22.5}
-                enableMouseTracking={true}
-                mouseSensitivity={0.5}
+                orbitMinDistance={3}
+                orbitMaxDistance={8}
                 orbitDamping={true}
                 orbitDampingFactor={0.05}
+                // Camera Settings - FlowBitz specific
+                cameraPosition={[1, -5, 5]}      // Camera position [x, y, z]
+                cameraFOV={40}                   // Camera field of view (30-90 degrees)
+                // Material Settings - FlowBitz specific
+                metalness={0.1}                  // Material metalness (0.0-1.0)
+                roughness={0.1}                  // Material roughness (0.0-1.0)
+                modelColor={null}                // Model color (hex string like "#ff0000" or null)
+                // Lighting Settings - FlowBitz specific
+                ambientLightIntensity={2.0}      // Ambient light intensity (0.0-2.0)
+                directionalLightIntensity={4.0}  // Directional light intensity (0.0-2.0)
+                directionalLightPosition={[-5, 5, 5]} // Directional light position [x, y, z]
+                pointLightIntensity={0.0}        // Point light intensity (0.0-2.0)
+                pointLightPosition={[0, 0, 0]} // Point light position [x, y, z]
+                // Light Colors - FlowBitz specific
+                ambientLightColor="#ffffff"      // Ambient light color
+                directionalLightColor="#ffffff"  // Directional light color
+                pointLightColor="#ffffff"        // Point light color
+                // Advanced Lighting Settings
+                directionalLightCastShadow={true}     // Directional light casts shadows
+                directionalLightShadowMapSize={1024}   // Shadow map resolution (512, 1024, 2048, 4096)
+                directionalLightShadowCameraSize={10}  // Shadow camera frustum size
+                pointLightCastShadow={true}           // Point light casts shadows
+                pointLightShadowMapSize={512}         // Point light shadow map resolution
+                pointLightDistance={0}                 // Point light distance (0 = infinite)
+                pointLightDecay={10}                    // Point light decay factor (0 = no decay)
                 className="w-full h-full rounded-3xl"
                 fallbackImage={
                   <img 
