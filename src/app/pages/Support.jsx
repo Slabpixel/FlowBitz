@@ -292,8 +292,18 @@ const Support = () => {
             </div>
 
             {/* Footer */}
-            <div className="w-full max-w-[970px] text-center text-muted-foreground text-sm mt-8 sm:mt-12">
-              Made with 💙 by <a href="https://slabpixel.com" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">SlabPixel</a>
+            <div className="w-full flex flex-col items-center justify-center pt-12">
+              <div className="text-center flex items-center gap-2 text-sm text-muted-foreground">
+                <span>Made with</span>
+                <Heart className="w-4 h-4 text-red-500" />
+                <span>by</span>
+                <button 
+                  onClick={() => window.open('https://slabpixel.com', '_blank')}
+                  className="text-primary hover:underline transition-colors duration-200"
+                >
+                  SlabPixel
+                </button>
+              </div>
             </div>
           </div>
         </main>
