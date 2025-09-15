@@ -13,6 +13,8 @@ import Showcase from './pages/Showcase'
 import FAQ from './pages/FAQ'
 import NotFound from './pages/NotFound'
 import { ThemeProvider } from './contexts/ThemeContext'
+import { Analytics } from "@vercel/analytics/react"
+import { SpeedInsights } from "@vercel/speed-insights/react"
 
 function App() {
   const location = useLocation()
@@ -41,6 +43,8 @@ function App() {
           {showFooter && <Footer />}
         </div>
       </ThemeProvider>
+      <Analytics />
+      <SpeedInsights />
     </HelmetProvider>
   )
 }
