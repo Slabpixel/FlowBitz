@@ -103,7 +103,6 @@ class GradientTextAnimator {
     try {
       injectStyles('wb-gradient-text-styles', componentCSS);
       this.stylesInjected = true;
-      console.log('WebflowBits: GradientText styles injected');
     } catch (error) {
       console.warn('WebflowBits: Failed to inject GradientText styles', error);
     }
@@ -476,7 +475,6 @@ class GradientTextAnimator {
    */
   refresh() {
     // CSS animations don't need refresh like GSAP
-    console.log('WebflowBits GradientText: Refresh called');
   }
 
   /**

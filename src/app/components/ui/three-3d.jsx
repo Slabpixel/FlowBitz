@@ -88,10 +88,8 @@ const Three3D = ({
 
   // Callback ref to detect when container is ready
   const setContainerRef = React.useCallback((element) => {
-    console.log('setContainerRef called with:', element);
     containerRef.current = element;
     if (element && !containerReadyRef.current) {
-      console.log('Setting container ready');
       containerReadyRef.current = true;
       // Force re-render to trigger useEffect
       setLoading(prev => !prev);
@@ -99,19 +97,14 @@ const Three3D = ({
   }, []);
 
   useEffect(() => {
-    console.log('useEffect running, containerReady:', containerReadyRef.current, 'containerRef:', !!containerRef.current, 'initialized:', initializedRef.current);
-    
     if (!containerReadyRef.current || !containerRef.current) {
-      console.log('Container not ready, returning');
       return;
     }
 
     if (initializedRef.current) {
-      console.log('Already initialized, skipping Three.js setup');
       return;
     }
 
-    console.log('Starting Three.js initialization');
     initializedRef.current = true;
     const container = containerRef.current;
     
@@ -140,8 +133,6 @@ const Three3D = ({
     // Get actual container dimensions
     const width = container.clientWidth;
     const height = container.clientHeight;
-    
-    console.log('Container dimensions:', width, 'x', height);
     
     renderer.setSize(width, height);
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 5)); // Limit pixel ratio for performance
@@ -187,15 +178,6 @@ const Three3D = ({
       
       controls.update();
       controlsRef.current = controls;
-      
-      console.log('Orbit controls initialized with limits:', {
-        minDistance: orbitMinDistance,
-        maxDistance: orbitMaxDistance,
-        yMin: yMin + '°',
-        yMax: yMax + '°',
-        xMin: xMin + '°',
-        xMax: xMax + '°'
-      });
     }
 
     // ===== MOUSE TRACKING =====
@@ -216,7 +198,6 @@ const Three3D = ({
       };
 
       container.addEventListener('mousemove', handleMouseMove);
-      console.log('Simple mouse tracking enabled with sensitivity:', mouseSensitivity);
     }
 
     // ===== LIGHTING SETTINGS =====
@@ -363,8 +344,6 @@ const Three3D = ({
       const width = container.clientWidth;
       const height = container.clientHeight;
       
-      console.log('Resize to:', width, 'x', height);
-      
       camera.aspect = width / height;
       camera.updateProjectionMatrix();
       renderer.setSize(width, height);
@@ -383,7 +362,6 @@ const Three3D = ({
 
     // Cleanup
     return () => {
-      console.log('Cleaning up Three.js');
       window.removeEventListener('resize', handleResize);
       if (animationId) {
         cancelAnimationFrame(animationId);

@@ -502,7 +502,6 @@ class TextCursorAnimator {
    * Refresh animations (no-op for this component)
    */
   refresh() {
-    console.log('WebflowBits TextCursor: Refresh called');
   }
 
   /**

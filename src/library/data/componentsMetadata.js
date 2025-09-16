@@ -61,24 +61,11 @@ export const componentsMetadata = {
         default: 'power3.out',
         inputType: 'dropdown',
         options: ['power1.out', 'power2.out', 'power3.out', 'power4.out', 'back.out(1.7)', 'elastic.out(1, 0.3)']
-      },
-      { 
-        name: 'wb-threshold', 
-        description: 'Scroll trigger threshold', 
-        default: '0.1',
-        inputType: 'slider',
-        sliderConfig: { min: 0, max: 1, step: 0.1 }
-      },
-      { 
-        name: 'wb-root-margin', 
-        description: 'Scroll trigger margin', 
-        default: '-100px',
-        inputType: 'text'
       }
     ],
     example: {
       title: 'Split Text Animation',
-      code: '<h1 wb-component="split-text" wb-split-type="words" wb-stagger-delay="100" class="text-6xl">Lorem Ipsum Dolor Sit Amet Consectetur Adipisicing Elit</h1>',
+      code: '<h1 wb-component="split-text" wb-split-type="words" wb-stagger-delay="100" class="text-6xl">Create Amazing Websites with Powerful Animations</h1>',
       description: 'Each word animates separately with customizable split type and timing'
     }
   },
@@ -108,24 +95,6 @@ export const componentsMetadata = {
         default: '8',
         inputType: 'slider',
         sliderConfig: { min: 1, max: 20, step: 0.5 }
-      },
-      { 
-        name: 'wb-show-border', 
-        description: 'Show animated border overlay', 
-        default: 'false',
-        inputType: 'toggle'
-      },
-      { 
-        name: 'wb-disabled', 
-        description: 'Disable animation', 
-        default: 'false',
-        inputType: 'toggle'
-      },
-      { 
-        name: 'wb-border-color', 
-        description: 'Border background color', 
-        default: '#060010',
-        inputType: 'color'
       }
     ],
     example: {
@@ -206,57 +175,6 @@ export const componentsMetadata = {
         description: 'Show/Hide cursor', 
         default: 'true',
         inputType: 'toggle'
-      },
-      { 
-        name: 'wb-variable-speed', 
-        description: 'Enable variable typing speed', 
-        default: 'false',
-        inputType: 'toggle'
-      },
-      { 
-        name: 'wb-variable-speed-min', 
-        description: 'Minimum variable typing speed in milliseconds', 
-        default: '30',
-        inputType: 'slider',
-        sliderConfig: { min: 10, max: 200, step: 5 }
-      },
-      { 
-        name: 'wb-variable-speed-max', 
-        description: 'Maximum variable typing speed in milliseconds', 
-        default: '100',
-        inputType: 'slider',
-        sliderConfig: { min: 50, max: 500, step: 10 }
-      },
-      { 
-        name: 'wb-loop', 
-        description: 'Loop through text array', 
-        default: 'true',
-        inputType: 'toggle'
-      },
-      { 
-        name: 'wb-start-on-visible', 
-        description: 'Start animation when element becomes visible', 
-        default: 'false',
-        inputType: 'toggle'
-      },
-      { 
-        name: 'wb-reverse-mode', 
-        description: 'Reverse character order', 
-        default: 'false',
-        inputType: 'toggle'
-      },
-      { 
-        name: 'wb-hide-cursor-while-typing', 
-        description: 'Hide cursor while typing', 
-        default: 'false',
-        inputType: 'toggle'
-      },
-      { 
-        name: 'wb-initial-delay', 
-        description: 'Initial delay in milliseconds', 
-        default: '0',
-        inputType: 'slider',
-        sliderConfig: { min: 0, max: 5000, step: 100 }
       }
     ],
     example: {
@@ -301,31 +219,11 @@ export const componentsMetadata = {
         sliderConfig: { min: 0, max: 1000, step: 50 }
       },
       { 
-        name: 'wb-threshold', 
-        description: 'Scroll trigger threshold', 
-        default: '0.1',
-        inputType: 'slider',
-        sliderConfig: { min: 0, max: 1, step: 0.1 }
-      },
-      { 
-        name: 'wb-root-margin', 
-        description: 'Scroll trigger margin', 
-        default: '0',
-        inputType: 'text'
-      },
-      { 
         name: 'wb-ease', 
         description: 'GSAP animation easing function', 
         default: 'back.out(1.4)',
         inputType: 'dropdown',
         options: ['power1.out', 'power2.out', 'power3.out', 'power4.out', 'back.out(1.4)', 'back.out(1.7)', 'elastic.out(1, 0.3)']
-      },
-      { 
-        name: 'wb-duration', 
-        description: 'Animation duration in seconds', 
-        default: '0.6',
-        inputType: 'slider',
-        sliderConfig: { min: 0.1, max: 3, step: 0.1 }
       }
     ],
     example: {
@@ -354,12 +252,6 @@ export const componentsMetadata = {
         default: '2',
         inputType: 'slider',
         sliderConfig: { min: 0.5, max: 10, step: 0.5 }
-      },
-      { 
-        name: 'wb-disable', 
-        description: 'Disable animation', 
-        default: 'false',
-        inputType: 'toggle'
       },
       { 
         name: 'wb-text-color', 
@@ -422,28 +314,9 @@ export const componentsMetadata = {
       { 
         name: 'wb-count-precision', 
         description: 'Number of decimal places', 
-        default: 'auto-detect',
+        default: '2',
         inputType: 'dropdown',
-        options: ['auto-detect', '0', '1', '2', '3', '4']
-      },
-      { 
-        name: 'wb-count-start', 
-        description: 'Start when element becomes visible', 
-        default: 'true',
-        inputType: 'toggle'
-      },
-      { 
-        name: 'wb-count-loop', 
-        description: 'Loop the animation', 
-        default: 'false',
-        inputType: 'toggle'
-      },
-      { 
-        name: 'wb-delay', 
-        description: 'Delay before animation starts in seconds', 
-        default: '0',
-        inputType: 'slider',
-        sliderConfig: { min: 0, max: 5, step: 0.1 }
+        options: ['auto-detect', '0', '1', '2']
       },
       { 
         name: 'wb-duration', 
@@ -458,19 +331,6 @@ export const componentsMetadata = {
         default: 'power2.out',
         inputType: 'dropdown',
         options: ['power1.out', 'power2.out', 'power3.out', 'power4.out', 'back.out(1.7)', 'elastic.out(1, 0.3)']
-      },
-      { 
-        name: 'wb-threshold', 
-        description: 'Scroll trigger threshold', 
-        default: '0.1',
-        inputType: 'slider',
-        sliderConfig: { min: 0, max: 1, step: 0.1 }
-      },
-      { 
-        name: 'wb-root-margin', 
-        description: 'Scroll trigger margin', 
-        default: '0px',
-        inputType: 'text'
       }
     ],
     example: {
@@ -538,25 +398,6 @@ export const componentsMetadata = {
         default: 'hover',
         inputType: 'dropdown',
         options: ['view', 'hover']
-      },
-      { 
-        name: 'wb-threshold', 
-        description: 'Scroll trigger threshold', 
-        default: '0.1',
-        inputType: 'slider',
-        sliderConfig: { min: 0, max: 1, step: 0.1 }
-      },
-      { 
-        name: 'wb-class-name', 
-        description: 'CSS class for revealed characters', 
-        default: '',
-        inputType: 'text'
-      },
-      { 
-        name: 'wb-encrypted-class-name', 
-        description: 'CSS class for scrambled characters', 
-        default: '',
-        inputType: 'text'
       }
     ],
     example: {
@@ -626,19 +467,6 @@ export const componentsMetadata = {
         description: 'Characters to use for scrambling', 
         default: '.:',
         inputType: 'text'
-      },
-      { 
-        name: 'wb-threshold', 
-        description: 'Scroll trigger threshold', 
-        default: '0.1',
-        inputType: 'slider',
-        sliderConfig: { min: 0, max: 1, step: 0.1 }
-      },
-      { 
-        name: 'wb-root-margin', 
-        description: 'Scroll trigger margin', 
-        default: '0px',
-        inputType: 'text'
       }
     ],
     example: {
@@ -669,42 +497,24 @@ export const componentsMetadata = {
         sliderConfig: { min: 20, max: 200, step: 5 }
       },
       { 
-        name: 'wb-from-font-variation', 
-        description: 'Starting font variation settings', 
-        default: "'wght' 100, 'opsz' 8",
-        inputType: 'text'
-      },
-      { 
-        name: 'wb-to-font-variation', 
-        description: 'Target font variation settings', 
-        default: "'wght' 900, 'opsz' 144",
-        inputType: 'text'
-      },
-      { 
-        name: 'wb-falloff', 
-        description: 'Falloff type: "linear", "exponential", "gaussian"', 
-        default: 'linear',
-        inputType: 'dropdown',
-        options: ['linear', 'exponential', 'gaussian']
-      },
-      { 
-        name: 'wb-threshold', 
-        description: 'Scroll trigger threshold', 
-        default: '0.1',
+        name: 'wb-from-weight', 
+        description: 'Starting font weight (100-900)', 
+        default: '100',
         inputType: 'slider',
-        sliderConfig: { min: 0, max: 1, step: 0.1 }
+        sliderConfig: { min: 100, max: 900, step: 50 }
       },
       { 
-        name: 'wb-root-margin', 
-        description: 'Scroll trigger margin', 
-        default: '0px',
-        inputType: 'text'
+        name: 'wb-to-weight', 
+        description: 'Target font weight (100-900)', 
+        default: '900',
+        inputType: 'slider',
+        sliderConfig: { min: 100, max: 900, step: 50 }
       }
     ],
     example: {
       title: 'Variable Proximity Effect',
-      code: '<h1 wb-component="variable-proximity" wb-radius="100" class="text-4xl max-w-[570px]">Please hover over me to see the amazing variable font effects!</h1>',
-      description: 'Mouse proximity font variations with customizable settings'
+      code: '<h1 wb-component="variable-proximity" wb-radius="100" wb-from-weight="100" wb-to-weight="900" wb-from-size="8" wb-to-size="144" class="text-4xl max-w-[570px]">Please hover over me to see the amazing variable font effects!</h1>',
+      description: 'Mouse proximity font variations with customizable weight and size sliders'
     }
   },
 
@@ -765,7 +575,7 @@ export const componentsMetadata = {
         inputType: 'text'
       },
       { 
-        name: 'wb-rotation-interval', 
+        name: 'wb-rotating-interval', 
         description: 'Time between rotations in milliseconds', 
         default: '2000',
         inputType: 'slider',
@@ -777,25 +587,6 @@ export const componentsMetadata = {
         default: '50',
         inputType: 'slider',
         sliderConfig: { min: 10, max: 200, step: 10 }
-      },
-      { 
-        name: 'wb-rotating-stagger-from', 
-        description: 'Stagger direction: first|last|center|random', 
-        default: 'first',
-        inputType: 'dropdown',
-        options: ['first', 'last', 'center', 'random']
-      },
-      { 
-        name: 'wb-rotating-auto', 
-        description: 'Enable auto-rotation', 
-        default: 'true',
-        inputType: 'toggle'
-      },
-      { 
-        name: 'wb-rotating-loop', 
-        description: 'Enable loop rotation', 
-        default: 'true',
-        inputType: 'toggle'
       },
       { 
         name: 'wb-duration', 
@@ -812,63 +603,23 @@ export const componentsMetadata = {
         options: ['power1.out', 'power2.out', 'power3.out', 'power4.out', 'back.out(1.7)', 'elastic.out(1, 0.3)']
       },
       { 
-        name: 'wb-threshold', 
-        description: 'Scroll trigger threshold', 
-        default: '0.1',
-        inputType: 'slider',
-        sliderConfig: { min: 0, max: 1, step: 0.1 }
+        name: 'wb-rotating-stagger-from', 
+        description: 'Stagger direction: "first", "last", "center", "random"', 
+        default: 'first',
+        inputType: 'dropdown',
+        options: ['first', 'last', 'center', 'random']
       },
       { 
-        name: 'wb-root-margin', 
-        description: 'Scroll trigger margin', 
-        default: '0px',
-        inputType: 'text'
+        name: 'wb-rotating-loop', 
+        description: 'Enable/disable looping through texts', 
+        default: 'true',
+        inputType: 'switch'
       },
       { 
-        name: 'wb-delay', 
-        description: 'Animation delay in milliseconds', 
-        default: '0',
-        inputType: 'slider',
-        sliderConfig: { min: 0, max: 5000, step: 100 }
-      },
-      { 
-        name: 'wb-rotating-initial-y', 
-        description: 'Initial Y position for characters', 
-        default: '100%',
-        inputType: 'text'
-      },
-      { 
-        name: 'wb-rotating-initial-opacity', 
-        description: 'Initial opacity for characters', 
-        default: '0',
-        inputType: 'slider',
-        sliderConfig: { min: 0, max: 1, step: 0.1 }
-      },
-      { 
-        name: 'wb-rotating-animate-y', 
-        description: 'Animate Y position for characters', 
-        default: '100%',
-        inputType: 'text'
-      },
-      { 
-        name: 'wb-rotating-animate-opacity', 
-        description: 'Animate opacity for characters', 
-        default: '0',
-        inputType: 'slider',
-        sliderConfig: { min: 0, max: 1, step: 0.1 }
-      },
-      { 
-        name: 'wb-rotating-exit-y', 
-        description: 'Exit Y position for characters', 
-        default: '100%',
-        inputType: 'text'
-      },
-      { 
-        name: 'wb-rotating-exit-opacity', 
-        description: 'Exit opacity for characters', 
-        default: '0',
-        inputType: 'slider',
-        sliderConfig: { min: 0, max: 1, step: 0.1 }
+        name: 'wb-rotating-auto', 
+        description: 'Enable/disable automatic rotation', 
+        default: 'true',
+        inputType: 'switch'
       }
     ],
     example: {
@@ -1106,19 +857,6 @@ export const componentsMetadata = {
         options: ['power1.out', 'power2.out', 'power3.out', 'power4.out', 'back.out(1.7)', 'elastic.out(1, 0.3)']
       },
       { 
-        name: 'wb-threshold', 
-        description: 'Scroll trigger threshold', 
-        default: '0.1',
-        inputType: 'slider',
-        sliderConfig: { min: 0, max: 1, step: 0.1 }
-      },
-      { 
-        name: 'wb-root-margin', 
-        description: 'Scroll trigger margin', 
-        default: '"-100px"',
-        inputType: 'text'
-      },
-      { 
         name: 'wb-loop', 
         description: 'Loop animation continuously', 
         default: 'false',
@@ -1139,47 +877,10 @@ export const componentsMetadata = {
         sliderConfig: { min: 0, max: 0.5, step: 0.01 }
       },
       { 
-        name: 'wb-scramble-charset', 
-        description: 'Characters to use for scrambling effect', 
-        default: 'empty',
-        inputType: 'text'
-      },
-      { 
-        name: 'wb-color-from', 
-        description: 'Starting color for color transition', 
-        default: 'none',
-        inputType: 'color'
-      },
-      { 
-        name: 'wb-color-to', 
-        description: 'Ending color for color transition', 
-        default: 'none',
-        inputType: 'color'
-      },
-      { 
-        name: 'wb-trigger-once', 
-        description: 'Trigger animation only once on scroll', 
-        default: 'true',
-        inputType: 'toggle'
-      },
-      { 
-        name: 'wb-respect-reduced-motion', 
-        description: 'Respect reduced motion preference', 
-        default: 'true',
-        inputType: 'toggle'
-      },
-      { 
         name: 'wb-trigger-on-hover', 
         description: 'Enable hover trigger after initial animation', 
         default: 'true',
         inputType: 'toggle'
-      },
-      { 
-        name: 'wb-text-align', 
-        description: 'Text alignment for characters: left|center|right|justify', 
-        default: 'center',
-        inputType: 'dropdown',
-        options: ['left', 'center', 'right', 'justify']
       }
     ],
     example: {

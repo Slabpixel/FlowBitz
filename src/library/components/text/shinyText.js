@@ -340,7 +340,6 @@ class ShinyTextAnimator {
    */
   refresh() {
     // CSS animations don't need refresh like GSAP
-    console.log('WebflowBits ShinyText: Refresh called');
   }
 
   /**

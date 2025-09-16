@@ -479,6 +479,11 @@ class RotatingTextAnimator {
     
     if (nextIndex !== instance.currentIndex) {
       this.updateText(instance, nextIndex);
+      
+      // Schedule next rotation after current animation completes
+      if (instance.config.auto && instance.config.interval > 0) {
+        this.scheduleNextRotation(instance);
+      }
     }
   }
 
@@ -488,10 +493,28 @@ class RotatingTextAnimator {
   startAutoRotation(instance) {
     this.stopAutoRotation(instance);
     if (instance.config.auto && instance.config.interval > 0) {
-      instance.intervalId = setInterval(() => {
+      // Start the first rotation after the interval
+      instance.intervalId = setTimeout(() => {
         this.next(instance);
       }, instance.config.interval);
     }
+  }
+
+  /**
+   * Schedule next rotation after current animation completes
+   */
+  scheduleNextRotation(instance) {
+    this.stopAutoRotation(instance);
+    
+    // Calculate total animation duration
+    const exitDuration = instance.config.duration * 0.6;
+    const enterDuration = instance.config.duration;
+    const totalAnimationTime = (exitDuration + enterDuration) * 1000; // Convert to milliseconds
+    
+    // Schedule next rotation after animation completes + interval
+    instance.intervalId = setTimeout(() => {
+      this.next(instance);
+    }, totalAnimationTime + instance.config.interval);
   }
 
   /**
@@ -499,7 +522,7 @@ class RotatingTextAnimator {
    */
   stopAutoRotation(instance) {
     if (instance.intervalId) {
-      clearInterval(instance.intervalId);
+      clearTimeout(instance.intervalId);
       instance.intervalId = null;
     }
   }

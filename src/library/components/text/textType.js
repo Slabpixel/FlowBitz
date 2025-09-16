@@ -103,7 +103,6 @@ class TextTypeAnimator {
     try {
       injectStyles('wb-text-type-styles', componentCSS);
       this.stylesInjected = true;
-      console.log('WebflowBits: TextType styles injected');
     } catch (error) {
       console.warn('WebflowBits: Failed to inject TextType styles', error);
     }
@@ -614,8 +613,6 @@ class TextTypeAnimator {
    * Refresh animations (useful for dynamic content)
    */
   refresh() {
-    // TextType doesn't use ScrollTrigger, so no refresh needed
-    console.log('WebflowBits TextType: Refresh called');
   }
 
   /**
