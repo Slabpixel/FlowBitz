@@ -11,10 +11,7 @@ gsap.registerPlugin(SplitText);
 // Inject component-specific CSS with unique namespace
 const componentCSS = `
 /* FlowBitz - VariableProximity Component Styles */
-@import url("https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wght@8..144,100..1000&display=swap");
-
 .wb-variable-proximity {
-  font-family: "Roboto Flex", sans-serif;
   display: inline-block;
   position: relative;
   cursor: default;
@@ -64,11 +61,7 @@ const componentCSS = `
   border: 0;
 }
 
-/* Default styling */
-.wb-variable-proximity {
-  font-size: clamp(16px, 4vw, 48px);
-  color: currentColor;
-}
+/* Inherit user's existing styles - no default overrides */
 `;
 
 class VariableProximityAnimator {
@@ -220,6 +213,7 @@ class VariableProximityAnimator {
     this.ensureStylesInjected();
     
     if (this.instances.has(element)) {
+      console.log('WebflowBits VariableProximity: Element already initialized, skipping', element);
       return;
     }
 
@@ -231,6 +225,11 @@ class VariableProximityAnimator {
         console.warn('WebflowBits VariableProximity: Element has no text content', element);
         return;
       }
+
+      console.log('WebflowBits VariableProximity: Initializing element with text:', originalText);
+
+      // Clean up any existing content first
+      element.innerHTML = '';
 
       // Parse font variation settings
       const fromSettings = this.parseFontVariationSettings(config.fromFontVariationSettings);
@@ -517,6 +516,7 @@ class VariableProximityAnimator {
    */
   initAll() {
     const elements = document.querySelectorAll('[wb-component="variable-proximity"]');
+    console.log('WebflowBits VariableProximity: Found', elements.length, 'elements to initialize');
     elements.forEach(element => this.initElement(element));
   }
 

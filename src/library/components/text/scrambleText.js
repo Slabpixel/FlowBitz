@@ -47,13 +47,6 @@ const componentCSS = `
   speak: none;
 }
 
-/* Default styling similar to original */
-.wb-scramble-text {
-  font-family: monospace;
-  font-size: clamp(14px, 4vw, 32px);
-  color: currentColor;
-}
-
 /* Hover effect */
 .wb-scramble-text:hover .wb-scramble-text__char {
   transition: none;
@@ -72,7 +65,8 @@ class ScrambleTextAnimator {
       speed: 0.5,
       scrambleChars: ".:",
       threshold: 0.1,
-      rootMargin: '0px'
+      rootMargin: '0px',
+      font: 'monospace'
     };
     
     // this.injectComponentStyles();
@@ -113,7 +107,8 @@ class ScrambleTextAnimator {
         radius: { attribute: 'wb-radius', type: 'number', parser: parseInt, min: 10 },
         duration: { attribute: 'wb-duration', type: 'duration' },
         speed: { attribute: 'wb-speed', type: 'number', parser: parseFloat, min: 0.1, max: 2 },
-        scrambleChars: { attribute: 'wb-scramble-chars', type: 'string' }
+        scrambleChars: { attribute: 'wb-scramble-chars', type: 'string' },
+        font: { attribute: 'wb-font', type: 'string' }
       }
     );
     
@@ -192,9 +187,89 @@ class ScrambleTextAnimator {
     // Create wrapper structure
     element.innerHTML = `
       <span class="wb-scramble-text__content" aria-hidden="true">
-        <p>${originalText}</p>
+        ${originalText}
       </span>
     `;
+  }
+
+  /**
+   * Check if the font is monospace
+   */
+  isMonospaceFont(element) {
+    const computedStyle = window.getComputedStyle(element);
+    const fontFamily = computedStyle.fontFamily.toLowerCase();
+    
+    // Common monospace font families
+    const monospaceFonts = [
+      'monospace', 'mono', 'courier', 'courier new', 'consolas', 
+      'menlo', 'monaco', 'lucida console', 'dejavu sans mono',
+      'source code pro', 'fira code', 'jetbrains mono', 'cascadia code'
+    ];
+    
+    return monospaceFonts.some(font => fontFamily.includes(font));
+  }
+
+  /**
+   * Get the font family to apply based on config
+   */
+  getFontFamily(config) {
+    const fontMap = {
+      'monospace': 'monospace',
+      'Courier New': '"Courier New", monospace',
+      'Consolas': '"Consolas", monospace',
+      'Menlo': '"Menlo", monospace',
+      'Monaco': '"Monaco", monospace',
+      'Lucida Console': '"Lucida Console", monospace',
+      'DejaVu Sans Mono': '"DejaVu Sans Mono", monospace',
+      'Source Code Pro': '"Source Code Pro", monospace',
+      'Fira Code': '"Fira Code", monospace',
+      'JetBrains Mono': '"JetBrains Mono", monospace',
+      'Cascadia Code': '"Cascadia Code", monospace',
+      'inherit (use existing font)': 'inherit'
+    };
+    
+    return fontMap[config.font] || 'monospace';
+  }
+
+  /**
+   * Check if the selected font is monospace
+   */
+  isSelectedFontMonospace(config) {
+    return config.font !== 'inherit (use existing font)';
+  }
+
+  /**
+   * Calculate minimum width for scramble characters based on font size
+   * Returns null for monospace fonts
+   */
+  calculateScrambleCharWidth(element, config) {
+    // Apply the selected font
+    const fontFamily = this.getFontFamily(config);
+    element.style.fontFamily = fontFamily;
+
+    // Check if selected font is monospace - no width constraint needed
+    if (this.isSelectedFontMonospace(config)) {
+      return null;
+    }
+
+    // Check if font is already monospace - no width constraint needed
+    if (this.isMonospaceFont(element)) {
+      return null;
+    }
+
+    // Create a temporary element to measure character width
+    const tempElement = document.createElement('span');
+    tempElement.style.visibility = 'hidden';
+    tempElement.style.position = 'absolute';
+    tempElement.style.whiteSpace = 'nowrap';
+    tempElement.style.font = window.getComputedStyle(element).font;
+    tempElement.textContent = 'o'; // Use 'o' as reference for average character width
+    
+    document.body.appendChild(tempElement);
+    const charWidth = tempElement.getBoundingClientRect().width;
+    document.body.removeChild(tempElement);
+    
+    return charWidth;
   }
 
   /**
@@ -202,7 +277,7 @@ class ScrambleTextAnimator {
    */
   initializeSplitText(instance) {
     const { element, config } = instance;
-    const contentElement = element.querySelector('.wb-scramble-text__content p');
+    const contentElement = element.querySelector('.wb-scramble-text__content');
     
     if (!contentElement) return;
 
@@ -215,6 +290,16 @@ class ScrambleTextAnimator {
 
       instance.chars = instance.splitText.chars;
 
+      // Calculate minimum width for scramble characters
+      const minCharWidth = this.calculateScrambleCharWidth(element, config);
+      instance.minCharWidth = minCharWidth;
+      instance.isMonospace = minCharWidth === null;
+
+      // Show warning if using inherit font
+      if (config.font === 'inherit (use existing font)') {
+        console.warn('WebflowBits ScrambleText: Using "inherit" font. Scramble characters may have inconsistent widths. Consider using a monospace font option for better results.');
+      }
+
       // Set up character data and initial state
       instance.chars.forEach((char) => {
         gsap.set(char, {
@@ -223,7 +308,8 @@ class ScrambleTextAnimator {
         });
       });
 
-      console.log('WebflowBits ScrambleText: SplitText initialized', instance.chars.length, 'characters');
+      console.log('WebflowBits ScrambleText: SplitText initialized', instance.chars.length, 'characters', 
+        instance.isMonospace ? 'monospace font (no width constraint)' : `minWidth: ${minCharWidth}px`);
 
     } catch (error) {
       console.error('WebflowBits ScrambleText: Failed to initialize SplitText', error);
@@ -281,6 +367,18 @@ class ScrambleTextAnimator {
             speed: config.speed,
           },
           ease: "none",
+          onStart: () => {
+            // Apply minWidth only for non-monospace fonts when scrambling starts
+            if (!instance.isMonospace && instance.minCharWidth) {
+              gsap.set(char, { minWidth: `${instance.minCharWidth}px` });
+            }
+          },
+          onComplete: () => {
+            // Remove minWidth when scrambling completes (only if it was applied)
+            if (!instance.isMonospace && instance.minCharWidth) {
+              gsap.set(char, { minWidth: 'auto' });
+            }
+          }
         });
       }
     });
@@ -322,10 +420,12 @@ class ScrambleTextAnimator {
     if (chars && chars.length) {
       chars.forEach((char) => {
         gsap.killTweensOf(char);
-        // Reset to original text
+        // Reset to original text and remove minWidth
         if (char.dataset.content) {
           char.innerHTML = char.dataset.content;
         }
+        // Remove minWidth to restore normal spacing
+        gsap.set(char, { minWidth: 'auto' });
       });
     }
 
@@ -478,6 +578,18 @@ class ScrambleTextAnimator {
           speed: instance.config.speed,
         },
         ease: "none",
+        onStart: () => {
+          // Apply minWidth only for non-monospace fonts when scrambling starts
+          if (!instance.isMonospace && instance.minCharWidth) {
+            gsap.set(char, { minWidth: `${instance.minCharWidth}px` });
+          }
+        },
+        onComplete: () => {
+          // Remove minWidth when scrambling completes (only if it was applied)
+          if (!instance.isMonospace && instance.minCharWidth) {
+            gsap.set(char, { minWidth: 'auto' });
+          }
+        }
       });
     });
 

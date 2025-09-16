@@ -9,7 +9,7 @@
  * All components now work with a single script tag!
  * 
  * Basic Installation (for most components):
- * <script src="https://flowbitz.dev/flowbitz.umd.js"></script>
+ * <script src="https://flowbitz.dev/latest/flowbitz.umd.js"></script>
  * 
  * The library automatically handles:
  * - GSAP and all plugins (bundled)
@@ -78,7 +78,7 @@ export const componentsMetadata = {
     ],
     example: {
       title: 'Split Text Animation',
-      code: '<h1 wb-component="split-text" wb-split-type="words" wb-stagger-delay="100">Lorem Ipsum Dolor Sit Amet Consectetur Adipisicing Elit</h1>',
+      code: '<h1 wb-component="split-text" wb-split-type="words" wb-stagger-delay="100" class="text-6xl">Lorem Ipsum Dolor Sit Amet Consectetur Adipisicing Elit</h1>',
       description: 'Each word animates separately with customizable split type and timing'
     }
   },
@@ -130,7 +130,7 @@ export const componentsMetadata = {
     ],
     example: {
       title: 'Gradient Text Animation',
-      code: '<h1 wb-component="gradient-text">Gradient Text</h1>',
+      code: '<h1 wb-component="gradient-text" class="text-6xl">Gradient Text</h1>',
       description: 'Animated gradient text with customizable colors and effects'
     }
   },
@@ -261,7 +261,7 @@ export const componentsMetadata = {
     ],
     example: {
       title: 'Typewriter Effect',
-      code: '<h1 class="h1">Learn more about <span wb-component="text-type" wb-typing-speed="100" wb-pause-duration="2000" wb-text-1="Coding" wb-text-2="Webflow" wb-text-3="Animation">Coding</span></h1>',
+      code: '<h1 class="text-6xl"">Learn more about <span wb-component="text-type" wb-typing-speed="100" wb-pause-duration="2000" wb-text-1="Coding" wb-text-2="Webflow" wb-text-3="Animation" class="text-6xl">Coding</span></h1>',
       description: 'Typewriter effect with customizable cursor and timing'
     }
   },
@@ -330,7 +330,7 @@ export const componentsMetadata = {
     ],
     example: {
       title: 'Blur Text Animation',
-      code: '<h1 wb-component="blur-text" wb-animate-by="words" wb-delay="200">Blur to Clear</h1>',
+      code: '<h1 wb-component="blur-text" wb-animate-by="words" wb-delay="200" class="text-6xl">Blur to Clear</h1>',
       description: 'Blur-to-clear transition effects with customizable timing'
     }
   },
@@ -376,7 +376,7 @@ export const componentsMetadata = {
     ],
     example: {
       title: 'Shiny Text Effect',
-      code: '<h1 wb-component="shiny-text" wb-text-color="#0a70ff" wb-shine-color="#8cbcff">Shiny Text</h1>',
+      code: '<h1 wb-component="shiny-text" wb-text-color="#0a70ff" wb-shine-color="#8cbcff" class="text-6xl">Shiny Text</h1>',
       description: 'Shimmer and shine text effects with customizable speed'
     }
   },
@@ -475,7 +475,7 @@ export const componentsMetadata = {
     ],
     example: {
       title: 'Count Up Animation',
-      code: '<span wb-component="count-up" wb-count-to="1250" wb-count-separator=",">0</span>',
+      code: '<h1 wb-component="count-up" wb-count-to="1250" wb-count-separator="," class="text-6xl">0</h1>',
       description: 'Animated number counting with customizable formatting'
     }
   },
@@ -561,7 +561,7 @@ export const componentsMetadata = {
     ],
     example: {
       title: 'Decrypted Text Effect',
-      code: '<h1 wb-component="decrypted-text" wb-speed="50">SECRET MESSAGE</h1>',
+      code: '<h1 wb-component="decrypted-text" wb-speed="50" class="text-6xl">SECRET MESSAGE</h1>',
       description: 'Matrix-style decryption effects with customizable characters'
     }
   },
@@ -578,6 +578,27 @@ export const componentsMetadata = {
         default: 'scramble-text',
         inputType: 'text',
         required: true
+      },
+      { 
+        name: 'wb-font', 
+        description: 'Font family for consistent character width (recommended for best results)', 
+        default: 'monospace',
+        inputType: 'dropdown',
+        options: [
+          'monospace',
+          'Courier New',
+          'Consolas',
+          'Menlo',
+          'Monaco',
+          'Lucida Console',
+          'DejaVu Sans Mono',
+          'Source Code Pro',
+          'Fira Code',
+          'JetBrains Mono',
+          'Cascadia Code',
+          'inherit (use existing font)'
+        ],
+        warning: '⚠️ Using "inherit" may cause width inconsistencies with scramble characters'
       },
       { 
         name: 'wb-radius', 
@@ -622,8 +643,8 @@ export const componentsMetadata = {
     ],
     example: {
       title: 'Scramble Text Effect',
-      code: '<h1 wb-component="scramble-text" wb-radius="100">Hover to Scramble</h1>',
-      description: 'Interactive character scrambling with customizable radius'
+      code: '<p wb-component="scramble-text" wb-radius="100" wb-font="monospace" class="text-2xl max-w-[570px]">Once you hover over me, you will see the effect in action! You can customize the radius, duration, and speed of the scramble effect.</p>',
+      description: 'Interactive character scrambling with customizable radius, duration, and speed'
     }
   },
 
@@ -641,6 +662,13 @@ export const componentsMetadata = {
         required: true
       },
       { 
+        name: 'wb-radius', 
+        description: 'Mouse proximity radius in pixels', 
+        default: '50',
+        inputType: 'slider',
+        sliderConfig: { min: 20, max: 200, step: 5 }
+      },
+      { 
         name: 'wb-from-font-variation', 
         description: 'Starting font variation settings', 
         default: "'wght' 100, 'opsz' 8",
@@ -651,13 +679,6 @@ export const componentsMetadata = {
         description: 'Target font variation settings', 
         default: "'wght' 900, 'opsz' 144",
         inputType: 'text'
-      },
-      { 
-        name: 'wb-radius', 
-        description: 'Mouse proximity radius in pixels', 
-        default: '50',
-        inputType: 'slider',
-        sliderConfig: { min: 20, max: 200, step: 5 }
       },
       { 
         name: 'wb-falloff', 
@@ -682,7 +703,7 @@ export const componentsMetadata = {
     ],
     example: {
       title: 'Variable Proximity Effect',
-      code: '<h1 wb-component="variable-proximity" wb-radius="50">Move Mouse Near</h1>',
+      code: '<h1 wb-component="variable-proximity" wb-radius="100" class="text-4xl max-w-[570px]">Please hover over me to see the amazing variable font effects!</h1>',
       description: 'Mouse proximity font variations with customizable settings'
     }
   },
@@ -707,7 +728,24 @@ export const componentsMetadata = {
         inputType: 'dropdown',
         options: ['characters', 'words', 'lines']
       },
-      ,
+      { 
+        name: 'wb-background-color', 
+        description: 'Background color for the text container', 
+        default: '',
+        inputType: 'color'
+      },
+      { 
+        name: 'wb-text-color', 
+        description: 'Text color for the rotating text', 
+        default: '',
+        inputType: 'color'
+      },
+      { 
+        name: 'wb-border-radius', 
+        description: 'Border radius for the text container (e.g., 8px, 1rem, 50%)', 
+        default: '',
+        inputType: 'text'
+      },
       { 
         name: 'wb-text-1', 
         description: 'First rotating text', 
@@ -835,8 +873,8 @@ export const componentsMetadata = {
     ],
     example: {
       title: 'Rotating Text Animation',
-      code: '<h1 class="h1">The Sample of <span wb-component="rotating-text" wb-rotating-split-by="characters" wb-text-1="Animated" wb-text-2="Rotating" wb-text-3="Text">Animated</span></h1>',
-      description: 'Auto-rotating text with stagger effects and customizable timing'
+      code: '<h1 class="text-6xl">Create Amazing Websites with Powerful <span wb-component="rotating-text" wb-rotating-split-by="characters" wb-text-1="Animations" wb-text-2="Effects" wb-text-3="Interactions" wb-background-color="#0a70ff" wb-text-color="#ffffff" wb-border-radius="8px" class="text-6xl">Animations</span></h1>',
+      description: 'Auto-rotating text with stagger effects, background color, text color, border radius, and automatic centering'
     }
   },
 
@@ -855,58 +893,74 @@ export const componentsMetadata = {
       },
       { 
         name: 'wb-text', 
-        description: 'Text to animate', 
-        default: 'PRESSURE',
+        description: 'Text Preview', 
+        default: 'PRESSURE!',
         inputType: 'text'
       },
       { 
         name: 'wb-font-family', 
-        description: 'Font family used (optional - inherits from Webflow typography by default)', 
+        description: 'Font Family', 
         default: 'inherit',
-        inputType: 'text'
+        inputType: 'select',
+        options: [
+          { value: 'inherit', label: 'Inherit from Webflow' },
+          { value: 'Compressa VF', label: 'Compressa VF (Variable Font)' },
+          { value: 'Recursive', label: 'Recursive (Variable Font)' },
+          { value: 'Roboto Flex', label: 'Roboto Flex (Variable Font)' },
+          { value: 'Source Sans 3', label: 'Source Sans 3 (Variable Font)' },
+          { value: 'Space Grotesk', label: 'Space Grotesk (Variable Font)' },
+          { value: 'Inter', label: 'Inter (Variable Font)' }
+        ]
       },
       { 
         name: 'wb-width', 
-        description: 'Enable width variation', 
+        description: 'Width Variation', 
         default: 'true',
         inputType: 'toggle'
       },
       { 
         name: 'wb-weight', 
-        description: 'Enable weight variation', 
+        description: 'Weight Variation', 
         default: 'true',
         inputType: 'toggle'
       },
       { 
         name: 'wb-italic', 
-        description: 'Enable italic/slant variation', 
+        description: 'Italic Variation', 
         default: 'true',
         inputType: 'toggle'
       },
       { 
-        name: 'wb-alpha', 
-        description: 'Enable opacity variation', 
-        default: 'false',
-        inputType: 'toggle'
+        name: 'wb-min-font-weight', 
+        description: 'Minimal Font Weight', 
+        default: '100',
+        inputType: 'select',
+        options: [
+          { value: '100', label: '100 (Thin)' },
+          { value: '200', label: '200 (Extra Light)' },
+          { value: '300', label: '300 (Light)' },
+          { value: '400', label: '400 (Normal)' },
+          { value: '500', label: '500 (Medium)' }
+        ]
       },
       { 
-        name: 'wb-always-active', 
-        description: 'Keep effect always active (for previews)', 
-        default: 'false',
-        inputType: 'toggle'
-      },
-      { 
-        name: 'wb-min-font-size', 
-        description: 'Minimum font size', 
-        default: '24',
-        inputType: 'slider',
-        sliderConfig: { min: 12, max: 100, step: 2 }
+        name: 'wb-max-font-weight', 
+        description: 'Maximal Font Weight', 
+        default: '900',
+        inputType: 'select',
+        options: [
+          { value: '500', label: '500 (Medium)' },
+          { value: '600', label: '600 (Semi Bold)' },
+          { value: '700', label: '700 (Bold)' },
+          { value: '800', label: '800 (Extra Bold)' },
+          { value: '900', label: '900 (Black)' }
+        ]
       }
     ],
     example: {
       title: 'Text Pressure Effect',
-      code: '<h1 wb-component="text-pressure" wb-always-active="true">Pressure Sensitive</h1>',
-      description: 'Mouse proximity font variations with variable fonts'
+      code: '<h1 wb-component="text-pressure" wb-font-family="Compressa VF" wb-min-font-weight="100" wb-max-font-weight="900" class="text-[160px] w-[570px]">PRESSURE!</h1>',
+      description: 'Mouse proximity font variations with Compressa VF variable font'
     }
   },
 
@@ -1130,7 +1184,7 @@ export const componentsMetadata = {
     ],
     example: {
       title: 'Shuffle Text Effect',
-      code: '<h1 wb-component="shuffle" wb-shuffle-direction="right" wb-duration="0.35">SHUFFLE EFFECT</h1>',
+      code: '<h1 wb-component="shuffle" wb-shuffle-direction="right" wb-duration="0.35" class="text-6xl">Create Amazing Websites With Powerful Animations</h1>',
       description: 'Character-based sliding shuffle effects with customizable direction'
     }
   },
@@ -1208,7 +1262,7 @@ export const componentsMetadata = {
     ],
     example: {
       title: 'Shape Blur Effect',
-      code: '<div wb-animate="shape-blur" wb-shape-variation="0" wb-shape-size="1.2" wb-roundness="0.4" style="height: 400px; width: 1000px; background: #1a1a1a;"></div>',
+      code: '<div wb-animate="shape-blur" wb-shape-variation="0" wb-shape-size="1.2" wb-roundness="0.4" style="height: 400px; width: 1000px; background: #1a1a1a;" class="text-6xl"></div>',
       description: 'WebGL shader-based interactive shape effects'
     }
   },
@@ -1274,7 +1328,7 @@ export const componentsMetadata = {
     ],
     example: {
       title: 'Image Trail Effect',
-      code: '<div wb-animate="image-trail" wb-varint="1" wb-threshold="80" wb-images=\'["https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=300&h=400&fit=crop","https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=300&h=400&fit=crop","https://images.unsplash.com/photo-1506197603052-3cc9c3a201bd?w=300&h=400&fit=crop"]\' style="width: 800px; height: 400px; background: #1a1a1a; cursor: pointer;"></div>',
+      code: '<div wb-animate="image-trail" wb-varint="1" wb-threshold="80" wb-images=\'["https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=300&h=400&fit=crop","https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=300&h=400&fit=crop","https://images.unsplash.com/photo-1506197603052-3cc9c3a201bd?w=300&h=400&fit=crop"]\' style="width: 800px; height: 400px; background: #1a1a1a; cursor: pointer;" class="text-6xl"></div>',
       description: 'Mouse-following image trail effects'
     }
   },
@@ -1340,7 +1394,7 @@ export const componentsMetadata = {
     ],
     example: {
       title: 'Magnet Lines Effect',
-      code: '<div wb-animate="magnet-lines" wb-rows="9" wb-columns="9" style="width: 80vmin; height: 80vmin;">Magnetic Grid</div>',
+      code: '<div wb-animate="magnet-lines" wb-rows="9" wb-columns="9" style="width: 80vmin; height: 80vmin;" class="text-6xl">Magnetic Grid</div>',
       description: 'Interactive magnetic line grid'
     }
   },

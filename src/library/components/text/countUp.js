@@ -34,13 +34,6 @@ const componentCSS = `
   backface-visibility: visible;
 }
 
-/* Default styling */
-.wb-count-up {
-  font-size: inherit;
-  color: currentColor;
-  font-weight: inherit;
-}
-
 /* Animation states */
 .wb-count-up-paused {
   opacity: 0.7;
