@@ -72,8 +72,10 @@ class VariableProximityAnimator {
     this.componentClasses = webflowBitsClasses.forComponent('variable-proximity');
     this.animationFrameId = null;
     this.defaultConfig = {
-      fromFontVariationSettings: "'wght' 100, 'opsz' 8",
-      toFontVariationSettings: "'wght' 900, 'opsz' 144",
+      fromWeight: 100,
+      toWeight: 900,
+      fromSize: 8,
+      toSize: 8,
       radius: 50,
       falloff: 'linear', // 'linear', 'exponential', 'gaussian'
       containerSelector: null, // If null, uses the element itself as container
@@ -98,7 +100,6 @@ class VariableProximityAnimator {
     try {
       injectStyles('wb-variable-proximity-styles', componentCSS);
       this.stylesInjected = true;
-      console.log('WebflowBits: VariableProximity styles injected');
     } catch (error) {
       console.warn('WebflowBits: Failed to inject VariableProximity styles', error);
     }
@@ -169,8 +170,10 @@ class VariableProximityAnimator {
       commonAttributeMaps.animation,
       {
         // VariableProximity-specific attributes
-        fromFontVariationSettings: { attribute: 'wb-from-font-variation', type: 'string' },
-        toFontVariationSettings: { attribute: 'wb-to-font-variation', type: 'string' },
+        fromWeight: { attribute: 'wb-from-weight', type: 'number', parser: parseInt, min: 100, max: 900 },
+        toWeight: { attribute: 'wb-to-weight', type: 'number', parser: parseInt, min: 100, max: 900 },
+        fromSize: { attribute: 'wb-from-size', type: 'number', parser: parseInt, min: 8, max: 144 },
+        toSize: { attribute: 'wb-to-size', type: 'number', parser: parseInt, min: 8, max: 144 },
         radius: { attribute: 'wb-radius', type: 'number', parser: parseInt, min: 10 },
         falloff: { 
           attribute: 'wb-falloff', 
@@ -185,25 +188,10 @@ class VariableProximityAnimator {
   }
 
   /**
-   * Parse font variation settings string into Map
+   * Build font variation settings string from weight and size values
    */
-  parseFontVariationSettings(settingsStr) {
-    const settings = new Map();
-    
-    try {
-      const pairs = settingsStr.split(',').map(s => s.trim());
-      pairs.forEach(pair => {
-        const match = pair.match(/'([^']+)'\s+([\d.-]+)/);
-        if (match) {
-          const [, axis, value] = match;
-          settings.set(axis, parseFloat(value));
-        }
-      });
-    } catch (error) {
-      console.warn('WebflowBits VariableProximity: Failed to parse font variation settings', error);
-    }
-    
-    return settings;
+  buildFontVariationSettings(weight, size) {
+    return `'wght' ${weight}, 'opsz' ${size}`;
   }
 
   /**
@@ -213,7 +201,6 @@ class VariableProximityAnimator {
     this.ensureStylesInjected();
     
     if (this.instances.has(element)) {
-      console.log('WebflowBits VariableProximity: Element already initialized, skipping', element);
       return;
     }
 
@@ -226,21 +213,10 @@ class VariableProximityAnimator {
         return;
       }
 
-      console.log('WebflowBits VariableProximity: Initializing element with text:', originalText);
-
       // Clean up any existing content first
       element.innerHTML = '';
 
-      // Parse font variation settings
-      const fromSettings = this.parseFontVariationSettings(config.fromFontVariationSettings);
-      const toSettings = this.parseFontVariationSettings(config.toFontVariationSettings);
-      
-      // Create parsed settings for interpolation
-      const parsedSettings = Array.from(fromSettings.entries()).map(([axis, fromValue]) => ({
-        axis,
-        fromValue,
-        toValue: toSettings.get(axis) ?? fromValue,
-      }));
+      // Font variation settings are now handled directly with weight and size values
 
       // Determine container element
       let containerElement = element;
@@ -262,7 +238,6 @@ class VariableProximityAnimator {
         containerElement,
         config,
         originalText,
-        parsedSettings,
         splitText: null,
         chars: [],
         isActive: false,
@@ -284,9 +259,6 @@ class VariableProximityAnimator {
 
       // Setup event listeners
       this.setupEventListeners(instance);
-
-      console.log('WebflowBits VariableProximity: Element initialized', { element, config });
-
       // Dispatch initialization event
       element.dispatchEvent(new CustomEvent('wb-variable-proximity-init', {
         detail: { element, config },
@@ -325,7 +297,7 @@ class VariableProximityAnimator {
    * Initialize SplitText for character-level animation
    */
   initializeSplitText(instance) {
-    const { element, config, parsedSettings } = instance;
+    const { element, config } = instance;
     const wordElements = element.querySelectorAll('.wb-variable-proximity__word');
     
     if (!wordElements.length) return;
@@ -349,12 +321,9 @@ class VariableProximityAnimator {
       instance.chars.forEach((char) => {
         gsap.set(char, {
           display: 'inline-block',
-          fontVariationSettings: config.fromFontVariationSettings
+          fontVariationSettings: this.buildFontVariationSettings(config.fromWeight, config.fromSize)
         });
       });
-
-      console.log('WebflowBits VariableProximity: SplitText initialized', instance.chars.length, 'characters');
-
     } catch (error) {
       console.error('WebflowBits VariableProximity: Failed to initialize SplitText', error);
     }
@@ -417,7 +386,7 @@ class VariableProximityAnimator {
       chars.forEach((char) => {
         gsap.to(char, {
           duration: 0.3,
-          fontVariationSettings: config.fromFontVariationSettings,
+          fontVariationSettings: this.buildFontVariationSettings(config.fromWeight, config.fromSize),
           ease: "power2.out"
         });
       });
@@ -445,7 +414,7 @@ class VariableProximityAnimator {
   updateProximityEffect(instance) {
     if (!instance.isActive || !instance.chars.length) return;
 
-    const { containerElement, config, parsedSettings, chars } = instance;
+    const { containerElement, config, chars } = instance;
     const containerRect = containerElement.getBoundingClientRect();
 
     // Calculate mouse position relative to container
@@ -467,22 +436,20 @@ class VariableProximityAnimator {
       if (distance >= config.radius) {
         // Outside radius, use from settings
         gsap.set(char, {
-          fontVariationSettings: config.fromFontVariationSettings
+          fontVariationSettings: this.buildFontVariationSettings(config.fromWeight, config.fromSize)
         });
         return;
       }
 
       // Calculate falloff and interpolate
       const falloffValue = this.calculateFalloff(distance, config.radius, config.falloff);
-      const newSettings = parsedSettings
-        .map(({ axis, fromValue, toValue }) => {
-          const interpolatedValue = fromValue + (toValue - fromValue) * falloffValue;
-          return `'${axis}' ${interpolatedValue}`;
-        })
-        .join(', ');
-
+      
+      // Interpolate weight and size values
+      const interpolatedWeight = Math.round(config.fromWeight + (config.toWeight - config.fromWeight) * falloffValue);
+      const interpolatedSize = Math.round(config.fromSize + (config.toSize - config.fromSize) * falloffValue);
+      
       gsap.set(char, {
-        fontVariationSettings: newSettings
+        fontVariationSettings: this.buildFontVariationSettings(interpolatedWeight, interpolatedSize)
       });
     });
   }
@@ -516,7 +483,6 @@ class VariableProximityAnimator {
    */
   initAll() {
     const elements = document.querySelectorAll('[wb-component="variable-proximity"]');
-    console.log('WebflowBits VariableProximity: Found', elements.length, 'elements to initialize');
     elements.forEach(element => this.initElement(element));
   }
 
@@ -558,9 +524,6 @@ class VariableProximityAnimator {
 
       // Remove instance
       this.instances.delete(element);
-
-      console.log('WebflowBits VariableProximity: Element destroyed', element);
-
     } catch (error) {
       console.error('WebflowBits VariableProximity: Failed to destroy element', error);
     }
@@ -623,17 +586,7 @@ class VariableProximityAnimator {
 
     instance.config = { ...instance.config, ...newConfig };
     
-    // Re-parse settings if font variation settings changed
-    if (newConfig.fromFontVariationSettings || newConfig.toFontVariationSettings) {
-      const fromSettings = this.parseFontVariationSettings(instance.config.fromFontVariationSettings);
-      const toSettings = this.parseFontVariationSettings(instance.config.toFontVariationSettings);
-      
-      instance.parsedSettings = Array.from(fromSettings.entries()).map(([axis, fromValue]) => ({
-        axis,
-        fromValue,
-        toValue: toSettings.get(axis) ?? fromValue,
-      }));
-    }
+    // Font variation settings are now handled directly with weight and size values
     
     // Dispatch update event
     element.dispatchEvent(new CustomEvent('wb-variable-proximity-update', {

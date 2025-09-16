@@ -1297,7 +1297,6 @@ class ImageTrailAnimator {
    * Refresh animations (no-op for this component)
    */
   refresh() {
-    console.log('WebflowBits ImageTrail: Refresh called');
   }
 
   /**

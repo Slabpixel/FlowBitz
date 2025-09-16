@@ -235,7 +235,6 @@ class ShapeBlurAnimator {
       if (typeof window !== 'undefined' && window.THREE) {
         this.THREE = window.THREE;
         this.isSupported = true;
-        console.log('WebflowBits ShapeBlur: Three.js detected');
         return true;
       } else {
         // Auto-load Three.js
@@ -311,7 +310,6 @@ class ShapeBlurAnimator {
 
     // Find all elements with wb-animate="shape-blur"
     const elements = document.querySelectorAll('[wb-animate="shape-blur"]');
-    console.log(`WebflowBits ShapeBlur: Found ${elements.length} elements`);
     elements.forEach(element => this.initElement(element));
   }
 
