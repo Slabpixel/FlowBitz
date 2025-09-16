@@ -13,6 +13,13 @@ const componentCSS = `
   vertical-align: baseline;
   height: 100%;
   min-height: 1em;
+  max-height: 1.2em;
+}
+
+.wb-rotating-text-center .wb-rotating-text-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .wb-rotating-text-sr-only {
@@ -39,6 +46,11 @@ const componentCSS = `
   min-height: 1em;
 }
 
+.wb-rotating-text-container.has-bg {
+  padding: 0em 0.1em;
+  border-radius: inherit;
+}
+
 .wb-rotating-text-element {
   display: inline-block;
   will-change: transform, opacity;
@@ -57,6 +69,18 @@ const componentCSS = `
 .wb-rotating-animating .wb-rotating-text-element {
   will-change: transform, opacity;
   backface-visibility: hidden;
+}
+
+.wb-rotating-text-container .wb-rotating-text-element {
+  position: relative;
+  z-index: 1;
+}
+
+.wb-rotating-text-container > span {
+  display: inline-block;
+  overflow: hidden;
+  height: 100%;
+  position: relative;
 }
 `;
 
@@ -143,7 +167,10 @@ class RotatingTextAnimator {
       duration: parseFloat(element.getAttribute('wb-duration')) || 0.6,
       ease: element.getAttribute('wb-ease') || 'back.out(1.7)',
       loop: element.getAttribute('wb-rotating-loop') !== 'false',
-      auto: element.getAttribute('wb-rotating-auto') !== 'false'
+      auto: element.getAttribute('wb-rotating-auto') !== 'false',
+      bgColor: element.getAttribute('wb-background-color') || null,
+      textColor: element.getAttribute('wb-text-color') || null,
+      borderRadius: element.getAttribute('wb-border-radius') || null
     };
 
     // Create instance
@@ -206,11 +233,28 @@ class RotatingTextAnimator {
     container.className = 'wb-rotating-text-container';
     container.setAttribute('aria-hidden', 'true');
     
+    // Apply background color, text color, and border radius if specified
+    if (config.bgColor) {
+      container.classList.add('has-bg');
+      container.style.backgroundColor = config.bgColor;
+    }
+    
+    if (config.textColor) {
+      container.style.color = config.textColor;
+    }
+    
+    if (config.borderRadius) {
+      container.style.borderRadius = config.borderRadius;
+    }
+    
     // Clear and setup element
     element.innerHTML = '';
     element.appendChild(srText);
     element.appendChild(container);
     element.classList.add('wb-rotating-text');
+    
+    // Always apply centering
+    element.classList.add('wb-rotating-text-center');
     
     instance.srElement = srText;
     instance.container = container;
@@ -226,17 +270,25 @@ class RotatingTextAnimator {
    * Synchronize height with parent element
    */
   syncHeight(element) {
-    // Get the computed height of the parent element
-    const parentElement = element.parentElement;
-    if (parentElement) {
-      const parentHeight = window.getComputedStyle(parentElement).height;
-      if (parentHeight && parentHeight !== 'auto') {
-        element.style.height = parentHeight;
-        const container = element.querySelector('.wb-rotating-text-container');
-        if (container) {
-          container.style.height = parentHeight;
-        }
-      }
+    // Calculate height based on line height instead of parent height
+    const computedStyle = window.getComputedStyle(element);
+    const lineHeight = computedStyle.lineHeight;
+    const fontSize = computedStyle.fontSize;
+    
+    // Use line height if it's a number, otherwise use font size * 1.2
+    let height;
+    if (lineHeight === 'normal') {
+      height = `calc(${fontSize} * 1.4)`;
+    } else if (lineHeight.includes('px')) {
+      height = lineHeight;
+    } else {
+      height = `calc(${fontSize} * ${parseFloat(lineHeight)})`;
+    }
+    
+    element.style.height = height;
+    const container = element.querySelector('.wb-rotating-text-container');
+    if (container) {
+      container.style.height = height;
     }
   }
 
@@ -335,6 +387,9 @@ class RotatingTextAnimator {
       words.forEach((word, wordIndex) => {
       const wordSpan = document.createElement('span');
         wordSpan.style.display = 'inline-block';
+        wordSpan.style.overflow = 'hidden';
+        wordSpan.style.height = '100%';
+        wordSpan.style.position = 'relative';
       
         // Split word into characters
         Array.from(word).forEach(char => {

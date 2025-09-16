@@ -15,16 +15,22 @@ const componentCSS = `
 @import url("https://fonts.googleapis.com/css2?family=Recursive:wght@300;400;500;600;700;800;900&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap");
 
+/* Compressa VF Font - Variable Font */
+@font-face {
+  font-family: 'Compressa VF';
+  src: url('https://res.cloudinary.com/dr6lvwubh/raw/upload/v1529908256/CompressaPRO-GX.woff2') format('woff2-variations');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
 .wb-text-pressure {
   position: relative;
-  width: 100%;
-  height: 100%;
   background: transparent;
   display: flex;
   align-items: center;
   justify-content: center;
   overflow: hidden;
-  min-height: 200px;
 }
 
 .wb-text-pressure__title {
@@ -39,14 +45,14 @@ const componentCSS = `
   will-change: transform, font-variation-settings;
   display: flex;
   align-items: center;
-  justify-content: center;
-  flex-wrap: wrap;
+  justify-content: space-between;
+  flex-wrap: nowrap;
 }
 
 .wb-text-pressure__char {
   display: inline-block;
   will-change: font-variation-settings, opacity;
-  transition: font-variation-settings 0.05s ease;
+  transition: font-variation-settings 0.3s ease-out;
   font-feature-settings: "kern" 1;
   text-rendering: optimizeLegibility;
 }
@@ -94,30 +100,9 @@ const componentCSS = `
 }
 
 .wb-text-pressure {
-  font-size: clamp(16px, 4vw, 48px);
   color: currentColor;
 }
 
-@media (max-width: 768px) {
-@media (max-width: 768px) {
-  .wb-text-pressure {
-    min-height: 150px;
-  }
-  
-  .wb-text-pressure__title {
-    font-size: clamp(12px, 6vw, 32px) !important;
-  }
-}
-
-@media (max-width: 480px) {
-  .wb-text-pressure {
-    min-height: 120px;
-  }
-  
-  .wb-text-pressure__title {
-    font-size: clamp(10px, 8vw, 24px) !important;
-  }
-}
 `;
 
 class TextPressureAnimator {
@@ -127,6 +112,7 @@ class TextPressureAnimator {
     this.componentName = 'TextPressure';
     this.componentClasses = webflowBitsClasses.forComponent('text-pressure');
     this.animationFrameId = null;
+    this.fontFamilyCache = new Map(); // Cache for font family detection
     this.defaultConfig = {
       text: 'PRESSURE', // Fallback text if no content is found
       fontFamily: 'inherit',
@@ -134,15 +120,19 @@ class TextPressureAnimator {
       weight: true,
       italic: true,
       alpha: false,
-      flex: true,
+      flex: true, // Always enable flex for full width spanning
       stroke: false,
       scale: false,
+      autoFontSize: true, // Whether to automatically calculate font size
       textColor: 'currentColor', // Use current color for theme compatibility
       strokeColor: '#FF0000',
       minFontSize: 24,
+      minFontWeight: 100, // Minimal font weight (thin)
+      maxFontWeight: 900, // Maximal font weight (black)
       threshold: 0.1,
       rootMargin: '0px',
-      alwaysActive: false
+      alwaysActive: false,
+      debug: false
     };
     
     this.mousePosition = { x: 0, y: 0 };
@@ -180,14 +170,20 @@ class TextPressureAnimator {
     };
 
     const updateTouchPosition = (event) => {
-      if (event.touches.length > 0) {
+      if (event.touches && event.touches.length > 0) {
         const touch = event.touches[0];
         this.cursorPosition.x = touch.clientX;
         this.cursorPosition.y = touch.clientY;
       }
     };
 
-    window.addEventListener('mousemove', updateMousePosition);
+    // Initialize cursor position to center of viewport
+    this.cursorPosition.x = window.innerWidth / 2;
+    this.cursorPosition.y = window.innerHeight / 2;
+    this.mousePosition.x = this.cursorPosition.x;
+    this.mousePosition.y = this.cursorPosition.y;
+
+    window.addEventListener('mousemove', updateMousePosition, { passive: true });
     window.addEventListener('touchmove', updateTouchPosition, { passive: true });
   }
 
@@ -195,14 +191,23 @@ class TextPressureAnimator {
     if (this.animationFrameId) return;
 
     const animate = () => {
+      try {
+        // Smooth mouse position interpolation
       this.mousePosition.x += (this.cursorPosition.x - this.mousePosition.x) / 15;
       this.mousePosition.y += (this.cursorPosition.y - this.mousePosition.y) / 15;
 
+        // Update all active instances
       this.activeInstances.forEach(instance => {
+          if (instance && instance.element && instance.element.isConnected) {
         this.updatePressureEffect(instance);
+          }
       });
 
       this.animationFrameId = requestAnimationFrame(animate);
+      } catch (error) {
+        console.warn('TextPressure: Animation loop error', error);
+        this.stopAnimationLoop();
+      }
     };
 
     animate();
@@ -226,12 +231,16 @@ class TextPressureAnimator {
       flex: { attribute: 'wb-flex', type: 'boolean' },
       stroke: { attribute: 'wb-stroke', type: 'boolean' },
       scale: { attribute: 'wb-scale', type: 'boolean' },
+      autoFontSize: { attribute: 'wb-auto-font-size', type: 'boolean' },
       textColor: { attribute: 'wb-text-color', type: 'string' },
       strokeColor: { attribute: 'wb-stroke-color', type: 'string' },
       minFontSize: { attribute: 'wb-min-font-size', type: 'number', min: 8, max: 200 },
+      minFontWeight: { attribute: 'wb-min-font-weight', type: 'number', min: 100, max: 500 },
+      maxFontWeight: { attribute: 'wb-max-font-weight', type: 'number', min: 500, max: 900 },
       threshold: { attribute: 'wb-threshold', type: 'threshold' },
       rootMargin: { attribute: 'wb-root-margin', type: 'string' },
-      alwaysActive: { attribute: 'wb-always-active', type: 'boolean' }
+      alwaysActive: { attribute: 'wb-always-active', type: 'boolean' },
+      debug: { attribute: 'wb-debug', type: 'boolean' }
     };
 
     const config = parseElementConfig(element, this.defaultConfig, attributeMap);
@@ -254,7 +263,8 @@ class TextPressureAnimator {
       this.componentClasses.parent
     ];
     
-    if (config.flex) classesToApply.push('wb-text-pressure--flex');
+    // Always apply flex for full width spanning
+    classesToApply.push('wb-text-pressure--flex');
     if (config.stroke) classesToApply.push('wb-text-pressure--stroke');
     
     ComponentClassManager.applyClasses(
@@ -295,14 +305,25 @@ class TextPressureAnimator {
   }
 
   initElement(element) {
+    try {
     this.ensureStylesInjected();
     
     if (this.instances.has(element)) {
       return;
     }
 
+      if (!element || !element.nodeType) {
+        console.warn('TextPressure: Invalid element provided');
+      return;
+    }
+
     const config = this.parseConfig(element);
     const chars = config.text.split('');
+
+      if (chars.length === 0) {
+        console.warn('TextPressure: No text content found');
+        return;
+      }
 
     const instance = {
       element,
@@ -313,7 +334,8 @@ class TextPressureAnimator {
       fontSize: config.minFontSize,
       scaleY: 1,
       lineHeight: 1,
-      isActive: false
+        isActive: false,
+        originalFontWeight: 400 // Will be set during initialization
     };
 
     this.applyComponentClasses(element, config);
@@ -330,20 +352,53 @@ class TextPressureAnimator {
     // Auto-activate if alwaysActive is enabled
     if (config.alwaysActive) {
       this.activateInstance(instance);
+      }
+    } catch (error) {
+      console.error('TextPressure: Failed to initialize element', error);
     }
   }
 
   createPressureStructure(instance) {
+    try {
     const { element, config, chars } = instance;
+
+      // Capture original font weight BEFORE replacing innerHTML
+      const originalComputedStyle = window.getComputedStyle(element);
+      const detectedFontWeight = parseFloat(originalComputedStyle.fontWeight);
+      
+      // Always use the configured min font weight as the baseline
+      instance.originalFontWeight = config.minFontWeight;
+      
+      // Debug logging
+      if (config.debug) {
+        console.log('TextPressure Original Font Weight:', {
+          elementClass: element.className,
+          detectedFontWeight: detectedFontWeight,
+          originalFontWeight: instance.originalFontWeight,
+          computedFontWeight: originalComputedStyle.fontWeight,
+          hasFontWeightClass: !!element.className.match(/\bfont-(thin|light|normal|medium|semibold|bold|extrabold|black)\b/)
+        });
+        console.log('All computed styles:', {
+          fontWeight: originalComputedStyle.fontWeight,
+          fontFamily: originalComputedStyle.fontFamily,
+          fontSize: originalComputedStyle.fontSize,
+          fontStyle: originalComputedStyle.fontStyle,
+          letterSpacing: originalComputedStyle.letterSpacing,
+          textTransform: originalComputedStyle.textTransform,
+          lineHeight: originalComputedStyle.lineHeight
+        });
+      }
 
     element.innerHTML = '';
 
     const titleElement = document.createElement('h1');
     titleElement.className = 'wb-text-pressure__title';
+      
     // Only set font family if it's not inherit
     if (config.fontFamily !== 'inherit') {
       titleElement.style.fontFamily = config.fontFamily;
     }
+      
     // Don't set color if it's currentColor - let it inherit from parent
     if (config.textColor !== 'currentColor') {
       titleElement.style.color = config.textColor;
@@ -354,12 +409,14 @@ class TextPressureAnimator {
       span.className = 'wb-text-pressure__char';
       span.textContent = char;
       span.setAttribute('data-char', char);
+        
       // Don't set color if it's currentColor - let it inherit from parent
       if (config.stroke) {
         span.style.color = undefined;
       } else if (config.textColor !== 'currentColor') {
         span.style.color = config.textColor;
       }
+        
       titleElement.appendChild(span);
       instance.charSpans.push(span);
     });
@@ -368,6 +425,9 @@ class TextPressureAnimator {
     instance.titleElement = titleElement;
 
     this.setSize(instance);
+    } catch (error) {
+      console.error('TextPressure: Failed to create pressure structure', error);
+    }
   }
 
   setSize(instance) {
@@ -383,31 +443,107 @@ class TextPressureAnimator {
       return;
     }
 
-    let newFontSize;
+    // Check if element has existing font size (like text-7xl class)
+    const computedStyle = window.getComputedStyle(element);
+    const existingFontSize = computedStyle.fontSize;
     
-    if (config.flex) {
-      newFontSize = Math.min(containerWidth / chars.length, containerHeight * 0.8);
-    } else {
-      newFontSize = Math.min(containerWidth / (chars.length * 1.2), containerHeight * 0.8);
+    // Check if element has Tailwind text size classes (including arbitrary values like text-[160px])
+    const hasTextSizeClass = element.className.match(/\btext-(xs|sm|base|lg|xl|2xl|3xl|4xl|5xl|6xl|7xl|8xl|9xl)\b/) || 
+                            element.className.match(/\btext-\[[^\]]+\]/);
+    
+    // Only calculate font size if autoFontSize is enabled and no existing font size is set or if it's very small
+    const existingFontSizeValue = parseFloat(existingFontSize);
+    const shouldCalculateFontSize = config.autoFontSize && !hasTextSizeClass && (!existingFontSize || existingFontSizeValue < 20);
+    
+    // Debug logging (can be removed in production)
+    if (config.debug) {
+      console.log('TextPressure Font Size Debug:', {
+        elementClass: element.className,
+        hasTextSizeClass: !!hasTextSizeClass,
+        existingFontSize: existingFontSize,
+        existingFontSizeValue: existingFontSizeValue,
+        shouldCalculateFontSize: shouldCalculateFontSize,
+        autoFontSize: config.autoFontSize,
+        originalFontWeight: instance.originalFontWeight
+      });
+      console.log('Tailwind class detection:', {
+        standardClasses: element.className.match(/\btext-(xs|sm|base|lg|xl|2xl|3xl|4xl|5xl|6xl|7xl|8xl|9xl)\b/),
+        arbitraryClasses: element.className.match(/\btext-\[[^\]]+\]/),
+        hasTextSizeClass: hasTextSizeClass
+      });
     }
-    
-    newFontSize = Math.max(newFontSize, config.minFontSize);
-    newFontSize = Math.min(newFontSize, containerHeight * 0.9);
 
-    instance.fontSize = newFontSize;
+    if (shouldCalculateFontSize) {
+      // Calculate font size to span full width
+      // This ensures the first character is on the left and last character is on the right
+      let newFontSize = Math.min(containerWidth / (chars.length * 0.6), containerHeight * 0.8);
+      newFontSize = Math.max(newFontSize, config.minFontSize);
+
+      instance.fontSize = newFontSize;
+      titleElement.style.fontSize = `${newFontSize}px`;
+      
+      // Apply initial font variation settings with min font weight
+      const fontFamily = this.getDetectedFontFamily(titleElement, config);
+      titleElement.style.fontVariationSettings = this.getFontVariationSettings(fontFamily, config.minFontWeight, 100, 0);
+    } else {
+      // Use existing font size from CSS classes (including Tailwind classes)
+      if (existingFontSizeValue > 0) {
+        instance.fontSize = existingFontSizeValue;
+        titleElement.style.fontSize = existingFontSize;
+        
+        // Also copy other text-related styles from the parent element
+        const parentComputedStyle = window.getComputedStyle(element);
+        titleElement.style.fontWeight = config.minFontWeight; // Use min font weight instead of parent's weight
+        titleElement.style.fontStyle = parentComputedStyle.fontStyle;
+        titleElement.style.letterSpacing = parentComputedStyle.letterSpacing;
+        titleElement.style.textTransform = parentComputedStyle.textTransform;
+        
+        // If Tailwind text size class is detected, also copy the line height
+        if (hasTextSizeClass) {
+          titleElement.style.lineHeight = parentComputedStyle.lineHeight;
+        }
+        
+        // Apply initial font variation settings with min font weight
+        const fontFamily = this.getDetectedFontFamily(titleElement, config);
+        titleElement.style.fontVariationSettings = this.getFontVariationSettings(fontFamily, config.minFontWeight, 100, 0);
+      } else {
+        // Fallback to minFontSize if no valid font size found
+        instance.fontSize = config.minFontSize;
+        titleElement.style.fontSize = `${config.minFontSize}px`;
+        
+        // Apply initial font variation settings with min font weight
+        const fontFamily = this.getDetectedFontFamily(titleElement, config);
+        titleElement.style.fontVariationSettings = this.getFontVariationSettings(fontFamily, config.minFontWeight, 100, 0);
+      }
+    }
+
     instance.scaleY = 1;
     instance.lineHeight = 1;
 
-    titleElement.style.fontSize = `${newFontSize}px`;
+    // Only set line height if we didn't copy it from parent
+    if (!hasTextSizeClass) {
     titleElement.style.lineHeight = instance.lineHeight;
+    }
+    
     titleElement.style.transform = `scale(1, ${instance.scaleY})`;
 
-    if (config.scale) {
+    // Fine-tune to ensure text spans full width (only if we calculated the font size)
+    if (shouldCalculateFontSize) {
       requestAnimationFrame(() => {
         if (!titleElement) return;
         const textRect = titleElement.getBoundingClientRect();
 
-        if (textRect.height > 0) {
+        if (textRect.width > 0 && textRect.width < containerWidth * 0.95) {
+          // If text is too narrow, increase font size
+          const scaleFactor = (containerWidth * 0.95) / textRect.width;
+          let newFontSize = instance.fontSize * scaleFactor;
+          newFontSize = Math.min(newFontSize, containerHeight * 0.9);
+          
+          titleElement.style.fontSize = `${newFontSize}px`;
+          instance.fontSize = newFontSize;
+        }
+
+        if (config.scale && textRect.height > 0) {
           const yRatio = containerHeight / textRect.height;
           instance.scaleY = yRatio;
           instance.lineHeight = yRatio;
@@ -415,8 +551,6 @@ class TextPressureAnimator {
         }
       });
     }
-
-
   }
 
   setupEventListeners(instance) {
@@ -475,37 +609,25 @@ class TextPressureAnimator {
     instance.charSpans.forEach(span => {
       span.style.opacity = '1';
       
-      // Reset font variations based on detected font family
-      if (instance.config.fontFamily === 'inherit' || !instance.config.fontFamily) {
-        const computedStyle = window.getComputedStyle(span);
-        const fontFamily = computedStyle.fontFamily;
-        
-        if (fontFamily.includes('Recursive')) {
-          span.style.fontVariationSettings = `'wght' 400`;
-        } else if (fontFamily.includes('Roboto Flex')) {
-          span.style.fontVariationSettings = `'wght' 400, 'opsz' 20, 'slnt' 0`;
-        } else if (fontFamily.includes('Source Sans 3')) {
-          span.style.fontVariationSettings = `'wght' 400, 'opsz' 20, 'ital' 0`;
-        } else if (fontFamily.includes('Space Grotesk')) {
-          span.style.fontVariationSettings = `'wght' 400`;
-        } else if (fontFamily.includes('Inter')) {
-          span.style.fontVariationSettings = `'wght' 400`;
-        } else {
-          span.style.fontVariationSettings = `'wght' 400`;
-        }
-      } else if (instance.config.fontFamily.includes('Recursive')) {
-        span.style.fontVariationSettings = `'wght' 400`;
-      } else if (instance.config.fontFamily.includes('Roboto Flex')) {
-        span.style.fontVariationSettings = `'wght' 400, 'opsz' 20, 'slnt' 0`;
-      } else if (instance.config.fontFamily.includes('Source Sans 3')) {
-        span.style.fontVariationSettings = `'wght' 400, 'opsz' 20, 'ital' 0`;
-      } else if (instance.config.fontFamily.includes('Space Grotesk')) {
-        span.style.fontVariationSettings = `'wght' 400`;
-      } else if (instance.config.fontFamily.includes('Inter')) {
-        span.style.fontVariationSettings = `'wght' 400`;
-      } else {
-        span.style.fontVariationSettings = `'wght' 400`;
+      // Reset font variations based on detected font family, using stored original font weight
+      const fontFamily = this.getDetectedFontFamily(span, instance.config);
+      
+      // Debug logging
+      if (instance.config.debug) {
+        console.log('TextPressure Deactivation:', {
+          originalFontWeight: instance.originalFontWeight,
+          fontFamily: fontFamily,
+          fontVariationSettings: this.getFontVariationSettings(fontFamily, instance.config.minFontWeight, 100, 0)
+        });
+        console.log('Font Weight Range:', {
+          minFontWeight: instance.config.minFontWeight,
+          maxFontWeight: instance.config.maxFontWeight
+        });
       }
+      
+      // Reset to min font weight (baseline state) with smooth transition
+      // The CSS transition will handle the smooth animation
+      span.style.fontVariationSettings = this.getFontVariationSettings(fontFamily, instance.config.minFontWeight, 100, 0);
     });
 
     // Set completed state
@@ -515,15 +637,58 @@ class TextPressureAnimator {
     });
   }
 
+  getDetectedFontFamily(span, config) {
+    // Use cache if available
+    if (this.fontFamilyCache.has(span)) {
+      return this.fontFamilyCache.get(span);
+    }
+    
+    let fontFamily = config.fontFamily;
+    
+    if (config.fontFamily === 'inherit' || !config.fontFamily) {
+      const computedStyle = window.getComputedStyle(span);
+      fontFamily = computedStyle.fontFamily;
+    }
+    
+    // Cache the result
+    this.fontFamilyCache.set(span, fontFamily);
+    return fontFamily;
+  }
+
+  getFontVariationSettings(fontFamily, weight, width, italic) {
+    // Normalize font family name for consistent matching
+    const normalizedFont = fontFamily.toLowerCase();
+    
+    // Enhanced font family detection with better fallbacks
+    if (normalizedFont.includes('recursive')) {
+      return `'wght' ${weight}`;
+    } else if (normalizedFont.includes('roboto flex')) {
+      return `'wght' ${weight}, 'opsz' ${Math.max(8, Math.min(144, width))}, 'slnt' ${italic}`;
+    } else if (normalizedFont.includes('source sans 3')) {
+      return `'wght' ${weight}, 'opsz' ${Math.max(8, Math.min(300, width))}, 'ital' ${italic > 0 ? 1 : 0}`;
+    } else if (normalizedFont.includes('space grotesk')) {
+      return `'wght' ${weight}`;
+    } else if (normalizedFont.includes('inter')) {
+      return `'wght' ${weight}`;
+    } else if (normalizedFont.includes('compressa')) {
+      // Support for Compressa VF font from the React example
+      return `'wght' ${weight}, 'wdth' ${width}, 'ital' ${italic}`;
+    } else if (normalizedFont.includes('variable') || normalizedFont.includes('vf')) {
+      // Generic variable font support
+      return `'wght' ${weight}, 'wdth' ${width}, 'ital' ${italic}`;
+    } else {
+      // Fallback for other fonts - try weight variation only
+      return `'wght' ${weight}`;
+    }
+  }
+
   updatePressureEffect(instance) {
     const { titleElement, charSpans, config } = instance;
     
     if (!titleElement) return;
 
     const titleRect = titleElement.getBoundingClientRect();
-    const containerRect = instance.element.getBoundingClientRect();
-    
-    const maxDist = Math.max(titleRect.width, titleRect.height) * 0.8;
+    const maxDist = titleRect.width / 2; // Use half width for better effect distribution
 
     charSpans.forEach((span) => {
       if (!span) return;
@@ -536,56 +701,22 @@ class TextPressureAnimator {
 
       const distance = this.calculateDistance(this.mousePosition, charCenter);
 
+      // Improved attribute calculation based on React example
       const getAttribute = (distance, minVal, maxVal) => {
-        if (distance >= maxDist) return minVal;
-        
-        const normalizedDistance = distance / maxDist;
-        const falloff = 1 - Math.pow(normalizedDistance, 1.5);
-        const val = minVal + (maxVal - minVal) * falloff;
-        return Math.max(minVal, Math.min(maxVal, val));
+        const val = maxVal - Math.abs((maxVal * distance) / maxDist);
+        return Math.max(minVal, val + minVal);
       };
 
-      const width = config.width ? Math.floor(getAttribute(distance, 25, 200)) : 100;
-      const weight = config.weight ? Math.floor(getAttribute(distance, 100, 900)) : 400;
-      const italic = config.italic ? getAttribute(distance, 0, 15).toFixed(1) : 0;
-      const alpha = config.alpha ? getAttribute(distance, 0.3, 1).toFixed(2) : 1;
+      const width = config.width ? Math.floor(getAttribute(distance, 5, 200)) : 100;
+      const weight = config.weight ? Math.floor(getAttribute(distance, config.minFontWeight, config.maxFontWeight)) : 400;
+      const italic = config.italic ? getAttribute(distance, 0, 1).toFixed(2) : 0;
+      const alpha = config.alpha ? getAttribute(distance, 0, 1).toFixed(2) : 1;
 
       span.style.opacity = alpha;
       
       // Apply font variations based on detected font family
-      if (config.fontFamily === 'inherit' || !config.fontFamily) {
-        // For inherited fonts, try to detect if it's a variable font
-        const computedStyle = window.getComputedStyle(span);
-        const fontFamily = computedStyle.fontFamily;
-        
-        if (fontFamily.includes('Recursive')) {
-          span.style.fontVariationSettings = `'wght' ${weight}`;
-        } else if (fontFamily.includes('Roboto Flex')) {
-          span.style.fontVariationSettings = `'wght' ${weight}, 'opsz' ${Math.max(8, Math.min(144, width))}, 'slnt' ${italic}`;
-        } else if (fontFamily.includes('Source Sans 3')) {
-          span.style.fontVariationSettings = `'wght' ${weight}, 'opsz' ${Math.max(8, Math.min(300, width))}, 'ital' ${italic > 0 ? 1 : 0}`;
-        } else if (fontFamily.includes('Space Grotesk')) {
-          span.style.fontVariationSettings = `'wght' ${weight}`;
-        } else if (fontFamily.includes('Inter')) {
-          span.style.fontVariationSettings = `'wght' ${weight}`;
-        } else {
-          // Try weight variation as fallback for any font
-          span.style.fontVariationSettings = `'wght' ${weight}`;
-        }
-      } else if (config.fontFamily.includes('Recursive')) {
-        span.style.fontVariationSettings = `'wght' ${weight}`;
-      } else if (config.fontFamily.includes('Roboto Flex')) {
-        span.style.fontVariationSettings = `'wght' ${weight}, 'opsz' ${Math.max(8, Math.min(144, width))}, 'slnt' ${italic}`;
-      } else if (config.fontFamily.includes('Source Sans 3')) {
-        span.style.fontVariationSettings = `'wght' ${weight}, 'opsz' ${Math.max(8, Math.min(300, width))}, 'ital' ${italic > 0 ? 1 : 0}`;
-      } else if (config.fontFamily.includes('Space Grotesk')) {
-        span.style.fontVariationSettings = `'wght' ${weight}`;
-      } else if (config.fontFamily.includes('Inter')) {
-        span.style.fontVariationSettings = `'wght' ${weight}`;
-      } else {
-        // Fallback for other fonts - try weight variation
-        span.style.fontVariationSettings = `'wght' ${weight}`;
-      }
+      const fontFamily = this.getDetectedFontFamily(span, config);
+      span.style.fontVariationSettings = this.getFontVariationSettings(fontFamily, weight, width, italic);
     });
   }
 
@@ -601,6 +732,7 @@ class TextPressureAnimator {
   }
 
   destroyElement(element) {
+    try {
     const instance = this.instances.get(element);
     if (!instance) return;
 
@@ -618,17 +750,28 @@ class TextPressureAnimator {
       this.deactivateInstance(instance);
     }
 
+      // Clear font family cache for this element's spans
+      if (instance.charSpans) {
+        instance.charSpans.forEach(span => {
+          this.fontFamilyCache.delete(span);
+        });
+    }
+
     this.removeComponentClasses(element);
     element.innerHTML = '';
     this.instances.delete(element);
-
-
+    } catch (error) {
+      console.error('TextPressure: Failed to destroy element', error);
+    }
   }
 
   destroyAll() {
     this.instances.forEach((instance, element) => {
       this.destroyElement(element);
     });
+    
+    // Clear all font family cache
+    this.fontFamilyCache.clear();
   }
 
   refresh() {

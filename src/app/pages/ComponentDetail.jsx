@@ -379,7 +379,7 @@ const ComponentDetail = () => {
             </div>
           )}
           
-          <div key={reloadKey} className="text-center [&_*]:text-3xl sm:[&_*]:text-4xl lg:[&_*]:text-6xl [&_*]:font-medium" dangerouslySetInnerHTML={{ __html: currentCode }} />
+          <div key={reloadKey} className="text-center [&_*]:font-medium" dangerouslySetInnerHTML={{ __html: currentCode }} />
         </div>
         
         {/* Attribute Editor */}

@@ -22,6 +22,7 @@ const componentCSS = `
   line-height: 1;
   visibility: hidden;
   overflow: visible;
+  vertical-align: top;
 }
 
 .wb-shuffle-parent.wb-shuffle-ready {
@@ -34,13 +35,19 @@ const componentCSS = `
 
 .wb-shuffle-parent.wb-shuffle-completed {
   will-change: auto;
+  vertical-align: top;
+}
+
+.wb-shuffle-parent.wb-shuffle-completed .wb-shuffle-char {
+  vertical-align: top;
 }
 
 .wb-shuffle-char-wrapper {
   display: inline-block;
   overflow: hidden;
-  vertical-align: baseline;
-  position: relative;
+  vertical-align: top;
+  position: static;
+  line-height: 1;
 }
 
 .wb-shuffle-char-wrapper > span {
@@ -49,10 +56,13 @@ const componentCSS = `
   will-change: transform;
 }
 
+/* Ensure SplitText-generated divs behave like inline elements */
 .wb-shuffle-char {
   line-height: 1;
-  display: inline-block;
+  display: inline-block !important;
   text-align: center;
+  vertical-align: top;
+  position: static !important;
 }
 
 /* Performance optimizations */
@@ -60,6 +70,16 @@ const componentCSS = `
   backface-visibility: hidden;
   perspective: 1000px;
   transform-style: preserve-3d;
+}
+
+/* Ensure consistent height during animation */
+.wb-shuffle-parent.wb-shuffle-animating {
+  line-height: 1;
+}
+
+.wb-shuffle-parent.wb-shuffle-animating .wb-shuffle-char-wrapper {
+  vertical-align: top;
+  position: static;
 }
 
 /* Accessibility: Respect reduced motion */
@@ -245,7 +265,8 @@ class ShuffleAnimator {
       display: 'inline-block',
       overflow: 'hidden',
       width: `${width}px`,
-      verticalAlign: 'baseline'
+      height: `${rect.height}px`,
+      verticalAlign: 'top'
     });
 
     // Create inner container
@@ -363,7 +384,8 @@ class ShuffleAnimator {
         wordsClass: 'wb-shuffle-word',
         linesClass: 'wb-shuffle-line',
         smartWrap: true,
-        reduceWhiteSpace: false
+        reduceWhiteSpace: false,
+        absolute: false
       });
 
       instance.splitText = splitText;
@@ -371,7 +393,22 @@ class ShuffleAnimator {
 
       const chars = splitText.chars || [];
 
-      chars.forEach(char => {
+      // Convert divs to spans for better inline behavior and update the chars array
+      const convertedChars = chars.map(char => {
+        if (char.tagName === 'DIV') {
+          const span = document.createElement('span');
+          span.className = char.className;
+          span.innerHTML = char.innerHTML;
+          char.parentNode.replaceChild(span, char);
+          return span;
+        }
+        return char;
+      });
+
+      // Update the splitText.chars reference
+      splitText.chars = convertedChars;
+
+      convertedChars.forEach(char => {
         const structure = this.createCharacterStructure(char, config);
         if (structure) {
           instance.wrappers.push(structure);
@@ -543,13 +580,22 @@ class ShuffleAnimator {
     instance.wrappers.forEach(({ wrapper, inner }) => {
       const originalChar = inner.querySelector('[data-original="1"]');
       if (originalChar && wrapper.parentNode) {
-        // Replace wrapper with original character
-        wrapper.parentNode.replaceChild(originalChar, wrapper);
+        // Ensure consistent styling for the restored character
+        Object.assign(originalChar.style, {
+          display: 'inline-block',
+          verticalAlign: 'top',
+          lineHeight: '1',
+          textAlign: config.textAlign || 'center',
+          position: 'static'
+        });
         
         // Apply final color if specified
         if (config.colorTo) {
           originalChar.style.color = config.colorTo;
         }
+        
+        // Replace wrapper with original character
+        wrapper.parentNode.replaceChild(originalChar, wrapper);
       }
     });
 
