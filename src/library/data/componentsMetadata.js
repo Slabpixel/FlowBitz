@@ -65,7 +65,7 @@ export const componentsMetadata = {
     ],
     example: {
       title: 'Split Text Animation',
-      code: '<h1 wb-component="split-text" wb-split-type="words" wb-stagger-delay="100" class="text-6xl">Create Amazing Websites with Powerful Animations</h1>',
+      code: '<h1 wb-component="split-text" wb-split-type="words" class="text-6xl">Create Amazing Websites with Powerful Animations</h1>',
       description: 'Each word animates separately with customizable split type and timing'
     }
   },
@@ -179,7 +179,7 @@ export const componentsMetadata = {
     ],
     example: {
       title: 'Typewriter Effect',
-      code: '<h1 class="text-6xl"">Learn more about <span wb-component="text-type" wb-typing-speed="100" wb-pause-duration="2000" wb-text-1="Coding" wb-text-2="Webflow" wb-text-3="Animation" class="text-6xl">Coding</span></h1>',
+      code: '<h1 class="text-6xl"">Learn more about <span wb-component="text-type" wb-text-1="Coding" wb-text-2="Webflow" wb-text-3="Animation" class="text-6xl">Coding</span></h1>',
       description: 'Typewriter effect with customizable cursor and timing'
     }
   },
@@ -228,7 +228,7 @@ export const componentsMetadata = {
     ],
     example: {
       title: 'Blur Text Animation',
-      code: '<h1 wb-component="blur-text" wb-animate-by="words" wb-delay="200" class="text-6xl">Blur to Clear</h1>',
+      code: '<h1 wb-component="blur-text" class="text-6xl">Blur to Clear</h1>',
       description: 'Blur-to-clear transition effects with customizable timing'
     }
   },
@@ -402,7 +402,7 @@ export const componentsMetadata = {
     ],
     example: {
       title: 'Decrypted Text Effect',
-      code: '<h1 wb-component="decrypted-text" wb-speed="50" class="text-6xl">SECRET MESSAGE</h1>',
+      code: '<h1 wb-component="decrypted-text" class="text-6xl">SECRET MESSAGE</h1>',
       description: 'Matrix-style decryption effects with customizable characters'
     }
   },
@@ -471,7 +471,7 @@ export const componentsMetadata = {
     ],
     example: {
       title: 'Scramble Text Effect',
-      code: '<p wb-component="scramble-text" wb-radius="100" wb-font="monospace" class="text-2xl max-w-[570px]">Once you hover over me, you will see the effect in action! You can customize the radius, duration, and speed of the scramble effect.</p>',
+      code: '<p wb-component="scramble-text" wb-font="monospace" class="text-2xl max-w-[570px]">Once you hover over me, you will see the effect in action! You can customize the radius, duration, and speed of the scramble effect.</p>',
       description: 'Interactive character scrambling with customizable radius, duration, and speed'
     }
   },
@@ -513,7 +513,7 @@ export const componentsMetadata = {
     ],
     example: {
       title: 'Variable Proximity Effect',
-      code: '<h1 wb-component="variable-proximity" wb-radius="100" wb-from-weight="100" wb-to-weight="900" wb-from-size="8" wb-to-size="144" class="text-4xl max-w-[570px]">Please hover over me to see the amazing variable font effects!</h1>',
+      code: '<h1 wb-component="variable-proximity" class="text-4xl max-w-[570px]">Please hover over me to see the amazing variable font effects!</h1>',
       description: 'Mouse proximity font variations with customizable weight and size sliders'
     }
   },
@@ -710,7 +710,7 @@ export const componentsMetadata = {
     ],
     example: {
       title: 'Text Pressure Effect',
-      code: '<h1 wb-component="text-pressure" wb-font-family="Compressa VF" wb-min-font-weight="100" wb-max-font-weight="900" class="text-[160px] w-[570px]">PRESSURE!</h1>',
+      code: '<h1 wb-component="text-pressure" wb-font-family="Compressa VF" class="text-[160px] w-[570px]">PRESSURE!</h1>',
       description: 'Mouse proximity font variations with Compressa VF variable font'
     }
   },
@@ -885,7 +885,7 @@ export const componentsMetadata = {
     ],
     example: {
       title: 'Shuffle Text Effect',
-      code: '<h1 wb-component="shuffle" wb-shuffle-direction="right" wb-duration="0.35" class="text-6xl">Create Amazing Websites With Powerful Animations</h1>',
+      code: '<h1 wb-component="shuffle" class="text-6xl">Create Amazing Websites With Powerful Animations</h1>',
       description: 'Character-based sliding shuffle effects with customizable direction'
     }
   },
