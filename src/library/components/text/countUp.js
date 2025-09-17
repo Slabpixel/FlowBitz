@@ -1,11 +1,14 @@
 import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { injectStyles } from '../../utils/core/injectStyles.js';
 import { parseElementConfig, commonAttributeMaps, mergeAttributeMaps } from '../../utils/core/attributeParser.js';
 import { ComponentClassManager, webflowBitsClasses } from '../../utils/core/classManager.js';
 import { checkCSSConflicts, componentClassSets } from '../../utils/core/conflictDetector.js';
+import { createOnceAnimationConfig } from '../../utils/animation/scrollTriggerHelper.js';
+import { AnimationStateManager, PerformanceOptimizer } from '../../utils/animation/animationStateManager.js';
 
 // Register GSAP plugins
-gsap.registerPlugin();
+gsap.registerPlugin(ScrollTrigger);
 
 // Inject component-specific CSS with unique namespace
 const componentCSS = `
@@ -60,7 +63,7 @@ class CountUpAnimator {
       startWhen: true,
       ease: 'power2.out',
       threshold: 0.1,
-      rootMargin: '0px',
+      rootMargin: '100px',
       loop: false,
       precision: null // auto-detect decimal places
     };
@@ -111,7 +114,7 @@ class CountUpAnimator {
         separator: { attribute: 'wb-count-separator', type: 'string' },
         startWhen: { attribute: 'wb-count-start', type: 'boolean' },
         loop: { attribute: 'wb-count-loop', type: 'boolean' },
-        precision: { attribute: 'wb-count-precision', type: 'number', parser: parseInt, min: 0, max: 10 }
+        precision: { attribute: 'wb-count-precision', type: 'number', parser: parseInt, min: 0, max: 2 }
       }
     );
     
@@ -194,6 +197,7 @@ class CountUpAnimator {
         currentValue: config.direction === 'down' ? config.to : config.from,
         isAnimating: false,
         observer: null,
+        scrollTrigger: null,
         tween: null,
         addedClasses: []
       };
@@ -214,8 +218,49 @@ class CountUpAnimator {
       // Set initial value
       this.updateDisplayValue(instance, instance.currentValue);
 
-      // Setup intersection observer
-      this.setupIntersectionObserver(instance);
+      // Apply performance optimizations
+      PerformanceOptimizer.optimizeForAnimation(element);
+
+      // Create ScrollTrigger config using utility
+      const scrollTriggerConfig = createOnceAnimationConfig(
+        element,
+        config,
+        (self) => {
+          instance.scrollTrigger = self;
+        }
+      );
+
+      // Create timeline with context for cleanup
+      return gsap.context(() => {
+        const timeline = gsap.timeline({
+          scrollTrigger: scrollTriggerConfig,
+          onComplete: () => {
+            // Apply completed state
+            ComponentClassManager.setAnimationState(
+              element, 
+              'completed', 
+              'wb-count-up', 
+              this.instances, 
+              this.componentName
+            );
+          }
+        });
+
+        // Start the count up animation when scroll trigger activates
+        timeline.call(() => {
+          if (config.startWhen) {
+            this.startAnimation(instance);
+          }
+        });
+
+        // Dispatch initialization event using utility
+        AnimationStateManager.dispatchLifecycleEvent(
+          element, 
+          'init', 
+          'count-up',
+          { instance }
+        );
+      }, element);
 
       console.log('WebflowBits CountUp: Element initialized', { element, config });
 
@@ -416,10 +461,18 @@ class CountUpAnimator {
         instance.tween.kill();
       }
 
-      // Disconnect observer
+      // Kill ScrollTrigger
+      if (instance.scrollTrigger) {
+        instance.scrollTrigger.kill();
+      }
+
+      // Disconnect observer (for backward compatibility)
       if (instance.observer) {
         instance.observer.disconnect();
       }
+
+      // Kill GSAP context
+      gsap.killTweensOf(element);
 
       // Restore original content
       const finalValue = this.formatNumber(

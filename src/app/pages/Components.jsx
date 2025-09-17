@@ -25,9 +25,9 @@ const Components = () => {
   return (
     <>
       <SEO 
-        title="Components Library - FlowBitz"
-        description="Explore our comprehensive library of 16+ interactive components designed specifically for Webflow. Free, easy to use, and performance optimized."
-        keywords="webflow components, interactive components, text animations, webflow library, split text, gradient text, webflow effects, free components"
+        title="Free Webflow Animation Components Library | 16+ GSAP Components - FlowBitz"
+        description="Browse 16+ professional animation components for Webflow. Text effects, hover animations, scroll triggers - all powered by GSAP. Zero coding required, completely free."
+        keywords="webflow components library, webflow animation components, webflow text effects, webflow hover effects, webflow scroll animations, webflow gsap components, free webflow components, webflow split text, webflow gradient text, webflow typewriter effect, webflow interactive components, webflow animation library, webflow effects library, webflow animation tools, webflow animation examples, webflow animation code, webflow animation tutorials, webflow animation solutions, webflow animation alternatives, webflow animation problems, webflow animation limitations"
         image="https://slabpixel.dev/images/FlowBitz-OpenGraph.webp"
         url="https://flowbitz.dev/components"
         structuredData={structuredData}
@@ -40,28 +40,33 @@ const Components = () => {
         {/* Main Content */}
         <main className="flex flex-col p-4 sm:p-8 lg:p-16 w-full items-center lg:overflow-y-auto lg:h-full">
           <div className="w-full max-w-[970px] mb-6 sm:mb-8">
-            <h1 className="text-3xl sm:text-4xl font-bold mb-2 text-foreground">Introduction</h1>
-            <p className="text-muted-foreground text-base sm:text-lg">Explore our library of interactive components</p>
+            <h1 className="text-3xl sm:text-4xl font-bold mb-2 text-foreground">Free Webflow Animation Components</h1>
+            <p className="text-muted-foreground text-base sm:text-lg">16+ professional GSAP-powered components that solve Webflow's animation limitations</p>
           </div>
 
           {/* Introduction Content */}
           <div className="w-full max-w-[970px]">
             <div className="mb-8 sm:mb-12">
-              <h2 className="text-xl sm:text-2xl font-semibold mb-4 sm:mb-6 text-foreground">FlowBitz</h2>
+              <h2 className="text-xl sm:text-2xl font-semibold mb-4 sm:mb-6 text-foreground">Solving Webflow's Animation Problem</h2>
               <p className="text-muted-foreground text-base sm:text-lg leading-relaxed mb-4">
-                FlowBitz is an open-source collection of carefully designed interactive components that enhance your Webflow projects.
-                This is not your typical component library, which means you won't find a set of generic buttons, inputs, or other common UI elements here.
-                These components are designed to help you stand out and make a statement visually by adding a touch of creativity to your Webflow sites.
+                FlowBitz bridges the gap between Webflow's basic native animations and professional GSAP effects. 
+                Instead of struggling with limited animation options or expensive custom development, you get access to 
+                industry-standard animations through simple HTML attributes - no JavaScript knowledge required.
               </p>
             </div>
 
             <div className="mb-8 sm:mb-12">
-              <h3 className="text-xl sm:text-2xl font-semibold mb-3 sm:mb-4 text-foreground">Mission</h3>
+              <h3 className="text-xl sm:text-2xl font-semibold mb-3 sm:mb-4 text-foreground">Why FlowBitz Exists</h3>
               <p className="text-muted-foreground text-base sm:text-lg leading-relaxed mb-4">
-                The goal of FlowBitz is simple - provide flexible, visually stunning and most importantly, free components that take your Webflow projects to the next level.
+                <strong>The Problem:</strong> Webflow's native animations are limited. Creating professional-grade effects requires 
+                expensive custom GSAP development that most designers can't afford or implement.
+              </p>
+              <p className="text-muted-foreground text-base sm:text-lg leading-relaxed mb-4">
+                <strong>Our Solution:</strong> FlowBitz democratizes advanced web animations by providing pre-built, GSAP-powered 
+                components that work through simple HTML attributes. Professional results without the complexity or cost.
               </p>
               <p className="text-muted-foreground text-base sm:text-lg leading-relaxed">
-                To make that happen, the project is committed to the following principles:
+                <strong>Our Commitment:</strong> We're dedicated to these core principles:
               </p>
             </div>
 
@@ -70,32 +75,32 @@ const Components = () => {
                 <div className="w-12 h-12 bg-gradient-to-br from-green-500 to-green-600 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
                   <Gift className="w-6 h-6 text-white" />
                 </div>
-                <h4 className="text-lg sm:text-xl font-semibold mb-2 sm:mb-3 text-foreground">Free For All</h4>
-                <p className="text-muted-foreground text-sm sm:text-base leading-relaxed">Every component you choose to add to your Webflow project is yours to modify or extend, with full access to the code and complete customization freedom.</p>
+                <h4 className="text-lg sm:text-xl font-semibold mb-2 sm:mb-3 text-foreground">100% Free Forever</h4>
+                <p className="text-muted-foreground text-sm sm:text-base leading-relaxed">Unlike expensive animation libraries, FlowBitz is completely free with no premium tiers, hidden costs, or usage limits. Professional animations shouldn't be a luxury.</p>
               </div>
               
               <div className="group relative p-6 bg-background/60 backdrop-blur-sm rounded-2xl border border-border/50 hover:border-primary/30 transition-all duration-300 hover:shadow-lg hover:shadow-primary/10">
                 <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
                   <Settings className="w-6 h-6 text-white" />
                 </div>
-                <h4 className="text-lg sm:text-xl font-semibold mb-2 sm:mb-3 text-foreground">Webflow-Friendly</h4>
-                <p className="text-muted-foreground text-sm sm:text-base leading-relaxed">Every component is designed to work seamlessly with Webflow's visual editor, using HTML attributes and custom code that integrates perfectly with your existing designs.</p>
+                <h4 className="text-lg sm:text-xl font-semibold mb-2 sm:mb-3 text-foreground">No Coding Required</h4>
+                <p className="text-muted-foreground text-sm sm:text-base leading-relaxed">Unlike manual GSAP coding, FlowBitz works through simple HTML attributes. Perfect for designers who want professional animations without learning JavaScript.</p>
               </div>
               
               <div className="group relative p-6 bg-background/60 backdrop-blur-sm rounded-2xl border border-border/50 hover:border-primary/30 transition-all duration-300 hover:shadow-lg hover:shadow-primary/10">
                 <div className="w-12 h-12 bg-gradient-to-br from-purple-500 to-purple-600 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
                   <Copy className="w-6 h-6 text-white" />
                 </div>
-                <h4 className="text-lg sm:text-xl font-semibold mb-2 sm:mb-3 text-foreground">Copy & Paste Ready</h4>
-                <p className="text-muted-foreground text-sm sm:text-base leading-relaxed">FlowBitz components are designed for easy integration - simply copy the code and paste it into your Webflow project's custom code section or embed it directly.</p>
+                <h4 className="text-lg sm:text-xl font-semibold mb-2 sm:mb-3 text-foreground">One Script Installation</h4>
+                <p className="text-muted-foreground text-sm sm:text-base leading-relaxed">Just add one script tag to your Webflow project and start using components immediately. No complex setup, no multiple files to manage - just one simple integration.</p>
               </div>
               
               <div className="group relative p-6 bg-background/60 backdrop-blur-sm rounded-2xl border border-border/50 hover:border-primary/30 transition-all duration-300 hover:shadow-lg hover:shadow-primary/10">
                 <div className="w-12 h-12 bg-gradient-to-br from-pink-500 to-pink-600 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
                   <Palette className="w-6 h-6 text-white" />
                 </div>
-                <h4 className="text-lg sm:text-xl font-semibold mb-2 sm:mb-3 text-foreground">Design Freedom</h4>
-                <p className="text-muted-foreground text-sm sm:text-base leading-relaxed">Whether you're using Webflow's visual editor or custom code, these components adapt to your workflow and give you complete creative control over your projects.</p>
+                <h4 className="text-lg sm:text-xl font-semibold mb-2 sm:mb-3 text-foreground">Industry-Standard GSAP</h4>
+                <p className="text-muted-foreground text-sm sm:text-base leading-relaxed">Built on the same GSAP engine used by top agencies and Fortune 500 companies. Get professional-grade performance and reliability without the complexity.</p>
               </div>
             </div>
 

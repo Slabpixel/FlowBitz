@@ -1136,13 +1136,25 @@ export const getAllComponentKeys = () => {
 }
 
 /**
+ * Get filtered component keys (excluding disabled components)
+ */
+export const getFilteredComponentKeys = () => {
+  // Temporarily disabled components
+  const disabledComponents = ['shape-blur', 'image-trail', 'magnet-lines', 'text-cursor']
+  
+  return Object.keys(componentsMetadata).filter(key => 
+    !disabledComponents.includes(key)
+  )
+}
+
+/**
  * Get installation requirements for all components
  */
 export const getInstallationRequirements = () => {
   return {
     basic: {
       description: 'Single script tag - works for all components',
-      script: '<script src="https://flowbitz.dev/flowbitz.umd.js"></script>',
+      script: '<script src="https://flowbitz.dev/latest/flowbitz.umd.js"></script>',
       includes: [
         'GSAP and all plugins (bundled)',
         'Three.js auto-loading (for shape-blur)',

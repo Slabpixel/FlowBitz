@@ -1,10 +1,10 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import { Github, Heart, ExternalLink, Layers, HelpCircle, User, MessageSquare, Sparkles, Download, Bug, MessageCircle, FileText, Home } from 'lucide-react'
-import { getAllComponentKeys } from '../../../library/data/componentsMetadata.js'
+import { getFilteredComponentKeys } from '../../../library/data/componentsMetadata.js'
 
 const Footer = () => {
-  const componentCount = getAllComponentKeys().length
+  const componentCount = getFilteredComponentKeys().length
 
   const handleGitHub = () => {
     window.open('https://github.com/Slabpixel/FlowBitz', '_blank')
