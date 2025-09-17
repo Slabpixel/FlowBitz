@@ -155,10 +155,10 @@ const Components = () => {
                 <Button 
                   size="lg" 
                   className="bg-primary hover:bg-primary/90 text-white px-8 py-3"
-                  onClick={() => navigate('/components/split-text')}
+                  onClick={() => navigate('/installation')}
                 >
                   <Zap className="w-5 h-5" />
-                  Explore Component
+                  FlowBitz Installation
                 </Button>
               </div>
             </div>

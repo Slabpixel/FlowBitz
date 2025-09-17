@@ -1,7 +1,7 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Button } from '../components/ui/button.jsx'
-import { Zap, Plus, Layers, Github } from 'lucide-react'
+import { Zap, Plus, Layers, Github, ArrowRight } from 'lucide-react'
 import Three3D from '../components/ui/three-3d.jsx'
 import SEO from '../components/SEO.jsx'
 import { getFilteredComponentKeys } from '../../library/data/componentsMetadata.js'
@@ -12,6 +12,10 @@ const Home = () => {
 
   const handleGitHub = () => {
     window.open('https://github.com/Slabpixel/FlowBitz', '_blank')
+  }
+
+  const handleGetStarted = () => {
+    navigate('/components')
   }
 
   const structuredData = {
@@ -92,10 +96,10 @@ const Home = () => {
                 variant="outline" 
                 size="lg" 
                 className="border-border hover:bg-accent w-full sm:w-auto"
-                onClick={handleGitHub}
+                onClick={handleGetStarted}
               >
-                <Github className="w-4 h-4 sm:w-5 sm:h-5" />
-                <span>GitHub</span>
+                <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5" />
+                <span>Get Started</span>
               </Button>
             </div>
 
@@ -266,16 +270,16 @@ const Home = () => {
                 onClick={() => navigate('/components/split-text')}
               >
                 <Zap className="w-4 h-4 sm:w-5 sm:h-5" />
-                <span className="ml-2">Explore Components</span>
+                <span>Explore Components</span>
               </Button>
               <Button 
                 variant="outline" 
                 size="lg" 
                 className="border-border hover:bg-accent w-full sm:w-auto"
-                onClick={handleGitHub}
+                onClick={handleGetStarted}
               >
-                <Github className="w-4 h-4 sm:w-5 sm:h-5" />
-                <span className="ml-2">GitHub</span>
+                <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5" />
+                <span>Get Started</span>
               </Button>
             </div>
           </div>

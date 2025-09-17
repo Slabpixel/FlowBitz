@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../components/ui/card.jsx'
 import { Button } from '../components/ui/button.jsx'
 import { Badge } from '../components/ui/badge.jsx'
-import { ChevronDown, ChevronUp, Search, HelpCircle, MessageSquare, ExternalLink, Github, Bug, Heart } from 'lucide-react'
+import { ChevronDown, ChevronUp, Search, HelpCircle, MessageSquare, ExternalLink, Github, Bug, Heart, Wrench, Lightbulb, Palette, Settings, HelpCircle as GeneralHelp } from 'lucide-react'
 import Sidebar from '../components/layout/Sidebar.jsx'
 import SEO from '../components/SEO.jsx'
 import { useNavigate } from 'react-router-dom'
@@ -20,11 +20,11 @@ const FAQ = () => {
   }
 
   const faqCategories = [
-    { key: 'installation', label: 'Installation', icon: '🔧' },
-    { key: 'usage', label: 'Usage', icon: '💡' },
-    { key: 'customization', label: 'Customization', icon: '🎨' },
-    { key: 'troubleshooting', label: 'Troubleshooting', icon: '🔧' },
-    { key: 'general', label: 'General', icon: '❓' }
+    { key: 'installation', label: 'Installation', icon: Wrench },
+    { key: 'usage', label: 'Usage', icon: Lightbulb },
+    { key: 'customization', label: 'Customization', icon: Palette },
+    { key: 'troubleshooting', label: 'Troubleshooting', icon: Settings },
+    { key: 'general', label: 'General', icon: GeneralHelp }
   ]
 
   const faqItems = [
@@ -238,9 +238,9 @@ const FAQ = () => {
                   <div key={category.key} className="space-y-4">
                     {/* Category Header */}
                     <div className="flex items-center gap-3 mb-4">
-                      <span className="text-2xl">{category.icon}</span>
+                      <category.icon className="w-6 h-6 text-primary" />
                       <h3 className="text-xl sm:text-2xl font-semibold text-foreground">{category.label}</h3>
-                      <Badge variant="secondary" className="ml-2">
+                      <Badge variant="secondary">
                         {category.items.length}
                       </Badge>
                     </div>

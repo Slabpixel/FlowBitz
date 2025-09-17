@@ -7,6 +7,7 @@ import ScrollToTop from './components/ScrollToTop'
 import Home from './pages/Home'
 import Components from './pages/Components'
 import ComponentDetail from './pages/ComponentDetail'
+import Installation from './pages/Installation'
 import About from './pages/About'
 import Support from './pages/Support'
 import Showcase from './pages/Showcase'
@@ -33,6 +34,7 @@ function App() {
               <Route path="/" element={<Home />} />
               <Route path="/components" element={<Components />} />
               <Route path="/components/:componentName" element={<ComponentDetail />} />
+              <Route path="/installation" element={<Installation />} />
               <Route path="/about" element={<About />} />
               <Route path="/support" element={<Support />} />
               <Route path="/faq" element={<FAQ />} />
