@@ -76,8 +76,7 @@ const Home = () => {
                 wb-text-5="Everyone">Webflow</span></div>
             </h1>
             <p className="text-base sm:text-lg lg:text-xl text-muted-foreground leading-relaxed">
-              Bridge the gap between Webflow's basic animations and professional GSAP effects. 
-              Add stunning text animations, interactive effects, and scroll triggers with simple HTML attributes - no JavaScript knowledge required.
+            Bridge Webflow's animation limitations with professional GSAP effects. Add stunning text animations and interactive effects using simple HTML attributes - no coding required.
             </p>
             
             <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
@@ -185,7 +184,7 @@ const Home = () => {
       <section className="bg-background py-12 sm:py-16 lg:py-20 px-4 sm:px-6 lg:px-8">
         <div className="max-w-6xl mx-auto">
           <div className="flex flex-col items-center justify-center text-center mb-12 sm:mb-16">
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4 sm:mb-6">
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4 sm:mb-6 max-w-3xl">
               Why <span wb-component="gradient-text">FlowBitz</span> Solves Your Animation Problems
             </h2>
             <p className="text-lg sm:text-xl text-muted-foreground max-w-2xl mx-auto">
@@ -254,7 +253,7 @@ const Home = () => {
       <section className="bg-background pt-12 sm:pt-16 lg:pt-20 pb-20 sm:pb-32 lg:pb-40 px-4 sm:px-6 lg:px-8">
         <div className="max-w-6xl mx-auto text-center">
           <div className="flex flex-col items-center justify-center">
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4 sm:mb-6 text-foreground">
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4 sm:mb-6 text-foreground max-w-2xl">
               Ready to <span wb-component="gradient-text">Transform</span> Your Webflow Projects?
             </h2>
             <p className="text-lg sm:text-xl text-muted-foreground mb-6 sm:mb-8 max-w-2xl">

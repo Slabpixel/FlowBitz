@@ -4,9 +4,11 @@ import { Button } from '../components/ui/button.jsx'
 import { Zap, Gift, Settings, Copy, Palette, Heart } from 'lucide-react'
 import Sidebar from '../components/layout/Sidebar.jsx'
 import SEO from '../components/SEO.jsx'
+import { getFilteredComponentKeys } from '../../library/data/componentsMetadata.js'
 
 const Components = () => {
   const navigate = useNavigate()
+  const componentCount = getFilteredComponentKeys().length
 
   const structuredData = {
     "@context": "https://schema.org",
@@ -41,7 +43,7 @@ const Components = () => {
         <main className="flex flex-col p-4 sm:p-8 lg:p-16 w-full items-center lg:overflow-y-auto lg:h-full">
           <div className="w-full max-w-[970px] mb-6 sm:mb-8">
             <h1 className="text-3xl sm:text-4xl font-bold mb-2 text-foreground">Free Webflow Animation Components</h1>
-            <p className="text-muted-foreground text-base sm:text-lg">16+ professional GSAP-powered components that solve Webflow's animation limitations</p>
+            <p className="text-muted-foreground text-base sm:text-lg">{componentCount}+ professional GSAP-powered components that solve Webflow's animation limitations</p>
           </div>
 
           {/* Introduction Content */}
@@ -116,7 +118,7 @@ const Components = () => {
                     <Zap className="w-6 h-6 text-white" />
                   </div>
                   <h4 className="text-lg sm:text-xl font-semibold mb-2 sm:mb-3 text-foreground">Less Is More</h4>
-                  <p className="text-muted-foreground text-sm sm:text-base leading-relaxed">Using more than 2-3 components on a page is not advised, as it can overload your Webflow site with animations, potentially impacting performance or user experience</p>
+                  <p className="text-muted-foreground text-sm sm:text-base leading-relaxed">Using more than 5 components on a page is not advised, as it can overload your Webflow site with animations, potentially impacting performance or user experience</p>
                 </div>
                 
                 <div className="group relative p-6 bg-background/60 backdrop-blur-sm rounded-2xl border border-border/50 hover:border-primary/30 transition-all duration-300 hover:shadow-lg hover:shadow-primary/10">
