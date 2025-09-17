@@ -31,7 +31,7 @@ const FAQ = () => {
     // Installation
     {
       question: "How do I install FlowBitz components?",
-      answer: "Installing FlowBitz is simple! Just add the script tag to your Webflow project's custom code section and add the wb-component attribute to your elements. Check our detailed installation guide for step-by-step instructions.",
+      answer: "Installing FlowBitz is incredibly simple! Just add one script tag to your Webflow project's custom code section, then add HTML attributes to any element. No complex setup, no multiple files - just one script and you're ready to add professional GSAP animations.",
       category: "installation"
     },
     {
@@ -53,7 +53,7 @@ const FAQ = () => {
     // Usage
     {
       question: "Do I need to know JavaScript to use FlowBitz?",
-      answer: "No! FlowBitz is designed to work with simple HTML attributes. No JavaScript knowledge is required - just add the attributes to your Webflow elements and the animations will work automatically.",
+      answer: "Absolutely not! FlowBitz is specifically designed for designers who want professional animations without coding. Just add HTML attributes to your Webflow elements - no JavaScript knowledge required. This is what makes FlowBitz different from manual GSAP coding.",
       category: "usage"
     },
     {
@@ -119,7 +119,7 @@ const FAQ = () => {
     // General
     {
       question: "Are FlowBitz components free to use?",
-      answer: "Yes! All FlowBitz components are completely free and open-source. You can use, modify, and distribute them without any restrictions or hidden costs.",
+      answer: "Yes! FlowBitz is 100% free forever with no premium tiers, hidden costs, or usage limits. Unlike expensive animation libraries, we believe professional web animations shouldn't be a luxury. You can use, modify, and distribute them without any restrictions.",
       category: "general"
     },
     {

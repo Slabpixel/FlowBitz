@@ -7,8 +7,17 @@ const Sidebar = ({ showBackLink = false }) => {
   const location = useLocation()
   const [isComponentsOpen, setIsComponentsOpen] = useState(false)
   const componentsByCategory = getComponentsByCategory()
-  const textComponents = componentsByCategory.text
-  const interactiveComponents = componentsByCategory.interactive
+  
+  // Temporarily disabled components (same as in componentsMetadata.js)
+  const disabledComponents = ['shape-blur', 'image-trail', 'magnet-lines', 'text-cursor']
+  
+  // Filter out disabled components
+  const textComponents = componentsByCategory.text.filter(component => 
+    !disabledComponents.includes(component.key)
+  )
+  const interactiveComponents = componentsByCategory.interactive.filter(component => 
+    !disabledComponents.includes(component.key)
+  )
 
   // Get current component name from URL
   const getCurrentComponentName = () => {
@@ -124,7 +133,7 @@ const Sidebar = ({ showBackLink = false }) => {
                 </ul>
               </div>
               
-              <div className="category">
+              <div className="category hidden">
                 <h4 className="text-xs sm:text-sm font-medium text-muted-foreground mb-2">
                   Interactive Components ({interactiveComponents.length})
                 </h4>

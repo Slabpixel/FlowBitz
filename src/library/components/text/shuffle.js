@@ -107,7 +107,7 @@ class ShuffleAnimator {
       maxDelay: 0,
       ease: "power3.out",
       threshold: 0.1,
-      rootMargin: "-100px",
+      rootMargin: "100px",
       shuffleTimes: 1,
       animationMode: "evenodd",
       loop: false,
@@ -253,10 +253,29 @@ class ShuffleAnimator {
     const parent = char.parentElement;
     if (!parent) return null;
 
-    // Get character width
-    const rect = char.getBoundingClientRect();
+    // Add safety check to prevent processing elements with zero dimensions
+    if (!char.offsetParent && char.offsetWidth === 0 && char.offsetHeight === 0) {
+      console.warn('WebflowBits Shuffle: Character has zero dimensions, skipping');
+      return null;
+    }
+
+    // Get character width with error handling
+    let rect;
+    try {
+      rect = char.getBoundingClientRect();
+    } catch (error) {
+      console.warn('WebflowBits Shuffle: Error getting bounding rect', error);
+      return null;
+    }
+    
     const width = rect.width;
-    if (!width) return null;
+    const height = rect.height;
+    
+    // Skip if dimensions are invalid
+    if (!width || !height || width <= 0 || height <= 0) {
+      console.warn('WebflowBits Shuffle: Invalid character dimensions', { width, height });
+      return null;
+    }
 
     // Create wrapper
     const wrapper = document.createElement('span');
@@ -265,7 +284,7 @@ class ShuffleAnimator {
       display: 'inline-block',
       overflow: 'hidden',
       width: `${width}px`,
-      height: `${rect.height}px`,
+      height: `${height}px`,
       verticalAlign: 'top'
     });
 
@@ -681,8 +700,20 @@ class ShuffleAnimator {
    * Initialize element with shuffle animation
    */
   async initElement(element) {
+    // Add safety check to ensure this is actually a shuffle element
+    if (element.getAttribute('wb-component') !== 'shuffle') {
+      console.warn('WebflowBits Shuffle: Element does not have wb-component="shuffle"', element);
+      return;
+    }
+
     if (this.instances.has(element)) {
       console.warn('WebflowBits Shuffle: Element already initialized');
+      return;
+    }
+
+    // Additional safety check to prevent multiple initializations
+    if (element.classList.contains('wb-shuffle-parent')) {
+      console.warn('WebflowBits Shuffle: Element already has shuffle classes, skipping initialization');
       return;
     }
 
@@ -703,8 +734,11 @@ class ShuffleAnimator {
         return;
       }
 
-      // Wait for fonts to load
-      await this.waitForFonts();
+      // Wait for fonts to load with timeout to prevent hanging
+      await Promise.race([
+        this.waitForFonts(),
+        new Promise(resolve => setTimeout(resolve, 1000)) // 1 second timeout
+      ]);
 
       // Create instance
       const instance = {

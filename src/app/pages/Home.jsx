@@ -4,11 +4,11 @@ import { Button } from '../components/ui/button.jsx'
 import { Zap, Plus, Layers, Github } from 'lucide-react'
 import Three3D from '../components/ui/three-3d.jsx'
 import SEO from '../components/SEO.jsx'
-import { getAllComponentKeys } from '../../library/data/componentsMetadata.js'
+import { getFilteredComponentKeys } from '../../library/data/componentsMetadata.js'
 
 const Home = () => {
   const navigate = useNavigate()
-  const componentCount = getAllComponentKeys().length
+  const componentCount = getFilteredComponentKeys().length
 
   const handleGitHub = () => {
     window.open('https://github.com/Slabpixel/FlowBitz', '_blank')
@@ -17,13 +17,14 @@ const Home = () => {
   const structuredData = {
     "@context": "https://schema.org",
     "@type": "WebSite",
-    "name": "FlowBitz",
-    "description": "Create stunning animations and interactive effects with FlowBitz - a powerful library of 16+ components designed specifically for Webflow. Easy to use, performant, and completely free.",
+    "name": "FlowBitz - Free GSAP Animation Components for Webflow",
+    "description": `Transform your Webflow projects with ${componentCount}+ professional animation components. Zero JavaScript knowledge needed - just add HTML attributes. GSAP-powered, mobile-responsive, and completely free.`,
     "url": "https://flowbitz.dev",
     "publisher": {
       "@type": "Organization",
       "name": "SlabPixel Studio",
-      "url": "https://slabpixel.com"
+      "url": "https://slabpixel.com",
+      "description": "Creative studio specializing in web development and Webflow solutions"
     },
     "potentialAction": {
       "@type": "SearchAction",
@@ -34,16 +35,17 @@ const Home = () => {
       "@type": "Offer",
       "price": "0",
       "priceCurrency": "USD",
-      "description": "Free interactive components for Webflow"
-    }
+      "description": "Free GSAP animation components for Webflow - no coding required"
+    },
+    "keywords": "webflow animations, webflow components, gsap webflow, webflow text effects, webflow animation library, free webflow components"
   }
 
   return (
     <>
       <SEO 
-        title="FlowBitz - Interactive Components for Webflow"
-        description="Create stunning animations and interactive effects with FlowBitz - a powerful library of 16+ components designed specifically for Webflow. Easy to use, performant, and completely free."
-        keywords="webflow, components, animations, gsap, interactive, text effects, webflow library, webflow components, webflow animations, split text, gradient text, webflow plugins, free webflow components"
+        title="FlowBitz - Free GSAP Animation Components for Webflow | No Coding Required"
+        description={`Transform your Webflow projects with ${componentCount}+ professional animation components. Zero JavaScript knowledge needed - just add HTML attributes. GSAP-powered, mobile-responsive, and completely free.`}
+        keywords="webflow animations, webflow components, gsap webflow, webflow text effects, webflow animation library, free webflow components, webflow split text, webflow gradient text, webflow typewriter effect, webflow interactive components, webflow animation plugins, webflow gsap integration, webflow animation tools, webflow effects library, webflow animation components, webflow text animations, webflow hover effects, webflow scroll animations, webflow animation code, webflow animation examples"
         image="https://slabpixel.dev/images/FlowBitz-OpenGraph.webp"
         url="https://flowbitz.dev"
         structuredData={structuredData}
@@ -74,8 +76,8 @@ const Home = () => {
                 wb-text-5="Everyone">Webflow</span></div>
             </h1>
             <p className="text-base sm:text-lg lg:text-xl text-muted-foreground leading-relaxed">
-              Create stunning animations and interactive effects with our powerful library components. 
-              Easy to use, performant, and designed specifically for Webflow.
+              Bridge the gap between Webflow's basic animations and professional GSAP effects. 
+              Add stunning text animations, interactive effects, and scroll triggers with simple HTML attributes - no JavaScript knowledge required.
             </p>
             
             <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
@@ -184,10 +186,10 @@ const Home = () => {
         <div className="max-w-6xl mx-auto">
           <div className="flex flex-col items-center justify-center text-center mb-12 sm:mb-16">
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4 sm:mb-6">
-              <span wb-component="gradient-text">Powerful</span> Features
+              Why <span wb-component="gradient-text">FlowBitz</span> Solves Your Animation Problems
             </h2>
             <p className="text-lg sm:text-xl text-muted-foreground max-w-2xl mx-auto">
-              Everything you need to create engaging web experiences
+              Stop struggling with Webflow's limited animations. Get professional GSAP effects without coding.
             </p>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
@@ -195,24 +197,24 @@ const Home = () => {
               <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
                 <Layers className="w-6 h-6 text-white" />
               </div>
-              <h3 className="text-lg sm:text-xl font-semibold mb-2 sm:mb-3 text-foreground">{componentCount} Components</h3>
-              <p className="text-sm sm:text-base text-muted-foreground">Comprehensive library of text animations and interactive effects</p>
+              <h3 className="text-lg sm:text-xl font-semibold mb-2 sm:mb-3 text-foreground">{componentCount} Ready-to-Use Components</h3>
+              <p className="text-sm sm:text-base text-muted-foreground">Professional text animations, hover effects, and scroll triggers - no coding required</p>
             </div>
             
             <div className="group relative p-6 bg-background/60 backdrop-blur-sm rounded-2xl border border-border/50 hover:border-primary/30 transition-all duration-300 hover:shadow-lg hover:shadow-primary/10">
               <div className="w-12 h-12 bg-gradient-to-br from-yellow-500 to-orange-500 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
                 <Zap className="w-6 h-6 text-white" />
               </div>
-              <h3 className="text-lg sm:text-xl font-semibold mb-2 sm:mb-3 text-foreground">GSAP Powered</h3>
-              <p className="text-sm sm:text-base text-muted-foreground">Built on industry-standard animation library for smooth performance</p>
+              <h3 className="text-lg sm:text-xl font-semibold mb-2 sm:mb-3 text-foreground">GSAP-Powered Performance</h3>
+              <p className="text-sm sm:text-base text-muted-foreground">Industry-standard animation engine ensures smooth 60fps animations across all devices</p>
             </div>
             
             <div className="group relative p-6 bg-background/60 backdrop-blur-sm rounded-2xl border border-border/50 hover:border-primary/30 transition-all duration-300 hover:shadow-lg hover:shadow-primary/10">
               <div className="w-12 h-12 bg-gradient-to-br from-green-500 to-green-600 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
                 <Plus className="w-6 h-6 text-white" />
               </div>
-              <h3 className="text-lg sm:text-xl font-semibold mb-2 sm:mb-3 text-foreground">Easy Integration</h3>
-              <p className="text-sm sm:text-base text-muted-foreground">Simple HTML attributes - no complex JavaScript required</p>
+              <h3 className="text-lg sm:text-xl font-semibold mb-2 sm:mb-3 text-foreground">Zero JavaScript Required</h3>
+              <p className="text-sm sm:text-base text-muted-foreground">Just add HTML attributes to any Webflow element - no coding knowledge needed</p>
             </div>
             
             <div className="group relative p-6 bg-background/60 backdrop-blur-sm rounded-2xl border border-border/50 hover:border-primary/30 transition-all duration-300 hover:shadow-lg hover:shadow-primary/10">
@@ -231,8 +233,8 @@ const Home = () => {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
               </div>
-              <h3 className="text-lg sm:text-xl font-semibold mb-2 sm:mb-3 text-foreground">Webflow Ready</h3>
-              <p className="text-sm sm:text-base text-muted-foreground">Designed specifically for Webflow's visual editor</p>
+              <h3 className="text-lg sm:text-xl font-semibold mb-2 sm:mb-3 text-foreground">Built for Webflow</h3>
+              <p className="text-sm sm:text-base text-muted-foreground">Designed specifically for Webflow's visual editor - works seamlessly with your existing projects</p>
             </div>
             
             <div className="group relative p-6 bg-background/60 backdrop-blur-sm rounded-2xl border border-border/50 hover:border-primary/30 transition-all duration-300 hover:shadow-lg hover:shadow-primary/10">
@@ -241,8 +243,8 @@ const Home = () => {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
                 </svg>
               </div>
-              <h3 className="text-lg sm:text-xl font-semibold mb-2 sm:mb-3 text-foreground">Performance</h3>
-              <p className="text-sm sm:text-base text-muted-foreground">Optimized for speed with minimal impact on page load</p>
+              <h3 className="text-lg sm:text-xl font-semibold mb-2 sm:mb-3 text-foreground">Lightning Fast</h3>
+              <p className="text-sm sm:text-base text-muted-foreground">Optimized for speed with minimal impact on page load times and Core Web Vitals</p>
             </div>
           </div>
         </div>
@@ -253,10 +255,10 @@ const Home = () => {
         <div className="max-w-6xl mx-auto text-center">
           <div className="flex flex-col items-center justify-center">
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4 sm:mb-6 text-foreground">
-              Ready to <span wb-component="gradient-text">Enhance</span> Your Projects?
+              Ready to <span wb-component="gradient-text">Transform</span> Your Webflow Projects?
             </h2>
             <p className="text-lg sm:text-xl text-muted-foreground mb-6 sm:mb-8 max-w-2xl">
-              Join thousands of developers creating amazing experiences
+              Join thousands of designers and developers who've upgraded their Webflow sites with professional animations
             </p>
             <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center w-full max-w-md sm:max-w-none">
               <Button 

@@ -77,7 +77,7 @@ class SplitTextAnimator {
       staggerDelay: 100,
       duration: 0.6,
       threshold: 0.1,
-      rootMargin: "-100px",
+      rootMargin: "100px",
       from: { opacity: 0, y: 40 },
       to: { opacity: 1, y: 0 }
     };

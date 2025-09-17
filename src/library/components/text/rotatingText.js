@@ -148,6 +148,12 @@ class RotatingTextAnimator {
    * Initialize a single element
    */
   initElement(element) {
+    // Add safety check to ensure this is actually a rotating-text element
+    if (element.getAttribute('wb-component') !== 'rotating-text') {
+      console.warn('WebflowBits RotatingText: Element does not have wb-component="rotating-text"', element);
+      return;
+    }
+
     this.injectStyles();
     
     // Parse texts from wb-text-* attributes
@@ -413,12 +419,20 @@ class RotatingTextAnimator {
     } else if (splitBy === 'words') {
       const words = text.split(' ');
       words.forEach((word, index) => {
+        // Create overflow wrapper for each word
+        const wordWrapper = document.createElement('span');
+        wordWrapper.style.display = 'inline-block';
+        wordWrapper.style.overflow = 'hidden';
+        wordWrapper.style.height = '100%';
+        wordWrapper.style.position = 'relative';
+        
         const wordSpan = document.createElement('span');
         wordSpan.className = 'wb-rotating-text-element';
         wordSpan.textContent = word;
         wordSpan.style.display = 'inline-block';
+        wordWrapper.appendChild(wordSpan);
         instance.splitElements.push(wordSpan);
-        instance.container.appendChild(wordSpan);
+        instance.container.appendChild(wordWrapper);
         
         // Add space if not last word
         if (index < words.length - 1) {
@@ -432,12 +446,20 @@ class RotatingTextAnimator {
       // Lines or other
       const lines = text.split('\n');
       lines.forEach(line => {
+        // Create overflow wrapper for each line
+        const lineWrapper = document.createElement('span');
+        lineWrapper.style.display = 'block';
+        lineWrapper.style.overflow = 'hidden';
+        lineWrapper.style.height = '100%';
+        lineWrapper.style.position = 'relative';
+        
         const lineSpan = document.createElement('span');
         lineSpan.className = 'wb-rotating-text-element';
         lineSpan.textContent = line;
         lineSpan.style.display = 'block';
+        lineWrapper.appendChild(lineSpan);
         instance.splitElements.push(lineSpan);
-        instance.container.appendChild(lineSpan);
+        instance.container.appendChild(lineWrapper);
       });
     }
   }

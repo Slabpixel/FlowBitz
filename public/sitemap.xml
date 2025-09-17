@@ -9,7 +9,7 @@
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
     <image:image>
-      <image:loc>https://flowbitz.dev/flowbitz-3d.png</image:loc>
+      <image:loc>https://slabpixel.dev/images/FlowBitz-3D.png</image:loc>
       <image:title>FlowBitz - Interactive Components for Webflow</image:title>
       <image:caption>Create stunning animations and interactive effects with FlowBitz</image:caption>
     </image:image>

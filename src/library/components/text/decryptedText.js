@@ -80,7 +80,7 @@ class DecryptedTextAnimator {
       characters: 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz!@#$%^&*()_+',
       animateOn: 'view', // hover | view
       threshold: 0.1,
-      rootMargin: '0px',
+      rootMargin: '100px',
       className: '',
       encryptedClassName: 'wb-decrypt-text-scrambling'
     };

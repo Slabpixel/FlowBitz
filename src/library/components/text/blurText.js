@@ -55,7 +55,7 @@ class BlurTextAnimator {
       direction: 'top',   // top | bottom
       delay: 200,         // delay between elements in ms
       threshold: 0.1,
-      rootMargin: '0px',
+      rootMargin: '100px',
       stepDuration: 0.35,
       ease: "back.out(1.4)"
     };
