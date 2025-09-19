@@ -27,6 +27,7 @@ import magnetAnimator from '../components/interactive/magneticButton.js';
 import textCursorAnimator from '../components/text/textCursor.js';
 import shapeBlurAnimator from '../components/interactive/shapeBlur.js';
 import shuffleAnimator from '../components/text/shuffle.js';
+import tooltipTextAnimator from '../components/text/tooltipText.js';
 
 /**
  * Main WebflowBits class for CDN usage
@@ -57,6 +58,7 @@ class WebflowBits {
       textCursor: textCursorAnimator,
       shapeBlur: shapeBlurAnimator,
       shuffle: shuffleAnimator,
+      tooltipText: tooltipTextAnimator,
     };
   }
 
@@ -73,7 +75,7 @@ class WebflowBits {
     const config = {
       autoInit: true,
       debug: false,
-      components: ['splitText', 'textType', 'blurText', 'shinyText', 'gradientText', 'decryptedText', 'scrambleText', 'variableProximity', 'countUp', 'rotatingText', 'textPressure', 'magnetLines', 'imageTrail', 'magnet', 'textCursor', 'shapeBlur', 'shuffle'],
+      components: ['splitText', 'textType', 'blurText', 'shinyText', 'gradientText', 'decryptedText', 'scrambleText', 'variableProximity', 'countUp', 'rotatingText', 'textPressure', 'magnetLines', 'imageTrail', 'magnet', 'textCursor', 'shapeBlur', 'shuffle', 'tooltipText'],
       ...options
     };
 
@@ -168,6 +170,10 @@ class WebflowBits {
 
       if (config.components.includes('shuffle')) {
         this.initShuffle(config.debug);
+      }
+
+      if (config.components.includes('tooltipText')) {
+        this.initTooltipText(config.debug);
       }
 
       // Setup mutation observer for dynamic content if autoInit is enabled
@@ -296,6 +302,12 @@ class WebflowBits {
       const shuffleConflicts = shuffleAnimator.checkForConflicts();
       if (shuffleConflicts) {
         allConflicts.push(...shuffleConflicts);
+      }
+
+      // Check TooltipText conflicts
+      const tooltipTextConflicts = tooltipTextAnimator.checkForConflicts();
+      if (tooltipTextConflicts) {
+        allConflicts.push(...tooltipTextConflicts);
       }
       
       if (allConflicts.length > 0) {
@@ -547,6 +559,20 @@ class WebflowBits {
   }
 
   /**
+   * Initialize TooltipText component
+   */
+  initTooltipText(debug = false) {
+    try {
+      tooltipTextAnimator.initAll();
+      if (debug) {
+        console.log('WebflowBits: TooltipText initialized');
+      }
+    } catch (error) {
+      console.error('WebflowBits: Failed to initialize TooltipText', error);
+    }
+  }
+
+  /**
    * Setup mutation observer to handle dynamically added content
    */
   setupMutationObserver(debug = false) {
@@ -756,6 +782,16 @@ class WebflowBits {
                 shuffleAnimator.initElement(element);
                 shouldRefresh = true;
               });
+
+              // Check for wb-component="tooltip-text" elements
+              const tooltipTextElements = node.matches?.('[wb-component="tooltip-text"]')
+                ? [node]
+                : Array.from(node.querySelectorAll?.('[wb-component="tooltip-text"]') || []);
+
+              tooltipTextElements.forEach(element => {
+                tooltipTextAnimator.initElement(element);
+                shouldRefresh = true;
+              });
             }
           });
         }
@@ -781,6 +817,7 @@ class WebflowBits {
           textCursorAnimator.refresh();
           shapeBlurAnimator.refresh();
           shuffleAnimator.refresh();
+          tooltipTextAnimator.refresh();
         }, 100);
       }
     });
@@ -1162,6 +1199,25 @@ class WebflowBits {
   }
 
   /**
+   * Manually initialize TooltipText on specific elements
+   * @param {string|NodeList|Element} selector - CSS selector or DOM elements
+   */
+  initTooltipTextOn(selector) {
+    const elements = typeof selector === 'string' 
+      ? document.querySelectorAll(selector)
+      : selector.nodeType ? [selector] : selector;
+    
+    Array.from(elements).forEach(element => {
+      if (element.getAttribute('wb-component') === 'tooltip-text') {
+        tooltipTextAnimator.initElement(element);
+      }
+    });
+
+    tooltipTextAnimator.refresh();
+    return this;
+  }
+
+  /**
    * Destroy all components and observers
    */
   destroy() {
@@ -1225,6 +1281,9 @@ class WebflowBits {
     // Destroy Shuffle animations
     shuffleAnimator.destroyAll();
 
+    // Destroy TooltipText animations
+    tooltipTextAnimator.destroyAll();
+
     // Disconnect observers
     this.observers.forEach(observer => observer.disconnect());
     this.observers = [];
@@ -1256,6 +1315,7 @@ class WebflowBits {
     textCursorAnimator.refresh();
     shapeBlurAnimator.refresh();
     shuffleAnimator.refresh();
+    tooltipTextAnimator.refresh();
     return this;
   }
 

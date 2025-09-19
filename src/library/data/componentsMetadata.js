@@ -890,6 +890,86 @@ export const componentsMetadata = {
     }
   },
 
+  'tooltip-text': {
+    name: 'Tooltip Text',
+    description: 'Hover tooltips for any text element with customizable positioning and styling',
+    category: 'text',
+    file: 'tooltipText.js',
+    attributes: [
+      { 
+        name: 'wb-component', 
+        description: 'Enable tooltip text animation', 
+        default: 'tooltip-text',
+        inputType: 'text',
+        required: true
+      },
+      { 
+        name: 'wb-tooltip-text', 
+        description: 'Tooltip text content', 
+        default: '',
+        inputType: 'text',
+      },
+      { 
+        name: 'wb-tooltip-position', 
+        description: 'Tooltip position relative to element', 
+        default: 'top',
+        inputType: 'dropdown',
+        options: ['top', 'bottom', 'left', 'right']
+      },
+      { 
+        name: 'wb-tooltip-delay', 
+        description: 'Delay before showing tooltip in seconds', 
+        default: '0',
+        inputType: 'slider',
+        sliderConfig: { min: 0, max: 2, step: 0.1 }
+      },
+      { 
+        name: 'wb-tooltip-duration', 
+        description: 'Animation duration in seconds', 
+        default: '0.3',
+        inputType: 'slider',
+        sliderConfig: { min: 0.1, max: 1, step: 0.05 }
+      },
+      { 
+        name: 'wb-tooltip-background', 
+        description: 'Tooltip background color', 
+        default: '#000000',
+        inputType: 'color'
+      },
+      { 
+        name: 'wb-tooltip-color', 
+        description: 'Tooltip text color', 
+        default: '#ffffff',
+        inputType: 'color'
+      },
+      {
+        name: 'wb-tooltip-size-template',
+        description: 'Tooltip size template',
+        default: 'medium',
+        inputType: 'dropdown',
+        options: ['small', 'medium', 'large']
+      },
+      { 
+        name: 'wb-tooltip-max-width', 
+        description: 'Maximum tooltip width', 
+        default: '300px',
+        inputType: 'text'
+      },
+      { 
+        name: 'wb-tooltip-offset', 
+        description: 'Distance from element in pixels', 
+        default: '10',
+        inputType: 'slider',
+        sliderConfig: { min: 0, max: 50, step: 1 }
+      }
+    ],
+    example: {
+      title: 'Tooltip Text Effect',
+      code: '<p class="text-lg font-normal">The example of the <span wb-component="tooltip-text" wb-tooltip-text="This is a helpful tooltip!" class="text-primary text-lg">Tooltip</span> Text component.</p>',
+      description: 'Hover tooltips for any text element with customizable positioning and styling'
+    }
+  },
+
   // Interactive Components
   'shape-blur': {
     name: 'Shape Blur',
@@ -1131,6 +1211,13 @@ export const componentsMetadata = {
         default: '8',
         inputType: 'slider',
         sliderConfig: { min: 1, max: 20, step: 0.5 }
+      },
+      { 
+        name: 'wb-scale-amount', 
+        description: 'Scale amount when clicked (0-1, where 1 = no scale)', 
+        default: '0.95',
+        inputType: 'slider',
+        sliderConfig: { min: 0.7, max: 1, step: 0.01 }
       }
     ],
     example: {
@@ -1142,7 +1229,7 @@ export const componentsMetadata = {
 
   'ripple-button': {
     name: 'Ripple Button',
-    description: 'Button with Material Design ripple effect on click',
+    description: 'Button with Material Design ripple effect and scale animation on click',
     category: 'button',
     file: 'rippleButton.js',
     attributes: [
@@ -1165,12 +1252,19 @@ export const componentsMetadata = {
         default: '600',
         inputType: 'slider',
         sliderConfig: { min: 200, max: 2000, step: 50 }
+      },
+      { 
+        name: 'wb-scale-amount', 
+        description: 'Scale amount when clicked (0-1, where 1 = no scale)', 
+        default: '0.95',
+        inputType: 'slider',
+        sliderConfig: { min: 0.7, max: 1, step: 0.01 }
       }
     ],
     example: {
       title: 'Ripple Button Animation',
       code: '<a href="#" wb-component="ripple-button" class="text-md px-6 py-3 rounded-full font-semibold bg-primary text-white">Click me to see the effect!</a>',
-      description: 'Button with Material Design ripple effect that spreads from click point'
+      description: 'Button with Material Design ripple effect and scale animation that spreads from click point'
     }
   },
 
@@ -1206,6 +1300,13 @@ export const componentsMetadata = {
         description: 'Pause animation on hover', 
         default: 'true',
         inputType: 'toggle'
+      },
+      { 
+        name: 'wb-scale-amount', 
+        description: 'Scale amount when clicked (0-1, where 1 = no scale)', 
+        default: '0.95',
+        inputType: 'slider',
+        sliderConfig: { min: 0.7, max: 1, step: 0.01 }
       }
     ],
     example: {

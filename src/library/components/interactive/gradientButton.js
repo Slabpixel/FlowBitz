@@ -10,6 +10,12 @@ const componentCSS = `
 .wb-gradient-button {
   position: relative;
   overflow: hidden;
+  transition: transform 0.1s ease-out;
+}
+
+/* Scale animation for button click feedback */
+.wb-gradient-button--clicked {
+  transform: scale(var(--wb-scale-amount, 0.95));
 }
 
 .wb-gradient-button__overlay {
@@ -122,7 +128,9 @@ class GradientButtonAnimator {
       animationSpeed: 8, // seconds
       disabled: false,
       textColor: 'white', // text color for solid variant
-      hoverEffect: true
+      hoverEffect: true,
+      scaleEffect: true, // Enable scale animation on click
+      scaleAmount: 0.95 // Scale amount (0.95 = shrink to 95%)
     };
   }
 
@@ -159,7 +167,9 @@ class GradientButtonAnimator {
       animationSpeed: { attribute: 'wb-animation-speed', type: 'duration' },
       disabled: { attribute: 'wb-disabled', type: 'boolean' },
       textColor: { attribute: 'wb-text-color', type: 'string' },
-      hoverEffect: { attribute: 'wb-hover-effect', type: 'boolean' }
+      hoverEffect: { attribute: 'wb-hover-effect', type: 'boolean' },
+      scaleEffect: { attribute: 'wb-scale-effect', type: 'boolean' },
+      scaleAmount: { attribute: 'wb-scale-amount', type: 'number' }
     };
     
     const config = parseElementConfig(element, this.defaultConfig, attributeMap);
@@ -329,6 +339,26 @@ class GradientButtonAnimator {
       // Create DOM structure
       instance.domStructure = this.createDOMStructure(element, config);
       
+      // Add click handler for scale animation
+      const clickHandler = (event) => {
+        if (config.disabled) return;
+        
+        // Apply scale animation if enabled
+        if (config.scaleEffect) {
+          // Set the scale amount as a CSS custom property
+          element.style.setProperty('--wb-scale-amount', config.scaleAmount);
+          element.classList.add(`${this.componentClasses.parent}--clicked`);
+          
+          // Remove scale class after brief moment for bounce-back effect
+          setTimeout(() => {
+            element.classList.remove(`${this.componentClasses.parent}--clicked`);
+          }, 100);
+        }
+      };
+      
+      element.addEventListener('click', clickHandler);
+      instance.clickHandler = clickHandler;
+      
       // Apply custom styles
       this.applyCustomStyles(instance);
       
@@ -458,7 +488,12 @@ class GradientButtonAnimator {
     const instance = this.instances.get(element);
     if (!instance) return;
 
-    const { originalStyles, domStructure } = instance;
+    const { originalStyles, domStructure, clickHandler } = instance;
+    
+    // Remove click handler
+    if (clickHandler) {
+      element.removeEventListener('click', clickHandler);
+    }
 
     // Restore original content
     if (domStructure && domStructure.originalContent) {

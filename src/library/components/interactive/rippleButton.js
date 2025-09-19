@@ -15,6 +15,12 @@ const componentCSS = `
 .wb-ripple-button {
   position: relative;
   overflow: hidden;
+  transition: transform 0.1s ease-out;
+}
+
+/* Scale animation for button click feedback */
+.wb-ripple-button--clicked {
+  transform: scale(var(--wb-scale-amount, 0.95));
 }
 
 /* Ripple effect container */
@@ -62,7 +68,9 @@ class RippleButtonAnimator {
       color: 'rgba(255, 255, 255, 0.6)', // Default ripple color
       duration: 600, // Animation duration in ms
       disabled: false,
-      hoverEffect: true
+      hoverEffect: true,
+      scaleEffect: true, // Enable scale animation on click
+      scaleAmount: 0.95 // Scale amount (0.95 = shrink to 95%)
     };
   }
 
@@ -98,7 +106,9 @@ class RippleButtonAnimator {
       color: { attribute: 'wb-ripple-color', type: 'string' },
       duration: { attribute: 'wb-duration', type: 'number' },
       disabled: { attribute: 'wb-disabled', type: 'boolean' },
-      hoverEffect: { attribute: 'wb-hover-effect', type: 'boolean' }
+      hoverEffect: { attribute: 'wb-hover-effect', type: 'boolean' },
+      scaleEffect: { attribute: 'wb-scale-effect', type: 'boolean' },
+      scaleAmount: { attribute: 'wb-scale-amount', type: 'number' }
     };
     
     const config = parseElementConfig(element, this.defaultConfig, attributeMap);
@@ -180,6 +190,18 @@ class RippleButtonAnimator {
     }
     
     element.appendChild(ripple);
+    
+    // Apply scale animation if enabled
+    if (config.scaleEffect) {
+      // Set the scale amount as a CSS custom property
+      element.style.setProperty('--wb-scale-amount', config.scaleAmount);
+      element.classList.add(`${this.componentClasses.parent}--clicked`);
+      
+      // Remove scale class after brief moment for bounce-back effect
+      setTimeout(() => {
+        element.classList.remove(`${this.componentClasses.parent}--clicked`);
+      }, 100);
+    }
     
     // Remove ripple after animation
     setTimeout(() => {
@@ -314,6 +336,29 @@ class RippleButtonAnimator {
     
     const newHoverEffect = hoverEffect !== null ? hoverEffect : !instance.config.hoverEffect;
     this.updateElement(element, { hoverEffect: newHoverEffect });
+  }
+
+  /**
+   * Toggle scale effect for specific element
+   */
+  toggleScaleEffect(element, scaleEffect = null) {
+    const instance = this.instances.get(element);
+    if (!instance) return;
+    
+    const newScaleEffect = scaleEffect !== null ? scaleEffect : !instance.config.scaleEffect;
+    this.updateElement(element, { scaleEffect: newScaleEffect });
+  }
+
+  /**
+   * Set scale amount for specific element
+   */
+  setScaleAmount(element, scaleAmount) {
+    // Validate scale amount (should be between 0 and 1)
+    if (scaleAmount < 0 || scaleAmount > 1) {
+      console.warn('Scale amount should be between 0 and 1');
+      return;
+    }
+    this.updateElement(element, { scaleAmount });
   }
 
   /**

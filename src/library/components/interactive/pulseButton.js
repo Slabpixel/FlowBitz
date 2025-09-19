@@ -22,6 +22,13 @@ const componentCSS = `
   display: inline-block;
   text-decoration: none;
   color: inherit;
+  transition: transform 0.1s ease-out;
+}
+
+/* Scale animation for button click feedback */
+.wb-pulse-button--clicked {
+  animation: none !important;
+  transform: scale(var(--wb-scale-amount, 0.95)) !important;
 }
 
 /* Ensure proper display for anchor elements */
@@ -129,7 +136,9 @@ class PulseButtonAnimator {
       speed: 'normal', // 'slow', 'normal', 'fast', or custom duration in ms
       disabled: false,
       hoverPause: false,
-      intensity: 1.05 // Scale factor for pulse
+      intensity: 1.05, // Scale factor for pulse
+      scaleEffect: true, // Enable scale animation on click
+      scaleAmount: 0.95 // Scale amount (0.95 = shrink to 95%)
     };
   }
 
@@ -165,7 +174,9 @@ class PulseButtonAnimator {
       speed: { attribute: 'wb-speed', type: 'string' },
       disabled: { attribute: 'wb-disabled', type: 'boolean' },
       hoverPause: { attribute: 'wb-hover-pause', type: 'boolean' },
-      intensity: { attribute: 'wb-intensity', type: 'number' }
+      intensity: { attribute: 'wb-intensity', type: 'number' },
+      scaleEffect: { attribute: 'wb-scale-effect', type: 'boolean' },
+      scaleAmount: { attribute: 'wb-scale-amount', type: 'number' }
     };
     
     const config = parseElementConfig(element, this.defaultConfig, attributeMap);
@@ -314,6 +325,26 @@ class PulseButtonAnimator {
     
     this.instances.set(element, instance);
     
+    // Add click handler for scale animation
+    const clickHandler = (event) => {
+      if (config.disabled) return;
+      
+      // Apply scale animation if enabled
+      if (config.scaleEffect) {
+        // Set the scale amount as a CSS custom property
+        element.style.setProperty('--wb-scale-amount', config.scaleAmount);
+        element.classList.add(`${this.componentClasses.parent}--clicked`);
+        
+        // Remove scale class after brief moment for bounce-back effect
+        setTimeout(() => {
+          element.classList.remove(`${this.componentClasses.parent}--clicked`);
+        }, 100);
+      }
+    };
+    
+    element.addEventListener('click', clickHandler);
+    instance.clickHandler = clickHandler;
+    
     // Apply custom styles
     this.applyCustomStyles(instance);
     
@@ -437,6 +468,11 @@ class PulseButtonAnimator {
   destroyElement(element) {
     const instance = this.instances.get(element);
     if (!instance) return;
+    
+    // Remove click handler
+    if (instance.clickHandler) {
+      element.removeEventListener('click', instance.clickHandler);
+    }
     
     // Remove component classes
     this.removeComponentClasses(element);
