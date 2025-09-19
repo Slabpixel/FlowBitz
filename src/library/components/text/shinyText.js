@@ -19,9 +19,6 @@ const componentCSS = `
   background-clip: text;
   display: inline-block;
   animation: wb-shine 5s linear infinite;
-  /* Fix for text clipping with descenders */
-  line-height: 1.2;
-  padding-bottom: 0.1em;
 }
 
 @keyframes wb-shine {
