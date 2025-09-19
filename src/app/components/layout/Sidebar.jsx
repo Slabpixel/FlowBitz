@@ -18,6 +18,9 @@ const Sidebar = ({ showBackLink = false }) => {
   const interactiveComponents = componentsByCategory.interactive.filter(component => 
     !disabledComponents.includes(component.key)
   )
+  const buttonComponents = componentsByCategory.button.filter(component => 
+    !disabledComponents.includes(component.key)
+  )
 
   // Get current component name from URL
   const getCurrentComponentName = () => {
@@ -131,7 +134,30 @@ const Sidebar = ({ showBackLink = false }) => {
                   ))}
                 </ul>  
               </div>
-              <span className="flex items-center gap-2 text-muted-foreground text-sm mb-4">
+              
+              <div className="category mb-4 sm:mb-6">
+                <h4 className="text-xs sm:text-sm font-medium text-muted-foreground mb-2">
+                  Button Components ({buttonComponents.length})
+                </h4>
+                <ul className="list-none">
+                  {buttonComponents.map((component) => (
+                    <li key={component.key} className="mb-0.5">
+                      <Link 
+                        to={`/components/${component.key}`} 
+                        onClick={() => setIsComponentsOpen(false)}
+                        className={`block px-0 py-2 text-black dark:text-white no-underline rounded-md transition-all duration-200 text-sm font-normal ${
+                          currentComponentName !== component.key 
+                            ? 'px-0 hover:px-3 hover:text-foreground hover:bg-accent' 
+                            : 'px-3 hover:px-3 text-white bg-primary font-medium'
+                        }`}
+                      >
+                        {component.name}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>  
+              </div>
+              <span className="flex items-center gap-2 text-muted-foreground text-sm mb-4 mt-6">
                   <span className="w-2 h-2 bg-primary rounded-full animate-pulse"></span>
                   New Components Soon!
                 </span>
