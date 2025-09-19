@@ -540,6 +540,14 @@ class PulseButtonAnimator {
   getAllInstances() {
     return Array.from(this.instances.values());
   }
+
+  /**
+   * Initialize all elements with wb-component="pulse-button"
+   */
+  initAll() {
+    const elements = document.querySelectorAll('[wb-component="pulse-button"]');
+    elements.forEach(element => this.initElement(element));
+  }
 }
 
 // Create and export singleton instance

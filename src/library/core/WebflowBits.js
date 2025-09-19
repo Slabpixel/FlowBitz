@@ -75,7 +75,7 @@ class WebflowBits {
     const config = {
       autoInit: true,
       debug: false,
-      components: ['splitText', 'textType', 'blurText', 'shinyText', 'gradientText', 'decryptedText', 'scrambleText', 'variableProximity', 'countUp', 'rotatingText', 'textPressure', 'magnetLines', 'imageTrail', 'magnet', 'textCursor', 'shapeBlur', 'shuffle', 'tooltipText'],
+      components: ['splitText', 'textType', 'blurText', 'shinyText', 'gradientText', 'gradientButton', 'rippleButton', 'pulseButton', 'decryptedText', 'scrambleText', 'variableProximity', 'countUp', 'rotatingText', 'textPressure', 'magnetLines', 'imageTrail', 'magnet', 'textCursor', 'shapeBlur', 'shuffle', 'tooltipText'],
       ...options
     };
 
@@ -123,6 +123,18 @@ class WebflowBits {
       
       if (config.components.includes('gradientText')) {
         this.initGradientText(config.debug);
+      }
+
+      if (config.components.includes('gradientButton')) {
+        this.initGradientButton(config.debug);
+      }
+
+      if (config.components.includes('rippleButton')) {
+        this.initRippleButton(config.debug);
+      }
+
+      if (config.components.includes('pulseButton')) {
+        this.initPulseButton(config.debug);
       }
 
       if (config.components.includes('decryptedText')) {
@@ -387,6 +399,48 @@ class WebflowBits {
       }
     } catch (error) {
       console.error('WebflowBits: Failed to initialize GradientText', error);
+    }
+  }
+
+  /**
+   * Initialize GradientButton component
+   */
+  initGradientButton(debug = false) {
+    try {
+      gradientButtonAnimator.initAll();
+      if (debug) {
+        console.log('WebflowBits: GradientButton initialized');
+      }
+    } catch (error) {
+      console.error('WebflowBits: Failed to initialize GradientButton', error);
+    }
+  }
+
+  /**
+   * Initialize RippleButton component
+   */
+  initRippleButton(debug = false) {
+    try {
+      rippleButtonAnimator.initAll();
+      if (debug) {
+        console.log('WebflowBits: RippleButton initialized');
+      }
+    } catch (error) {
+      console.error('WebflowBits: Failed to initialize RippleButton', error);
+    }
+  }
+
+  /**
+   * Initialize PulseButton component
+   */
+  initPulseButton(debug = false) {
+    try {
+      pulseButtonAnimator.initAll();
+      if (debug) {
+        console.log('WebflowBits: PulseButton initialized');
+      }
+    } catch (error) {
+      console.error('WebflowBits: Failed to initialize PulseButton', error);
     }
   }
 

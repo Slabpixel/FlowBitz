@@ -256,6 +256,12 @@ class GradientButtonAnimator {
     // Create gradient background style
     const gradientStyle = `linear-gradient(45deg, ${config.colors.join(', ')})`;
     
+    // Create overlay element for gradient background
+    const overlayElement = document.createElement('div');
+    overlayElement.className = 'wb-gradient-button__overlay';
+    overlayElement.style.backgroundImage = gradientStyle;
+    overlayElement.style.animationDuration = `${config.animationSpeed}s`;
+    
     // Create content element
     const contentElement = document.createElement('div');
     contentElement.className = 'wb-gradient-button__content';
@@ -270,11 +276,14 @@ class GradientButtonAnimator {
       }
     });
     
+    // Append elements
+    element.appendChild(overlayElement);
     element.appendChild(contentElement);
 
     return {
       originalContent,
       contentElement,
+      overlayElement,
       gradientStyle,
       parentStyles
     };
@@ -291,6 +300,12 @@ class GradientButtonAnimator {
     if (domStructure.contentElement) {
       domStructure.contentElement.style.color = config.textColor || 'white';
       domStructure.contentElement.style.background = 'none';
+    }
+    
+    // Update overlay element
+    if (domStructure.overlayElement) {
+      domStructure.overlayElement.style.backgroundImage = gradientStyle;
+      domStructure.overlayElement.style.animationDuration = `${config.animationSpeed}s`;
     }
     
     // Apply gradient background to button with animation

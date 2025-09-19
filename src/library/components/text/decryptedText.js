@@ -37,6 +37,12 @@ const componentCSS = `
   will-change: auto;
 }
 
+.wb-decrypt-text__space {
+  display: inline-block;
+  width: 0.25em;
+  min-width: 0.25em;
+}
+
 /* Performance optimization during animation */
 .wb-decrypt-text-animating .wb-decrypt-text__char {
   will-change: transform, opacity;
@@ -222,9 +228,12 @@ class DecryptedTextAnimator {
     element.innerHTML = `
       <span class="wb-decrypt-text__sr-only">${originalText}</span>
       <span class="wb-decrypt-text__content" aria-hidden="true">
-        ${originalText.split('').map((char, index) => 
-          `<span class="wb-decrypt-text__char ${config.className}" data-index="${index}">${char}</span>`
-        ).join('')}
+        ${originalText.split('').map((char, index) => {
+          if (char === ' ') {
+            return `<span class="wb-decrypt-text__char wb-decrypt-text__space ${config.className}" data-index="${index}">&nbsp;</span>`;
+          }
+          return `<span class="wb-decrypt-text__char ${config.className}" data-index="${index}">${char}</span>`;
+        }).join('')}
       </span>
     `;
   }
@@ -491,13 +500,20 @@ class DecryptedTextAnimator {
 
     chars.forEach((charElement, index) => {
       if (index < textChars.length) {
-        charElement.textContent = textChars[index];
+        const char = textChars[index];
         
-        // Update classes based on reveal state
-        const isRevealed = instance.revealedIndices.has(index) || !instance.isScrambling;
-        charElement.className = `wb-decrypt-text__char ${
-          isRevealed ? config.className : config.encryptedClassName
-        }`;
+        // Handle spaces specially
+        if (char === ' ') {
+          charElement.innerHTML = '&nbsp;';
+          charElement.className = `wb-decrypt-text__char wb-decrypt-text__space ${
+            instance.revealedIndices.has(index) || !instance.isScrambling ? config.className : config.encryptedClassName
+          }`;
+        } else {
+          charElement.textContent = char;
+          charElement.className = `wb-decrypt-text__char ${
+            instance.revealedIndices.has(index) || !instance.isScrambling ? config.className : config.encryptedClassName
+          }`;
+        }
       }
     });
   }
@@ -536,10 +552,10 @@ class DecryptedTextAnimator {
   }
 
   /**
-   * Initialize all elements with wb-component="decrypt-text"
+   * Initialize all elements with wb-component="decrypted-text"
    */
   initAll() {
-    const elements = document.querySelectorAll('[wb-component="decrypt-text"]');
+    const elements = document.querySelectorAll('[wb-component="decrypted-text"]');
     elements.forEach(element => this.initElement(element));
   }
 

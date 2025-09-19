@@ -419,6 +419,14 @@ class RippleButtonAnimator {
   getAllInstances() {
     return Array.from(this.instances.values());
   }
+
+  /**
+   * Initialize all elements with wb-component="ripple-button"
+   */
+  initAll() {
+    const elements = document.querySelectorAll('[wb-component="ripple-button"]');
+    elements.forEach(element => this.initElement(element));
+  }
 }
 
 // Create and export singleton instance
