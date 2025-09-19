@@ -30,6 +30,14 @@ const componentCSS = `
 
 .wb-decrypt-text__content {
   display: inline-block;
+  white-space: normal;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+
+.wb-decrypt-text__word {
+  display: inline-block;
+  white-space: nowrap;
 }
 
 .wb-decrypt-text__char {
@@ -224,15 +232,30 @@ class DecryptedTextAnimator {
     // Store original text for screen readers
     element.setAttribute('aria-label', originalText);
     
+    // Split text into words while preserving spaces
+    const words = originalText.split(/(\s+)/);
+    let charIndex = 0;
+    
     // Create wrapper structure
     element.innerHTML = `
       <span class="wb-decrypt-text__sr-only">${originalText}</span>
       <span class="wb-decrypt-text__content" aria-hidden="true">
-        ${originalText.split('').map((char, index) => {
-          if (char === ' ') {
-            return `<span class="wb-decrypt-text__char wb-decrypt-text__space ${config.className}" data-index="${index}">&nbsp;</span>`;
+        ${words.map((word, wordIndex) => {
+          if (word.match(/\s+/)) {
+            // This is whitespace - render as space
+            const spaceChars = word.split('').map(() => {
+              const index = charIndex++;
+              return `<span class="wb-decrypt-text__char wb-decrypt-text__space ${config.className}" data-index="${index}">&nbsp;</span>`;
+            }).join('');
+            return spaceChars;
+          } else {
+            // This is a word - wrap in a word container
+            const wordChars = word.split('').map((char) => {
+              const index = charIndex++;
+              return `<span class="wb-decrypt-text__char ${config.className}" data-index="${index}">${char}</span>`;
+            }).join('');
+            return `<span class="wb-decrypt-text__word">${wordChars}</span>`;
           }
-          return `<span class="wb-decrypt-text__char ${config.className}" data-index="${index}">${char}</span>`;
         }).join('')}
       </span>
     `;
@@ -629,7 +652,9 @@ class DecryptedTextAnimator {
     const conflicts = checkCSSConflicts(componentClassSets.decryptText || [
       'wb-decrypt-text',
       'wb-decrypt-text__content',
+      'wb-decrypt-text__word',
       'wb-decrypt-text__char',
+      'wb-decrypt-text__space',
       'wb-decrypt-text-animating',
       'wb-decrypt-text-completed'
     ]);
@@ -673,7 +698,9 @@ if (typeof componentClassSets !== 'undefined') {
     'wb-decrypt-text',
     'wb-decrypt-text__wrapper',
     'wb-decrypt-text__content',
+    'wb-decrypt-text__word',
     'wb-decrypt-text__char',
+    'wb-decrypt-text__space',
     'wb-decrypt-text__sr-only',
     'wb-decrypt-text-animating',
     'wb-decrypt-text-completed',
