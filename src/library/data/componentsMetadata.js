@@ -268,7 +268,7 @@ export const componentsMetadata = {
     ],
     example: {
       title: 'Shiny Text Effect',
-      code: '<h1 wb-component="shiny-text" wb-text-color="#0a70ff" wb-shine-color="#8cbcff" class="text-6xl">Shiny Text</h1>',
+      code: '<h1 class="text-6xl" wb-component="shiny-text" wb-text-color="#0a70ff" wb-shine-color="#8cbcff" style="line-height: 1.2;">Shiny Text</h1>',
       description: 'Shimmer and shine text effects with customizable speed'
     }
   },
