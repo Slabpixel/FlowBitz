@@ -14,7 +14,7 @@ const componentCSS = `
     #0a70ff 50%,
     currentColor 60%
   );
-  background-size: 200% 100%;
+  background-size: 200% 120%;
   -webkit-background-clip: text;
   background-clip: text;
   display: inline-block;
@@ -170,7 +170,7 @@ class ShinyTextAnimator {
       // Use the gradient as the text color, not as background
       element.style.color = 'transparent';
       element.style.background = gradient;
-      element.style.backgroundSize = '200% 100%';
+      element.style.backgroundSize = '200% 120%';
       element.style.webkitBackgroundClip = 'text';
       element.style.backgroundClip = 'text';
     }
