@@ -268,7 +268,7 @@ export const componentsMetadata = {
     ],
     example: {
       title: 'Shiny Text Effect',
-      code: '<h1 wb-component="shiny-text" wb-text-color="#0a70ff" wb-shine-color="#8cbcff" class="text-6xl">Shiny Text</h1>',
+      code: '<h1 class="text-6xl" wb-component="shiny-text" wb-text-color="#0a70ff" wb-shine-color="#8cbcff" style="line-height: 1.2;">Shiny Text</h1>',
       description: 'Shimmer and shine text effects with customizable speed'
     }
   },
@@ -402,7 +402,7 @@ export const componentsMetadata = {
     ],
     example: {
       title: 'Decrypted Text Effect',
-      code: '<h1 wb-component="decrypted-text" class="text-6xl">SECRET MESSAGE</h1>',
+      code: '<h1 wb-component="decrypted-text" wb-use-original-chars="true" class="text-6xl">SECRET MESSAGE</h1>',
       description: 'Matrix-style decryption effects with customizable characters'
     }
   },
@@ -624,7 +624,7 @@ export const componentsMetadata = {
     ],
     example: {
       title: 'Rotating Text Animation',
-      code: '<h1 class="text-6xl">Create Amazing Websites with Powerful <span wb-component="rotating-text" wb-rotating-split-by="characters" wb-text-1="Animations" wb-text-2="Effects" wb-text-3="Interactions" wb-background-color="#0a70ff" wb-text-color="#ffffff" wb-border-radius="8px" class="text-6xl">Animations</span></h1>',
+      code: '<h1 class="text-6xl">Powerful <span wb-component="rotating-text" wb-rotating-split-by="characters" wb-text-1="Animations" wb-text-2="Effects" wb-text-3="Interactions" wb-background-color="#0a70ff" wb-text-color="#ffffff" wb-border-radius="8px" class="text-6xl">Animations</span></h1>',
       description: 'Auto-rotating text with stagger effects, background color, text color, border radius, and automatic centering'
     }
   },
@@ -890,6 +890,86 @@ export const componentsMetadata = {
     }
   },
 
+  'tooltip-text': {
+    name: 'Tooltip Text',
+    description: 'Hover tooltips for any text element with customizable positioning and styling',
+    category: 'text',
+    file: 'tooltipText.js',
+    attributes: [
+      { 
+        name: 'wb-component', 
+        description: 'Enable tooltip text animation', 
+        default: 'tooltip-text',
+        inputType: 'text',
+        required: true
+      },
+      { 
+        name: 'wb-tooltip-text', 
+        description: 'Tooltip text content', 
+        default: '',
+        inputType: 'text',
+      },
+      { 
+        name: 'wb-tooltip-position', 
+        description: 'Tooltip position relative to element', 
+        default: 'top',
+        inputType: 'dropdown',
+        options: ['top', 'bottom', 'left', 'right']
+      },
+      { 
+        name: 'wb-tooltip-delay', 
+        description: 'Delay before showing tooltip in seconds', 
+        default: '0',
+        inputType: 'slider',
+        sliderConfig: { min: 0, max: 2, step: 0.1 }
+      },
+      { 
+        name: 'wb-tooltip-duration', 
+        description: 'Animation duration in seconds', 
+        default: '0.3',
+        inputType: 'slider',
+        sliderConfig: { min: 0.1, max: 1, step: 0.05 }
+      },
+      { 
+        name: 'wb-tooltip-background', 
+        description: 'Tooltip background color', 
+        default: '#000000',
+        inputType: 'color'
+      },
+      { 
+        name: 'wb-tooltip-color', 
+        description: 'Tooltip text color', 
+        default: '#ffffff',
+        inputType: 'color'
+      },
+      {
+        name: 'wb-tooltip-size-template',
+        description: 'Tooltip size template',
+        default: 'medium',
+        inputType: 'dropdown',
+        options: ['small', 'medium', 'large']
+      },
+      { 
+        name: 'wb-tooltip-max-width', 
+        description: 'Maximum tooltip width', 
+        default: '300px',
+        inputType: 'text'
+      },
+      { 
+        name: 'wb-tooltip-offset', 
+        description: 'Distance from element in pixels', 
+        default: '10',
+        inputType: 'slider',
+        sliderConfig: { min: 0, max: 50, step: 1 }
+      }
+    ],
+    example: {
+      title: 'Tooltip Text Effect',
+      code: '<p class="text-lg font-normal">The example of the <span wb-component="tooltip-text" wb-tooltip-text="This is a helpful tooltip!" class="text-primary text-lg">Tooltip</span> Text component.</p>',
+      description: 'Hover tooltips for any text element with customizable positioning and styling'
+    }
+  },
+
   // Interactive Components
   'shape-blur': {
     name: 'Shape Blur',
@@ -1100,6 +1180,213 @@ export const componentsMetadata = {
     }
   },
 
+  'gradient-button': {
+    name: 'Gradient Button',
+    description: 'Animated gradient button with customizable colors',
+    category: 'button',
+    file: 'gradientButton.js',
+    attributes: [
+      { 
+        name: 'wb-component', 
+        description: 'Enable gradient button animation', 
+        default: 'gradient-button',
+        inputType: 'text',
+        required: true
+      },
+      { 
+        name: 'wb-colors', 
+        description: 'Gradient colors (comma-separated or JSON array)', 
+        default: '#40ffaa, #4079ff, #40ffaa, #4079ff, #40ffaa',
+        inputType: 'text'
+      },
+      { 
+        name: 'wb-text-color', 
+        description: 'Text color for the button', 
+        default: 'white',
+        inputType: 'color'
+      },
+      { 
+        name: 'wb-animation-speed', 
+        description: 'Animation speed in seconds', 
+        default: '8',
+        inputType: 'slider',
+        sliderConfig: { min: 1, max: 20, step: 0.5 }
+      },
+      { 
+        name: 'wb-scale-amount', 
+        description: 'Scale amount when clicked (0-1, where 1 = no scale)', 
+        default: '0.95',
+        inputType: 'slider',
+        sliderConfig: { min: 0.7, max: 1, step: 0.01 }
+      }
+    ],
+    example: {
+      title: 'Gradient Button Animation',
+      code: '<button wb-component="gradient-button" class="text-md px-6 py-3 rounded-full font-semibold">Gradient Button</button>',
+      description: 'Animated gradient button with customizable colors and hover effects'
+    }
+  },
+
+  'ripple-button': {
+    name: 'Ripple Button',
+    description: 'Button with Material Design ripple effect and scale animation on click',
+    category: 'button',
+    file: 'rippleButton.js',
+    attributes: [
+      { 
+        name: 'wb-component', 
+        description: 'Enable ripple button animation', 
+        default: 'ripple-button',
+        inputType: 'text',
+        required: true
+      },
+      { 
+        name: 'wb-ripple-color', 
+        description: 'Ripple effect color (hex, rgb, or rgba)', 
+        default: 'rgba(255, 255, 255, 0.6)',
+        inputType: 'color'
+      },
+      { 
+        name: 'wb-duration', 
+        description: 'Ripple animation duration in milliseconds', 
+        default: '600',
+        inputType: 'slider',
+        sliderConfig: { min: 200, max: 2000, step: 50 }
+      },
+      { 
+        name: 'wb-scale-amount', 
+        description: 'Scale amount when clicked (0-1, where 1 = no scale)', 
+        default: '0.95',
+        inputType: 'slider',
+        sliderConfig: { min: 0.7, max: 1, step: 0.01 }
+      }
+    ],
+    example: {
+      title: 'Ripple Button Animation',
+      code: '<a href="#" wb-component="ripple-button" class="text-md px-6 py-3 rounded-full font-semibold bg-primary text-white">Click me to see the effect!</a>',
+      description: 'Button with Material Design ripple effect and scale animation that spreads from click point'
+    }
+  },
+
+  'pulse-button': {
+    name: 'Pulse Button',
+    description: 'Button or link with gentle pulsing animation to draw attention. Works with both <button> and <a> elements.',
+    category: 'button',
+    file: 'pulseButton.js',
+    attributes: [
+      { 
+        name: 'wb-component', 
+        description: 'Enable pulse button animation', 
+        default: 'pulse-button',
+        inputType: 'text',
+        required: true
+      },
+      { 
+        name: 'wb-speed', 
+        description: 'Pulse animation speed: "slow", "normal", "fast", or custom duration', 
+        default: 'normal',
+        inputType: 'dropdown',
+        options: ['slow', 'normal', 'fast']
+      },
+      { 
+        name: 'wb-intensity', 
+        description: 'Pulse scale intensity (how much it grows)', 
+        default: 1.05,
+        inputType: 'slider',
+        sliderConfig: { min: 1.01, max: 1.2, step: 0.01 }
+      },
+      { 
+        name: 'wb-hover-pause', 
+        description: 'Pause animation on hover', 
+        default: 'true',
+        inputType: 'toggle'
+      },
+      { 
+        name: 'wb-scale-amount', 
+        description: 'Scale amount when clicked (0-1, where 1 = no scale)', 
+        default: '0.95',
+        inputType: 'slider',
+        sliderConfig: { min: 0.7, max: 1, step: 0.01 }
+      }
+    ],
+    example: {
+      title: 'Pulse Button Animation',
+      code: '<a href="#" wb-component="pulse-button" class="text-md px-6 py-3 rounded-full font-semibold bg-primary text-white">Pulse Button</a>',
+      description: 'Button or link with gentle pulsing animation to draw attention to important actions'
+    }
+  },
+
+  'magnetic-button': {
+    name: 'Magnetic Button',
+    description: 'Button with magnetic attraction effect that follows mouse movement',
+    category: 'button',
+    file: 'magnet.js',
+    attributes: [
+      { 
+        name: 'wb-component', 
+        description: 'Enable magnetic button animation', 
+        default: 'magnetic-button',
+        inputType: 'text',
+        required: true
+      },
+      { 
+        name: 'wb-padding', 
+        description: 'Magnetic attraction area padding in pixels', 
+        default: '100',
+        inputType: 'slider',
+        sliderConfig: { min: 0, max: 500, step: 10 }
+      },
+      { 
+        name: 'wb-strength', 
+        description: 'Magnetic strength (higher = weaker effect)', 
+        default: '2',
+        inputType: 'slider',
+        sliderConfig: { min: 0.5, max: 10, step: 0.1 }
+      },
+      { 
+        name: 'wb-active-transition', 
+        description: 'CSS transition when magnet is active', 
+        default: 'transform 0.3s ease-out',
+        inputType: 'dropdown',
+        options: [
+          'transform 0.1s ease-out',
+          'transform 0.2s ease-out',
+          'transform 0.3s ease-out',
+          'transform 0.4s ease-out',
+          'transform 0.5s ease-out',
+          'transform 0.3s ease-in-out',
+          'transform 0.3s ease-in',
+          'transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94)',
+          'transform 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55)',
+          'transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275)'
+        ]
+      },
+      { 
+        name: 'wb-inactive-transition', 
+        description: 'CSS transition when magnet is inactive', 
+        default: 'transform 0.5s ease-in-out',
+        inputType: 'dropdown',
+        options: [
+          'transform 0.3s ease-in-out',
+          'transform 0.4s ease-in-out',
+          'transform 0.5s ease-in-out',
+          'transform 0.6s ease-in-out',
+          'transform 0.7s ease-in-out',
+          'transform 0.5s ease-out',
+          'transform 0.5s ease-in',
+          'transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94)',
+          'transform 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55)',
+          'transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275)'
+        ]
+      }
+    ],
+    example: {
+      title: 'Magnetic Button',
+      code: '<a src="#" wb-component="magnetic-button" class="inline-block text-md bg-primary text-white rounded-full px-6 py-3 hover:bg-primary-dark transition-colors hover:cursor-pointer">Hover me!</a>',
+      description: 'Button that follows mouse movement with magnetic attraction - the entire button (background, text, and all styling) moves together'
+    }
+  }
+
 }
 
 /**
@@ -1108,7 +1395,8 @@ export const componentsMetadata = {
 export const getComponentsByCategory = () => {
   const categories = {
     text: [],
-    interactive: []
+    interactive: [],
+    button: []
   }
 
   Object.entries(componentsMetadata).forEach(([key, component]) => {

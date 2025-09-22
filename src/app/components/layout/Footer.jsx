@@ -2,6 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import { Github, Heart, ExternalLink, Layers, HelpCircle, User, MessageSquare, Sparkles, Download, Bug, MessageCircle, FileText, Home } from 'lucide-react'
 import { getFilteredComponentKeys } from '../../../library/data/componentsMetadata.js'
+import Logo from '../Logo'
 
 const Footer = () => {
   const componentCount = getFilteredComponentKeys().length
@@ -20,9 +21,7 @@ const Footer = () => {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-8 sm:gap-12 mb-8 sm:mb-12">
           {/* Brand Section */}
           <div className="sm:col-span-2 lg:col-span-2">
-            <h3 className="text-xl font-bold mb-4 text-foreground">
-              FlowBitz
-            </h3>
+            <Logo className="h-6 w-auto mb-4" />
             <p className="text-muted-foreground leading-relaxed text-sm mb-4">
               Interactive components for Webflow. Create stunning animations and effects with our powerful library of {componentCount}+ components.
             </p>

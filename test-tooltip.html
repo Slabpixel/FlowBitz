@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FlowBitz Tooltip Text Test</title>
+    <script src="https://flowbitz.dev/latest/flowbitz.umd.js"></script>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 40px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+        
+        h1 {
+            color: #333;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        
+        .test-section {
+            margin: 30px 0;
+            padding: 20px;
+            border: 2px dashed #e0e0e0;
+            border-radius: 8px;
+        }
+        
+        .test-section h2 {
+            color: #555;
+            margin-top: 0;
+        }
+        
+        .example {
+            margin: 15px 0;
+            padding: 10px;
+            background: #f8f9fa;
+            border-radius: 4px;
+        }
+        
+        .example span, .example h3, .example p, .example a {
+            margin: 5px;
+            display: inline-block;
+        }
+        
+        .example span {
+            background: #007bff;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        
+        .example h3 {
+            color: #333;
+            margin: 10px 5px;
+        }
+        
+        .example p {
+            color: #666;
+            margin: 10px 5px;
+        }
+        
+        .example a {
+            color: #007bff;
+            text-decoration: none;
+            border-bottom: 1px dotted #007bff;
+        }
+        
+        .example a:hover {
+            text-decoration: underline;
+        }
+        
+        .code-example {
+            background: #2d3748;
+            color: #e2e8f0;
+            padding: 15px;
+            border-radius: 6px;
+            font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+            font-size: 14px;
+            overflow-x: auto;
+            margin: 15px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎯 FlowBitz Tooltip Text Component Test</h1>
+        
+        <div class="test-section">
+            <h2>Basic Tooltip Examples</h2>
+            
+            <div class="example">
+                <span wb-component="tooltip-text" wb-tooltip-text="This is a basic tooltip!">Hover over me</span>
+            </div>
+            
+            <div class="example">
+                <h3 wb-component="tooltip-text" wb-tooltip-text="This is a heading with a tooltip" wb-tooltip-position="bottom">Heading with Tooltip</h3>
+            </div>
+            
+            <div class="example">
+                <p wb-component="tooltip-text" wb-tooltip-text="This paragraph has a tooltip with more detailed information" wb-tooltip-position="left" wb-tooltip-max-width="250px">This is a paragraph with a tooltip</p>
+            </div>
+            
+            <div class="example">
+                <a href="#" wb-component="tooltip-text" wb-tooltip-text="Click me to learn more!" wb-tooltip-position="right">Link with Tooltip</a>
+            </div>
+        </div>
+        
+        <div class="test-section">
+            <h2>Different Positions</h2>
+            
+            <div class="example">
+                <span wb-component="tooltip-text" wb-tooltip-text="Top tooltip" wb-tooltip-position="top">Top</span>
+                <span wb-component="tooltip-text" wb-tooltip-text="Bottom tooltip" wb-tooltip-position="bottom">Bottom</span>
+                <span wb-component="tooltip-text" wb-tooltip-text="Left tooltip" wb-tooltip-position="left">Left</span>
+                <span wb-component="tooltip-text" wb-tooltip-text="Right tooltip" wb-tooltip-position="right">Right</span>
+            </div>
+        </div>
+        
+        <div class="test-section">
+            <h2>Custom Styling</h2>
+            
+            <div class="example">
+                <span wb-component="tooltip-text" 
+                      wb-tooltip-text="Custom styled tooltip" 
+                      wb-tooltip-background="#ff6b6b" 
+                      wb-tooltip-color="#ffffff"
+                      wb-tooltip-size="16px">Red Tooltip</span>
+            </div>
+            
+            <div class="example">
+                <span wb-component="tooltip-text" 
+                      wb-tooltip-text="Green tooltip with larger text" 
+                      wb-tooltip-background="#51cf66" 
+                      wb-tooltip-color="#000000"
+                      wb-tooltip-size="18px"
+                      wb-tooltip-position="bottom">Green Tooltip</span>
+            </div>
+        </div>
+        
+        <div class="test-section">
+            <h2>Animation Types</h2>
+            
+            <div class="example">
+                <span wb-component="tooltip-text" 
+                      wb-tooltip-text="Fade animation" 
+                      wb-tooltip-animation="fade">Fade</span>
+                <span wb-component="tooltip-text" 
+                      wb-tooltip-text="Slide animation" 
+                      wb-tooltip-animation="slide"
+                      wb-tooltip-position="bottom">Slide</span>
+                <span wb-component="tooltip-text" 
+                      wb-tooltip-text="Scale animation" 
+                      wb-tooltip-animation="scale"
+                      wb-tooltip-position="left">Scale</span>
+            </div>
+        </div>
+        
+        <div class="test-section">
+            <h2>Delay and Duration</h2>
+            
+            <div class="example">
+                <span wb-component="tooltip-text" 
+                      wb-tooltip-text="This tooltip appears after 1 second" 
+                      wb-tooltip-delay="1">Delayed Tooltip</span>
+                <span wb-component="tooltip-text" 
+                      wb-tooltip-text="This tooltip animates slowly" 
+                      wb-tooltip-duration="1"
+                      wb-tooltip-position="bottom">Slow Animation</span>
+            </div>
+        </div>
+        
+        <div class="test-section">
+            <h2>Usage Examples</h2>
+            
+            <div class="code-example">
+&lt;!-- Basic tooltip --&gt;
+&lt;span wb-component="tooltip-text" wb-tooltip-text="Your tooltip text"&gt;
+  Hover over me
+&lt;/span&gt;
+
+&lt;!-- Custom positioned tooltip --&gt;
+&lt;h1 wb-component="tooltip-text" 
+    wb-tooltip-text="This is a helpful hint" 
+    wb-tooltip-position="bottom"&gt;
+  Heading
+&lt;/h1&gt;
+
+&lt;!-- Styled tooltip --&gt;
+&lt;a href="#" wb-component="tooltip-text" 
+   wb-tooltip-text="Click to learn more" 
+   wb-tooltip-background="#007bff" 
+   wb-tooltip-color="#ffffff"&gt;
+  Link
+&lt;/a&gt;
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Initialize FlowBitz with debug mode
+        WebflowBits.init({ debug: true });
+        
+        // Log when ready
+        document.addEventListener('webflow-bits-ready', () => {
+            console.log('🎉 FlowBitz Tooltip Text component is ready!');
+        });
+        
+        // Test the component after a short delay
+        setTimeout(() => {
+            console.log('Testing tooltip elements...');
+            const tooltipElements = document.querySelectorAll('[wb-component="tooltip-text"]');
+            console.log(`Found ${tooltipElements.length} tooltip elements`);
+        }, 1000);
+    </script>
+</body>
+</html>

@@ -238,7 +238,8 @@ export const componentClassSets = {
   shinyText: ['wb-shiny-text', 'wb-shiny-text--disabled'],
   gradientText: ['wb-gradient-text', 'wb-gradient-text__content', 'wb-gradient-text__overlay', 'wb-gradient-text--disabled'],
   shapeBlur: ['wb-shape-blur', 'wb-shape-blur__canvas', 'wb-shape-blur__content', 'wb-shape-blur--error', 'wb-shape-blur__error-message', 'wb-shape-blur--show-error', 'wb-shape-blur-animating', 'wb-shape-blur-completed'],
-  shuffle: ['wb-shuffle-parent', 'wb-shuffle-ready', 'wb-shuffle-animating', 'wb-shuffle-completed', 'wb-shuffle-char-wrapper', 'wb-shuffle-char']
+  shuffle: ['wb-shuffle-parent', 'wb-shuffle-ready', 'wb-shuffle-animating', 'wb-shuffle-completed', 'wb-shuffle-char-wrapper', 'wb-shuffle-char'],
+  tooltipText: ['wb-tooltip', 'wb-tooltip__text', 'wb-tooltip--top', 'wb-tooltip--bottom', 'wb-tooltip--left', 'wb-tooltip--right', 'wb-tooltip--small', 'wb-tooltip--medium', 'wb-tooltip--large', 'wb-tooltip--fade', 'wb-tooltip--slide', 'wb-tooltip--scale']
 };
 
 /**

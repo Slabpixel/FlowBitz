@@ -30,11 +30,25 @@ const componentCSS = `
 
 .wb-decrypt-text__content {
   display: inline-block;
+  white-space: normal;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+
+.wb-decrypt-text__word {
+  display: inline-block;
+  white-space: nowrap;
 }
 
 .wb-decrypt-text__char {
   display: inline-block;
   will-change: auto;
+}
+
+.wb-decrypt-text__space {
+  display: inline-block;
+  width: 0.25em;
+  min-width: 0.25em;
 }
 
 /* Performance optimization during animation */
@@ -218,13 +232,31 @@ class DecryptedTextAnimator {
     // Store original text for screen readers
     element.setAttribute('aria-label', originalText);
     
+    // Split text into words while preserving spaces
+    const words = originalText.split(/(\s+)/);
+    let charIndex = 0;
+    
     // Create wrapper structure
     element.innerHTML = `
       <span class="wb-decrypt-text__sr-only">${originalText}</span>
       <span class="wb-decrypt-text__content" aria-hidden="true">
-        ${originalText.split('').map((char, index) => 
-          `<span class="wb-decrypt-text__char ${config.className}" data-index="${index}">${char}</span>`
-        ).join('')}
+        ${words.map((word, wordIndex) => {
+          if (word.match(/\s+/)) {
+            // This is whitespace - render as space
+            const spaceChars = word.split('').map(() => {
+              const index = charIndex++;
+              return `<span class="wb-decrypt-text__char wb-decrypt-text__space ${config.className}" data-index="${index}">&nbsp;</span>`;
+            }).join('');
+            return spaceChars;
+          } else {
+            // This is a word - wrap in a word container
+            const wordChars = word.split('').map((char) => {
+              const index = charIndex++;
+              return `<span class="wb-decrypt-text__char ${config.className}" data-index="${index}">${char}</span>`;
+            }).join('');
+            return `<span class="wb-decrypt-text__word">${wordChars}</span>`;
+          }
+        }).join('')}
       </span>
     `;
   }
@@ -491,13 +523,20 @@ class DecryptedTextAnimator {
 
     chars.forEach((charElement, index) => {
       if (index < textChars.length) {
-        charElement.textContent = textChars[index];
+        const char = textChars[index];
         
-        // Update classes based on reveal state
-        const isRevealed = instance.revealedIndices.has(index) || !instance.isScrambling;
-        charElement.className = `wb-decrypt-text__char ${
-          isRevealed ? config.className : config.encryptedClassName
-        }`;
+        // Handle spaces specially
+        if (char === ' ') {
+          charElement.innerHTML = '&nbsp;';
+          charElement.className = `wb-decrypt-text__char wb-decrypt-text__space ${
+            instance.revealedIndices.has(index) || !instance.isScrambling ? config.className : config.encryptedClassName
+          }`;
+        } else {
+          charElement.textContent = char;
+          charElement.className = `wb-decrypt-text__char ${
+            instance.revealedIndices.has(index) || !instance.isScrambling ? config.className : config.encryptedClassName
+          }`;
+        }
       }
     });
   }
@@ -536,10 +575,10 @@ class DecryptedTextAnimator {
   }
 
   /**
-   * Initialize all elements with wb-component="decrypt-text"
+   * Initialize all elements with wb-component="decrypted-text"
    */
   initAll() {
-    const elements = document.querySelectorAll('[wb-component="decrypt-text"]');
+    const elements = document.querySelectorAll('[wb-component="decrypted-text"]');
     elements.forEach(element => this.initElement(element));
   }
 
@@ -613,7 +652,9 @@ class DecryptedTextAnimator {
     const conflicts = checkCSSConflicts(componentClassSets.decryptText || [
       'wb-decrypt-text',
       'wb-decrypt-text__content',
+      'wb-decrypt-text__word',
       'wb-decrypt-text__char',
+      'wb-decrypt-text__space',
       'wb-decrypt-text-animating',
       'wb-decrypt-text-completed'
     ]);
@@ -657,7 +698,9 @@ if (typeof componentClassSets !== 'undefined') {
     'wb-decrypt-text',
     'wb-decrypt-text__wrapper',
     'wb-decrypt-text__content',
+    'wb-decrypt-text__word',
     'wb-decrypt-text__char',
+    'wb-decrypt-text__space',
     'wb-decrypt-text__sr-only',
     'wb-decrypt-text-animating',
     'wb-decrypt-text-completed',

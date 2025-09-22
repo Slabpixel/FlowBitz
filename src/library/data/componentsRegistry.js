@@ -29,6 +29,10 @@ export const loadComponent = async (componentName) => {
       'shape-blur': 'shapeBlur',
       'image-trail': 'imageTrail',
       'magnet-lines': 'magnetLines',
+      'gradient-button': 'gradientButton',
+      'ripple-button': 'rippleButton',
+      'pulse-button': 'pulseButton',
+      'magnetic-button': 'magnet',
       'shuffle': 'shuffle'
     }
 
@@ -84,6 +88,10 @@ export const getComponentFileName = (componentName) => {
     'shape-blur': 'shapeBlur',
     'image-trail': 'imageTrail',
     'magnet-lines': 'magnetLines',
+    'gradient-button': 'gradientButton',
+    'ripple-button': 'rippleButton',
+    'pulse-button': 'pulseButton',
+    'magnetic-button': 'magnet',
     'shuffle': 'shuffle'
   }
 
