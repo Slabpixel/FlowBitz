@@ -1,6 +1,28 @@
 # FlowBitz
 
-Interactive components library for Webflow powered by GSAP.
+**FlowBitz** is a powerful animation library designed specifically for Webflow that brings your designs to life with smooth, professional animations. Built on GSAP (GreenSock Animation Platform), it provides 16 ready-to-use components that work seamlessly with Webflow's visual editor.
+
+## What is FlowBitz?
+
+FlowBitz transforms static Webflow designs into dynamic, engaging experiences without requiring any coding knowledge. Simply add attributes to your elements and watch them come alive with:
+
+- **Text Animations** - Split text, typewriter effects, gradient animations, and more
+- **Interactive Effects** - Mouse-following trails, magnetic grids, and WebGL shaders
+- **Scroll Triggers** - Animations that activate as users scroll through your site
+- **Mobile Optimized** - All animations are optimized for touch devices and performance
+
+Perfect for landing pages, portfolios, marketing sites, and any Webflow project that needs that extra "wow" factor.
+
+## Key Features
+
+- 🚀 **Zero Configuration** - Works out of the box with sensible defaults
+- 🎨 **Webflow Native** - Designed specifically for Webflow's workflow
+- 📱 **Mobile First** - Optimized for all devices and screen sizes
+- ⚡ **Performance** - Lightweight and GPU-accelerated animations
+- 🛠️ **Developer Friendly** - Full JavaScript API for custom implementations
+- 🎯 **Accessibility** - Respects user preferences and reduced motion settings
+- 🔄 **Auto-Initialize** - Automatically detects and initializes components
+- 📚 **Well Documented** - Comprehensive documentation and examples
 
 ## Quick Start
 
