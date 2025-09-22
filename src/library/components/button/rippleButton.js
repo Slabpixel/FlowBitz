@@ -226,10 +226,24 @@ class RippleButtonAnimator {
     
     // Ensure proper masking for anchor elements
     if (element.tagName === 'A') {
-      // Force inline-block display for proper masking
-      element.style.display = 'inline-block';
-      // Ensure overflow is hidden for proper masking
-      element.style.overflow = 'hidden';
+      // Check if element has flexbox classes that should be preserved
+      const hasFlexClasses = element.classList.contains('btn') || 
+                            element.classList.contains('w-button') ||
+                            getComputedStyle(element).display === 'flex';
+      
+      if (hasFlexClasses) {
+        // Preserve flexbox layout but ensure overflow is hidden for masking
+        element.style.overflow = 'hidden';
+        // Don't override display if it's already flex
+        if (getComputedStyle(element).display !== 'flex') {
+          element.style.display = 'inline-block';
+        }
+      } else {
+        // Force inline-block display for proper masking
+        element.style.display = 'inline-block';
+        // Ensure overflow is hidden for proper masking
+        element.style.overflow = 'hidden';
+      }
     }
     
     // Create click handler

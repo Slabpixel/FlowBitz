@@ -23,6 +23,10 @@ const componentCSS = `
   display: inline-block;
 }
 
+.wb-scramble-text__line {
+  display: block;
+}
+
 .wb-scramble-text__char {
   will-change: transform;
   display: inline-block;
@@ -184,10 +188,13 @@ class ScrambleTextAnimator {
     // Store original text for screen readers
     element.setAttribute('aria-label', originalText);
     
+    // Convert line breaks to <br> tags for proper display
+    const textWithLineBreaks = originalText.replace(/\n/g, '<br>');
+    
     // Create wrapper structure
     element.innerHTML = `
       <span class="wb-scramble-text__content" aria-hidden="true">
-        ${originalText}
+        ${textWithLineBreaks}
       </span>
     `;
   }
@@ -284,8 +291,9 @@ class ScrambleTextAnimator {
     try {
       // Create SplitText instance
       instance.splitText = new SplitText(contentElement, {
-        type: "chars",
-        charsClass: "wb-scramble-text__char"
+        type: "chars,lines",
+        charsClass: "wb-scramble-text__char",
+        linesClass: "wb-scramble-text__line"
       });
 
       instance.chars = instance.splitText.chars;
@@ -302,6 +310,11 @@ class ScrambleTextAnimator {
 
       // Set up character data and initial state
       instance.chars.forEach((char) => {
+        // Skip <br> tags - they don't need scrambling
+        if (char.tagName === 'BR') {
+          return;
+        }
+        
         gsap.set(char, {
           display: 'inline-block',
           attr: { 'data-content': char.innerHTML }
@@ -347,6 +360,11 @@ class ScrambleTextAnimator {
     const { config } = instance;
 
     instance.chars.forEach((char) => {
+      // Skip <br> tags - they don't need scrambling
+      if (char.tagName === 'BR') {
+        return;
+      }
+
       const { left, top, width, height } = char.getBoundingClientRect();
       const charCenterX = left + width / 2;
       const charCenterY = top + height / 2;
@@ -419,6 +437,11 @@ class ScrambleTextAnimator {
     // Kill all ongoing scramble animations
     if (chars && chars.length) {
       chars.forEach((char) => {
+        // Skip <br> tags - they don't need scrambling
+        if (char.tagName === 'BR') {
+          return;
+        }
+
         gsap.killTweensOf(char);
         // Reset to original text and remove minWidth
         if (char.dataset.content) {
@@ -570,6 +593,11 @@ class ScrambleTextAnimator {
 
     // Trigger scramble for all characters
     instance.chars.forEach((char) => {
+      // Skip <br> tags - they don't need scrambling
+      if (char.tagName === 'BR') {
+        return;
+      }
+
       gsap.to(char, {
         duration: instance.config.duration,
         scrambleText: {

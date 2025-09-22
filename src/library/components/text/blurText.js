@@ -165,13 +165,19 @@ class BlurTextAnimator {
       const span = document.createElement('span');
       span.className = 'wb-blur-text__segment';
       
-      if (segment === ' ') {
-        span.innerHTML = '&nbsp;';
-      } else {
+      if (config.animateBy === 'words') {
+        // For words, just add the text content
         span.textContent = segment;
-        // Add space after words (except last one)
-        if (config.animateBy === 'words' && index < elements.length - 1) {
-          span.innerHTML += '&nbsp;';
+        // Add a regular space after each word (except the last one)
+        if (index < elements.length - 1) {
+          span.innerHTML += ' ';
+        }
+      } else {
+        // For characters, handle spaces properly
+        if (segment === ' ') {
+          span.innerHTML = '&nbsp;';
+        } else {
+          span.textContent = segment;
         }
       }
       
