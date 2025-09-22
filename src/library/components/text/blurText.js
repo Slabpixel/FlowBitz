@@ -14,14 +14,18 @@ gsap.registerPlugin(ScrollTrigger);
 const componentCSS = `
 /* FlowBitz - BlurText Component Styles */
 .wb-blur-text {
-  display: flex;
-  flex-wrap: wrap;
+  display: inline;
   position: relative;
 }
 
 .wb-blur-text__segment {
   display: inline-block;
   will-change: transform, filter, opacity;
+}
+
+.wb-blur-text__space {
+  display: inline;
+  white-space: pre;
 }
 
 /* Performance optimization during animation */
@@ -157,32 +161,42 @@ class BlurTextAnimator {
     // Split text based on configuration
     const elements = config.animateBy === 'words' ? text.split(' ') : text.split('');
     
-    // Clear element
+    // Clear only the content of this element, not affecting parent structure
     element.innerHTML = '';
     
     // Create segments
-    const segments = elements.map((segment, index) => {
-      const span = document.createElement('span');
-      span.className = 'wb-blur-text__segment';
-      
+    const segments = [];
+    
+    elements.forEach((segment, index) => {
       if (config.animateBy === 'words') {
-        // For words, just add the text content
-        span.textContent = segment;
-        // Add a regular space after each word (except the last one)
+        // Create word span
+        const wordSpan = document.createElement('span');
+        wordSpan.className = 'wb-blur-text__segment';
+        wordSpan.textContent = segment;
+        element.appendChild(wordSpan);
+        segments.push(wordSpan);
+        
+        // Add space span if not the last word
         if (index < elements.length - 1) {
-          span.innerHTML += ' ';
+          const spaceSpan = document.createElement('span');
+          spaceSpan.className = 'wb-blur-text__space';
+          spaceSpan.textContent = ' ';
+          spaceSpan.style.display = 'inline'; // Ensure spaces are visible
+          element.appendChild(spaceSpan);
+          // Don't add space spans to segments array as they don't need animation
         }
       } else {
         // For characters, handle spaces properly
+        const charSpan = document.createElement('span');
+        charSpan.className = 'wb-blur-text__segment';
         if (segment === ' ') {
-          span.innerHTML = '&nbsp;';
+          charSpan.innerHTML = '&nbsp;';
         } else {
-          span.textContent = segment;
+          charSpan.textContent = segment;
         }
+        element.appendChild(charSpan);
+        segments.push(charSpan);
       }
-      
-      element.appendChild(span);
-      return span;
     });
 
     return {

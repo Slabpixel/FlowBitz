@@ -10,7 +10,6 @@ const componentCSS = `
 .wb-gradient-text {
   position: relative;
   display: inline-block;
-  font-weight: inherit;
   transition: box-shadow 0.5s ease-out;
 }
 
@@ -47,10 +46,6 @@ const componentCSS = `
   -webkit-background-clip: text;
   color: transparent;
   animation: wb-gradient-animation linear infinite;
-  font-weight: inherit;
-  font-size: inherit;
-  font-family: inherit;
-  line-height: inherit;
 }
 
 @keyframes wb-gradient-animation {

@@ -14,18 +14,11 @@ gsap.registerPlugin(SplitText, ScrambleTextPlugin);
 const componentCSS = `
 /* FlowBitz - ScrambleText Component Styles */
 .wb-scramble-text {
-  display: inline-block;
   position: relative;
   cursor: crosshair;
 }
 
-.wb-scramble-text__content {
-  display: inline-block;
-}
-
-.wb-scramble-text__line {
-  display: block;
-}
+/* Minimal styles - let Webflow element handle display and layout */
 
 .wb-scramble-text__char {
   will-change: transform;
@@ -131,6 +124,7 @@ class ScrambleTextAnimator {
 
     try {
       const config = this.parseConfig(element);
+      const originalContent = element.innerHTML;
       const originalText = element.textContent.trim();
       
       if (!originalText) {
@@ -139,13 +133,14 @@ class ScrambleTextAnimator {
       }
 
       // Create wrapper structure
-      this.createScrambleStructure(element, originalText, config);
+      this.createScrambleStructure(element, originalContent, config);
       
       // Create instance data
       const instance = {
         element,
         config,
         originalText,
+        originalContent,
         splitText: null,
         chars: [],
         isActive: false,
@@ -184,19 +179,12 @@ class ScrambleTextAnimator {
   /**
    * Create the HTML structure for scramble animation
    */
-  createScrambleStructure(element, originalText, config) {
+  createScrambleStructure(element, originalContent, config) {
     // Store original text for screen readers
-    element.setAttribute('aria-label', originalText);
+    element.setAttribute('aria-label', element.textContent.trim());
     
-    // Convert line breaks to <br> tags for proper display
-    const textWithLineBreaks = originalText.replace(/\n/g, '<br>');
-    
-    // Create wrapper structure
-    element.innerHTML = `
-      <span class="wb-scramble-text__content" aria-hidden="true">
-        ${textWithLineBreaks}
-      </span>
-    `;
+    // Don't create wrapper - let SplitText work directly on the element
+    // This preserves the Webflow element's original styling and layout
   }
 
   /**
@@ -284,16 +272,15 @@ class ScrambleTextAnimator {
    */
   initializeSplitText(instance) {
     const { element, config } = instance;
-    const contentElement = element.querySelector('.wb-scramble-text__content');
-    
-    if (!contentElement) return;
 
     try {
-      // Create SplitText instance
-      instance.splitText = new SplitText(contentElement, {
-        type: "chars,lines",
+      // Create SplitText instance directly on the element to preserve Webflow styling
+      instance.splitText = new SplitText(element, {
+        type: "chars",
         charsClass: "wb-scramble-text__char",
-        linesClass: "wb-scramble-text__line"
+        smartWrap: true,
+        reduceWhiteSpace: false,
+        absolute: false
       });
 
       instance.chars = instance.splitText.chars;
@@ -502,7 +489,7 @@ class ScrambleTextAnimator {
       }
 
       // Restore original content
-      element.textContent = instance.originalText;
+      element.innerHTML = instance.originalContent;
       element.removeAttribute('aria-label');
 
       // Remove CSS classes
