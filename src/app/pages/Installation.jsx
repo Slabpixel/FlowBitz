@@ -154,13 +154,13 @@ const Installation = () => {
                           }
                         }}
                       >
-                        {'<script src="https://flowbitz.dev/latest/flowbitz.umd.js"></script>'}
+                        {'<script src="https://cdn.jsdelivr.net/npm/flowbitz@latest/dist/flowbitz.umd.js"></script>'}
                       </SyntaxHighlighter>
                       <Button 
                         variant="ghost" 
                         size="sm"
                         className="absolute right-2 top-2 h-8 w-8 p-0 hover:bg-gray-700" 
-                        onClick={() => copyToClipboard('<script src="https://flowbitz.dev/latest/flowbitz.umd.js"></script>', 'scriptTag')}
+                        onClick={() => copyToClipboard('<script src="https://cdn.jsdelivr.net/npm/flowbitz@latest/dist/flowbitz.umd.js"></script>', 'scriptTag')}
                       >
                         {copyStates.scriptTag ? (
                           <CheckCircle className="w-4 h-4 text-green-500" />

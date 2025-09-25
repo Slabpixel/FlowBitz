@@ -109,6 +109,17 @@ vercel --prod
 - `npm version minor` - Minor Release (New Features) Result: v1.0.0 → v1.1.0
 - `npm version major` - Major Release (Breaking Changes) Result: v1.0.0 → v2.0.0
 
+### npm Publish
+- `npm publish` - Publishing to https://registry.npmjs.org/ with tag latest and default access
+
+<!-- Latest version -->
+<script src="https://cdn.jsdelivr.net/npm/flowbitz@latest/dist/flowbitz.umd.js"></script>
+
+<!-- Specific version -->
+<script src="https://cdn.jsdelivr.net/npm/flowbitz@1.1.2/dist/flowbitz.umd.js"></script>
+
+<!-- Minified version (auto-minified by jsDelivr) -->
+<script src="https://cdn.jsdelivr.net/npm/flowbitz@1.1.2/dist/flowbitz.umd.min.js"></script>
 
 ## 🌐 CDN Structure
 
