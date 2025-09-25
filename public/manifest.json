@@ -1,7 +1,7 @@
 {
-  "name": "FlowBitz - Interactive Components for Webflow",
+  "name": "FlowBitz - Free GSAP Animation Components for Webflow | No Coding Required",
   "short_name": "FlowBitz",
-  "description": "Create stunning animations and interactive effects with FlowBitz - a powerful library of 16+ components designed specifically for Webflow.",
+  "description": "Transform your Webflow projects with 16+ professional animation components. Zero JavaScript knowledge needed - just add HTML attributes. GSAP-powered, mobile-responsive, and completely free.",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#000000",
@@ -9,11 +9,23 @@
   "orientation": "portrait-primary",
   "scope": "/",
   "lang": "en",
-  "categories": ["developer", "productivity", "utilities"],
+  "categories": ["developer", "productivity", "utilities", "design", "webflow", "animation"],
   "icons": [
+    {
+      "src": "https://slabpixel.dev/images/favicon-16.png",
+      "sizes": "16x16",
+      "type": "image/png",
+      "purpose": "any"
+    },
     {
       "src": "https://slabpixel.dev/images/favicon-32.png",
       "sizes": "32x32",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "https://slabpixel.dev/images/favicon-48.png",
+      "sizes": "48x48",
       "type": "image/png",
       "purpose": "any"
     },
@@ -28,7 +40,7 @@
     {
       "src": "https://slabpixel.dev/images/FlowBitz-OpenGraph.webp",
       "sizes": "1200x630",
-      "type": "image/png",
+      "type": "image/webp",
       "form_factor": "wide"
     }
   ],
