@@ -93,6 +93,6 @@ console.log('🧹 Cleaned up beta directory');
 
 console.log(`\n🎉 Beta successfully promoted to stable version v${newVersion}!`);
 console.log(`📦 Files promoted: ${copiedFiles}/${files.length}`);
-console.log(`🌐 Stable URL: https://flowbitz.dev/v${newVersion}/flowbitz.umd.js`);
-console.log(`🌐 Latest URL: https://flowbitz.dev/latest/flowbitz.umd.js`);
+console.log(`🌐 Stable URL: https://www.flowbitz.dev/v${newVersion}/flowbitz.umd.js`);
+console.log(`🌐 Latest URL: https://www.flowbitz.dev/latest/flowbitz.umd.js`);
 console.log(`\n💡 Users will now get the new version automatically!`);

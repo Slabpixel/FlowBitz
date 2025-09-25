@@ -15,7 +15,7 @@ const Components = () => {
     "@type": "CollectionPage",
     "name": "FlowBitz Components Library",
     "description": "Explore our comprehensive library of 16+ interactive components designed specifically for Webflow. Free, easy to use, and performance optimized.",
-    "url": "https://flowbitz.dev/components",
+    "url": "https://www.flowbitz.dev/components",
     "mainEntity": {
       "@type": "ItemList",
       "name": "Webflow Components",
@@ -30,8 +30,8 @@ const Components = () => {
         title="Free Webflow Animation Components Library | 16+ GSAP Components - FlowBitz"
         description="Browse 16+ professional animation components for Webflow. Text effects, hover animations, scroll triggers - all powered by GSAP. Zero coding required, completely free."
         keywords="webflow components library, webflow animation components, webflow text effects, webflow hover effects, webflow scroll animations, webflow gsap components, free webflow components, webflow split text, webflow gradient text, webflow typewriter effect, webflow interactive components, webflow animation library, webflow effects library, webflow animation tools, webflow animation examples, webflow animation code, webflow animation tutorials, webflow animation solutions, webflow animation alternatives, webflow animation problems, webflow animation limitations"
-        image="https://slabpixel.dev/images/FlowBitz-OpenGraph.webp"
-        url="https://flowbitz.dev/components"
+        image="https://www.slabpixel.dev/images/FlowBitz-OpenGraph.webp"
+        url="https://www.flowbitz.dev/components"
         structuredData={structuredData}
       />
       <div className="bg-background text-foreground pt-[64px] min-h-screen">

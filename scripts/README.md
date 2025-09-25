@@ -59,7 +59,7 @@ npm run build:beta
 vercel --prod
 
 # 3. Test beta version
-# Visit: https://flowbitz.dev/beta/flowbitz.umd.js
+# Visit: https://www.flowbitz.dev/beta/flowbitz.umd.js
 ```
 
 ### When Beta is Ready (Promote to Stable)
@@ -104,19 +104,19 @@ dist/
 ### For Users
 ```html
 <!-- Latest stable (recommended) -->
-<script src="https://flowbitz.dev/latest/flowbitz.umd.js"></script>
+<script src="https://www.flowbitz.dev/latest/flowbitz.umd.js"></script>
 
 <!-- Specific version (for production) -->
-<script src="https://flowbitz.dev/v1.0.0/flowbitz.umd.js"></script>
+<script src="https://www.flowbitz.dev/v1.0.0/flowbitz.umd.js"></script>
 
 <!-- Beta version (for testing) -->
-<script src="https://flowbitz.dev/beta/flowbitz.umd.js"></script>
+<script src="https://www.flowbitz.dev/beta/flowbitz.umd.js"></script>
 ```
 
 ### For Developers
 ```html
 <!-- Simple URL (redirects to latest) -->
-<script src="https://flowbitz.dev/flowbitz.umd.js"></script>
+<script src="https://www.flowbitz.dev/flowbitz.umd.js"></script>
 ```
 
 ## ⚠️ Important Notes

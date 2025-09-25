@@ -460,7 +460,7 @@ const ComponentDetail = () => {
     "@type": "SoftwareApplication",
     "name": component.name,
     "description": component.description,
-    "url": `https://flowbitz.dev/components/${componentName}`,
+    "url": `https://www.flowbitz.dev/components/${componentName}`,
     "applicationCategory": "Web Development Tool",
     "operatingSystem": "Web",
     "offers": {
@@ -483,8 +483,8 @@ const ComponentDetail = () => {
         title={`${component.name} - FlowBitz Component`}
         description={`${component.description} - Free Webflow component with easy integration and customization options.`}
         keywords={`webflow, ${component.name.toLowerCase()}, ${component.category}, interactive components, webflow library, ${componentName}, webflow effects`}
-        image="https://slabpixel.dev/images/FlowBitz-OpenGraph.webp"
-        url={`https://flowbitz.dev/components/${componentName}`}
+        image="https://www.slabpixel.dev/images/FlowBitz-OpenGraph.webp"
+        url={`https://www.flowbitz.dev/components/${componentName}`}
         structuredData={structuredData}
       />
       <div className="bg-background text-foreground pt-[64px] min-h-screen">

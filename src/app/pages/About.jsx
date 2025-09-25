@@ -25,7 +25,7 @@ const About = () => {
     "@type": "AboutPage",
     "name": "About FlowBitz",
     "description": "Learn about FlowBitz - the free interactive components library for Webflow. Created by SlabPixel Studio to help designers and developers create stunning web experiences.",
-    "url": "https://flowbitz.dev/about",
+    "url": "https://www.flowbitz.dev/about",
     "mainEntity": {
       "@type": "Organization",
       "name": "SlabPixel Studio",
@@ -40,8 +40,8 @@ const About = () => {
         title="About FlowBitz - Solving Webflow Animation Problems | Free GSAP Components"
         description="Discover how FlowBitz bridges the gap between Webflow's basic animations and professional GSAP effects. Learn about our mission to democratize advanced web animations for everyone."
         keywords="about flowbitz, webflow animation problems, webflow gsap integration, webflow animation limitations, webflow components library, free webflow animations, webflow animation solutions, webflow animation tools, webflow animation alternatives, webflow animation library, webflow animation components, webflow animation examples, webflow animation tutorials, webflow animation code, webflow animation plugins, webflow animation effects, webflow animation library, webflow animation tools, webflow animation solutions, webflow animation alternatives"
-        image="https://slabpixel.dev/images/FlowBitz-OpenGraph.webp"
-        url="https://flowbitz.dev/about"
+        image="https://www.slabpixel.dev/images/FlowBitz-OpenGraph.webp"
+        url="https://www.flowbitz.dev/about"
         structuredData={structuredData}
       />
       <div className="bg-background text-foreground pt-[64px] min-h-screen">
