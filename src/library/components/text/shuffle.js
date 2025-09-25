@@ -20,7 +20,6 @@ const componentCSS = `
   word-wrap: break-word;
   will-change: transform;
   line-height: 1;
-  visibility: hidden;
   overflow: visible;
   vertical-align: top;
 }

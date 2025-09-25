@@ -7,6 +7,7 @@
  * @license MIT
  */
 
+/* Text Components */
 import splitTextAnimator from '../components/text/splitText.js';
 import textTypeAnimator from '../components/text/textType.js';
 import blurTextAnimator from '../components/text/blurText.js';
@@ -18,16 +19,14 @@ import variableProximityAnimator from '../components/text/variableProximity.js';
 import countUpAnimator from '../components/text/countUp.js';
 import rotatingTextAnimator from '../components/text/rotatingText.js';
 import textPressureAnimator from '../components/text/textPressure.js';
-import magnetLinesAnimator from '../components/interactive/magnetLines.js';
-import gradientButtonAnimator from '../components/interactive/gradientButton.js';
-import rippleButtonAnimator from '../components/interactive/rippleButton.js';
-import pulseButtonAnimator from '../components/interactive/pulseButton.js';
-import imageTrailAnimator from '../components/interactive/imageTrail.js';
-import magnetAnimator from '../components/interactive/magneticButton.js';
-import textCursorAnimator from '../components/text/textCursor.js';
-import shapeBlurAnimator from '../components/interactive/shapeBlur.js';
 import shuffleAnimator from '../components/text/shuffle.js';
 import tooltipTextAnimator from '../components/text/tooltipText.js';
+
+/* Button Components */
+import pulseButtonAnimator from '../components/button/pulseButton.js';
+import gradientButtonAnimator from '../components/button/gradientButton.js';
+import rippleButtonAnimator from '../components/button/rippleButton.js';
+import magnetAnimator from '../components/button/magneticButton.js';
 
 /**
  * Main WebflowBits class for CDN usage
@@ -49,14 +48,10 @@ class WebflowBits {
       countUp: countUpAnimator,
       rotatingText: rotatingTextAnimator,
       textPressure: textPressureAnimator,
-      magnetLines: magnetLinesAnimator,
       gradientButton: gradientButtonAnimator,
       rippleButton: rippleButtonAnimator,
       pulseButton: pulseButtonAnimator,
-      imageTrail: imageTrailAnimator,
       magnet: magnetAnimator,
-      textCursor: textCursorAnimator,
-      shapeBlur: shapeBlurAnimator,
       shuffle: shuffleAnimator,
       tooltipText: tooltipTextAnimator,
     };
@@ -75,7 +70,7 @@ class WebflowBits {
     const config = {
       autoInit: true,
       debug: false,
-      components: ['splitText', 'textType', 'blurText', 'shinyText', 'gradientText', 'gradientButton', 'rippleButton', 'pulseButton', 'decryptedText', 'scrambleText', 'variableProximity', 'countUp', 'rotatingText', 'textPressure', 'magnetLines', 'imageTrail', 'magnet', 'textCursor', 'shapeBlur', 'shuffle', 'tooltipText'],
+      components: ['splitText', 'textType', 'blurText', 'shinyText', 'gradientText', 'gradientButton', 'rippleButton', 'pulseButton', 'decryptedText', 'scrambleText', 'variableProximity', 'countUp', 'rotatingText', 'textPressure', 'magnet', 'shuffle', 'tooltipText'],
       ...options
     };
 
@@ -160,25 +155,11 @@ class WebflowBits {
         this.initTextPressure(config.debug);
       }
 
-      if (config.components.includes('magnetLines')) {
-        this.initMagnetLines(config.debug);
-      }
-
-      if (config.components.includes('imageTrail')) {
-        this.initImageTrail(config.debug);
-      }
 
       if (config.components.includes('magnet')) {
         this.initMagnet(config.debug);
       }
 
-      if (config.components.includes('textCursor')) {
-        this.initTextCursor(config.debug);
-      }
-
-      if (config.components.includes('shapeBlur')) {
-        this.initShapeBlur(config.debug);
-      }
 
       if (config.components.includes('shuffle')) {
         this.initShuffle(config.debug);
@@ -280,34 +261,10 @@ class WebflowBits {
         allConflicts.push(...textPressureConflicts);
       }
 
-      // Check MagnetLines conflicts
-      const magnetLinesConflicts = magnetLinesAnimator.checkForConflicts();
-      if (magnetLinesConflicts) {
-        allConflicts.push(...magnetLinesConflicts);
-      }
-
-      // Check ImageTrail conflicts
-      const imageTrailConflicts = imageTrailAnimator.checkForConflicts();
-      if (imageTrailConflicts) {
-        allConflicts.push(...imageTrailConflicts);
-      }
-
       // Check Magnet conflicts
       const magnetConflicts = magnetAnimator.checkForConflicts();
       if (magnetConflicts) {
         allConflicts.push(...magnetConflicts);
-      }
-
-      // Check TextCursor conflicts
-      const textCursorConflicts = textCursorAnimator.checkForConflicts();
-      if (textCursorConflicts) {
-        allConflicts.push(...textCursorConflicts);
-      }
-
-      // Check ShapeBlur conflicts
-      const shapeBlurConflicts = shapeBlurAnimator.checkForConflicts();
-      if (shapeBlurConflicts) {
-        allConflicts.push(...shapeBlurConflicts);
       }
 
       // Check Shuffle conflicts
@@ -529,34 +486,6 @@ class WebflowBits {
   }
 
   /**
-   * Initialize MagnetLines component
-   */
-  initMagnetLines(debug = false) {
-    try {
-      magnetLinesAnimator.initAll();
-      if (debug) {
-        console.log('WebflowBits: MagnetLines initialized');
-      }
-    } catch (error) {
-      console.error('WebflowBits: Failed to initialize MagnetLines', error);
-    }
-  }
-
-  /**
-   * Initialize ImageTrail component
-   */
-  initImageTrail(debug = false) {
-    try {
-      imageTrailAnimator.initAll();
-      if (debug) {
-        console.log('WebflowBits: ImageTrail initialized');
-      }
-    } catch (error) {
-      console.error('WebflowBits: Failed to initialize ImageTrail', error);
-    }
-  }
-
-  /**
    * Initialize Magnetic Button component
    */
   initMagnet(debug = false) {
@@ -567,34 +496,6 @@ class WebflowBits {
       }
     } catch (error) {
       console.error('WebflowBits: Failed to initialize Magnetic Button', error);
-    }
-  }
-
-  /**
-   * Initialize TextCursor component
-   */
-  initTextCursor(debug = false) {
-    try {
-      textCursorAnimator.initAll();
-      if (debug) {
-        console.log('WebflowBits: TextCursor initialized');
-      }
-    } catch (error) {
-      console.error('WebflowBits: Failed to initialize TextCursor', error);
-    }
-  }
-
-  /**
-   * Initialize ShapeBlur component
-   */
-  initShapeBlur(debug = false) {
-    try {
-      shapeBlurAnimator.initAll();
-      if (debug) {
-        console.log('WebflowBits: ShapeBlur initialized');
-      }
-    } catch (error) {
-      console.error('WebflowBits: Failed to initialize ShapeBlur', error);
     }
   }
 
@@ -777,26 +678,6 @@ class WebflowBits {
                 shouldRefresh = true;
               });
 
-              // Check for wb-animate="magnet-lines" elements
-              const magnetLinesElements = node.matches?.('[wb-animate="magnet-lines"]')
-                ? [node]
-                : Array.from(node.querySelectorAll?.('[wb-animate="magnet-lines"]') || []);
-
-              magnetLinesElements.forEach(element => {
-                magnetLinesAnimator.initElement(element);
-                shouldRefresh = true;
-              });
-
-              // Check for wb-animate="image-trail" elements
-              const imageTrailElements = node.matches?.('[wb-animate="image-trail"]')
-                ? [node]
-                : Array.from(node.querySelectorAll?.('[wb-animate="image-trail"]') || []);
-
-              imageTrailElements.forEach(element => {
-                imageTrailAnimator.initElement(element);
-                shouldRefresh = true;
-              });
-
               // Check for wb-component="magnetic-button" elements
               const magnetElements = node.matches?.('[wb-component="magnetic-button"]')
                 ? [node]
@@ -804,26 +685,6 @@ class WebflowBits {
 
               magnetElements.forEach(element => {
                 magnetAnimator.initElement(element);
-                shouldRefresh = true;
-              });
-
-              // Check for wb-component="text-cursor" elements
-              const textCursorElements = node.matches?.('[wb-component="text-cursor"]')
-                ? [node]
-                : Array.from(node.querySelectorAll?.('[wb-component="text-cursor"]') || []);
-
-              textCursorElements.forEach(element => {
-                textCursorAnimator.initElement(element);
-                shouldRefresh = true;
-              });
-
-              // Check for wb-animate="shape-blur" elements
-              const shapeBlurElements = node.matches?.('[wb-animate="shape-blur"]')
-                ? [node]
-                : Array.from(node.querySelectorAll?.('[wb-animate="shape-blur"]') || []);
-
-              shapeBlurElements.forEach(element => {
-                shapeBlurAnimator.initElement(element);
                 shouldRefresh = true;
               });
 
@@ -865,11 +726,7 @@ class WebflowBits {
           countUpAnimator.refresh();
           rotatingTextAnimator.refresh();
           textPressureAnimator.refresh();
-          magnetLinesAnimator.refresh();
-          imageTrailAnimator.refresh();
           magnetAnimator.refresh();
-          textCursorAnimator.refresh();
-          shapeBlurAnimator.refresh();
           shuffleAnimator.refresh();
           tooltipTextAnimator.refresh();
         }, 100);
@@ -1139,44 +996,6 @@ class WebflowBits {
   }
 
   /**
-   * Manually initialize MagnetLines on specific elements
-   * @param {string|NodeList|Element} selector - CSS selector or DOM elements
-   */
-  initMagnetLinesOn(selector) {
-    const elements = typeof selector === 'string' 
-      ? document.querySelectorAll(selector)
-      : selector.nodeType ? [selector] : selector;
-    
-    Array.from(elements).forEach(element => {
-      if (element.getAttribute('wb-animate') === 'magnet-lines') {
-        magnetLinesAnimator.initElement(element);
-      }
-    });
-
-    magnetLinesAnimator.refresh();
-    return this;
-  }
-
-  /**
-   * Manually initialize ImageTrail on specific elements
-   * @param {string|NodeList|Element} selector - CSS selector or DOM elements
-   */
-  initImageTrailOn(selector) {
-    const elements = typeof selector === 'string' 
-      ? document.querySelectorAll(selector)
-      : selector.nodeType ? [selector] : selector;
-    
-    Array.from(elements).forEach(element => {
-      if (element.getAttribute('wb-animate') === 'image-trail') {
-        imageTrailAnimator.initElement(element);
-      }
-    });
-
-    imageTrailAnimator.refresh();
-    return this;
-  }
-
-  /**
    * Manually initialize Magnetic Button on specific elements
    * @param {string|NodeList|Element} selector - CSS selector or DOM elements
    */
@@ -1192,44 +1011,6 @@ class WebflowBits {
     });
 
     magnetAnimator.refresh();
-    return this;
-  }
-
-  /**
-   * Manually initialize TextCursor on specific elements
-   * @param {string|NodeList|Element} selector - CSS selector or DOM elements
-   */
-  initTextCursorOn(selector) {
-    const elements = typeof selector === 'string' 
-      ? document.querySelectorAll(selector)
-      : selector.nodeType ? [selector] : selector;
-    
-    Array.from(elements).forEach(element => {
-      if (element.getAttribute('wb-component') === 'text-cursor') {
-        textCursorAnimator.initElement(element);
-      }
-    });
-
-    textCursorAnimator.refresh();
-    return this;
-  }
-
-  /**
-   * Manually initialize ShapeBlur on specific elements
-   * @param {string|NodeList|Element} selector - CSS selector or DOM elements
-   */
-  initShapeBlurOn(selector) {
-    const elements = typeof selector === 'string' 
-      ? document.querySelectorAll(selector)
-      : selector.nodeType ? [selector] : selector;
-    
-    Array.from(elements).forEach(element => {
-      if (element.getAttribute('wb-component') === 'shape-blur') {
-        shapeBlurAnimator.initElement(element);
-      }
-    });
-
-    shapeBlurAnimator.refresh();
     return this;
   }
 
@@ -1317,20 +1098,8 @@ class WebflowBits {
     // Destroy TextPressure animations
     textPressureAnimator.destroyAll();
 
-    // Destroy MagnetLines animations
-    magnetLinesAnimator.destroyAll();
-
-    // Destroy ImageTrail animations
-    imageTrailAnimator.destroyAll();
-
     // Destroy Magnet animations
     magnetAnimator.destroyAll();
-
-    // Destroy TextCursor animations
-    textCursorAnimator.destroyAll();
-
-    // Destroy ShapeBlur animations
-    shapeBlurAnimator.destroyAll();
 
     // Destroy Shuffle animations
     shuffleAnimator.destroyAll();
@@ -1363,11 +1132,7 @@ class WebflowBits {
     countUpAnimator.refresh();
     rotatingTextAnimator.refresh();
     textPressureAnimator.refresh();
-    magnetLinesAnimator.refresh();
-    imageTrailAnimator.refresh();
     magnetAnimator.refresh();
-    textCursorAnimator.refresh();
-    shapeBlurAnimator.refresh();
     shuffleAnimator.refresh();
     tooltipTextAnimator.refresh();
     return this;

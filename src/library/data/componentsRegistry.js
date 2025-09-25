@@ -25,15 +25,12 @@ export const loadComponent = async (componentName) => {
       'variable-proximity': 'variableProximity',
       'rotating-text': 'rotatingText',
       'text-pressure': 'textPressure',
-      'text-cursor': 'textCursor',
-      'shape-blur': 'shapeBlur',
-      'image-trail': 'imageTrail',
-      'magnet-lines': 'magnetLines',
       'gradient-button': 'gradientButton',
       'ripple-button': 'rippleButton',
       'pulse-button': 'pulseButton',
       'magnetic-button': 'magnet',
-      'shuffle': 'shuffle'
+      'shuffle': 'shuffle',
+      'tooltip-text': 'tooltipText'
     }
 
     const fileName = componentMap[componentName]
@@ -84,15 +81,12 @@ export const getComponentFileName = (componentName) => {
     'variable-proximity': 'variableProximity',
     'rotating-text': 'rotatingText',
     'text-pressure': 'textPressure',
-    'text-cursor': 'textCursor',
-    'shape-blur': 'shapeBlur',
-    'image-trail': 'imageTrail',
-    'magnet-lines': 'magnetLines',
     'gradient-button': 'gradientButton',
     'ripple-button': 'rippleButton',
     'pulse-button': 'pulseButton',
     'magnetic-button': 'magnet',
-    'shuffle': 'shuffle'
+    'shuffle': 'shuffle',
+    'tooltip-text': 'tooltipText'
   }
 
   return componentMap[componentName] || null

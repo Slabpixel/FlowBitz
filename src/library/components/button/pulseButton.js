@@ -19,7 +19,6 @@ const componentCSS = `
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
-  display: inline-block;
   text-decoration: none;
   color: inherit;
   transition: transform 0.1s ease-out;
@@ -31,9 +30,8 @@ const componentCSS = `
   transform: scale(var(--wb-scale-amount, 0.95)) !important;
 }
 
-/* Ensure proper display for anchor elements */
+/* Ensure proper display for anchor elements - preserve flexbox if present */
 .wb-pulse-button[href] {
-  display: inline-block;
   text-decoration: none;
 }
 
@@ -313,6 +311,19 @@ class PulseButtonAnimator {
     
     // Apply component classes
     this.applyComponentClasses(element, config);
+    
+    // Ensure proper display for anchor elements while preserving flexbox
+    if (element.tagName === 'A') {
+      // Check if element has flexbox classes that should be preserved
+      const hasFlexClasses = element.classList.contains('btn') || 
+                            element.classList.contains('w-button') ||
+                            getComputedStyle(element).display === 'flex';
+      
+      if (!hasFlexClasses) {
+        // Only set inline-block if no flexbox layout is detected
+        element.style.display = 'inline-block';
+      }
+    }
     
     // Create instance
     const instance = {

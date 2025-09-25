@@ -10,7 +10,6 @@ const componentCSS = `
 .wb-gradient-text {
   position: relative;
   display: inline-block;
-  font-weight: inherit;
   transition: box-shadow 0.5s ease-out;
 }
 
@@ -47,10 +46,6 @@ const componentCSS = `
   -webkit-background-clip: text;
   color: transparent;
   animation: wb-gradient-animation linear infinite;
-  font-weight: inherit;
-  font-size: inherit;
-  font-family: inherit;
-  line-height: inherit;
 }
 
 @keyframes wb-gradient-animation {
@@ -190,18 +185,8 @@ class GradientTextAnimator {
    */
   createDOMStructure(element, config) {
     const originalContent = element.innerHTML;
-    const textContent = element.textContent.trim();
     
-    // Get computed styles from parent element
-    const computedStyle = window.getComputedStyle(element);
-    const parentStyles = {
-      fontWeight: computedStyle.fontWeight,
-      fontSize: computedStyle.fontSize,
-      fontFamily: computedStyle.fontFamily,
-      lineHeight: computedStyle.lineHeight,
-      letterSpacing: computedStyle.letterSpacing,
-      textTransform: computedStyle.textTransform
-    };
+    // Font styles will be inherited via CSS, no need to capture them
     
     // Clear element
     element.innerHTML = '';
@@ -232,19 +217,18 @@ class GradientTextAnimator {
       element.appendChild(overlayElement);
     }
     
-    // Create content element
+    // Create content element and preserve original HTML structure
     const contentElement = document.createElement('div');
     contentElement.className = 'wb-gradient-text__content';
     contentElement.style.backgroundImage = gradientStyle;
     contentElement.style.animationDuration = `${config.animationSpeed}s`;
-    contentElement.textContent = textContent;
     
-    // Apply parent styles to content element
-    Object.keys(parentStyles).forEach(property => {
-      if (parentStyles[property] && parentStyles[property] !== 'normal') {
-        contentElement.style[property] = parentStyles[property];
-      }
-    });
+    // Preserve the original HTML structure to maintain line breaks and formatting
+    contentElement.innerHTML = originalContent;
+    
+    // Let CSS inheritance handle font styles from Webflow
+    // The .wb-gradient-text__content class already has:
+    // font-weight: inherit, font-size: inherit, font-family: inherit, line-height: inherit
     
     element.appendChild(contentElement);
 
@@ -252,8 +236,7 @@ class GradientTextAnimator {
       originalContent,
       contentElement,
       overlayElement,
-      gradientStyle,
-      parentStyles
+      gradientStyle
     };
   }
 

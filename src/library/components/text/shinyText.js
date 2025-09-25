@@ -157,8 +157,13 @@ class ShinyTextAnimator {
     
     // Only apply custom gradient if custom colors are specified
     if (config.textColor !== null || config.shineColor !== this.defaultConfig.shineColor) {
-      // If textColor is null, use transparent to let Webflow's color show through
-      const baseColor = config.textColor || 'transparent';
+      // If textColor is null, get the computed color from the element
+      let baseColor = config.textColor;
+      if (!baseColor) {
+        // Get the computed color from the element to inherit the original text color
+        const computedStyle = window.getComputedStyle(element);
+        baseColor = computedStyle.color;
+      }
       
       const gradient = `linear-gradient(
         120deg,

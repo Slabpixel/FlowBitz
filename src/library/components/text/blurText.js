@@ -14,14 +14,18 @@ gsap.registerPlugin(ScrollTrigger);
 const componentCSS = `
 /* FlowBitz - BlurText Component Styles */
 .wb-blur-text {
-  display: flex;
-  flex-wrap: wrap;
+  display: inline;
   position: relative;
 }
 
 .wb-blur-text__segment {
   display: inline-block;
   will-change: transform, filter, opacity;
+}
+
+.wb-blur-text__space {
+  display: inline;
+  white-space: pre;
 }
 
 /* Performance optimization during animation */
@@ -46,7 +50,7 @@ const componentCSS = `
 
 class BlurTextAnimator {
   constructor() {
-    this.instances = new Map();
+    this.instances = new Map()
     this.stylesInjected = false;
     this.componentName = 'BlurText';
     this.componentClasses = webflowBitsClasses.forComponent('blur-text');
@@ -157,26 +161,42 @@ class BlurTextAnimator {
     // Split text based on configuration
     const elements = config.animateBy === 'words' ? text.split(' ') : text.split('');
     
-    // Clear element
+    // Clear only the content of this element, not affecting parent structure
     element.innerHTML = '';
     
     // Create segments
-    const segments = elements.map((segment, index) => {
-      const span = document.createElement('span');
-      span.className = 'wb-blur-text__segment';
-      
-      if (segment === ' ') {
-        span.innerHTML = '&nbsp;';
-      } else {
-        span.textContent = segment;
-        // Add space after words (except last one)
-        if (config.animateBy === 'words' && index < elements.length - 1) {
-          span.innerHTML += '&nbsp;';
+    const segments = [];
+    
+    elements.forEach((segment, index) => {
+      if (config.animateBy === 'words') {
+        // Create word span
+        const wordSpan = document.createElement('span');
+        wordSpan.className = 'wb-blur-text__segment';
+        wordSpan.textContent = segment;
+        element.appendChild(wordSpan);
+        segments.push(wordSpan);
+        
+        // Add space span if not the last word
+        if (index < elements.length - 1) {
+          const spaceSpan = document.createElement('span');
+          spaceSpan.className = 'wb-blur-text__space';
+          spaceSpan.textContent = ' ';
+          spaceSpan.style.display = 'inline'; // Ensure spaces are visible
+          element.appendChild(spaceSpan);
+          // Don't add space spans to segments array as they don't need animation
         }
+      } else {
+        // For characters, handle spaces properly
+        const charSpan = document.createElement('span');
+        charSpan.className = 'wb-blur-text__segment';
+        if (segment === ' ') {
+          charSpan.innerHTML = '&nbsp;';
+        } else {
+          charSpan.textContent = segment;
+        }
+        element.appendChild(charSpan);
+        segments.push(charSpan);
       }
-      
-      element.appendChild(span);
-      return span;
     });
 
     return {
@@ -184,6 +204,79 @@ class BlurTextAnimator {
       segments,
       elements
     };
+  }
+
+  /**
+   * Check if element is already in view (including rootMargin)
+   */
+  isElementInView(element, config) {
+    const rect = element.getBoundingClientRect();
+    const rootMargin = parseInt(config.rootMargin) || 200;
+    
+    return rect.top < window.innerHeight + rootMargin && 
+           rect.bottom > -rootMargin;
+  }
+
+  /**
+   * Start animation immediately without ScrollTrigger
+   */
+  startAnimationImmediately(instance) {
+    const { element, config, domStructure } = instance;
+    
+    // Define animation states based on direction
+    const fromState = config.direction === 'top'
+      ? { filter: 'blur(10px)', opacity: 0, y: -50 }
+      : { filter: 'blur(10px)', opacity: 0, y: 50 };
+
+    const midState = {
+      filter: 'blur(5px)',
+      opacity: 0.5,
+      y: config.direction === 'top' ? 5 : -5,
+    };
+
+    const toState = { 
+      filter: 'blur(0px)', 
+      opacity: 1, 
+      y: 0 
+    };
+
+    // Set initial state for all segments
+    gsap.set(domStructure.segments, fromState);
+
+    // Create timeline without ScrollTrigger
+    const timeline = gsap.timeline({
+      onComplete: () => {
+        this.completeAnimation(instance);
+      }
+    });
+
+    // Animate each segment with stagger
+    domStructure.segments.forEach((segment, index) => {
+      const segmentTimeline = gsap.timeline();
+      
+      // First animation step: from initial to mid state
+      segmentTimeline.to(segment, {
+        filter: midState.filter,
+        opacity: midState.opacity,
+        y: midState.y,
+        duration: config.stepDuration,
+        ease: config.ease,
+        delay: (index * config.delay) / 1000
+      });
+      
+      // Second animation step: from mid to final state
+      segmentTimeline.to(segment, {
+        filter: toState.filter,
+        opacity: toState.opacity,
+        y: toState.y,
+        duration: config.stepDuration,
+        ease: config.ease
+      }, `-=${config.stepDuration * 0.3}`); // Overlap animations slightly
+
+      timeline.add(segmentTimeline, 0);
+    });
+
+    instance.timeline = timeline;
   }
 
   /**
@@ -227,8 +320,13 @@ class BlurTextAnimator {
       // Apply performance optimizations
       PerformanceOptimizer.optimizeForAnimation(instance.domStructure.segments);
       
-      // Setup animation
-      this.setupAnimation(instance);
+      // Check if element is already in view and start animation immediately if so
+      if (this.isElementInView(element, config)) {
+        this.startAnimationImmediately(instance);
+      } else {
+        // Setup animation with ScrollTrigger
+        this.setupAnimation(instance);
+      }
       
     } catch (error) {
       console.error('WebflowBits BlurText: Failed to setup animation', error);
@@ -345,6 +443,10 @@ class BlurTextAnimator {
   initAll() {
     const elements = document.querySelectorAll('[wb-component="blur-text"]');
     elements.forEach(element => this.initElement(element));
+    
+    // Force ScrollTrigger to recalculate positions after initialization
+    // This ensures elements outside the initial viewport are properly detected
+    ScrollTrigger.refresh();
   }
 
   /**
