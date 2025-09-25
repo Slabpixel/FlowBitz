@@ -50,7 +50,7 @@ const componentCSS = `
 
 class BlurTextAnimator {
   constructor() {
-    this.instances = new Map();
+    this.instances = new Map()
     this.stylesInjected = false;
     this.componentName = 'BlurText';
     this.componentClasses = webflowBitsClasses.forComponent('blur-text');
@@ -207,6 +207,79 @@ class BlurTextAnimator {
   }
 
   /**
+   * Check if element is already in view (including rootMargin)
+   */
+  isElementInView(element, config) {
+    const rect = element.getBoundingClientRect();
+    const rootMargin = parseInt(config.rootMargin) || 200;
+    
+    return rect.top < window.innerHeight + rootMargin && 
+           rect.bottom > -rootMargin;
+  }
+
+  /**
+   * Start animation immediately without ScrollTrigger
+   */
+  startAnimationImmediately(instance) {
+    const { element, config, domStructure } = instance;
+    
+    // Define animation states based on direction
+    const fromState = config.direction === 'top'
+      ? { filter: 'blur(10px)', opacity: 0, y: -50 }
+      : { filter: 'blur(10px)', opacity: 0, y: 50 };
+
+    const midState = {
+      filter: 'blur(5px)',
+      opacity: 0.5,
+      y: config.direction === 'top' ? 5 : -5,
+    };
+
+    const toState = { 
+      filter: 'blur(0px)', 
+      opacity: 1, 
+      y: 0 
+    };
+
+    // Set initial state for all segments
+    gsap.set(domStructure.segments, fromState);
+
+    // Create timeline without ScrollTrigger
+    const timeline = gsap.timeline({
+      onComplete: () => {
+        this.completeAnimation(instance);
+      }
+    });
+
+    // Animate each segment with stagger
+    domStructure.segments.forEach((segment, index) => {
+      const segmentTimeline = gsap.timeline();
+      
+      // First animation step: from initial to mid state
+      segmentTimeline.to(segment, {
+        filter: midState.filter,
+        opacity: midState.opacity,
+        y: midState.y,
+        duration: config.stepDuration,
+        ease: config.ease,
+        delay: (index * config.delay) / 1000
+      });
+      
+      // Second animation step: from mid to final state
+      segmentTimeline.to(segment, {
+        filter: toState.filter,
+        opacity: toState.opacity,
+        y: toState.y,
+        duration: config.stepDuration,
+        ease: config.ease
+      }, `-=${config.stepDuration * 0.3}`); // Overlap animations slightly
+
+      timeline.add(segmentTimeline, 0);
+    });
+
+    instance.timeline = timeline;
+  }
+
+  /**
    * Initialize animation for a single element
    */
   initElement(element) {
@@ -247,8 +320,13 @@ class BlurTextAnimator {
       // Apply performance optimizations
       PerformanceOptimizer.optimizeForAnimation(instance.domStructure.segments);
       
-      // Setup animation
-      this.setupAnimation(instance);
+      // Check if element is already in view and start animation immediately if so
+      if (this.isElementInView(element, config)) {
+        this.startAnimationImmediately(instance);
+      } else {
+        // Setup animation with ScrollTrigger
+        this.setupAnimation(instance);
+      }
       
     } catch (error) {
       console.error('WebflowBits BlurText: Failed to setup animation', error);
@@ -365,6 +443,10 @@ class BlurTextAnimator {
   initAll() {
     const elements = document.querySelectorAll('[wb-component="blur-text"]');
     elements.forEach(element => this.initElement(element));
+    
+    // Force ScrollTrigger to recalculate positions after initialization
+    // This ensures elements outside the initial viewport are properly detected
+    ScrollTrigger.refresh();
   }
 
   /**

@@ -120,7 +120,7 @@ export const componentsMetadata = {
       { 
         name: 'wb-cursor-character', 
         description: 'Cursor character style: "underscore", "pipe", "dot", "block", "full-block"', 
-        default: '|',
+        default: 'pipe',
         inputType: 'dropdown',
         options: ['underscore', 'pipe', 'dot', 'block', 'full-block']
       },
@@ -228,7 +228,7 @@ export const componentsMetadata = {
     ],
     example: {
       title: 'Blur Text Animation',
-      code: '<h1 class="text-6xl">This is a <span wb-component="blur-text" wb-animate-by="words">Blur to Clear</span> effect</h1>',
+      code: '<h1 wb-component="blur-text" class="text-6xl">Blur to Clear</h1>',
       description: 'Blur-to-clear transition effects with customizable timing'
     }
   },
