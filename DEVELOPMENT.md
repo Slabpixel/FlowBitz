@@ -109,6 +109,9 @@ vercel --prod
 - `npm version minor` - Minor Release (New Features) Result: v1.0.0 → v1.1.0
 - `npm version major` - Major Release (Breaking Changes) Result: v1.0.0 → v2.0.0
 
+### npm Publish
+- `npm publish` - Publishing to https://registry.npmjs.org/ with tag latest and default access
+
 
 ## 🌐 CDN Structure
 
