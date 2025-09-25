@@ -56,7 +56,7 @@ const Installation = () => {
     "@type": "HowTo",
     "name": "How to Install FlowBitz in Webflow",
     "description": "Complete guide to installing and using FlowBitz animations in your Webflow projects",
-    "url": "https://flowbitz.dev/installation",
+    "url": "https://www.flowbitz.dev/installation",
     "totalTime": "PT5M",
     "estimatedCost": {
       "@type": "MonetaryAmount",
@@ -68,25 +68,25 @@ const Installation = () => {
         "@type": "HowToStep",
         "name": "Add FlowBitz Script",
         "text": "Add the FlowBitz script to your Webflow project's custom code section",
-        "url": "https://flowbitz.dev/installation#step-1"
+        "url": "https://www.flowbitz.dev/installation#step-1"
       },
       {
         "@type": "HowToStep", 
         "name": "Add Component Attributes",
         "text": "Add wb-component attributes to your elements in Webflow",
-        "url": "https://flowbitz.dev/installation#step-2"
+        "url": "https://www.flowbitz.dev/installation#step-2"
       },
       {
         "@type": "HowToStep",
         "name": "Customize with Attributes",
         "text": "Use additional attributes to customize animation behavior and appearance",
-        "url": "https://flowbitz.dev/installation#step-3"
+        "url": "https://www.flowbitz.dev/installation#step-3"
       },
       {
         "@type": "HowToStep",
         "name": "Publish Your Site",
         "text": "Publish your Webflow site to see the animations in action",
-        "url": "https://flowbitz.dev/installation#step-4"
+        "url": "https://www.flowbitz.dev/installation#step-4"
       }
     ]
   }
@@ -97,8 +97,8 @@ const Installation = () => {
         title="Installation Guide - FlowBitz"
         description="Complete guide to installing and using FlowBitz animations in your Webflow projects. Easy integration with custom attributes and script installation."
         keywords="webflow, installation, flowbitz, animations, custom code, webflow script, webflow components, webflow library"
-        image="https://slabpixel.dev/images/FlowBitz-OpenGraph.webp"
-        url="https://flowbitz.dev/installation"
+        image="https://www.slabpixel.dev/images/FlowBitz-OpenGraph.webp"
+        url="https://www.flowbitz.dev/installation"
         structuredData={structuredData}
       />
       <div className="bg-background text-foreground pt-[64px] min-h-screen">
@@ -271,7 +271,7 @@ const Installation = () => {
                         playsInline
                         preload="metadata"
                       >
-                        <source src="https://slabpixel.dev/videos/flowbitz-tutorial.mp4" type="video/mp4" />
+                        <source src="https://www.slabpixel.dev/videos/flowbitz-tutorial.mp4" type="video/mp4" />
                         Your browser does not support the video tag.
                       </video>
                     </div>

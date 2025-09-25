@@ -69,6 +69,6 @@ fs.writeFileSync(
 
 console.log(`\n🎉 Version ${version} created successfully!`);
 console.log(`📦 Files copied: ${copiedFiles}/${files.length}`);
-console.log(`🌐 Version URL: https://flowbitz.dev/v${version}/flowbitz.umd.js`);
-console.log(`🌐 Latest URL: https://flowbitz.dev/latest/flowbitz.umd.js`);
-console.log(`\n💡 For users: <script src="https://flowbitz.dev/latest/flowbitz.umd.js"></script>`);
+console.log(`🌐 Version URL: https://www.flowbitz.dev/v${version}/flowbitz.umd.js`);
+console.log(`🌐 Latest URL: https://www.flowbitz.dev/latest/flowbitz.umd.js`);
+console.log(`\n💡 For users: <script src="https://www.flowbitz.dev/latest/flowbitz.umd.js"></script>`);

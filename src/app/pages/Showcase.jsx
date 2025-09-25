@@ -23,7 +23,7 @@ const Showcase = () => {
     "@type": "CollectionPage",
     "name": "FlowBitz Showcase",
     "description": "Explore real-world examples and showcases of FlowBitz components in action. See how developers are using our interactive components in their Webflow projects.",
-    "url": "https://flowbitz.dev/showcase",
+    "url": "https://www.flowbitz.dev/showcase",
     "mainEntity": {
       "@type": "ItemList",
       "name": "FlowBitz Component Showcases",
@@ -37,8 +37,8 @@ const Showcase = () => {
         title="Showcase - FlowBitz Components"
         description="Explore real-world examples and showcases of FlowBitz components in action. See how developers are using our interactive components in their Webflow projects."
         keywords="flowbitz showcase, webflow components examples, webflow components showcase, flowbitz projects, webflow components in action"
-        image="https://slabpixel.dev/images/FlowBitz-OpenGraph.webp"
-        url="https://flowbitz.dev/showcase"
+        image="https://www.slabpixel.dev/images/FlowBitz-OpenGraph.webp"
+        url="https://www.flowbitz.dev/showcase"
         structuredData={structuredData}
       />
       <div className="bg-background text-foreground pt-[64px] min-h-screen">

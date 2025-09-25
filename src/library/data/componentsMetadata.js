@@ -9,7 +9,7 @@
  * All components now work with a single script tag!
  * 
  * Basic Installation (for most components):
- * <script src="https://flowbitz.dev/latest/flowbitz.umd.js"></script>
+ * <script src="https://www.flowbitz.dev/latest/flowbitz.umd.js"></script>
  * 
  * The library automatically handles:
  * - GSAP and all plugins (bundled)
@@ -1146,7 +1146,7 @@ export const getInstallationRequirements = () => {
   return {
     basic: {
       description: 'Single script tag - works for all components',
-      script: '<script src="https://flowbitz.dev/latest/flowbitz.umd.js"></script>',
+      script: '<script src="https://www.flowbitz.dev/latest/flowbitz.umd.js"></script>',
       includes: [
         'GSAP and all plugins (bundled)',
         'Three.js auto-loading (for shape-blur)',

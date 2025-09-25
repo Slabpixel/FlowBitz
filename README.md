@@ -2,7 +2,7 @@
 
 [![Version](https://img.shields.io/badge/version-1.1.2-blue.svg)](https://github.com/Slabpixel/FlowBitz)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
-[![CDN](https://img.shields.io/badge/CDN-flowbitz.dev-orange.svg)](https://flowbitz.dev)
+[![CDN](https://img.shields.io/badge/CDN-flowbitz.dev-orange.svg)](https://www.flowbitz.dev)
 
 > Interactive components library for Webflow - Create stunning animations with just a few attributes
 
@@ -26,7 +26,7 @@ FlowBitz is a powerful JavaScript library that brings professional-grade animati
 Add FlowBitz to your Webflow project with a single script tag:
 
 ```html
-<script src="https://flowbitz.dev/latest/flowbitz.umd.js"></script>
+<script src="https://www.flowbitz.dev/latest/flowbitz.umd.js"></script>
 ```
 
 That's it! No additional dependencies, no configuration needed. FlowBitz includes GSAP and all necessary plugins bundled in.
@@ -124,17 +124,17 @@ FlowBitz is available via multiple CDN endpoints:
 
 ### Latest Version (Recommended)
 ```html
-<script src="https://flowbitz.dev/latest/flowbitz.umd.js"></script>
+<script src="https://www.flowbitz.dev/latest/flowbitz.umd.js"></script>
 ```
 
 ### Specific Version
 ```html
-<script src="https://flowbitz.dev/v1.1.2/flowbitz.umd.js"></script>
+<script src="https://www.flowbitz.dev/v1.1.2/flowbitz.umd.js"></script>
 ```
 
 ### Beta Version (For Testing)
 ```html
-<script src="https://flowbitz.dev/beta/flowbitz.umd.js"></script>
+<script src="https://www.flowbitz.dev/beta/flowbitz.umd.js"></script>
 ```
 
 ### NPM Package
@@ -218,7 +218,7 @@ FlowBitz/
 
 FlowBitz uses Vercel for hosting with automated deployments:
 
-- **Website**: [flowbitz.dev](https://flowbitz.dev)
+- **Website**: [flowbitz.dev](https://www.flowbitz.dev)
 - **CDN**: All versions available at `flowbitz.dev/v{version}/`
 - **Latest**: Always available at `flowbitz.dev/latest/`
 
@@ -268,14 +268,14 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 📞 Support
 
-- **Documentation**: [flowbitz.dev](https://flowbitz.dev)
+- **Documentation**: [flowbitz.dev](https://www.flowbitz.dev)
 - **GitHub Issues**: [Report bugs or request features](https://github.com/Slabpixel/FlowBitz/issues)
 - **Discord**: Join our community for support and discussions
 
 ## 🔗 Links
 
-- **Website**: [flowbitz.dev](https://flowbitz.dev)
-- **Showcase**: [flowbitz.dev/components](https://flowbitz.dev/components)
+- **Website**: [flowbitz.dev](https://www.flowbitz.dev)
+- **Showcase**: [flowbitz.dev/components](https://www.flowbitz.dev/components)
 - **GitHub**: [github.com/Slabpixel/FlowBitz](https://github.com/Slabpixel/FlowBitz)
 - **NPM**: [npmjs.com/package/flowbitz](https://www.npmjs.com/package/flowbitz)
 

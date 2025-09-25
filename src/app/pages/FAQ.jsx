@@ -170,7 +170,7 @@ const FAQ = () => {
     "@type": "FAQPage",
     "name": "FlowBitz FAQ",
     "description": "Frequently asked questions about FlowBitz - the free interactive components library for Webflow. Get help with installation, usage, and troubleshooting.",
-    "url": "https://flowbitz.dev/faq",
+    "url": "https://www.flowbitz.dev/faq",
     "mainEntity": faqItems.map(faq => ({
       "@type": "Question",
       "name": faq.question,
@@ -187,8 +187,8 @@ const FAQ = () => {
         title="FAQ - FlowBitz Components"
         description="Frequently asked questions about FlowBitz - the free interactive components library for Webflow. Get help with installation, usage, and troubleshooting."
         keywords="flowbitz faq, webflow components help, webflow components installation, webflow components troubleshooting, flowbitz support"
-        image="https://slabpixel.dev/images/FlowBitz-OpenGraph.webp"
-        url="https://flowbitz.dev/faq"
+        image="https://www.slabpixel.dev/images/FlowBitz-OpenGraph.webp"
+        url="https://www.flowbitz.dev/faq"
         structuredData={structuredData}
       />
       <div className="bg-background text-foreground pt-[64px] min-h-screen">

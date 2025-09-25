@@ -5,8 +5,8 @@ const SEO = ({
   title = "FlowBitz - Free GSAP Animation Components for Webflow | No Coding Required",
   description = "Transform your Webflow projects with 16+ professional animation components. Zero JavaScript knowledge needed - just add HTML attributes. GSAP-powered, mobile-responsive, and completely free.",
   keywords = "webflow animations, webflow components, gsap webflow, webflow text effects, webflow animation library, free webflow components, webflow split text, webflow gradient text, webflow typewriter effect, webflow interactive components, webflow animation plugins, webflow gsap integration, webflow animation tools, webflow effects library, webflow animation components, webflow text animations, webflow hover effects, webflow scroll animations, webflow animation code, webflow animation examples",
-  image = "https://slabpixel.dev/images/FlowBitz-OpenGraph.webp",
-  url = "https://flowbitz.dev",
+  image = "https://www.slabpixel.dev/images/FlowBitz-OpenGraph.webp",
+  url = "https://www.flowbitz.dev",
   type = "website",
   author = "SlabPixel Studio",
   publishedTime,
@@ -14,8 +14,8 @@ const SEO = ({
   structuredData
 }) => {
   const fullTitle = title.includes('FlowBitz') ? title : `${title} | FlowBitz`
-  const fullImage = image.startsWith('http') ? image : `https://flowbitz.dev${image}`
-  const fullUrl = url.startsWith('http') ? url : `https://flowbitz.dev${url}`
+  const fullImage = image.startsWith('http') ? image : `https://www.flowbitz.dev${image}`
+  const fullUrl = url.startsWith('http') ? url : `https://www.flowbitz.dev${url}`
 
   return (
     <Helmet>
@@ -68,9 +68,9 @@ const SEO = ({
 
       {/* Preconnect to external domains for performance */}
       <link rel="preconnect" href="https://cdnjs.cloudflare.com" />
-      <link rel="preconnect" href="https://slabpixel.dev" />
+      <link rel="preconnect" href="https://www.slabpixel.dev" />
       <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com" />
-      <link rel="dns-prefetch" href="https://slabpixel.dev" />
+      <link rel="dns-prefetch" href="https://www.slabpixel.dev" />
     </Helmet>
   )
 }

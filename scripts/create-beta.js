@@ -51,5 +51,5 @@ fs.writeFileSync(
 console.log(`\n🎉 Beta version created successfully!`);
 console.log(`📦 Version: ${betaInfo.version}`);
 console.log(`📁 Files copied: ${copiedFiles}/${files.length}`);
-console.log(`🌐 Beta URL: https://flowbitz.dev/beta/flowbitz.umd.js`);
-console.log(`\n💡 To test: <script src="https://flowbitz.dev/beta/flowbitz.umd.js"></script>`);
+console.log(`🌐 Beta URL: https://www.flowbitz.dev/beta/flowbitz.umd.js`);
+console.log(`\n💡 To test: <script src="https://www.flowbitz.dev/beta/flowbitz.umd.js"></script>`);

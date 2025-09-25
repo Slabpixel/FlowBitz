@@ -23,7 +23,7 @@ const Home = () => {
     "@type": "WebSite",
     "name": "FlowBitz - Free GSAP Animation Components for Webflow",
     "description": `Transform your Webflow projects with ${componentCount}+ professional animation components. Zero JavaScript knowledge needed - just add HTML attributes. GSAP-powered, mobile-responsive, and completely free.`,
-    "url": "https://flowbitz.dev",
+    "url": "https://www.flowbitz.dev",
     "publisher": {
       "@type": "Organization",
       "name": "SlabPixel Studio",
@@ -32,7 +32,7 @@ const Home = () => {
     },
     "potentialAction": {
       "@type": "SearchAction",
-      "target": "https://flowbitz.dev/components?search={search_term_string}",
+      "target": "https://www.flowbitz.dev/components?search={search_term_string}",
       "query-input": "required name=search_term_string"
     },
     "offers": {
@@ -50,8 +50,8 @@ const Home = () => {
         title="FlowBitz - Free GSAP Animation Components for Webflow | No Coding Required"
         description={`Transform your Webflow projects with ${componentCount}+ professional animation components. Zero JavaScript knowledge needed - just add HTML attributes. GSAP-powered, mobile-responsive, and completely free.`}
         keywords="webflow animations, webflow components, gsap webflow, webflow text effects, webflow animation library, free webflow components, webflow split text, webflow gradient text, webflow typewriter effect, webflow interactive components, webflow animation plugins, webflow gsap integration, webflow animation tools, webflow effects library, webflow animation components, webflow text animations, webflow hover effects, webflow scroll animations, webflow animation code, webflow animation examples"
-        image="https://slabpixel.dev/images/FlowBitz-OpenGraph.webp"
-        url="https://flowbitz.dev"
+        image="https://www.slabpixel.dev/images/FlowBitz-OpenGraph.webp"
+        url="https://www.flowbitz.dev"
         structuredData={structuredData}
       />
       <div className="relative bg-background text-foreground">
@@ -106,7 +106,7 @@ const Home = () => {
             {/* Mobile 3D Image */}
             <div className="flex justify-center sm:hidden pt-8">
               <img 
-                src="https://slabpixel.dev/images/FlowBitz-3D.png" 
+                src="https://www.slabpixel.dev/images/FlowBitz-3D.png" 
                 alt="Flowbitz 3D Logo" 
                 className="w-[90%] h-auto max-w-full"
                 loading="eager"
@@ -173,7 +173,7 @@ const Home = () => {
                 className="w-full h-full rounded-3xl"
                 fallbackImage={
                   <img 
-                    src="https://slabpixel.dev/images/FlowBitz-3D.png" 
+                    src="https://www.slabpixel.dev/images/FlowBitz-3D.png" 
                     alt="Flowbitz 3D Logo" 
                     className="w-full h-full"
                   />

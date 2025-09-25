@@ -36,12 +36,12 @@ npm run build:beta
 vercel --prod
 
 # 3. Test beta version
-# Visit: https://flowbitz.dev/beta/flowbitz.umd.js
+# Visit: https://www.flowbitz.dev/beta/flowbitz.umd.js
 ```
 
 **Beta URL for testing:**
 ```html
-<script src="https://flowbitz.dev/beta/flowbitz.umd.js"></script>
+<script src="https://www.flowbitz.dev/beta/flowbitz.umd.js"></script>
 ```
 
 ### 2. When Beta is Ready (Promote to Stable)
@@ -125,7 +125,7 @@ vercel --prod
 
 ### URL Patterns
 ```
-https://flowbitz.dev/
+https://www.flowbitz.dev/
 ├── v1.0.0/flowbitz.umd.js     # Specific version (immutable)
 ├── latest/flowbitz.umd.js     # Latest stable (1 hour cache)
 ├── beta/flowbitz.umd.js       # Beta version (5 min cache)
@@ -241,7 +241,7 @@ npm run build:beta
 vercel --prod
 
 # Test beta URL
-# Visit: https://flowbitz.dev/beta/flowbitz.umd.js
+# Visit: https://www.flowbitz.dev/beta/flowbitz.umd.js
 ```
 
 ### Production Testing
@@ -251,7 +251,7 @@ npm run promote-beta
 vercel --prod
 
 # Test production URL
-# Visit: https://flowbitz.dev/latest/flowbitz.umd.js
+# Visit: https://www.flowbitz.dev/latest/flowbitz.umd.js
 ```
 
 ## 📋 Checklist
@@ -299,7 +299,7 @@ vercel logs
 
 ## 📚 Resources
 
-- [FlowBitz Documentation](https://flowbitz.dev)
-- [Component Examples](https://flowbitz.dev/components)
+- [FlowBitz Documentation](https://www.flowbitz.dev)
+- [Component Examples](https://www.flowbitz.dev/components)
 - [GitHub Repository](https://github.com/Slabpixel/FlowBitz)
 - [Issue Tracker](https://github.com/Slabpixel/FlowBitz/issues)
