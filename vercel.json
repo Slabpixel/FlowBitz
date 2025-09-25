@@ -15,6 +15,17 @@
       "dest": "/api/$1"
     },
     {
+      "src": "/(.*)",
+      "dest": "https://flowbitz.dev/$1",
+      "status": 301,
+      "has": [
+        {
+          "type": "host",
+          "value": "www.flowbitz.dev"
+        }
+      ]
+    },
+    {
       "src": "/sitemap.xml",
       "dest": "/sitemap.xml",
       "headers": {
@@ -23,12 +34,34 @@
       }
     },
     {
+      "src": "/sitemap.xml",
+      "dest": "https://flowbitz.dev/sitemap.xml",
+      "status": 301,
+      "has": [
+        {
+          "type": "host",
+          "value": "www.flowbitz.dev"
+        }
+      ]
+    },
+    {
       "src": "/robots.txt",
       "dest": "/robots.txt",
       "headers": {
         "Content-Type": "text/plain",
         "Cache-Control": "public, max-age=86400"
       }
+    },
+    {
+      "src": "/robots.txt",
+      "dest": "https://flowbitz.dev/robots.txt",
+      "status": 301,
+      "has": [
+        {
+          "type": "host",
+          "value": "www.flowbitz.dev"
+        }
+      ]
     },
     {
       "src": "/manifest.json",
