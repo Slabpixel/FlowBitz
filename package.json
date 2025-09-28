@@ -1,6 +1,6 @@
 {
   "name": "flowbitz",
-  "version": "1.1.2",
+  "version": "1.1.3",
   "description": "Interactive components library for Webflow - React Showcase",
   "type": "module",
   "main": "dist/flowbitz.umd.js",
