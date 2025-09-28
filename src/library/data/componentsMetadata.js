@@ -26,6 +26,7 @@ export const componentsMetadata = {
     description: 'Character, word, or line-based split animations',
     category: 'text',
     file: 'splitText.js',
+    installationNotes: 'Works with any text element like <h1>, <h2>, <p>, <span>, <div>, etc. The component automatically splits the text content and wraps each part in spans for animation.',
     attributes: [
       { 
         name: 'wb-component', 
@@ -75,6 +76,7 @@ export const componentsMetadata = {
     description: 'Animated gradient text with customizable colors',
     category: 'text',
     file: 'gradientText.js',
+    installationNotes: 'Perfect for headings like <h1>, <h2>, <h3> or any text element. The gradient animation works best with larger text sizes for better visual impact.',
     attributes: [
       { 
         name: 'wb-component', 
@@ -109,6 +111,7 @@ export const componentsMetadata = {
     description: 'Typewriter effect with customizable cursor',
     category: 'text',
     file: 'textType.js',
+    installationNotes: 'Use with <span> elements inside headings or paragraphs. The component replaces the text content with a typewriter animation. Works best with monospace fonts.',
     attributes: [
       { 
         name: 'wb-component', 
@@ -189,6 +192,7 @@ export const componentsMetadata = {
     description: 'Blur-to-clear transition effects',
     category: 'text',
     file: 'blurText.js',
+    installationNotes: 'Works with any text element like <h1>, <h2>, <p>, <span>. The blur effect is applied on scroll or hover, revealing text from blur to clear.',
     attributes: [
       { 
         name: 'wb-component', 
@@ -238,6 +242,7 @@ export const componentsMetadata = {
     description: 'Shimmer and shine text effects',
     category: 'text',
     file: 'shinyText.js',
+    installationNotes: 'Best used with larger headings like <h1>, <h2> or prominent text elements. The shine effect creates a moving gradient overlay across the text.',
     attributes: [
       { 
         name: 'wb-component', 
@@ -278,6 +283,7 @@ export const componentsMetadata = {
     description: 'Animated number counting',
     category: 'text',
     file: 'countUp.js',
+    installationNotes: 'Perfect for statistics, numbers, or counters. Use with <span>, <div>, or any element containing numeric values. The component animates from a starting number to a target value.',
     attributes: [
       { 
         name: 'wb-component', 
@@ -345,6 +351,7 @@ export const componentsMetadata = {
     description: 'Matrix-style decryption effects',
     category: 'text',
     file: 'decryptedText.js',
+    installationNotes: 'Great for dramatic reveals and tech-themed content. Works with any text element like <h1>, <h2>, <p>, <span>. The component scrambles characters before revealing the final text.',
     attributes: [
       { 
         name: 'wb-component', 
@@ -412,6 +419,7 @@ export const componentsMetadata = {
     description: 'Interactive character scrambling',
     category: 'text',
     file: 'scrambleText.js',
+    installationNotes: 'Interactive hover effect that scrambles text on mouse proximity. Works with any text element like <p>, <span>, <div>. Best with monospace fonts for consistent character spacing.',
     attributes: [
       { 
         name: 'wb-component', 
@@ -481,6 +489,7 @@ export const componentsMetadata = {
     description: 'Mouse proximity font variations',
     category: 'text',
     file: 'variableProximity.js',
+    installationNotes: 'Requires variable fonts that support weight variations. Works with any text element like <h1>, <h2>, <p>, <span>. The font weight changes based on mouse proximity.',
     attributes: [
       { 
         name: 'wb-component', 
@@ -523,6 +532,7 @@ export const componentsMetadata = {
     description: 'Auto-rotating text with stagger effects',
     category: 'text',
     file: 'rotatingText.js',
+    installationNotes: 'Use with <span> elements inside headings or paragraphs. The component cycles through different text options with smooth transitions. Great for highlighting multiple features or benefits.',
     attributes: [
       { 
         name: 'wb-component', 
@@ -634,6 +644,7 @@ export const componentsMetadata = {
     description: 'Mouse proximity font variations with variable fonts',
     category: 'text',
     file: 'textPressure.js',
+    installationNotes: 'Requires variable fonts (like Compressa VF, Recursive, Roboto Flex). Works with any text element. The component dynamically changes font weight, width, and italic based on mouse proximity.',
     attributes: [
       { 
         name: 'wb-component', 
@@ -720,6 +731,7 @@ export const componentsMetadata = {
     description: 'Character-based sliding shuffle effects with customizable direction and scrambling',
     category: 'text',
     file: 'shuffle.js',
+    installationNotes: 'Works with any text element like <h1>, <h2>, <p>, <span>. The component creates sliding shuffle effects with characters moving in different directions. Best with monospace fonts.',
     attributes: [
       { 
         name: 'wb-component', 
@@ -809,6 +821,7 @@ export const componentsMetadata = {
     description: 'Hover tooltips for any text element with customizable positioning and styling',
     category: 'text',
     file: 'tooltipText.js',
+    installationNotes: 'Use with any text element like <span>, <a>, <strong>, <em>. The component adds a hover tooltip with customizable content, position, and styling.',
     attributes: [
       { 
         name: 'wb-component', 
@@ -889,6 +902,7 @@ export const componentsMetadata = {
     description: 'Animated gradient button with customizable colors',
     category: 'button',
     file: 'gradientButton.js',
+    installationNotes: 'Use with <button>, <a>, or any clickable element. The component adds animated gradient background with customizable colors and hover effects.',
     attributes: [
       { 
         name: 'wb-component', 
@@ -936,6 +950,7 @@ export const componentsMetadata = {
     description: 'Button with Material Design ripple effect and scale animation on click',
     category: 'button',
     file: 'rippleButton.js',
+    installationNotes: 'Perfect for <button>, <a>, or any clickable element. Creates a Material Design ripple effect that spreads from the click point with customizable colors and duration.',
     attributes: [
       { 
         name: 'wb-component', 
@@ -977,6 +992,7 @@ export const componentsMetadata = {
     description: 'Button or link with gentle pulsing animation to draw attention. Works with both <button> and <a> elements.',
     category: 'button',
     file: 'pulseButton.js',
+    installationNotes: 'Use with <button>, <a>, or any element you want to draw attention to. Creates a gentle pulsing animation that can pause on hover. Great for call-to-action buttons.',
     attributes: [
       { 
         name: 'wb-component', 
@@ -1025,6 +1041,7 @@ export const componentsMetadata = {
     description: 'Button with magnetic attraction effect that follows mouse movement',
     category: 'button',
     file: 'magnet.js',
+    installationNotes: 'Use with <button>, <a>, or any interactive element. Creates a magnetic effect where the element follows mouse movement within a specified radius. Great for interactive buttons and links.',
     attributes: [
       { 
         name: 'wb-component', 
