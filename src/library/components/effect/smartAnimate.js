@@ -13,15 +13,26 @@ class SmartAnimate {
       intervalDelay: 0.1, // delay between each child animation
       duration: 0.6,
       ease: 'power3.out',
+      triggerOnView: true, // trigger animation when element comes into view
+      rootMargin: '100px', // margin around the root for triggering
+      startDelay: 0, // delay before animation starts
       ...options
     }
+    
+    this.animated = false
+    this.observer = null
     
     this.init()
   }
 
   init() {
     this.setupInitialState()
-    this.animate()
+    
+    if (this.options.triggerOnView) {
+      this.setupIntersectionObserver()
+    } else {
+      this.animate()
+    }
   }
 
   setupInitialState() {
@@ -38,6 +49,27 @@ class SmartAnimate {
     this.children.forEach(child => {
       gsap.set(child, initialProps)
     })
+  }
+
+  setupIntersectionObserver() {
+    const options = {
+      root: null, // viewport
+      rootMargin: this.options.rootMargin,
+      threshold: 0.1 // trigger when 10% of element is visible
+    }
+
+    this.observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting && !this.animated) {
+          this.animate()
+          this.animated = true
+          // Disconnect observer after first animation
+          this.observer.disconnect()
+        }
+      })
+    }, options)
+
+    this.observer.observe(this.element)
   }
 
   getInitialProps() {
@@ -90,11 +122,16 @@ class SmartAnimate {
   }
 
   animate() {
-    const { duration, ease, intervalDelay } = this.options
+    const { duration, ease, intervalDelay, startDelay } = this.options
     const animationProps = this.getAnimationProps()
     
     // Create timeline for staggered animation
     const tl = gsap.timeline()
+    
+    // Add start delay if specified
+    if (startDelay > 0) {
+      tl.delay(startDelay)
+    }
     
     // Animate parent element first
     tl.to(this.element, {
@@ -123,6 +160,11 @@ class SmartAnimate {
   // Method to destroy the component
   destroy() {
     gsap.killTweensOf([this.element, ...this.children])
+    
+    if (this.observer) {
+      this.observer.disconnect()
+      this.observer = null
+    }
   }
 }
 
@@ -149,7 +191,10 @@ class SmartAnimateAnimator {
       direction: element.getAttribute('wb-direction') || 'bottom',
       intervalDelay: parseFloat(element.getAttribute('wb-interval-delay')) || 0.1,
       duration: parseFloat(element.getAttribute('wb-duration')) || 0.6,
-      ease: element.getAttribute('wb-ease') || 'power3.out'
+      ease: element.getAttribute('wb-ease') || 'power3.out',
+      triggerOnView: element.getAttribute('wb-trigger-on-view') !== 'false', // default true
+      rootMargin: element.getAttribute('wb-root-margin') || '100px',
+      startDelay: parseFloat(element.getAttribute('wb-start-delay')) || 0
     }
 
     const instance = new SmartAnimate(element, options)

@@ -634,7 +634,7 @@ export const componentsMetadata = {
     ],
     example: {
       title: 'Rotating Text Animation',
-      code: '<h1 class="text-6xl">Powerful <span wb-component="rotating-text" wb-rotating-split-by="characters" wb-text-1="Animations" wb-text-2="Effects" wb-text-3="Interactions" wb-background-color="#0a70ff" wb-text-color="#ffffff" wb-border-radius="8px" class="text-6xl">Animations</span></h1>',
+      code: '<h1 class="text-6xl">Powerful <span wb-component="rotating-text" wb-text-1="Animations" wb-text-2="Effects" wb-text-3="Interactions" wb-background-color="#0a70ff" wb-text-color="#ffffff" wb-border-radius="8px" class="text-6xl">Animations</span></h1>',
       description: 'Auto-rotating text with stagger effects, background color, text color, border radius, and automatic centering'
     }
   },
@@ -1150,6 +1150,13 @@ export const componentsMetadata = {
         default: 'power3.out',
         inputType: 'dropdown',
         options: ['power1.out', 'power2.out', 'power3.out', 'power4.out', 'back.out(1.7)', 'elastic.out(1, 0.3)']
+      },
+      {
+        name: 'wb-start-delay',
+        description: 'Delay before animation starts in seconds',
+        default: '0',
+        inputType: 'slider',
+        sliderConfig: { min: 0, max: 2, step: 0.1 }
       }
     ],
     example: {
