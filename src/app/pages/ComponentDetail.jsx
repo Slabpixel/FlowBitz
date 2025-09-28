@@ -12,7 +12,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '.
 import { Input } from '../components/ui/input.jsx'
 import { Badge } from '../components/ui/badge.jsx'
 import { ColorPicker } from '../components/ui/color-picker.jsx'
-import { Copy, RotateCcw, Bug, HelpCircle, Heart } from 'lucide-react'
+import { Copy, RotateCcw, Bug, HelpCircle, Heart, Info } from 'lucide-react'
 import { useWebflowBits } from '../hooks/useWebflowBits'
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter'
 import { tomorrow } from 'react-syntax-highlighter/dist/esm/styles/prism'
@@ -438,6 +438,21 @@ const ComponentDetail = () => {
             </div>
           </CardContent>
         </Card>
+        
+        {/* Installation Notes */}
+        {component.installationNotes && (
+          <Card className="!border-border">
+            <CardHeader className="space-y-3 sm:space-y-4 p-4 sm:p-6">
+              <CardTitle className="text-lg sm:text-xl flex items-center gap-2">
+                <Info className="w-5 h-5 text-primary" />
+                Installation Notes
+              </CardTitle>
+              <CardDescription className="text-sm sm:text-base">
+                {component.installationNotes}
+              </CardDescription>
+            </CardHeader>
+          </Card>
+        )}
       </div>
     )
   }
