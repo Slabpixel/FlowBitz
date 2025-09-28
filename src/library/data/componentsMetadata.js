@@ -1106,6 +1106,57 @@ export const componentsMetadata = {
       code: '<a src="#" wb-component="magnetic-button" class="inline-block text-md bg-primary text-white rounded-full px-6 py-3 hover:bg-primary-dark transition-colors hover:cursor-pointer">Hover me!</a>',
       description: 'Button that follows mouse movement with magnetic attraction - the entire button (background, text, and all styling) moves together'
     }
+  },
+
+  // Effect Components
+  'smart-animate': {
+    name: 'Smart Animate',
+    description: 'Animates the selected element and its direct children with smooth staggered transitions',
+    category: 'effect',
+    file: 'smartAnimate.js',
+    installationNotes: 'Use with any container element like <div>, <section>, <article>. The component animates the selected element first, then animates all direct children with customizable stagger timing. Perfect for revealing content sections.',
+    attributes: [
+      { 
+        name: 'wb-component', 
+        description: 'Enable smart animate effect', 
+        default: 'smart-animate',
+        inputType: 'text',
+        required: true
+      },
+      { 
+        name: 'wb-direction', 
+        description: 'Animation direction: "bottom", "top", "left", "right"', 
+        default: 'bottom',
+        inputType: 'dropdown',
+        options: ['bottom', 'top', 'left', 'right']
+      },
+      { 
+        name: 'wb-interval-delay', 
+        description: 'Delay between each child animation in seconds', 
+        default: '0.1',
+        inputType: 'slider',
+        sliderConfig: { min: 0, max: 1, step: 0.05 }
+      },
+      { 
+        name: 'wb-duration', 
+        description: 'Animation duration in seconds', 
+        default: '0.6',
+        inputType: 'slider',
+        sliderConfig: { min: 0.1, max: 3, step: 0.1 }
+      },
+      { 
+        name: 'wb-ease', 
+        description: 'GSAP animation easing function', 
+        default: 'power3.out',
+        inputType: 'dropdown',
+        options: ['power1.out', 'power2.out', 'power3.out', 'power4.out', 'back.out(1.7)', 'elastic.out(1, 0.3)']
+      }
+    ],
+    example: {
+      title: 'Smart Animate Effect',
+      code: '<div wb-component="smart-animate" class="max-w-md mx-auto bg-card rounded-xl shadow-lg p-6 border border-border"><div class="flex items-center mb-4"><div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mr-4"><svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg></div><h3 class="text-xl font-semibold">Lightning Fast</h3></div><p class="mb-6 text-left">Experience blazing fast performance with our optimized components. Built for speed and efficiency.</p><button class="w-full bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition-colors duration-200 font-medium">Get Started</button></div>',
+      description: 'Animates the container and all direct children with smooth staggered transitions from bottom to top'
+    }
   }
 
 }
@@ -1116,8 +1167,8 @@ export const componentsMetadata = {
 export const getComponentsByCategory = () => {
   const categories = {
     text: [],
-    interactive: [],
-    button: []
+    button: [],
+    effect: []
   }
 
   Object.entries(componentsMetadata).forEach(([key, component]) => {

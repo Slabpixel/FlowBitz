@@ -12,15 +12,15 @@ const Sidebar = ({ showBackLink = false }) => {
   const disabledComponents = ['shape-blur', 'image-trail', 'magnet-lines', 'text-cursor']
   
   // Filter out disabled components
-  const textComponents = componentsByCategory.text.filter(component => 
+  const textComponents = componentsByCategory.text?.filter(component => 
     !disabledComponents.includes(component.key)
-  )
-  const interactiveComponents = componentsByCategory.interactive.filter(component => 
+  ) || []
+  const buttonComponents = componentsByCategory.button?.filter(component => 
     !disabledComponents.includes(component.key)
-  )
-  const buttonComponents = componentsByCategory.button.filter(component => 
+  ) || []
+  const effectComponents = componentsByCategory.effect?.filter(component => 
     !disabledComponents.includes(component.key)
-  )
+  ) || []
 
   // Get current component name from URL
   const getCurrentComponentName = () => {
@@ -112,12 +112,12 @@ const Sidebar = ({ showBackLink = false }) => {
                 </ul>
               </div>
               
-              <div className="category hidden">
+              <div className="category mb-4 sm:mb-6">
                 <h4 className="text-xs sm:text-sm font-medium text-muted-foreground mb-2">
-                  Interactive Components ({interactiveComponents.length})
+                  Effect Components ({effectComponents.length})
                 </h4>
                 <ul className="list-none">
-                  {interactiveComponents.map((component) => (
+                  {effectComponents.map((component) => (
                     <li key={component.key} className="mb-0.5">
                       <Link 
                         to={`/components/${component.key}`} 

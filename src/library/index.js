@@ -27,6 +27,7 @@ export { default as GradientButton } from './components/button/gradientButton.js
 export { default as RippleButton } from './components/button/rippleButton.js'
 export { default as PulseButton } from './components/button/pulseButton.js'
 export { default as MagneticButton } from './components/button/magneticButton.js'
+export { default as SmartAnimate } from './components/effect/smartAnimate.js'
 
 // Export utilities
 export { ComponentClassManager, webflowBitsClasses } from './utils/core/classManager.js'
