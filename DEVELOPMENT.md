@@ -32,8 +32,7 @@ When working on new features or fixes:
 # Edit files in src/library/
 
 # 2. Build and deploy beta
-npm run build:beta
-vercel --prod
+npm run deploy:beta
 
 # 3. Test beta version
 # Visit: https://www.flowbitz.dev/beta/flowbitz.umd.js
@@ -54,11 +53,8 @@ npm version patch    # for bug fixes
 npm version minor    # for new features
 npm version major    # for breaking changes
 
-# 2. Promote beta to stable
-npm run promote-beta
-
-# 3. Deploy everything
-vercel --prod
+# 2. Promote beta to stable and deploy
+npm run deploy:promote
 ```
 
 **Result:** Beta becomes the new latest stable version.
@@ -72,8 +68,7 @@ For changes to the showcase website only:
 # Edit files in src/app/
 
 # 2. Build and deploy frontend
-npm run build:app
-vercel --prod
+npm run deploy:app
 
 # Result: Website updates, library stays same
 ```
@@ -88,11 +83,12 @@ vercel --prod
 - `npm run build:stable` - Build library and create stable version
 
 ### Build + Deploy Scripts
-- `npm run deploy:app` - Build React showcase website + deploys to Vercel
-- `npm run deploy:library` - Build FlowBitz library + deploys to Vercel
+- `npm run deploy:app` - Build React showcase website + deploys to Vercel (does NOT update library)
+- `npm run deploy:library` - Build FlowBitz library + deploys to Vercel (updates latest stable version)
 - `npm run deploy:all` - Build both app and library + deploys to Vercel
-- `npm run deploy:beta` - Build library and create beta version + deploys to Vercel
-- `npm run deploy:stable` - Build library and create stable version + deploys to Vercel
+- `npm run deploy:beta` - Build library and create beta version + deploys to Vercel (ONLY updates beta, never touches latest)
+- `npm run deploy:stable` - Build library and create stable version + deploys to Vercel (updates latest stable version)
+- `npm run deploy:promote` - Promote beta to stable + deploys to Vercel
 
 ### Release Scripts
 - `npm run create-beta` - Create beta version from current build
@@ -167,8 +163,7 @@ https://www.flowbitz.dev/
 
 4. **Test in beta:**
    ```bash
-   npm run build:beta
-   vercel --prod
+   npm run deploy:beta
    ```
 
 ### Component Structure
@@ -202,24 +197,21 @@ export default new MyNewComponent();
 ### Patch Release (Bug Fixes)
 ```bash
 npm version patch
-npm run promote-beta
-vercel --prod
+npm run deploy:promote
 # Result: v1.0.0 → v1.0.1
 ```
 
 ### Minor Release (New Features)
 ```bash
 npm version minor
-npm run promote-beta
-vercel --prod
+npm run deploy:promote
 # Result: v1.0.0 → v1.1.0
 ```
 
 ### Major Release (Breaking Changes)
 ```bash
 npm version major
-npm run promote-beta
-vercel --prod
+npm run deploy:promote
 # Result: v1.0.0 → v2.0.0
 ```
 
@@ -237,8 +229,7 @@ npm run dev
 ### Beta Testing
 ```bash
 # Deploy beta
-npm run build:beta
-vercel --prod
+npm run deploy:beta
 
 # Test beta URL
 # Visit: https://www.flowbitz.dev/beta/flowbitz.umd.js
@@ -247,8 +238,7 @@ vercel --prod
 ### Production Testing
 ```bash
 # Deploy stable
-npm run promote-beta
-vercel --prod
+npm run deploy:promote
 
 # Test production URL
 # Visit: https://www.flowbitz.dev/latest/flowbitz.umd.js
@@ -275,8 +265,8 @@ vercel --prod
 
 **Script fails with "No beta version found"**
 ```bash
-# Solution: Create beta first
-npm run build:beta
+# Solution: Deploy beta first
+npm run deploy:beta
 ```
 
 **Version not updating**
