@@ -111,6 +111,9 @@ npm run deploy:app
 <!-- Latest version -->
 <script src="https://cdn.jsdelivr.net/npm/flowbitz@latest/dist/flowbitz.umd.js"></script>
 
+<!-- Beta version -->
+<script src="https://cdn.jsdelivr.net/npm/flowbitz@beta/dist/flowbitz.umd.js"></script>
+
 <!-- Specific version -->
 <script src="https://cdn.jsdelivr.net/npm/flowbitz@1.1.2/dist/flowbitz.umd.js"></script>
 
