@@ -1,6 +1,6 @@
 # FlowBitz
 
-[![Version](https://img.shields.io/badge/version-1.1.2-blue.svg)](https://github.com/Slabpixel/FlowBitz)
+[![Version](https://img.shields.io/badge/version-1.1.6-blue.svg)](https://github.com/Slabpixel/FlowBitz)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 [![CDN](https://img.shields.io/badge/CDN-flowbitz.dev-orange.svg)](https://www.flowbitz.dev)
 
@@ -10,7 +10,8 @@ FlowBitz is a powerful JavaScript library that brings professional-grade animati
 
 ## ✨ Features
 
-- **🎨 15+ Text Components**: Split text, gradient effects, typewriter, blur transitions, and more
+- **🎨 18 Components**: 13 text effects, 4 interactive buttons, and 1 smart animation effect
+- **📝 Text Effects**: Split text, gradient effects, typewriter, blur transitions, count-up, and more
 - **🔘 Interactive Buttons**: Gradient, ripple, pulse, and magnetic button effects
 - **⚡ Zero Configuration**: Works out of the box with a single script tag
 - **🎯 Webflow Optimized**: Designed specifically for Webflow's visual editor
@@ -72,6 +73,12 @@ Simply add the `wb-component` attribute to any element in Webflow:
 | **Shuffle** | Character-based sliding shuffle effects | `wb-component="shuffle"` |
 | **Tooltip Text** | Hover tooltips for any text element | `wb-component="tooltip-text"` |
 
+### Effect Components
+
+| Component | Description | Example |
+|-----------|-------------|---------|
+| **Smart Animate** | Intelligent scroll-based animations with GSAP | `wb-component="smart-animate"` |
+
 ### Button Components
 
 | Component | Description | Example |
@@ -129,7 +136,7 @@ FlowBitz is available via multiple CDN endpoints:
 
 ### Specific Version
 ```html
-<script src="https://www.flowbitz.dev/v1.1.2/flowbitz.umd.js"></script>
+<script src="https://www.flowbitz.dev/v1.1.6/flowbitz.umd.js"></script>
 ```
 
 ### Beta Version (For Testing)
