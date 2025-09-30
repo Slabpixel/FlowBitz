@@ -61,9 +61,11 @@ class CountUpAnimator {
       duration: 2,
       separator: '', // e.g., ',' for thousands separator
       startWhen: true,
+      triggerOnView: true,
       ease: 'power2.out',
       threshold: 0.1,
       rootMargin: '100px',
+      startDelay: 0,
       loop: false,
       precision: null // auto-detect decimal places
     };
@@ -114,7 +116,10 @@ class CountUpAnimator {
         separator: { attribute: 'wb-count-separator', type: 'string' },
         startWhen: { attribute: 'wb-count-start', type: 'boolean' },
         loop: { attribute: 'wb-count-loop', type: 'boolean' },
-        precision: { attribute: 'wb-count-precision', type: 'number', parser: parseInt, min: 0, max: 2 }
+        precision: { attribute: 'wb-count-precision', type: 'number', parser: parseInt, min: 0, max: 2 },
+        triggerOnView: { attribute: 'wb-trigger-on-view', type: 'boolean' },
+        rootMargin: { attribute: 'wb-root-margin', type: 'string' },
+        startDelay: { attribute: 'wb-start-delay', type: 'number', parser: parseFloat, min: 0, max: 2, step: 0.1 }
       }
     );
     
@@ -221,46 +226,29 @@ class CountUpAnimator {
       // Apply performance optimizations
       PerformanceOptimizer.optimizeForAnimation(element);
 
-      // Create ScrollTrigger config using utility
-      const scrollTriggerConfig = createOnceAnimationConfig(
-        element,
-        config,
-        (self) => {
-          instance.scrollTrigger = self;
-        }
-      );
-
-      // Create timeline with context for cleanup
-      return gsap.context(() => {
-        const timeline = gsap.timeline({
-          scrollTrigger: scrollTriggerConfig,
-          onComplete: () => {
-            // Apply completed state
-            ComponentClassManager.setAnimationState(
-              element, 
-              'completed', 
-              'wb-count-up', 
-              this.instances, 
-              this.componentName
-            );
-          }
-        });
-
-        // Start the count up animation when scroll trigger activates
-        timeline.call(() => {
-          if (config.startWhen) {
+      if (config.triggerOnView) {
+        // Use IntersectionObserver like smartAnimate
+        this.setupIntersectionObserver(instance);
+      } else {
+        // Start immediately
+        if (config.startWhen) {
+          if (config.startDelay > 0) {
+            setTimeout(() => {
+              this.startAnimation(instance);
+            }, config.startDelay * 1000);
+          } else {
             this.startAnimation(instance);
           }
-        });
-
-        // Dispatch initialization event using utility
-        AnimationStateManager.dispatchLifecycleEvent(
-          element, 
-          'init', 
-          'count-up',
-          { instance }
-        );
-      }, element);
+        }
+      }
+      
+      // Dispatch initialization event using utility
+      AnimationStateManager.dispatchLifecycleEvent(
+        element, 
+        'init', 
+        'count-up',
+        { instance }
+      );
 
       console.log('WebflowBits CountUp: Element initialized', { element, config });
 
@@ -305,7 +293,13 @@ class CountUpAnimator {
 
     if (!config.startWhen) {
       // Start immediately if startWhen is false
-      this.startAnimation(instance);
+      if (config.startDelay > 0) {
+        setTimeout(() => {
+          this.startAnimation(instance);
+        }, config.startDelay * 1000);
+      } else {
+        this.startAnimation(instance);
+      }
       return;
     }
 
@@ -318,7 +312,15 @@ class CountUpAnimator {
     instance.observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting && !instance.isAnimating) {
-          this.startAnimation(instance);
+          if (config.startDelay > 0) {
+            setTimeout(() => {
+              this.startAnimation(instance);
+            }, config.startDelay * 1000);
+          } else {
+            this.startAnimation(instance);
+          }
+          // Disconnect observer after first animation like smartAnimate
+          instance.observer.disconnect();
         }
       });
     }, observerOptions);

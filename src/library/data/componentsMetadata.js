@@ -62,6 +62,25 @@ export const componentsMetadata = {
         default: 'power3.out',
         inputType: 'dropdown',
         options: ['power1.out', 'power2.out', 'power3.out', 'power4.out', 'back.out(1.7)', 'elastic.out(1, 0.3)']
+      },
+      { 
+        name: 'wb-trigger-on-view', 
+        description: 'Enable ScrollTrigger for view-based animation', 
+        default: 'true',
+        inputType: 'toggle'
+      },
+      { 
+        name: 'wb-root-margin', 
+        description: 'Root margin for intersection observer in pixels', 
+        default: '100px',
+        inputType: 'text'
+      },
+      { 
+        name: 'wb-start-delay', 
+        description: 'Start delay in seconds', 
+        default: '0',
+        inputType: 'slider',
+        sliderConfig: { min: 0, max: 2, step: 0.1 }
       }
     ],
     example: {
@@ -228,6 +247,25 @@ export const componentsMetadata = {
         default: 'back.out(1.4)',
         inputType: 'dropdown',
         options: ['power1.out', 'power2.out', 'power3.out', 'power4.out', 'back.out(1.4)', 'back.out(1.7)', 'elastic.out(1, 0.3)']
+      },
+      { 
+        name: 'wb-trigger-on-view', 
+        description: 'Enable ScrollTrigger for view-based animation', 
+        default: 'true',
+        inputType: 'toggle'
+      },
+      { 
+        name: 'wb-root-margin', 
+        description: 'Root margin for intersection observer in pixels', 
+        default: '100px',
+        inputType: 'text'
+      },
+      { 
+        name: 'wb-start-delay', 
+        description: 'Start delay in seconds', 
+        default: '0',
+        inputType: 'slider',
+        sliderConfig: { min: 0, max: 2, step: 0.1 }
       }
     ],
     example: {
@@ -337,6 +375,25 @@ export const componentsMetadata = {
         default: 'power2.out',
         inputType: 'dropdown',
         options: ['power1.out', 'power2.out', 'power3.out', 'power4.out', 'back.out(1.7)', 'elastic.out(1, 0.3)']
+      },
+      { 
+        name: 'wb-trigger-on-view', 
+        description: 'Enable ScrollTrigger for view-based animation', 
+        default: 'true',
+        inputType: 'toggle'
+      },
+      { 
+        name: 'wb-root-margin', 
+        description: 'Root margin for intersection observer in pixels', 
+        default: '100px',
+        inputType: 'text'
+      },
+      { 
+        name: 'wb-start-delay', 
+        description: 'Start delay in seconds', 
+        default: '0',
+        inputType: 'slider',
+        sliderConfig: { min: 0, max: 2, step: 0.1 }
       }
     ],
     example: {
@@ -405,6 +462,25 @@ export const componentsMetadata = {
         default: 'hover',
         inputType: 'dropdown',
         options: ['view', 'hover']
+      },
+      { 
+        name: 'wb-trigger-on-view', 
+        description: 'Enable ScrollTrigger for view-based animation', 
+        default: 'true',
+        inputType: 'toggle'
+      },
+      { 
+        name: 'wb-root-margin', 
+        description: 'Root margin for intersection observer in pixels', 
+        default: '100px',
+        inputType: 'text'
+      },
+      { 
+        name: 'wb-start-delay', 
+        description: 'Start delay in seconds', 
+        default: '0',
+        inputType: 'slider',
+        sliderConfig: { min: 0, max: 2, step: 0.1 }
       }
     ],
     example: {
@@ -1150,6 +1226,18 @@ export const componentsMetadata = {
         default: 'power3.out',
         inputType: 'dropdown',
         options: ['power1.out', 'power2.out', 'power3.out', 'power4.out', 'back.out(1.7)', 'elastic.out(1, 0.3)']
+      },
+      { 
+        name: 'wb-trigger-on-view', 
+        description: 'Enable ScrollTrigger for view-based animation', 
+        default: 'true',
+        inputType: 'toggle'
+      },
+      { 
+        name: 'wb-root-margin', 
+        description: 'Root margin for intersection observer in pixels', 
+        default: '100px',
+        inputType: 'text'
       },
       {
         name: 'wb-start-delay',
