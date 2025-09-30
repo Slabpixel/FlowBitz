@@ -76,8 +76,10 @@ class SplitTextAnimator {
       ease: "power3.out",
       staggerDelay: 100,
       duration: 0.6,
+      triggerOnView: true,
       threshold: 0.1,
       rootMargin: "100px",
+      startDelay: 0,
       from: { opacity: 0, y: 40 },
       to: { opacity: 1, y: 0 }
     };
@@ -121,7 +123,10 @@ class SplitTextAnimator {
           attribute: 'wb-split-type', 
           type: 'string', 
           validValues: ['chars', 'words', 'lines'] 
-        }
+        },
+        triggerOnView: { attribute: 'wb-trigger-on-view', type: 'boolean' },
+        rootMargin: { attribute: 'wb-root-margin', type: 'string' },
+        startDelay: { attribute: 'wb-start-delay', type: 'number', parser: parseFloat, min: 0, max: 2, step: 0.1 }
       }
     );
     
@@ -258,42 +263,72 @@ class SplitTextAnimator {
     // Apply performance optimizations
     PerformanceOptimizer.optimizeForAnimation(targets);
 
-    // Create ScrollTrigger config using utility
-    const scrollTriggerConfig = createOnceAnimationConfig(
-      instance.element,
-      config,
-      (self) => {
-        instance.scrollTrigger = self;
+    // Set initial state
+    gsap.set(targets, { 
+      ...config.from, 
+      immediateRender: false, 
+      force3D: true 
+    });
+
+    if (config.triggerOnView) {
+      // Use IntersectionObserver like smartAnimate
+      this.setupIntersectionObserver(instance, targets, config);
+    } else {
+      // Animate immediately
+      this.startAnimation(instance, targets, config);
+    }
+  }
+
+  /**
+   * Setup intersection observer for view-based animation
+   */
+  setupIntersectionObserver(instance, targets, config) {
+    const { element } = instance;
+
+    const observerOptions = {
+      root: null,
+      rootMargin: config.rootMargin,
+      threshold: config.threshold
+    };
+
+    instance.observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting && !instance.animationCompleted) {
+          // Add delay if specified
+          if (config.startDelay > 0) {
+            setTimeout(() => {
+              this.startAnimation(instance, targets, config);
+            }, config.startDelay * 1000);
+          } else {
+            this.startAnimation(instance, targets, config);
+          }
+          // Disconnect observer after first animation like smartAnimate
+          instance.observer.disconnect();
+        }
+      });
+    }, observerOptions);
+
+    instance.observer.observe(element);
+  }
+
+  /**
+   * Start animation without ScrollTrigger
+   */
+  startAnimation(instance, targets, config) {
+    const timeline = gsap.timeline({
+      onComplete: () => {
+        this.completeAnimation(instance, targets);
       }
-    );
+    });
 
-    // Create timeline with context for cleanup
-    return gsap.context(() => {
-      const timeline = gsap.timeline({
-        scrollTrigger: scrollTriggerConfig,
-        onComplete: () => {
-          this.completeAnimation(instance, targets);
-        },
-      });
-
-      instance.timeline = timeline;
-
-      // Set initial state and animate
-      timeline.set(targets, { 
-        ...config.from, 
-        immediateRender: false, 
-        force3D: true 
-      });
-      
-      timeline.to(targets, {
-        ...config.to,
-        duration: config.duration,
-        ease: config.ease,
-        stagger: config.staggerDelay / 1000,
-        force3D: true,
-      });
-
-      return timeline;
+    instance.timeline = timeline;
+    
+    timeline.to(targets, {
+      ...config.to,
+      duration: config.duration,
+      ease: config.ease,
+      stagger: config.staggerDelay / 1000,
+      force3D: true,
     });
   }
 
@@ -340,7 +375,7 @@ class SplitTextAnimator {
     const instance = this.instances.get(element);
     if (!instance) return;
 
-    const { timeline, scrollTrigger, splitter } = instance;
+    const { timeline, scrollTrigger, splitter, observer } = instance;
 
     // Kill timeline
     if (timeline) {
@@ -350,6 +385,11 @@ class SplitTextAnimator {
     // Kill ScrollTrigger
     if (scrollTrigger) {
       scrollTrigger.kill();
+    }
+
+    // Disconnect observer
+    if (observer) {
+      observer.disconnect();
     }
 
     // Revert SplitText

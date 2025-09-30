@@ -8,6 +8,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const rootDir = path.join(__dirname, '..');
 const distDir = path.join(rootDir, 'dist');
+const betaBuildDir = path.join(distDir, 'beta-build');
 const betaDir = path.join(distDir, 'beta');
 
 console.log('🚀 Creating beta version...');
@@ -23,7 +24,7 @@ const files = ['flowbitz.umd.js', 'flowbitz.es.js', 'flowbitz.umd.js.map'];
 let copiedFiles = 0;
 
 files.forEach(file => {
-  const source = path.join(distDir, file);
+  const source = path.join(betaBuildDir, file);
   const dest = path.join(betaDir, file);
   
   if (fs.existsSync(source)) {
@@ -40,7 +41,7 @@ const betaInfo = {
   version: `beta-${Date.now()}`,
   timestamp: new Date().toISOString(),
   stable: process.env.STABLE_VERSION || '1.0.0',
-  files: files.filter(file => fs.existsSync(path.join(distDir, file)))
+  files: files.filter(file => fs.existsSync(path.join(betaBuildDir, file)))
 };
 
 fs.writeFileSync(

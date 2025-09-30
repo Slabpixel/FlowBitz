@@ -30,7 +30,8 @@ export const loadComponent = async (componentName) => {
       'pulse-button': 'pulseButton',
       'magnetic-button': 'magnet',
       'shuffle': 'shuffle',
-      'tooltip-text': 'tooltipText'
+      'tooltip-text': 'tooltipText',
+      'smart-animate': 'effect/smartAnimate'
     }
 
     const fileName = componentMap[componentName]
@@ -86,7 +87,8 @@ export const getComponentFileName = (componentName) => {
     'pulse-button': 'pulseButton',
     'magnetic-button': 'magnet',
     'shuffle': 'shuffle',
-    'tooltip-text': 'tooltipText'
+    'tooltip-text': 'tooltipText',
+    'smart-animate': 'effect/smartAnimate'
   }
 
   return componentMap[componentName] || null

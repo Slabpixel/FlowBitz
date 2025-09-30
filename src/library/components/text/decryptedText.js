@@ -1,8 +1,14 @@
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { injectStyles } from '../../utils/core/injectStyles.js';
 import { parseElementConfig, commonAttributeMaps, mergeAttributeMaps } from '../../utils/core/attributeParser.js';
 import { ComponentClassManager, webflowBitsClasses } from '../../utils/core/classManager.js';
 import { checkCSSConflicts, componentClassSets } from '../../utils/core/conflictDetector.js';
+import { createOnceAnimationConfig } from '../../utils/animation/scrollTriggerHelper.js';
 import { AnimationStateManager, PerformanceOptimizer } from '../../utils/animation/animationStateManager.js';
+
+// Register GSAP plugins
+gsap.registerPlugin(ScrollTrigger);
 
 // Inject component-specific CSS with unique namespace
 const componentCSS = `
@@ -93,8 +99,10 @@ class DecryptedTextAnimator {
       useOriginalCharsOnly: false,
       characters: 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz!@#$%^&*()_+',
       animateOn: 'view', // hover | view
+      triggerOnView: true,
       threshold: 0.1,
       rootMargin: '100px',
+      startDelay: 0,
       className: '',
       encryptedClassName: 'wb-decrypt-text-scrambling'
     };
@@ -149,6 +157,9 @@ class DecryptedTextAnimator {
           type: 'string', 
           validValues: ['hover', 'view'] 
         },
+        triggerOnView: { attribute: 'wb-trigger-on-view', type: 'boolean' },
+        rootMargin: { attribute: 'wb-root-margin', type: 'string' },
+        startDelay: { attribute: 'wb-start-delay', type: 'number', parser: parseFloat, min: 0, max: 2, step: 0.1 },
         className: { attribute: 'wb-class-name', type: 'string' },
         encryptedClassName: { attribute: 'wb-encrypted-class-name', type: 'string' }
       }
@@ -209,7 +220,18 @@ class DecryptedTextAnimator {
 
       // Setup intersection observer if needed
       if (config.animateOn === 'view') {
-        this.setupIntersectionObserver(instance);
+        if (config.triggerOnView) {
+          this.setupIntersectionObserver(instance);
+        } else {
+          // Start immediately
+          if (config.startDelay > 0) {
+            setTimeout(() => {
+              this.startDecryption(instance);
+            }, config.startDelay * 1000);
+          } else {
+            this.startDecryption(instance);
+          }
+        }
       }
 
       console.log('WebflowBits DecryptedText: Element initialized', { element, config });
@@ -281,6 +303,47 @@ class DecryptedTextAnimator {
   }
 
   /**
+   * Setup ScrollTrigger for view-based animation
+   */
+  setupScrollTrigger(instance) {
+    const { element, config } = instance;
+
+    // Create ScrollTrigger config using utility
+    const scrollTriggerConfig = createOnceAnimationConfig(
+      element,
+      config,
+      (self) => {
+        instance.scrollTrigger = self;
+      }
+    );
+
+    // Create timeline with context for cleanup
+    return gsap.context(() => {
+      const timeline = gsap.timeline({
+        scrollTrigger: scrollTriggerConfig,
+        onComplete: () => {
+          // Animation complete
+        }
+      });
+
+      // Add delay if specified
+      if (config.startDelay > 0) {
+        timeline.delay(config.startDelay);
+      }
+
+      // Start decryption when scroll trigger activates
+      timeline.call(() => {
+        if (!instance.hasAnimated) {
+          this.startDecryption(instance);
+          instance.hasAnimated = true;
+        }
+      });
+
+      instance.timeline = timeline;
+    }, element);
+  }
+
+  /**
    * Setup intersection observer for view-based animation
    */
   setupIntersectionObserver(instance) {
@@ -289,8 +352,18 @@ class DecryptedTextAnimator {
     const observerCallback = (entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting && !instance.hasAnimated) {
-          this.startDecryption(instance);
-          instance.hasAnimated = true;
+          // Add delay if specified
+          if (config.startDelay > 0) {
+            setTimeout(() => {
+              this.startDecryption(instance);
+              instance.hasAnimated = true;
+            }, config.startDelay * 1000);
+          } else {
+            this.startDecryption(instance);
+            instance.hasAnimated = true;
+          }
+          // Disconnect observer after first animation like smartAnimate
+          instance.observer.disconnect();
         }
       });
     };
@@ -593,6 +666,16 @@ class DecryptedTextAnimator {
       // Clear interval
       if (instance.interval) {
         clearInterval(instance.interval);
+      }
+
+      // Kill ScrollTrigger
+      if (instance.scrollTrigger) {
+        instance.scrollTrigger.kill();
+      }
+
+      // Kill timeline
+      if (instance.timeline) {
+        instance.timeline.kill();
       }
 
       // Disconnect observer

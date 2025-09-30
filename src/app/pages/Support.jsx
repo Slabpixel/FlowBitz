@@ -21,7 +21,7 @@ const Support = () => {
   }
 
   const handleEmail = () => {
-    window.open('mailto:hello@slabpixel.com?subject=FlowBitz Support Inquiry', '_blank')
+    window.open('mailto:flowbitz@slabpixel.com?subject=FlowBitz Support Inquiry', '_blank')
   }
 
   const handleGitHub = () => {

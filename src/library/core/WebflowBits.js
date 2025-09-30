@@ -28,6 +28,9 @@ import gradientButtonAnimator from '../components/button/gradientButton.js';
 import rippleButtonAnimator from '../components/button/rippleButton.js';
 import magnetAnimator from '../components/button/magneticButton.js';
 
+/* Effect Components */
+import smartAnimateAnimator from '../components/effect/smartAnimate.js';
+
 /**
  * Main WebflowBits class for CDN usage
  */
@@ -54,6 +57,7 @@ class WebflowBits {
       magnet: magnetAnimator,
       shuffle: shuffleAnimator,
       tooltipText: tooltipTextAnimator,
+      smartAnimate: smartAnimateAnimator,
     };
   }
 
@@ -707,6 +711,16 @@ class WebflowBits {
                 tooltipTextAnimator.initElement(element);
                 shouldRefresh = true;
               });
+
+              // Check for wb-component="smart-animate" elements
+              const smartAnimateElements = node.matches?.('[wb-component="smart-animate"]')
+                ? [node]
+                : Array.from(node.querySelectorAll?.('[wb-component="smart-animate"]') || []);
+
+              smartAnimateElements.forEach(element => {
+                smartAnimateAnimator.initElement(element);
+                shouldRefresh = true;
+              });
             }
           });
         }
@@ -1049,6 +1063,25 @@ class WebflowBits {
     });
 
     tooltipTextAnimator.refresh();
+    return this;
+  }
+
+  /**
+   * Manually initialize SmartAnimate on specific elements
+   * @param {string|NodeList|Element} selector - CSS selector or DOM elements
+   */
+  initSmartAnimateOn(selector) {
+    const elements = typeof selector === 'string' 
+      ? document.querySelectorAll(selector)
+      : selector.nodeType ? [selector] : selector;
+    
+    Array.from(elements).forEach(element => {
+      if (element.getAttribute('wb-component') === 'smart-animate') {
+        smartAnimateAnimator.initElement(element);
+      }
+    });
+
+    smartAnimateAnimator.refresh();
     return this;
   }
 

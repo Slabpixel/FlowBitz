@@ -58,8 +58,10 @@ class BlurTextAnimator {
       animateBy: 'words', // words | letters
       direction: 'top',   // top | bottom
       delay: 200,         // delay between elements in ms
+      triggerOnView: true,
       threshold: 0.1,
       rootMargin: '100px',
+      startDelay: 0,
       stepDuration: 0.35,
       ease: "back.out(1.4)"
     };
@@ -109,7 +111,10 @@ class BlurTextAnimator {
           type: 'string', 
           validValues: ['top', 'bottom'] 
         },
-        delay: { attribute: 'wb-delay', type: 'delay' }
+        delay: { attribute: 'wb-delay', type: 'delay' },
+        triggerOnView: { attribute: 'wb-trigger-on-view', type: 'boolean' },
+        rootMargin: { attribute: 'wb-root-margin', type: 'string' },
+        startDelay: { attribute: 'wb-start-delay', type: 'number', parser: parseFloat, min: 0, max: 2, step: 0.1 }
       }
     );
     
@@ -320,12 +325,11 @@ class BlurTextAnimator {
       // Apply performance optimizations
       PerformanceOptimizer.optimizeForAnimation(instance.domStructure.segments);
       
-      // Check if element is already in view and start animation immediately if so
-      if (this.isElementInView(element, config)) {
-        this.startAnimationImmediately(instance);
+      // Setup animation based on triggerOnView setting
+      if (config.triggerOnView) {
+        this.setupIntersectionObserver(instance);
       } else {
-        // Setup animation with ScrollTrigger
-        this.setupAnimation(instance);
+        this.startAnimationImmediately(instance);
       }
       
     } catch (error) {
@@ -333,6 +337,38 @@ class BlurTextAnimator {
       this.removeComponentClasses(element);
       this.instances.delete(element);
     }
+  }
+
+  /**
+   * Setup intersection observer for view-based animation
+   */
+  setupIntersectionObserver(instance) {
+    const { element, config, domStructure } = instance;
+
+    const observerOptions = {
+      root: null,
+      rootMargin: config.rootMargin,
+      threshold: config.threshold
+    };
+
+    instance.observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting && !instance.animationCompleted) {
+          // Add delay if specified
+          if (config.startDelay > 0) {
+            setTimeout(() => {
+              this.startAnimationImmediately(instance);
+            }, config.startDelay * 1000);
+          } else {
+            this.startAnimationImmediately(instance);
+          }
+          // Disconnect observer after first animation like smartAnimate
+          instance.observer.disconnect();
+        }
+      });
+    }, observerOptions);
+
+    instance.observer.observe(element);
   }
 
   /**
@@ -377,6 +413,11 @@ class BlurTextAnimator {
         this.completeAnimation(instance);
       }
     });
+
+    // Add delay if specified
+    if (config.startDelay > 0) {
+      timeline.delay(config.startDelay);
+    }
 
     // Animate each segment with stagger
     domStructure.segments.forEach((segment, index) => {
@@ -456,7 +497,7 @@ class BlurTextAnimator {
     const instance = this.instances.get(element);
     if (!instance) return;
 
-    const { timeline, scrollTrigger, domStructure } = instance;
+    const { timeline, scrollTrigger, domStructure, observer } = instance;
 
     // Kill timeline
     if (timeline) {
@@ -466,6 +507,11 @@ class BlurTextAnimator {
     // Kill ScrollTrigger
     if (scrollTrigger) {
       scrollTrigger.kill();
+    }
+
+    // Disconnect observer
+    if (observer) {
+      observer.disconnect();
     }
 
     // Clean up performance optimizations

@@ -44,7 +44,7 @@ const Showcase = () => {
       <div className="bg-background text-foreground pt-[64px] min-h-screen">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 lg:py-20">
         {/* Hero Section */}
-        <div className="text-center mb-16">
+        <div wb-component="smart-animate" className="text-center mb-16">
           <div className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-primary/20 to-muted-foreground/10 dark:from-primary/20 dark:to-white/10 rounded-full text-sm font-medium text-black dark:text-white mb-6">
             <Clock className="w-4 h-4" />
             <span>Coming Soon</span>
@@ -72,7 +72,7 @@ const Showcase = () => {
             
             <div className="relative z-10">
               {/* Icon and Title Section */}
-              <div className="text-center mb-12">
+              <div wb-component="smart-animate" wb-start-delay="0.2" className="text-center mb-12">
                 <div className="relative inline-block mb-8">
                   <div className="w-24 h-24 bg-gradient-to-br from-primary to-primary/70 rounded-2xl mx-auto flex items-center justify-center shadow-2xl shadow-primary/25">
                     <Sparkles className="w-12 h-12 text-white" />
@@ -95,7 +95,7 @@ const Showcase = () => {
               </div>
 
               {/* Features Grid */}
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+              <div wb-component="smart-animate" className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                 <div className="group relative p-6 bg-background/60 backdrop-blur-sm rounded-2xl border border-border/50 hover:border-primary/30 transition-all duration-300 hover:shadow-lg hover:shadow-primary/10">
                   <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
                     <Layers className="w-6 h-6 text-white" />
@@ -133,7 +133,7 @@ const Showcase = () => {
         </div>
 
         {/* Alternative Actions */}
-        <div className="mt-16 text-center">
+        <div wb-component="smart-animate" className="mt-16 text-center">
           <h2 className="text-2xl sm:text-3xl font-bold text-foreground mb-6">
             Can't Wait? Explore Now
           </h2>
