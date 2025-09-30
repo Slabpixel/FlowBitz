@@ -4,6 +4,10 @@
  */
 
 import { gsap } from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
+
+// Register GSAP plugins
+gsap.registerPlugin(ScrollTrigger)
 
 class SmartAnimate {
   constructor(element, options = {}) {

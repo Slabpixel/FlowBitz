@@ -36,7 +36,7 @@ const Sidebar = ({ showBackLink = false }) => {
 
   return (
     <aside className="w-full lg:max-w-[240px] lg:min-w-[240px] bg-background border-r border-border lg:overflow-y-auto lg:sticky lg:top-16 lg:self-start h-auto lg:h-[calc(100vh-4rem)]">
-      <div className="flex flex-col gap-4 sm:gap-6 p-4 sm:p-6">        
+      <div className="flex flex-col gap-4 sm:gap-6 p-4 sm:p-6" style={{ height: 'calc(100vh - 4rem)' }}>        
         {/* Mobile Dropdown Toggle */}
         <button
           onClick={() => setIsComponentsOpen(!isComponentsOpen)}
@@ -163,49 +163,52 @@ const Sidebar = ({ showBackLink = false }) => {
                 </span>
             </div>
           </div>
-          
-          <div className="sidebar-section border-t border-border pt-2">
-            <ul className="list-none">
-              <li className="mb-0.5">
-                <Link 
-                  to="/about" 
-                  onClick={() => setIsComponentsOpen(false)}
-                  className={`flex items-center gap-2 px-0 py-2 text-black dark:text-white no-underline rounded-md transition-all duration-200 text-sm font-normal ${
-                    currentLink !== '/about'
-                      ? 'px-0 hover:px-3 hover:text-foreground hover:bg-accent' 
-                      : 'px-3 hover:px-3 text-white bg-primary font-medium'
-                  }`}>
-                  <Building2 className="w-4 h-4" />
-                  About Us
-                </Link>
-              </li>
-              <li className="mb-0.5">
-                <Link 
-                  to="/support" 
-                  onClick={() => setIsComponentsOpen(false)}
-                  className={`flex items-center gap-2 px-0 py-2 text-black dark:text-white no-underline rounded-md transition-all duration-200 text-sm font-normal ${
-                    currentLink !== '/support'
-                      ? 'px-0 hover:px-3 hover:text-foreground hover:bg-accent' 
-                      : 'px-3 hover:px-3 text-white bg-primary font-medium'
-                  }`}>
-                  <HelpCircle className="w-4 h-4" />
-                  Support
-                </Link>
-              </li>
-              <li className="mb-0.5">
-                <Link 
-                  to="/faq" 
-                  onClick={() => setIsComponentsOpen(false)}
-                  className={`flex items-center gap-2 px-0 py-2 text-black dark:text-white no-underline rounded-md transition-all duration-200 text-sm font-normal ${
-                    currentLink !== '/faq'
-                      ? 'px-0 hover:px-3 hover:text-foreground hover:bg-accent' 
-                      : 'px-3 hover:px-3 text-white bg-primary font-medium'
-                  }`}>
-                  <MessageSquare className="w-4 h-4" />
-                  FAQ
-                </Link>
-              </li>
-            </ul>
+
+          <div className='sticky bottom-0'>
+            <div className="h-[50px] mt-[-50px] bg-gradient-to-t from-background to-backgound/0 pointer-events-none"/>
+            <div className="sidebar-section border-t border-border pt-2 pb-2 bg-background">
+              <ul className="list-none">
+                <li className="mb-0.5">
+                  <Link s
+                    to="/about" 
+                    onClick={() => setIsComponentsOpen(false)}
+                    className={`flex items-center gap-2 px-0 py-2 text-black dark:text-white no-underline rounded-md transition-all duration-200 text-sm font-normal ${
+                      currentLink !== '/about'
+                        ? 'px-0 hover:px-3 hover:text-foreground hover:bg-accent' 
+                        : 'px-3 hover:px-3 text-white bg-primary font-medium'
+                    }`}>
+                    <Building2 className="w-4 h-4" />
+                    About Us
+                  </Link>
+                </li>
+                <li className="mb-0.5">
+                  <Link 
+                    to="/support" 
+                    onClick={() => setIsComponentsOpen(false)}
+                    className={`flex items-center gap-2 px-0 py-2 text-black dark:text-white no-underline rounded-md transition-all duration-200 text-sm font-normal ${
+                      currentLink !== '/support'
+                        ? 'px-0 hover:px-3 hover:text-foreground hover:bg-accent' 
+                        : 'px-3 hover:px-3 text-white bg-primary font-medium'
+                    }`}>
+                    <HelpCircle className="w-4 h-4" />
+                    Support
+                  </Link>
+                </li>
+                <li className="mb-0.5">
+                  <Link 
+                    to="/faq" 
+                    onClick={() => setIsComponentsOpen(false)}
+                    className={`flex items-center gap-2 px-0 py-2 text-black dark:text-white no-underline rounded-md transition-all duration-200 text-sm font-normal ${
+                      currentLink !== '/faq'
+                        ? 'px-0 hover:px-3 hover:text-foreground hover:bg-accent' 
+                        : 'px-3 hover:px-3 text-white bg-primary font-medium'
+                    }`}>
+                    <MessageSquare className="w-4 h-4" />
+                    FAQ
+                  </Link>
+                </li>
+              </ul>
+            </div>
           </div>
         </div>
       </div>
