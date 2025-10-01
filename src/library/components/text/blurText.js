@@ -21,6 +21,7 @@ const componentCSS = `
 .wb-blur-text__segment {
   display: inline-block;
   will-change: transform, filter, opacity;
+  opacity: 0;
 }
 
 .wb-blur-text__space {

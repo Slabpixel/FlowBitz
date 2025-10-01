@@ -16,8 +16,6 @@ const componentCSS = `
 .wb-count-up {
   display: inline-block;
   position: relative;
-  font-variant-numeric: tabular-nums;
-  font-feature-settings: "tnum";
 }
 
 .wb-count-up__number {

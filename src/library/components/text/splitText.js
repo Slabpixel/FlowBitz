@@ -33,6 +33,7 @@ const componentCSS = `
 .wb-split-char {
   display: inline-block;
   will-change: transform, opacity;
+  opacity: 0;
 }
 
 .wb-split-line {
