@@ -1179,7 +1179,7 @@ export const componentsMetadata = {
     ],
     example: {
       title: 'Magnetic Button',
-      code: '<a src="#" wb-component="magnetic-button" class="inline-block text-md bg-primary text-white rounded-full px-6 py-3 hover:bg-primary-dark transition-colors hover:cursor-pointer">Hover me!</a>',
+      code: '<a src="#" wb-component="magnetic-button" class="text-md bg-primary text-white rounded-full px-6 py-3 hover:bg-primary-dark transition-colors hover:cursor-pointer">Hover me!</a>',
       description: 'Button that follows mouse movement with magnetic attraction - the entire button (background, text, and all styling) moves together'
     }
   },
