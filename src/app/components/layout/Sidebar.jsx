@@ -36,7 +36,7 @@ const Sidebar = ({ showBackLink = false }) => {
 
   return (
     <aside className="w-full lg:max-w-[240px] lg:min-w-[240px] bg-background border-r border-border lg:overflow-y-auto lg:sticky lg:top-16 lg:self-start h-auto lg:h-[calc(100vh-4rem)]">
-      <div className="flex flex-col gap-4 sm:gap-6 p-4 sm:p-6" style={{ height: 'calc(100vh - 4rem)' }}>        
+      <div className="flex flex-col gap-4 sm:gap-6 p-4 sm:p-6 lg:h-[calc(100vh-4rem)]">        
         {/* Mobile Dropdown Toggle */}
         <button
           onClick={() => setIsComponentsOpen(!isComponentsOpen)}
