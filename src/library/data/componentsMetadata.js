@@ -85,7 +85,7 @@ export const componentsMetadata = {
     ],
     example: {
       title: 'Split Text Animation',
-      code: '<h1 wb-component="split-text" wb-split-type="words" class="text-6xl">Create Amazing Websites with Powerful Animations</h1>',
+      code: '<h1 wb-component="split-text" wb-split-type="words" class="lg:text-6xl text-3xl">Create Amazing Websites with Powerful Animations</h1>',
       description: 'Each word animates separately with customizable split type and timing'
     }
   },
@@ -120,7 +120,7 @@ export const componentsMetadata = {
     ],
     example: {
       title: 'Gradient Text Animation',
-      code: '<h1 wb-component="gradient-text" class="text-6xl">Gradient Text</h1>',
+      code: '<h1 wb-component="gradient-text" class="lg:text-6xl text-3xl">Gradient Text</h1>',
       description: 'Animated gradient text with customizable colors and effects'
     }
   },
@@ -201,7 +201,7 @@ export const componentsMetadata = {
     ],
     example: {
       title: 'Typewriter Effect',
-      code: '<h1 class="text-6xl"">Learn more about <span wb-component="text-type" wb-text-1="Coding" wb-text-2="Webflow" wb-text-3="Animation" class="text-6xl">Coding</span></h1>',
+      code: '<h1 class="lg:text-6xl text-3xl">Learn more about <span wb-component="text-type" wb-text-1="Coding" wb-text-2="Webflow" wb-text-3="Animation" class="lg:text-6xl text-3xl">Coding</span></h1>',
       description: 'Typewriter effect with customizable cursor and timing'
     }
   },
@@ -270,7 +270,7 @@ export const componentsMetadata = {
     ],
     example: {
       title: 'Blur Text Animation',
-      code: '<h1 wb-component="blur-text" class="text-6xl">Blur to Clear</h1>',
+      code: '<h1 wb-component="blur-text" class="lg:text-6xl text-3xl">Blur to Clear</h1>',
       description: 'Blur-to-clear transition effects with customizable timing'
     }
   },
@@ -311,7 +311,7 @@ export const componentsMetadata = {
     ],
     example: {
       title: 'Shiny Text Effect',
-      code: '<h1 class="text-6xl" wb-component="shiny-text" wb-text-color="#0a70ff" wb-shine-color="#8cbcff" style="line-height: 1.2;">Shiny Text</h1>',
+      code: '<h1 class="lg:text-6xl text-3xl" wb-component="shiny-text" wb-text-color="#0a70ff" wb-shine-color="#8cbcff" style="line-height: 1.2;">Shiny Text</h1>',
       description: 'Shimmer and shine text effects with customizable speed'
     }
   },
@@ -398,7 +398,7 @@ export const componentsMetadata = {
     ],
     example: {
       title: 'Count Up Animation',
-      code: '<h1 wb-component="count-up" wb-count-to="1250" wb-count-separator="," class="text-6xl">0</h1>',
+      code: '<h1 wb-component="count-up" wb-count-to="1250" wb-count-separator="," class="lg:text-6xl text-4xl">0</h1>',
       description: 'Animated number counting with customizable formatting'
     }
   },
@@ -485,7 +485,7 @@ export const componentsMetadata = {
     ],
     example: {
       title: 'Decrypted Text Effect',
-      code: '<h1 wb-component="decrypted-text" wb-use-original-chars="true" class="text-6xl">SECRET MESSAGE</h1>',
+      code: '<h1 wb-component="decrypted-text" wb-use-original-chars="true" class="lg:text-6xl text-3xl">SECRET MESSAGE</h1>',
       description: 'Matrix-style decryption effects with customizable characters'
     }
   },
@@ -555,7 +555,7 @@ export const componentsMetadata = {
     ],
     example: {
       title: 'Scramble Text Effect',
-      code: '<p wb-component="scramble-text" wb-font="monospace" class="text-2xl max-w-[570px]">Once you hover over me, you will see the effect in action! You can customize the radius, duration, and speed of the scramble effect.</p>',
+      code: '<p wb-component="scramble-text" wb-font="monospace" class="lg:text-2xl text-md max-w-[570px]">Once you hover over me, you will see the effect in action! You can customize the radius, duration, and speed of the scramble effect.</p>',
       description: 'Interactive character scrambling with customizable radius, duration, and speed'
     }
   },
@@ -598,7 +598,7 @@ export const componentsMetadata = {
     ],
     example: {
       title: 'Variable Proximity Effect',
-      code: '<h1 wb-component="variable-proximity" class="text-4xl max-w-[570px]">Please hover over me to see the amazing variable font effects!</h1>',
+      code: '<h1 wb-component="variable-proximity" class="lg:text-4xl text-xl max-w-[570px]">Please hover over me to see the amazing variable font effects!</h1>',
       description: 'Mouse proximity font variations with customizable weight and size sliders'
     }
   },
@@ -710,7 +710,7 @@ export const componentsMetadata = {
     ],
     example: {
       title: 'Rotating Text Animation',
-      code: '<h1 class="text-6xl">Powerful <span wb-component="rotating-text" wb-text-1="Animations" wb-text-2="Effects" wb-text-3="Interactions" wb-background-color="#0a70ff" wb-text-color="#ffffff" wb-border-radius="8px" class="text-6xl">Animations</span></h1>',
+      code: '<h1 class="lg:text-6xl text-3xl">Powerful <span wb-component="rotating-text" wb-text-1="Animations" wb-text-2="Effects" wb-text-3="Interactions" wb-background-color="#0a70ff" wb-text-color="#ffffff" wb-border-radius="8px" class="lg:text-6xl text-3xl">Animations</span></h1>',
       description: 'Auto-rotating text with stagger effects, background color, text color, border radius, and automatic centering'
     }
   },
@@ -797,7 +797,7 @@ export const componentsMetadata = {
     ],
     example: {
       title: 'Text Pressure Effect',
-      code: '<h1 wb-component="text-pressure" wb-font-family="Compressa VF" class="text-[160px] w-[570px]">PRESSURE!</h1>',
+      code: '<h1 wb-component="text-pressure" wb-font-family="Compressa VF" class="lg:text-[160px] text-[80px] lg:w-[570px] w-[300px]">PRESSURE!</h1>',
       description: 'Mouse proximity font variations with Compressa VF variable font'
     }
   },
@@ -887,7 +887,7 @@ export const componentsMetadata = {
     ],
     example: {
       title: 'Shuffle Text Effect',
-      code: '<h1 wb-component="shuffle" class="text-6xl">Create Amazing Websites With Powerful Animations</h1>',
+      code: '<h1 wb-component="shuffle" class="lg:text-6xl text-3xl">Create Amazing Websites With Powerful Animations</h1>',
       description: 'Character-based sliding shuffle effects with customizable direction'
     }
   },
@@ -968,7 +968,7 @@ export const componentsMetadata = {
     ],
     example: {
       title: 'Tooltip Text Effect',
-      code: '<p class="text-lg font-normal">The example of the <span wb-component="tooltip-text" wb-tooltip-text="This is a helpful tooltip!" class="text-primary text-lg">Tooltip</span> Text component.</p>',
+      code: '<p class="lg:text-lg text-md font-normal">The example of the <span wb-component="tooltip-text" wb-tooltip-text="This is a helpful tooltip!" class="text-primary text-lg">Tooltip</span> Text component.</p>',
       description: 'Hover tooltips for any text element with customizable positioning and styling'
     }
   },
@@ -1179,7 +1179,7 @@ export const componentsMetadata = {
     ],
     example: {
       title: 'Magnetic Button',
-      code: '<a src="#" wb-component="magnetic-button" class="inline-block text-md bg-primary text-white rounded-full px-6 py-3 hover:bg-primary-dark transition-colors hover:cursor-pointer">Hover me!</a>',
+      code: '<a src="#" wb-component="magnetic-button" class="text-md bg-primary text-white rounded-full px-6 py-3 hover:bg-primary-dark transition-colors hover:cursor-pointer">Hover me!</a>',
       description: 'Button that follows mouse movement with magnetic attraction - the entire button (background, text, and all styling) moves together'
     }
   },

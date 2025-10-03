@@ -10,7 +10,7 @@ const componentCSS = `
 /* FlowBitz - Magnetic Button Component Styles */
 .wb-magnetic-button {
   position: relative;
-  display: inline-block;
+  /* DON'T set display - let Webflow styles handle it */
   will-change: transform;
   backface-visibility: hidden;
   transform-style: preserve-3d;
@@ -18,28 +18,14 @@ const componentCSS = `
 }
 
 .wb-magnetic-button__inner {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  /* Layout properties are set via inline styles to inherit from parent */
   width: 100%;
   height: 100%;
   min-height: 100%;
   pointer-events: none; /* Prevent inner element from interfering with mouse events */
 }
 
-/* Ensure proper display for different element types */
-.wb-magnetic-button[href] {
-  display: inline-block;
-}
-
-.wb-magnetic-button[href] .wb-magnetic-button__inner {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  height: 100%;
-  min-height: 100%;
-}
+/* Remove forced display properties that conflict with Webflow */
 
 /* Performance optimization during animation */
 .wb-magnetic-button-animating {
@@ -387,6 +373,14 @@ class MagnetAnimator {
     const originalContent = element.innerHTML;
     const originalClasses = Array.from(element.classList);
     
+    // Get computed styles before any modifications
+    const computedStyle = window.getComputedStyle(element);
+    const originalDisplay = computedStyle.display;
+    const originalFlexDirection = computedStyle.flexDirection;
+    const originalAlignItems = computedStyle.alignItems;
+    const originalJustifyContent = computedStyle.justifyContent;
+    const originalGap = computedStyle.gap;
+    
     // Create inner wrapper
     const innerWrapper = document.createElement('div');
     innerWrapper.className = 'wb-magnetic-button__inner';
@@ -403,22 +397,39 @@ class MagnetAnimator {
       }
     });
     
-    // Ensure proper display for different element types
-    const computedStyle = window.getComputedStyle(element);
-    const originalDisplay = computedStyle.display;
+    // DON'T modify the parent element's display property IF it's already set
+    // Only apply minimal fallback for browser defaults (inline) that would break the effect
+    // Check if display is explicitly set via inline styles or classes
+    const hasExplicitDisplay = element.style.display || 
+                               originalDisplay !== 'inline';
     
-    // Maintain original display properties
-    if (element.tagName === 'A' || originalDisplay === 'inline-block' || originalDisplay === 'block') {
-      element.style.display = originalDisplay;
+    // For pure inline elements (browser default), we need at least inline-block
+    // for the magnetic effect to work properly, but ONLY if not explicitly set
+    if (!hasExplicitDisplay && originalDisplay === 'inline') {
+      element.style.display = 'inline-block';
+      if (config.debug) {
+        console.log('WebflowBits Magnet: Applied inline-block fallback for inline element');
+      }
     }
     
-    // Set up inner wrapper styles
+    // Set up inner wrapper to inherit parent's layout properties
     innerWrapper.style.width = '100%';
     innerWrapper.style.height = '100%';
-    innerWrapper.style.display = 'flex';
-    innerWrapper.style.alignItems = 'center';
-    innerWrapper.style.justifyContent = 'center';
     innerWrapper.style.pointerEvents = 'none'; // Prevent interference with mouse events
+    
+    // If parent has flex display, inherit those properties
+    if (originalDisplay === 'flex' || originalDisplay === 'inline-flex') {
+      innerWrapper.style.display = originalDisplay;
+      innerWrapper.style.flexDirection = originalFlexDirection;
+      innerWrapper.style.alignItems = originalAlignItems;
+      innerWrapper.style.justifyContent = originalJustifyContent;
+      innerWrapper.style.gap = originalGap;
+    } else {
+      // For non-flex displays, use flex to center content as fallback
+      innerWrapper.style.display = 'flex';
+      innerWrapper.style.alignItems = 'center';
+      innerWrapper.style.justifyContent = 'center';
+    }
     
     return {
       innerWrapper,
