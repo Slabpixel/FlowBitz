@@ -14,7 +14,10 @@ export default defineConfig({
       'gsap/ScrambleTextPlugin',
       'react',
       'react-dom',
-      'react-router-dom'
+      'react-router-dom',
+      'three',
+      'three/examples/jsm/loaders/GLTFLoader',
+      'three/examples/jsm/controls/OrbitControls'
     ],
     force: false
   },
@@ -46,6 +49,7 @@ export default defineConfig({
         manualChunks: {
           vendor: ['react', 'react-dom', 'react-router-dom'],
           gsap: ['gsap'],
+          three: ['three'],
           ui: ['lucide-react', '@radix-ui/react-slot']
         }
       }

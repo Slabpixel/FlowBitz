@@ -6,8 +6,10 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '../components/ui/tabs'
 import { Shield, CheckCircle, XCircle, Info, FileText, Copy, ExternalLink, Heart } from 'lucide-react';
 import Footer from '../components/layout/Footer';
 import SEO from '../components/SEO';
+import { useNavigate } from 'react-router-dom';
 
 const License = () => {
+  const navigate = useNavigate()
   const mitLicense = `MIT License
 
 Copyright (c) 2025 Slabpixel

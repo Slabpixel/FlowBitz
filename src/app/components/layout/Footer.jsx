@@ -1,12 +1,27 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { useNavigate, useLocation } from 'react-router-dom'
 import { Github, Heart, ExternalLink, Layers, HelpCircle, User, MessageSquare, Sparkles, Download, Bug, MessageCircle, FileText, Home, Tag } from 'lucide-react'
 import { getFilteredComponentKeys } from '../../../library/data/componentsMetadata.js'
 import Logo from '../Logo'
 
 const Footer = () => {
   const componentCount = getFilteredComponentKeys().length
+  const navigate = useNavigate()
+  const location = useLocation()
 
+  const scrollToTop = () => {
+    document.getElementById('root').scrollTop = 0
+  }
+
+  const handleNavigation = (path) => {
+    if (location.pathname === path) {
+      // Same page - just scroll to top
+      scrollToTop()
+    } else {
+      // Different page - navigate (global ScrollToTop will handle scrolling)
+      navigate(path)
+    }
+  }
   const handleGitHub = () => {
     window.open('https://github.com/Slabpixel/FlowBitz', '_blank')
   }
@@ -45,40 +60,40 @@ const Footer = () => {
             </h4>
             <ul className="space-y-3">
               <li>
-                <Link 
-                  to="/" 
+                <button 
+                  onClick={() => handleNavigation('/')}
                   className="text-muted-foreground hover:text-foreground transition-colors duration-200 text-sm flex items-center gap-2"
                 >
                   <Home className="w-4 h-4" />
                   Home
-                </Link>
+                </button>
               </li>
               <li>
-                <Link 
-                  to="/components" 
+                <button 
+                  onClick={() => handleNavigation('/components')}
                   className="text-muted-foreground hover:text-foreground transition-colors duration-200 text-sm flex items-center gap-2"
                 >
                   <Layers className="w-4 h-4" />
                   Components
-                </Link>
+                </button>
               </li>
               <li>
-                <Link 
-                  to="/showcase" 
+                <button 
+                  onClick={() => handleNavigation('/showcase')}
                   className="text-muted-foreground hover:text-foreground transition-colors duration-200 text-sm flex items-center gap-2"
                 >
                   <Sparkles className="w-4 h-4" />
                   Showcase
-                </Link>
+                </button>
               </li>
               <li>
-                <Link 
-                  to="/about" 
+                <button 
+                  onClick={() => handleNavigation('/about')}
                   className="text-muted-foreground hover:text-foreground transition-colors duration-200 text-sm flex items-center gap-2"
                 >
                   <User className="w-4 h-4" />
                   About
-                </Link>
+                </button>
               </li>
             </ul>
           </div>
@@ -90,22 +105,22 @@ const Footer = () => {
             </h4>
             <ul className="space-y-3">
               <li>
-                <Link 
-                  to="/faq" 
+                <button 
+                  onClick={() => handleNavigation('/faq')}
                   className="text-muted-foreground hover:text-foreground transition-colors duration-200 text-sm flex items-center gap-2"
                 >
                   <MessageSquare className="w-4 h-4" />
                   FAQ
-                </Link>
+                </button>
               </li>
               <li>
-                <Link 
-                  to="/support" 
+                <button 
+                  onClick={() => handleNavigation('/support')}
                   className="text-muted-foreground hover:text-foreground transition-colors duration-200 text-sm flex items-center gap-2"
                 >
                   <HelpCircle className="w-4 h-4" />
                   Support
-                </Link>
+                </button>
               </li>
               <li>
                 <button 
@@ -135,13 +150,13 @@ const Footer = () => {
             </h4>
             <ul className="space-y-3">
               <li>
-                <Link 
-                  to="/release" 
+                <button 
+                  onClick={() => handleNavigation('/release')}
                   className="text-muted-foreground hover:text-foreground transition-colors duration-200 text-sm flex items-center gap-2"
                 >
                   <Tag className="w-4 h-4" />
                   Release Notes
-                </Link>
+                </button>
               </li>
               <li>
                 <a 
@@ -166,13 +181,13 @@ const Footer = () => {
                 </a>
               </li>
               <li>
-                <Link 
-                  to="/license" 
+                <button 
+                  onClick={() => handleNavigation('/license')}
                   className="text-muted-foreground hover:text-foreground transition-colors duration-200 text-sm flex items-center gap-2"
                 >
                   <FileText className="w-4 h-4" />
                   License
-                </Link>
+                </button>
               </li>
             </ul>
           </div>

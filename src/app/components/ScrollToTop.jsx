@@ -8,11 +8,16 @@ const ScrollToTop = () => {
     // Scroll to top when pathname changes
     // Use requestAnimationFrame to ensure DOM is ready
     requestAnimationFrame(() => {
-      window.scrollTo({
-        top: 0,
-        left: 0,
-        behavior: 'smooth'
-      })
+      const rootElement = document.getElementById('root')
+      if (rootElement) {
+        rootElement.scrollTop = 0
+      } else {
+        window.scrollTo({
+          top: 0,
+          left: 0,
+          behavior: 'smooth'
+        })
+      }
     })
   }, [pathname])
 
