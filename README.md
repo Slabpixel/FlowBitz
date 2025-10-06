@@ -273,6 +273,18 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - **Webflow** - The platform that makes this all possible
 - **Community** - All the developers who use and contribute to FlowBitz
 
+## 💡 Inspiration & Credits
+
+FlowBitz may sometimes take inspiration from publicly available code examples, tutorials, and open-source libraries online. These examples are rewritten as full-fledged, customizable, and reusable components specifically optimized for Webflow projects. If you recognize any of your work here, please reach out and we'll be happy to add proper credit.
+
+**Inspiration Sources:**
+- Modern web animation libraries and their approaches
+- Community tutorials and code examples
+- Open-source animation libraries and their concepts
+- Webflow community contributions and ideas
+
+We believe in giving credit where it's due and maintaining transparency about our inspiration sources. If you'd like to be credited for inspiring any of our components, please contact us at [support@flowbitz.dev](mailto:support@flowbitz.dev) or open an issue on GitHub.
+
 ## 📞 Support
 
 - **Documentation**: [flowbitz.dev](https://www.flowbitz.dev)
