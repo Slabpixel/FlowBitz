@@ -6,8 +6,10 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '../components/ui/tabs'
 import { Shield, CheckCircle, XCircle, Info, FileText, Copy, ExternalLink, Heart } from 'lucide-react';
 import Footer from '../components/layout/Footer';
 import SEO from '../components/SEO';
+import { useNavigate } from 'react-router-dom';
 
 const License = () => {
+  const navigate = useNavigate()
   const mitLicense = `MIT License
 
 Copyright (c) 2025 Slabpixel
@@ -177,60 +179,64 @@ SOFTWARE.`;
 
           {/* License Content */}
           <div className="max-w-4xl mx-auto space-y-12">
-            {/* What You Can Do */}
+            {/* License Terms Table */}
             <div className="group relative">
-              <div className="flex items-center gap-3 mb-4">
-                <h3 className="text-2xl font-semibold text-foreground">What You Can Do</h3>
-              </div>
-              <p className="text-muted-foreground mb-4">The MIT license gives you extensive rights to use FlowBitz</p>
-              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
-                      {allowedUses.map((use, index) => (
-                        <div key={index} className="flex items-start gap-3 p-4 border border-border/50 rounded-lg hover:border-primary/30 transition-all duration-300">
-                          {use.icon}
-                          <div>
-                            <h4 className="font-semibold text-sm text-foreground">{use.title}</h4>
-                            <p className="text-xs text-muted-foreground">{use.description}</p>
+              <h3 className="text-2xl font-semibold text-foreground mb-4">License Terms</h3>
+              <p className="text-muted-foreground mb-6">Complete overview of what you can do, requirements, and limitations under the MIT license</p>
+              
+              <div className="overflow-x-auto">
+                <table className="w-full border-collapse border border-border/50 rounded-lg overflow-hidden">
+                  <thead>
+                    <tr className="bg-muted/50">
+                      <th className="border border-border/50 p-4 text-left font-semibold text-foreground">Category</th>
+                      <th className="border border-border/50 p-4 text-left font-semibold text-foreground">Item</th>
+                      <th className="border border-border/50 p-4 text-left font-semibold text-foreground">Description</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {/* What You Can Do */}
+                    {allowedUses.map((use, index) => (
+                      <tr key={`allowed-${index}`} className="hover:bg-muted/30 transition-colors">
+                        <td className="border border-border/50 p-4 text-sm text-foreground font-medium">
+                          <div className="flex items-center gap-2">
+                            <CheckCircle className="w-4 h-4 text-green-500" />
+                            <span className="text-green-600 dark:text-green-400">Allowed</span>
                           </div>
-                        </div>
-                      ))}
-              </div>
-            </div>
-
-            {/* Requirements */}
-            <div className="group relative">
-              <div className="flex items-center gap-3 mb-4">
-                <h3 className="text-2xl font-semibold text-foreground">Requirements</h3>
-              </div>
-              <p className="text-muted-foreground mb-4">Simple requirements when using FlowBitz</p>
-              <div className="grid md:grid-cols-2 gap-4">
-                      {requirements.map((req, index) => (
-                        <div key={index} className="flex items-start gap-3 p-4 border border-border/50 rounded-lg hover:border-primary/30 transition-all duration-300">
-                          {req.icon}
-                          <div>
-                            <h4 className="font-semibold text-sm text-foreground">{req.title}</h4>
-                            <p className="text-xs text-muted-foreground">{req.description}</p>
+                        </td>
+                        <td className="border border-border/50 p-4 text-sm font-semibold text-foreground">{use.title}</td>
+                        <td className="border border-border/50 p-4 text-sm text-muted-foreground">{use.description}</td>
+                      </tr>
+                    ))}
+                    
+                    {/* Requirements */}
+                    {requirements.map((req, index) => (
+                      <tr key={`requirement-${index}`} className="hover:bg-muted/30 transition-colors">
+                        <td className="border border-border/50 p-4 text-sm text-foreground font-medium">
+                          <div className="flex items-center gap-2">
+                            <Info className="w-4 h-4 text-blue-500" />
+                            <span className="text-blue-600 dark:text-blue-400">Required</span>
                           </div>
-                        </div>
-                      ))}
-              </div>
-            </div>
-
-            {/* Restrictions */}
-            <div className="group relative">
-              <div className="flex items-center gap-3 mb-4">
-                <h3 className="text-2xl font-semibold text-foreground">Limitations</h3>
-              </div>
-              <p className="text-muted-foreground mb-4">Important limitations to be aware of</p>
-              <div className="grid md:grid-cols-2 gap-4">
-                      {restrictions.map((restriction, index) => (
-                        <div key={index} className="flex items-start gap-3 p-4 border border-border/50 rounded-lg hover:border-primary/30 transition-all duration-300">
-                          {restriction.icon}
-                          <div>
-                            <h4 className="font-semibold text-sm text-foreground">{restriction.title}</h4>
-                            <p className="text-xs text-muted-foreground">{restriction.description}</p>
+                        </td>
+                        <td className="border border-border/50 p-4 text-sm font-semibold text-foreground">{req.title}</td>
+                        <td className="border border-border/50 p-4 text-sm text-muted-foreground">{req.description}</td>
+                      </tr>
+                    ))}
+                    
+                    {/* Restrictions */}
+                    {restrictions.map((restriction, index) => (
+                      <tr key={`restriction-${index}`} className="hover:bg-muted/30 transition-colors">
+                        <td className="border border-border/50 p-4 text-sm text-foreground font-medium">
+                          <div className="flex items-center gap-2">
+                            <XCircle className="w-4 h-4 text-red-500" />
+                            <span className="text-red-600 dark:text-red-400">Limited</span>
                           </div>
-                        </div>
-                      ))}
+                        </td>
+                        <td className="border border-border/50 p-4 text-sm font-semibold text-foreground">{restriction.title}</td>
+                        <td className="border border-border/50 p-4 text-sm text-muted-foreground">{restriction.description}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
               </div>
             </div>
 
@@ -288,12 +294,14 @@ SOFTWARE.`;
             {/* FAQ */}
             <div className="group relative">
               <h3 className="text-2xl font-semibold text-foreground mb-4">Frequently Asked Questions</h3>
-              <p className="text-muted-foreground mb-4">Common questions about FlowBitz licensing and usage</p>
-              <div className="space-y-2">
+              <p className="text-muted-foreground mb-6">Common questions about FlowBitz licensing and usage</p>
+              <div className="space-y-3">
                       {faq.map((item, index) => (
-                        <div key={index} className=" p-6 bg-background/60 backdrop-blur-sm rounded-2xl border border-border/50 hover:border-primary/30 transition-all duration-300 hover:shadow-lg hover:shadow-primary/10">
-                          <h4 className="font-semibold mb-2 text-foreground">{item.question}</h4>
-                          <p className="text-sm text-muted-foreground">{item.answer}</p>
+                        <div key={index} className="bg-card bg-muted rounded-xl p-4 sm:p-6 hover:bg-accent transition-all duration-300">
+                          <h4 className="text-lg font-semibold mb-2 text-foreground">{item.question}</h4>
+                          <div className="prose prose-sm max-w-none text-muted-foreground">
+                            <p className="whitespace-pre-line">{item.answer}</p>
+                          </div>
                         </div>
                       ))}
               </div>
