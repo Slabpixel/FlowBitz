@@ -27,7 +27,7 @@ FlowBitz is a powerful JavaScript library that brings professional-grade animati
 Add FlowBitz to your Webflow project with a single script tag:
 
 ```html
-<script src="https://www.flowbitz.dev/latest/flowbitz.umd.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/flowbitz@latest/dist/flowbitz.umd.js"></script>
 ```
 
 That's it! No additional dependencies, no configuration needed. FlowBitz includes GSAP and all necessary plugins bundled in.
@@ -131,17 +131,17 @@ FlowBitz is available via multiple CDN endpoints:
 
 ### Latest Version (Recommended)
 ```html
-<script src="https://www.flowbitz.dev/latest/flowbitz.umd.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/flowbitz@latest/dist/flowbitz.umd.js"></script>
 ```
 
 ### Specific Version
 ```html
-<script src="https://www.flowbitz.dev/v1.1.6/flowbitz.umd.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/flowbitz@1.1.8/dist/flowbitz.umd.js"></script>
 ```
 
 ### Beta Version (For Testing)
 ```html
-<script src="https://www.flowbitz.dev/beta/flowbitz.umd.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/flowbitz@beta/dist/flowbitz.umd.js"></script>
 ```
 
 ### NPM Package
