@@ -3,7 +3,7 @@ import { useNavigate, useLocation } from 'react-router-dom'
 import ThemeToggle from '../ThemeToggle'
 import Logo from '../Logo'
 import { Badge } from '../ui/badge.jsx'
-import { Home, Layers, BookOpen, Github, Sparkles, HelpCircle, User, MessageSquare } from 'lucide-react'
+import { Home, Layers, BookOpen, Github, Sparkles, HelpCircle, User, MessageSquare, FileText, Tag } from 'lucide-react'
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
@@ -186,6 +186,34 @@ const Navbar = () => {
           >
             <HelpCircle className="w-5 h-5" />
             Support
+          </button>
+          <button 
+            onClick={() => {
+              navigate('/release')
+              setIsMenuOpen(false)
+            }}
+            className={`w-full py-3 px-4 rounded-lg font-medium transition-all duration-200 flex items-center gap-3 ${
+              isActive('/release') 
+                ? 'text-foreground bg-accent' 
+                : 'text-muted-foreground hover:text-foreground hover:bg-accent'
+            }`}
+          >
+            <Tag className="w-5 h-5" />
+            Release
+          </button>
+          <button 
+            onClick={() => {
+              navigate('/license')
+              setIsMenuOpen(false)
+            }}
+            className={`w-full py-3 px-4 rounded-lg font-medium transition-all duration-200 flex items-center gap-3 ${
+              isActive('/license') 
+                ? 'text-foreground bg-accent' 
+                : 'text-muted-foreground hover:text-foreground hover:bg-accent'
+            }`}
+          >
+            <FileText className="w-5 h-5" />
+            License
           </button>
           <button 
             onClick={() => {
