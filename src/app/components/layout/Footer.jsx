@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { Github, Heart, ExternalLink, Layers, HelpCircle, User, MessageSquare, Sparkles, Download, Bug, MessageCircle, FileText, Home } from 'lucide-react'
+import { Github, Heart, ExternalLink, Layers, HelpCircle, User, MessageSquare, Sparkles, Download, Bug, MessageCircle, FileText, Home, Tag } from 'lucide-react'
 import { getFilteredComponentKeys } from '../../../library/data/componentsMetadata.js'
 import Logo from '../Logo'
 
@@ -135,15 +135,13 @@ const Footer = () => {
             </h4>
             <ul className="space-y-3">
               <li>
-                <a 
-                  href="https://github.com/Slabpixel/FlowBitz/releases" 
-                  target="_blank"
-                  rel="noopener noreferrer"
+                <Link 
+                  to="/release" 
                   className="text-muted-foreground hover:text-foreground transition-colors duration-200 text-sm flex items-center gap-2"
                 >
-                  <Download className="w-4 h-4" />
-                  Releases
-                </a>
+                  <Tag className="w-4 h-4" />
+                  Release Notes
+                </Link>
               </li>
               <li>
                 <a 
@@ -168,15 +166,13 @@ const Footer = () => {
                 </a>
               </li>
               <li>
-                <a 
-                  href="https://github.com/Slabpixel/FlowBitz/blob/main/LICENSE" 
-                  target="_blank"
-                  rel="noopener noreferrer"
+                <Link 
+                  to="/license" 
                   className="text-muted-foreground hover:text-foreground transition-colors duration-200 text-sm flex items-center gap-2"
                 >
                   <FileText className="w-4 h-4" />
                   License
-                </a>
+                </Link>
               </li>
             </ul>
           </div>
@@ -188,13 +184,13 @@ const Footer = () => {
             <div className="text-sm text-muted-foreground">
               <p>&copy; 2025 FlowBitz. All rights reserved.</p>
             </div>
-            <div className="flex items-center gap-6 text-sm text-muted-foreground">
+            <div className="flex sm:flex-row flex-col items-center gap-2 sm:gap-6 text-sm text-muted-foreground">
               <span>v{process.env.REACT_APP_VERSION || '1.0.0'}</span>
-              <span>•</span>
+              <span className="hidden lg:block">•</span>
               <span>{componentCount} Components</span>
-              <span>•</span>
+              <span className="hidden lg:block">•</span>
               <span>100% Free</span>
-              <span>•</span>
+              <span className="hidden lg:block">•</span>
               <span>Open Source</span>
             </div>
           </div>
