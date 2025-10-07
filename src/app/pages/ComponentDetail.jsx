@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { useParams } from 'react-router-dom'
+import { useParams, useNavigate } from 'react-router-dom'
 import { getComponent } from '../../library/data/componentsMetadata.js'
 import Sidebar from '../components/layout/Sidebar.jsx'
 import SEO from '../components/SEO.jsx'
@@ -19,6 +19,7 @@ import { tomorrow } from 'react-syntax-highlighter/dist/esm/styles/prism'
 
 const ComponentDetail = () => {
   const { componentName } = useParams()
+  const navigate = useNavigate()
   const [reloadKey, setReloadKey] = useState(0)
   const [copyStates, setCopyStates] = useState({})
   const [activeAttributes, setActiveAttributes] = useState({})
@@ -168,13 +169,11 @@ const ComponentDetail = () => {
   }
 
   const handleBugReport = () => {
-    const componentParam = encodeURIComponent(`[BUG] component/${componentName}`)
-    window.open(`https://github.com/Slabpixel/FlowBitz/issues/new?template=bug_report.md&title=${componentParam}&labels=bug`, '_blank')
+    navigate(`/contact?tab=report&component=${componentName}`)
   }
 
   const handleFeatureRequest = () => {
-    const componentParam = encodeURIComponent(`[FEAT] component/${componentName}`)
-    window.open(`https://github.com/Slabpixel/FlowBitz/issues/new?template=feature_request.md&title=${componentParam}&labels=enhancement`, '_blank')
+    navigate(`/contact?tab=feature&component=${componentName}`)
   }
 
   // Extract wb- attributes from HTML code

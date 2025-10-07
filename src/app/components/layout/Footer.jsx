@@ -115,6 +115,15 @@ const Footer = () => {
               </li>
               <li>
                 <button 
+                  onClick={() => handleNavigation('/contact?tab=contact')}
+                  className="text-muted-foreground hover:text-foreground transition-colors duration-200 text-sm flex items-center gap-2"
+                >
+                  <MessageCircle className="w-4 h-4" />
+                  Contact
+                </button>
+              </li>
+              <li>
+                <button 
                   onClick={() => handleNavigation('/support')}
                   className="text-muted-foreground hover:text-foreground transition-colors duration-200 text-sm flex items-center gap-2"
                 >
@@ -129,15 +138,6 @@ const Footer = () => {
                 >
                   <Github className="w-4 h-4" />
                   GitHub
-                </button>
-              </li>
-              <li>
-                <button 
-                  onClick={handleSlabPixel}
-                  className="text-muted-foreground hover:text-foreground transition-colors duration-200 text-sm flex items-center gap-2"
-                >
-                  <ExternalLink className="w-4 h-4" />
-                  SlabPixel
                 </button>
               </li>
             </ul>
@@ -159,26 +159,22 @@ const Footer = () => {
                 </button>
               </li>
               <li>
-                <a 
-                  href="https://github.com/Slabpixel/FlowBitz/issues" 
-                  target="_blank"
-                  rel="noopener noreferrer"
+                <button 
+                  onClick={() => handleNavigation('/contact?tab=report')}
                   className="text-muted-foreground hover:text-foreground transition-colors duration-200 text-sm flex items-center gap-2"
                 >
                   <Bug className="w-4 h-4" />
-                  Issues
-                </a>
+                  Report Bug
+                </button>
               </li>
               <li>
-                <a 
-                  href="https://github.com/Slabpixel/FlowBitz/discussions" 
-                  target="_blank"
-                  rel="noopener noreferrer"
+                <button 
+                  onClick={() => handleNavigation('/contact?tab=feature')}
                   className="text-muted-foreground hover:text-foreground transition-colors duration-200 text-sm flex items-center gap-2"
                 >
                   <MessageCircle className="w-4 h-4" />
-                  Discussions
-                </a>
+                  Feature Request
+                </button>
               </li>
               <li>
                 <button 

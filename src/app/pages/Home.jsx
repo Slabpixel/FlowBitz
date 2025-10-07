@@ -5,10 +5,12 @@ import { Zap, Plus, Layers, Github, ArrowRight } from 'lucide-react'
 import Three3D from '../components/ui/three-3d.jsx'
 import SEO from '../components/SEO.jsx'
 import { getFilteredComponentKeys } from '../../library/data/componentsMetadata.js'
+import { useResponsive } from '../hooks/useResponsive.js'
 
 const Home = () => {
   const navigate = useNavigate()
   const componentCount = getFilteredComponentKeys().length
+  const { isMobile } = useResponsive()
 
   const handleGitHub = () => {
     window.open('https://github.com/Slabpixel/FlowBitz', '_blank')
@@ -185,7 +187,7 @@ const Home = () => {
       </section>
 
       {/* Features Section */}
-      <section wb-component="smart-animate" wb-start-delay="0.5" className="bg-background py-12 sm:py-16 lg:py-20 px-4 sm:px-6 lg:px-8">
+      <section wb-component="smart-animate" wb-start-delay={isMobile ? "0" : "0.5"} className="bg-background py-12 sm:py-16 lg:py-20 px-4 sm:px-6 lg:px-8">
         <div className="max-w-6xl mx-auto">
           <div className="flex flex-col items-center justify-center text-center mb-12 sm:mb-16">
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4 sm:mb-6 max-w-3xl">

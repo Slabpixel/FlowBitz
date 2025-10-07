@@ -119,7 +119,7 @@ const Release = () => {
                                                 </div>
 
                                                 {/* Release card */}
-                                                <div className="flex-1 bg-card rounded-xl p-6 hover:bg-accent transition-all duration-300 border border-border shadow-sm">
+                                                <div className="flex-1 bg-card rounded-xl p-6 transition-all duration-300 border border-border shadow-sm">
                                                     <div className="flex items-start justify-between mb-4">
                                                         <div className="flex items-center gap-3">
                                                             <Badge variant={release.type === 'stable' ? 'default' : 'secondary'}>
