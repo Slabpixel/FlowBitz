@@ -14,23 +14,12 @@ const License = () => {
 
 Copyright (c) 2025 Slabpixel
 
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.`;
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+`;
 
   const allowedUses = [
     {
@@ -178,7 +167,7 @@ SOFTWARE.`;
           </div>
 
           {/* License Content */}
-          <div className="max-w-4xl mx-auto space-y-12">
+          <div className="max-w-4xl mx-auto space-y-[100px]">
             {/* License Terms Table */}
             <div className="group relative">
               <h3 className="text-2xl font-semibold text-foreground mb-4">License Terms</h3>
@@ -248,7 +237,7 @@ SOFTWARE.`;
               <p className="text-muted-foreground mb-4">The complete MIT License text for FlowBitz</p>
               <div className="relative">
                 <div className="bg-muted p-6 rounded-lg">
-                <pre className="text-sm whitespace-pre-wrap font-mono">
+                <pre className="text-sm whitespace-pre-wrap font-mono w-full">
                     {mitLicense}
                 </pre>
                 </div>
@@ -264,31 +253,26 @@ SOFTWARE.`;
               <p className="text-muted-foreground mb-4">FlowBitz uses several open-source libraries. Here's how their licenses affect you.</p>
               <div className="space-y-2">
                       {thirdPartyLicenses.map((dep, index) => (
-                        <div key={index} className="border border-border/50 rounded-lg p-4 hover:border-primary/30 transition-all duration-300">
+                        <div key={index} className="border border-border/50 rounded-lg p-4 transition-all duration-300">
                           <div className="flex items-start justify-between mb-2">
                             <div>
                               <h4 className="font-semibold text-foreground">{dep.name}</h4>
-                              <p className="text-sm text-muted-foreground">Version {dep.version}</p>
+                              <p className="text-muted-foreground">Version {dep.version}</p>
                             </div>
                             <Badge variant={dep.license === 'MIT' ? 'secondary' : 'default'}>
                               {dep.license}
                             </Badge>
                           </div>
-                          <p className="text-sm mb-2 text-muted-foreground">{dep.description}</p>
-                          <p className="text-xs text-muted-foreground">{dep.note}</p>
+                          <p className="mb-2">{dep.description}</p>
+                          <p className="text-sm text-muted-foreground">{dep.note}</p>
                         </div>
                       ))}
               </div>
-              <div className="mt-6 p-4 bg-blue-50 dark:bg-blue-950/20 rounded-lg">
-                      <h4 className="font-semibold text-blue-900 dark:text-blue-100 mb-2">
-                        Important Note
-                      </h4>
-                      <p className="text-sm text-blue-800 dark:text-blue-200">
-                        When using FlowBitz, you don't need to worry about individual library licenses. 
-                        All necessary licenses are included with FlowBitz. However, if you use these 
-                        libraries directly in your project outside of FlowBitz, you may need separate licenses.
-                      </p>
-              </div>
+                <p className="text-sm text-muted-foreground mt-4">
+                  Important Note: When using FlowBitz, you don't need to worry about individual library licenses. 
+                  All necessary licenses are included with FlowBitz. However, if you use these 
+                  libraries directly in your project outside of FlowBitz, you may need separate licenses.
+                </p>
             </div>
 
             {/* FAQ */}
