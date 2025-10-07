@@ -12,6 +12,7 @@ import About from './pages/About'
 import Support from './pages/Support'
 import Contact from './pages/Contact'
 import Showcase from './pages/Showcase'
+import ShowcaseSubmit from './pages/ShowcaseSubmit'
 import FAQ from './pages/FAQ'
 import Release from './pages/Release'
 import License from './pages/License'
@@ -43,6 +44,7 @@ function App() {
               <Route path="/contact" element={<Contact />} />
               <Route path="/faq" element={<FAQ />} />
               <Route path="/showcase" element={<Showcase />} />
+              <Route path="/showcase/submit" element={<ShowcaseSubmit />} />
               <Route path="/release" element={<Release />} />
               <Route path="/license" element={<License />} />
               <Route path="*" element={<NotFound />} />

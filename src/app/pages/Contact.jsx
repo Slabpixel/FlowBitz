@@ -159,9 +159,9 @@ const Contact = () => {
       
       <div className="bg-background text-foreground pt-[64px] min-h-screen">
         <div className="mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 lg:py-20">
-          <div className="flex flex-col gap-12 items-center w-full mx-auto">
+          <div className="flex flex-col items-center w-full mx-auto">
             {/* Header */}
-            <div className="text-center mb-16">
+            <div className="text-center mb-8">
               <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-foreground mb-6">
                 {getFormTitle()}
               </h1>
@@ -172,7 +172,7 @@ const Contact = () => {
 
             {/* Tabs */}
             <div className="flex flex-col gap-12 items-center w-full max-w-3xl">
-              <Tabs value={activeTab} onValueChange={handleTabChange} className="w-full flex flex-col gap-12 items-center">
+              <Tabs value={activeTab} onValueChange={handleTabChange} className="w-full flex flex-col gap-6 items-center">
                   <TabsList className="grid w-fit grid-cols-3">
                     <TabsTrigger value="contact" className="flex items-center gap-2">
                       <Mail className="w-4 h-4" />
@@ -189,10 +189,10 @@ const Contact = () => {
                   </TabsList>
 
                   {/* Contact Form */}
-                  <TabsContent value="contact" className="w-full">
+                  <TabsContent value="contact" className="w-full p-8 bg-card shadow-sm border border-border rounded-xl">
                     <div>
                       <form onSubmit={handleSubmit} className="space-y-6">
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
                           <div>
                             <label htmlFor="name" className="block text-sm font-medium mb-2">
                               Name *
@@ -266,10 +266,10 @@ const Contact = () => {
                   </TabsContent>
 
                   {/* Bug Report Form */}
-                  <TabsContent value="bug-report" className="w-full">
-                    <div className="pt-6">
+                  <TabsContent value="bug-report" className="w-full p-8 bg-card shadow-sm border border-border rounded-xl">
+                    <div>
                       <form onSubmit={handleSubmit} className="space-y-6">
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
                           <div>
                             <label htmlFor="name" className="block text-sm font-medium mb-2">
                               Name *
@@ -312,7 +312,7 @@ const Contact = () => {
                           />
                         </div>
 
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
                           <div>
                             <label htmlFor="priority" className="block text-sm font-medium mb-2">
                               Priority
@@ -401,10 +401,10 @@ const Contact = () => {
                   </TabsContent>
 
                   {/* Feature Request Form */}
-                  <TabsContent value="feature-request" className="w-full">
-                    <div className="pt-6">
+                  <TabsContent value="feature-request" className="w-full p-8 bg-card shadow-sm border border-border rounded-xl">
+                    <div>
                       <form onSubmit={handleSubmit} className="space-y-6">
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
                           <div>
                             <label htmlFor="name" className="block text-sm font-medium mb-2">
                               Name *
@@ -447,7 +447,7 @@ const Contact = () => {
                           />
                         </div>
 
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
                           <div>
                             <label htmlFor="category" className="block text-sm font-medium mb-2">
                               Category
@@ -530,7 +530,7 @@ const Contact = () => {
 
             {/* Status Messages */}
             {submitStatus === 'success' && (
-              <div className="mt-8 p-6 bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-xl flex items-center gap-4">
+              <div className="w-full max-w-3xl mt-8 p-6 bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-xl flex items-center gap-4">
                 <CheckCircle className="w-6 h-6 text-green-600 dark:text-green-400" />
                 <div>
                   <h3 className="text-lg font-semibold text-green-800 dark:text-green-200">Success!</h3>
@@ -542,7 +542,7 @@ const Contact = () => {
             )}
 
             {submitStatus === 'error' && (
-              <div className="mt-8 p-6 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-xl flex items-center gap-4">
+              <div className="w-full max-w-3xl mt-8 p-6 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-xl flex items-center gap-4">
                 <AlertCircle className="w-6 h-6 text-red-600 dark:text-red-400" />
                 <div>
                   <h3 className="text-lg font-semibold text-red-800 dark:text-red-200">Error</h3>
