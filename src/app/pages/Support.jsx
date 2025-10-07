@@ -13,15 +13,15 @@ const Support = () => {
   }
 
   const handleBugReport = () => {
-    window.open('https://github.com/Slabpixel/FlowBitz/issues/new?template=bug_report.md&title=%5BBUG%5D%3A%20General-Report&labels=bug', '_blank')
+    navigate('/contact?tab=report')
   }
 
   const handleFeatureRequest = () => {
-    window.open('https://github.com/Slabpixel/FlowBitz/issues/new?template=feature_request.md&title=%5BFEAT%5D%3A%20Feature-Request&labels=enhancement', '_blank')
+    navigate('/contact?tab=feature')
   }
 
   const handleEmail = () => {
-    window.open('mailto:flowbitz@slabpixel.com?subject=FlowBitz Support Inquiry', '_blank')
+    navigate('/contact')
   }
 
   const handleGitHub = () => {

@@ -10,6 +10,7 @@ import ComponentDetail from './pages/ComponentDetail'
 import Installation from './pages/Installation'
 import About from './pages/About'
 import Support from './pages/Support'
+import Contact from './pages/Contact'
 import Showcase from './pages/Showcase'
 import FAQ from './pages/FAQ'
 import Release from './pages/Release'
@@ -39,6 +40,7 @@ function App() {
               <Route path="/installation" element={<Installation />} />
               <Route path="/about" element={<About />} />
               <Route path="/support" element={<Support />} />
+              <Route path="/contact" element={<Contact />} />
               <Route path="/faq" element={<FAQ />} />
               <Route path="/showcase" element={<Showcase />} />
               <Route path="/release" element={<Release />} />

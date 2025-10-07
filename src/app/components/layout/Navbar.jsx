@@ -3,7 +3,7 @@ import { useNavigate, useLocation } from 'react-router-dom'
 import ThemeToggle from '../ThemeToggle'
 import Logo from '../Logo'
 import { Badge } from '../ui/badge.jsx'
-import { Home, Layers, BookOpen, Github, Sparkles, HelpCircle, User, MessageSquare, FileText, Tag } from 'lucide-react'
+import { Home, Layers, BookOpen, Github, Sparkles, HelpCircle, User, MessageSquare, FileText, Tag, Mail } from 'lucide-react'
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
@@ -66,6 +66,17 @@ const Navbar = () => {
             <Sparkles className="w-4 h-4" />
             <span className="hidden lg:inline">Showcase</span>
             <Badge variant="secondary" className="bg-primary text-xs text-white dark:text-white">Soon</Badge>
+          </button>
+          <button 
+            onClick={() => navigate('/contact')}
+            className={`px-3 lg:px-4 py-2 rounded-md font-medium text-sm transition-all duration-200 flex items-center gap-2 ${
+              isActive('/contact') 
+                ? 'text-foreground bg-accent' 
+                : 'text-muted-foreground hover:text-foreground hover:bg-accent'
+            }`}
+          >
+            <Mail className="w-4 h-4" />
+            <span className="hidden lg:inline">Contact</span>
           </button>
           <button 
             onClick={() => window.open('https://github.com/Slabpixel/FlowBitz', '_blank')}
@@ -172,6 +183,20 @@ const Navbar = () => {
           >
             <MessageSquare className="w-5 h-5" />
             FAQ
+          </button>
+          <button 
+            onClick={() => {
+              navigate('/contact')
+              setIsMenuOpen(false)
+            }}
+            className={`w-full py-3 px-4 rounded-lg font-medium transition-all duration-200 flex items-center gap-3 ${
+              isActive('/contact') 
+                ? 'text-foreground bg-accent' 
+                : 'text-muted-foreground hover:text-foreground hover:bg-accent'
+            }`}
+          >
+            <Mail className="w-5 h-5" />
+            Contact
           </button>
           <button 
             onClick={() => {
