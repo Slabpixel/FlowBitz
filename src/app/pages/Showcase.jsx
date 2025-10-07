@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import { Button } from '../components/ui/button.jsx'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../components/ui/card.jsx'
 import { Badge } from '../components/ui/badge.jsx'
-import { Clock, Sparkles, Layers, ExternalLink, Github } from 'lucide-react'
+import { Clock, Sparkles, Layers, ExternalLink, Github, Upload } from 'lucide-react'
 import SEO from '../components/SEO.jsx'
 import Footer from '../components/layout/Footer.jsx'
 
@@ -16,6 +16,10 @@ const Showcase = () => {
 
   const handleComponents = () => {
     navigate('/components')
+  }
+
+  const handleSubmitShowcase = () => {
+    navigate('/showcase/submit')
   }
 
   const structuredData = {
@@ -135,29 +139,20 @@ const Showcase = () => {
         {/* Alternative Actions */}
         <div wb-component="smart-animate" className="mt-16 text-center">
           <h2 className="text-2xl sm:text-3xl font-bold text-foreground mb-6">
-            Can't Wait? Explore Now
+            Be the First to Showcase
           </h2>
           <p className="text-muted-foreground mb-8 max-w-2xl mx-auto">
-            While we're preparing the showcase, you can start exploring our components and see them in action.
+            Have you built something amazing with FlowBitz? Submit your project and be among the first to be featured in our showcase gallery!
           </p>
           
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button 
               size="lg" 
               className="bg-primary hover:bg-primary/90 text-white px-8 py-3"
-              onClick={handleComponents}
+              onClick={handleSubmitShowcase}
             >
-              <Layers className="w-5 h-5"/>
-              Browse Components
-            </Button>
-            <Button 
-              variant="outline" 
-              size="lg" 
-              className="border-border hover:bg-accent px-8 py-3"
-              onClick={handleGitHub}
-            >
-              <Github className="w-5 h-5"/>
-              View on GitHub
+              <Upload className="w-5 h-5"/>
+              Submit Your Project
             </Button>
           </div>
         </div>

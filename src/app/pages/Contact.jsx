@@ -189,10 +189,10 @@ const Contact = () => {
                   </TabsList>
 
                   {/* Contact Form */}
-                  <TabsContent value="contact" className="w-full">
+                  <TabsContent value="contact" className="w-full p-8 bg-card shadow-sm border border-border rounded-xl">
                     <div>
                       <form onSubmit={handleSubmit} className="space-y-6">
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
                           <div>
                             <label htmlFor="name" className="block text-sm font-medium mb-2">
                               Name *
@@ -266,10 +266,10 @@ const Contact = () => {
                   </TabsContent>
 
                   {/* Bug Report Form */}
-                  <TabsContent value="bug-report" className="w-full">
+                  <TabsContent value="bug-report" className="w-full p-8 bg-card shadow-sm border border-border rounded-xl">
                     <div>
                       <form onSubmit={handleSubmit} className="space-y-6">
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
                           <div>
                             <label htmlFor="name" className="block text-sm font-medium mb-2">
                               Name *
@@ -312,7 +312,7 @@ const Contact = () => {
                           />
                         </div>
 
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
                           <div>
                             <label htmlFor="priority" className="block text-sm font-medium mb-2">
                               Priority
@@ -401,10 +401,10 @@ const Contact = () => {
                   </TabsContent>
 
                   {/* Feature Request Form */}
-                  <TabsContent value="feature-request" className="w-full">
+                  <TabsContent value="feature-request" className="w-full p-8 bg-card shadow-sm border border-border rounded-xl">
                     <div>
                       <form onSubmit={handleSubmit} className="space-y-6">
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
                           <div>
                             <label htmlFor="name" className="block text-sm font-medium mb-2">
                               Name *
@@ -447,7 +447,7 @@ const Contact = () => {
                           />
                         </div>
 
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
                           <div>
                             <label htmlFor="category" className="block text-sm font-medium mb-2">
                               Category
