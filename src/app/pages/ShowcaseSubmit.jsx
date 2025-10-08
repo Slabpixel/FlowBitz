@@ -108,7 +108,7 @@ const ShowcaseSubmit = () => {
             </div>
 
             {/* Main Form */}
-            <div className="w-full max-w-4xl">
+            <div className="w-full max-w-3xl">
               <Card className="border border-border shadow-sm p-8">
                 <form onSubmit={handleSubmit} className="space-y-6">
                 {/* Simple Form Fields */}
@@ -249,7 +249,7 @@ const ShowcaseSubmit = () => {
             )}
 
             {/* Simple Guidelines */}
-            <div className="w-full max-w-4xl mt-4">
+            <div className="w-full max-w-3xl mt-4">
               <Card className="border border-border p-2">
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2">
