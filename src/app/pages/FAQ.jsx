@@ -294,7 +294,7 @@ const FAQ = () => {
                  <div className="flex flex-col sm:flex-row gap-4 justify-center">
                    <Button 
                      size="lg" 
-                     className="bg-primary hover:bg-primary/90 text-white px-8 py-3"
+                     variant="animated"
                      onClick={() => navigate('/support')}
                    >
                      <MessageSquare className="w-5 h-5" />
@@ -303,7 +303,6 @@ const FAQ = () => {
                    <Button 
                      variant="outline" 
                      size="lg" 
-                     className="border-border hover:bg-accent px-8 py-3"
                      onClick={handleBugReport}
                    >
                      <Bug className="w-5 h-5" />
@@ -312,7 +311,6 @@ const FAQ = () => {
                    <Button 
                      variant="outline" 
                      size="lg" 
-                     className="border-border hover:bg-accent px-8 py-3"
                      onClick={handleFeatureRequest}
                    >
                      <Github className="w-5 h-5" />

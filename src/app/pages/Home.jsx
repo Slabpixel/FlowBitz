@@ -87,12 +87,13 @@ const Home = () => {
             
             <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
               <Button 
+                variant="animated"
                 size="lg" 
-                className="bg-primary w-full sm:w-auto" 
+                className="w-full sm:w-auto" 
                 onClick={() => navigate('/components/split-text')}
               >
                 <Zap className="w-4 h-4 sm:w-5 sm:h-5" />
-                <span>Explore Components</span>
+                Explore Components
               </Button>
               <Button 
                 variant="outline" 
@@ -101,7 +102,7 @@ const Home = () => {
                 onClick={handleGetStarted}
               >
                 <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5" />
-                <span>Get Started</span>
+                Get Started
               </Button>
             </div>
 
@@ -268,11 +269,11 @@ const Home = () => {
             <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center w-full max-w-md sm:max-w-none">
               <Button 
                 size="lg" 
-                className="bg-primary w-full sm:w-auto"
+                variant="animated"
                 onClick={() => navigate('/components/split-text')}
               >
                 <Zap className="w-4 h-4 sm:w-5 sm:h-5" />
-                <span>Explore Components</span>
+                Explore Components
               </Button>
               <Button 
                 variant="outline" 

@@ -108,7 +108,7 @@ const ShowcaseSubmit = () => {
             </div>
 
             {/* Main Form */}
-            <div className="w-full max-w-4xl">
+            <div className="w-full max-w-3xl">
               <Card className="border border-border shadow-sm p-8">
                 <form onSubmit={handleSubmit} className="space-y-6">
                 {/* Simple Form Fields */}
@@ -202,7 +202,7 @@ const ShowcaseSubmit = () => {
                 </div>
 
                 {/* Submit Button */}
-                    <Button type="submit" disabled={isSubmitting} className="w-full" size="lg">
+                    <Button type="submit" variant="animated" disabled={isSubmitting} className="w-full" size="lg">
                     {isSubmitting ? (
                         <>
                         <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>
@@ -249,7 +249,7 @@ const ShowcaseSubmit = () => {
             )}
 
             {/* Simple Guidelines */}
-            <div className="w-full max-w-4xl mt-4">
+            <div className="w-full max-w-3xl mt-4">
               <Card className="border border-border p-2">
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2">

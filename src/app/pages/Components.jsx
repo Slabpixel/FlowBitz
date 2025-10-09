@@ -154,7 +154,7 @@ const Components = () => {
                 </p>
                 <Button 
                   size="lg" 
-                  className="bg-primary hover:bg-primary/90 text-white px-8 py-3"
+                  variant="animated"
                   onClick={() => navigate('/installation')}
                 >
                   <Zap className="w-5 h-5" />

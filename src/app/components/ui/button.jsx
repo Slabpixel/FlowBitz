@@ -16,6 +16,7 @@ const buttonVariants = cva(
           "bg-secondary text-secondary-foreground hover:bg-secondary/80",
         ghost: "text-foreground hover:bg-accent hover:text-accent-foreground",
         link: "text-primary underline-offset-4 hover:underline",
+        animated: "group relative bg-gradient-to-r from-primary to-primary/80 hover:from-primary/90 hover:to-primary/70 text-white font-semibold transition-all duration-300 hover:shadow-lg hover:shadow-primary/50 overflow-hidden",
       },
       size: {
         default: "h-10 px-4 py-2",
@@ -38,14 +39,21 @@ const buttonVariants = cva(
   }
 )
 
-const Button = React.forwardRef(({ className, variant, size, iconPosition, asChild = false, ...props }, ref) => {
+const Button = React.forwardRef(({ className, variant, size, iconPosition, asChild = false, children, ...props }, ref) => {
   const Comp = asChild ? "span" : "button"
+  const isAnimated = variant === "animated"
+  
   return (
     <Comp
       className={cn(buttonVariants({ variant, size, iconPosition, className }))}
       ref={ref}
       {...props}
-    />
+    >
+      {isAnimated && (
+        <div className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/20 to-white/0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700"></div>
+      )}
+      <span className={cn("contents", isAnimated && "relative z-10")}>{children}</span>
+    </Comp>
   )
 })
 Button.displayName = "Button"
