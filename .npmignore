@@ -45,6 +45,7 @@ SEO.md
 !dist/flowbitz.es.js.map
 !dist/flowbitz.umd.js
 !dist/flowbitz.umd.js.map
+!dist/chunks/
 !README.md
 !LICENSE
 
