@@ -12,7 +12,12 @@
     }
   },
   "files": [
-    "dist"
+    "dist/flowbitz.es.js",
+    "dist/flowbitz.es.js.map",
+    "dist/flowbitz.umd.js",
+    "dist/flowbitz.umd.js.map",
+    "README.md",
+    "LICENSE"
   ],
   "scripts": {
     "dev": "vite",
