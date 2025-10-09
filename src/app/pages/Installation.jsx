@@ -341,7 +341,6 @@ const Installation = () => {
                     <Button 
                     variant="animated"
                     size="lg" 
-                    variant="animated"
                     onClick={() => navigate('/components/split-text')}
                     >
                     <Zap className="w-5 h-5" />

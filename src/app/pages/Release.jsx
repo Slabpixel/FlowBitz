@@ -12,6 +12,23 @@ const Release = () => {
     const navigate = useNavigate()
     const releases = [
         {
+            version: "2.0.0",
+            date: "October 10, 2025",
+            type: "stable",
+            description: "Major release featuring smart GSAP loading and lazy architecture - 95% smaller initial load!",
+            changes: [
+                "Smart GSAP loading - auto-loads GSAP only when components need it",
+                "95% smaller initial load (15KB vs 300KB)",
+                "Auto-detects and reuses existing GSAP installations",
+                "Zero GSAP for CSS-only components (5 components)",
+                "On-demand component loading (Finsweet-inspired architecture)",
+                "True one-script setup - no configuration needed",
+                "New getGSAPStats() API to track loading",
+                "Individual component chunks for optimal performance",
+                "Infinite scalability - 100+ components, same 15KB initial load"
+            ]
+        },
+        {
             version: "1.1.8",
             date: "October 6, 2025",
             type: "stable",
@@ -28,7 +45,7 @@ const Release = () => {
             ]
         },
         {
-            version: "1.0.0",
+            version: "1.1.0",
             date: "September 15, 2025",
             type: "pre-release",
             description: "Pre-release version with core functionality and initial component set",
@@ -42,7 +59,7 @@ const Release = () => {
             ]
         },
         {
-            version: "0.0.0",
+            version: "1.0.0",
             date: "July 23, 2025",
             type: "Project Started",
             description: "Project started and initial development",
@@ -58,8 +75,8 @@ const Release = () => {
         "name": "FlowBitz",
         "description": "Interactive components library for Webflow - Release notes and version history",
         "url": "https://www.flowbitz.dev/release",
-        "version": "1.1.8",
-        "datePublished": "2025-10-06",
+        "version": "2.0.0",
+        "datePublished": "2025-10-10",
         "applicationCategory": "Web Development",
         "operatingSystem": "Web Browser"
     }
