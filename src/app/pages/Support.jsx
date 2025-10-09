@@ -281,8 +281,9 @@ const Support = () => {
                   Start with our most popular component and see how easy it is to add stunning animations to your Webflow projects.
                 </p>
                 <Button 
+                  variant="animated"
                   size="lg" 
-                  className="bg-primary hover:bg-primary/90 text-white px-8 py-3"
+                  className="px-8 py-3"
                   onClick={() => navigate('/components/split-text')}
                 >
                   <Zap className="w-5 h-5" />

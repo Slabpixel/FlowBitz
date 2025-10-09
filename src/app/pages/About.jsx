@@ -230,8 +230,9 @@ const About = () => {
                   with just HTML attributes - no coding required.
                 </p>
                 <Button 
+                  variant="animated"
                   size="lg" 
-                  className="bg-primary hover:bg-primary/90 text-white px-8 py-3"
+                  className="px-8 py-3"
                   onClick={() => navigate('/components/split-text')}
                 >
                   <Zap className="w-5 h-5" />

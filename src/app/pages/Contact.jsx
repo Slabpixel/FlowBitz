@@ -248,7 +248,7 @@ const Contact = () => {
                           />
                         </div>
 
-                        <Button type="submit" disabled={isSubmitting} className="w-full">
+                        <Button type="submit" variant="animated" disabled={isSubmitting} className="w-full">
                           {isSubmitting ? (
                             <>
                               <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>
@@ -383,7 +383,7 @@ const Contact = () => {
                           />
                         </div>
 
-                        <Button type="submit" disabled={isSubmitting} className="w-full">
+                        <Button type="submit" variant="animated" disabled={isSubmitting} className="w-full">
                           {isSubmitting ? (
                             <>
                               <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>
@@ -509,7 +509,7 @@ const Contact = () => {
                           />
                         </div>
 
-                        <Button type="submit" disabled={isSubmitting} className="w-full">
+                        <Button type="submit" variant="animated" disabled={isSubmitting} className="w-full">
                           {isSubmitting ? (
                             <>
                               <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>

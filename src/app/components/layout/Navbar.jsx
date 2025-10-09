@@ -65,7 +65,6 @@ const Navbar = () => {
           >
             <Sparkles className="w-4 h-4" />
             <span className="hidden lg:inline">Showcase</span>
-            <Badge variant="secondary" className="bg-primary text-xs text-white dark:text-white">Soon</Badge>
           </button>
         </div>
         <div className="flex items-center gap-2">

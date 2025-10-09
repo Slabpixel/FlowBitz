@@ -202,7 +202,7 @@ const ShowcaseSubmit = () => {
                 </div>
 
                 {/* Submit Button */}
-                    <Button type="submit" disabled={isSubmitting} className="w-full" size="lg">
+                    <Button type="submit" variant="animated" disabled={isSubmitting} className="w-full" size="lg">
                     {isSubmitting ? (
                         <>
                         <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>
