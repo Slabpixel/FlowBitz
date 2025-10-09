@@ -13,12 +13,13 @@ export default defineConfig({
     emptyOutDir: false, // Don't empty since we also have the React app
     sourcemap: true,
     rollupOptions: {
-      // Externalize GSAP - we load it dynamically now
-      external: (id) => {
-        return id === 'gsap' || id.startsWith('gsap/');
+      external: (id, parent, isResolved) => {
+        // Only externalize GSAP for ES module build, not UMD
+        // UMD needs everything bundled because it doesn't support dynamic imports
+        return false;
       },
       output: [
-        // ES Module build with code splitting
+        // ES Module build with code splitting and external GSAP
         {
           format: 'es',
           entryFileNames: 'flowbitz.es.js',
@@ -50,18 +51,13 @@ export default defineConfig({
             }
           }
         },
-        // UMD build - GSAP loaded dynamically (not bundled)
+        // UMD build - Bundle GSAP (no external dependencies)
         {
           format: 'umd',
           name: 'FlowBitz',
           entryFileNames: 'flowbitz.umd.js',
-          inlineDynamicImports: true, // Bundle components, but not GSAP
-          globals: {
-            'gsap': 'gsap',
-            'gsap/ScrollTrigger': 'ScrollTrigger',
-            'gsap/SplitText': 'SplitText',
-            'gsap/ScrambleTextPlugin': 'ScrambleTextPlugin'
-          }
+          inlineDynamicImports: true, // Bundle everything for UMD compatibility
+          globals: {} // No globals needed, everything bundled
         }
       ]
     },

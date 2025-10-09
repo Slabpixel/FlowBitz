@@ -98,12 +98,37 @@ const COMPONENT_LOADERS = {
 };
 
 /**
- * Dynamically load GSAP script
+ * Check if GSAP is available (either bundled or loaded globally)
+ * @returns {boolean} True if GSAP is available
+ */
+function isGSAPAvailable() {
+  if (typeof window === 'undefined') return false;
+  
+  // Check if gsap is available globally or via import
+  try {
+    return !!(window.gsap || (typeof gsap !== 'undefined'));
+  } catch (e) {
+    return !!window.gsap;
+  }
+}
+
+/**
+ * Dynamically load GSAP script (only for ES modules via CDN)
  * @param {string} module - GSAP module name ('core', 'scrollTrigger', 'splitText', 'scrambleTextPlugin')
  * @returns {Promise} Loaded module
  */
 async function loadGSAPModule(module) {
-  // Check if already loaded globally
+  // Check if GSAP is bundled (UMD build)
+  if (isGSAPAvailable()) {
+    gsapLoaded.core = true;
+    // For bundled version, mark all as loaded since they're included
+    gsapLoaded.scrollTrigger = true;
+    gsapLoaded.splitText = true;
+    gsapLoaded.scrambleTextPlugin = true;
+    return window.gsap;
+  }
+  
+  // Check if already loaded globally (user loaded it)
   if (module === 'core' && typeof window !== 'undefined' && window.gsap) {
     gsapLoaded.core = true;
     return window.gsap;
@@ -129,7 +154,7 @@ async function loadGSAPModule(module) {
     return;
   }
 
-  // Load dynamically
+  // Load dynamically from CDN (ES modules only)
   return new Promise((resolve, reject) => {
     const script = document.createElement('script');
     script.src = GSAP_CDN[module];
