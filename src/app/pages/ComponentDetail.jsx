@@ -12,7 +12,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '.
 import { Input } from '../components/ui/input.jsx'
 import { Badge } from '../components/ui/badge.jsx'
 import { ColorPicker } from '../components/ui/color-picker.jsx'
-import { Copy, RotateCcw, Bug, HelpCircle, Heart, Info } from 'lucide-react'
+import { Copy, RotateCcw, Bug, HelpCircle, Heart, Info, Download } from 'lucide-react'
 import { useWebflowBits } from '../hooks/useWebflowBits'
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter'
 import { tomorrow } from 'react-syntax-highlighter/dist/esm/styles/prism'
@@ -509,8 +509,20 @@ const ComponentDetail = () => {
         {/* Main Content */}
         <main className="flex flex-col p-4 sm:p-8 lg:p-16 w-full items-center lg:overflow-y-auto lg:h-full">
           <div className="w-full max-w-[970px] mb-6 sm:mb-8">
-            <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-2 text-foreground">{component.name}</h1>
-            <p className="text-muted-foreground text-base sm:text-lg">{component.description}</p>
+            <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4 sm:gap-6">
+              <div className="flex-1">
+                <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-2 text-foreground">{component.name}</h1>
+                <p className="text-muted-foreground text-base sm:text-lg">{component.description}</p>
+              </div>
+              <Button 
+                onClick={() => navigate('/installation')}
+                variant="outline"
+                size="default"
+              >
+                <Download className="w-4 h-4" />
+                Installation Guide
+              </Button>
+            </div>
           </div>
 
           {/* Preview Content */}

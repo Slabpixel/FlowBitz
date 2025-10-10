@@ -74,8 +74,17 @@ const Showcase = () => {
         url="https://www.flowbitz.dev/showcase"
         structuredData={structuredData}
       />
-      <div className="bg-background text-foreground pt-[64px] min-h-screen">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 lg:py-20">
+      <div className="bg-background text-foreground pt-[64px] min-h-screen relative overflow-hidden">
+        {/* Half Radial Gradient Background */}
+        <div wb-component="smart-animate" wb-start-delay="0.4" className="absolute top-0 left-1/2 -translate-x-1/2 w-[1200px] h-[400px] pointer-events-none">
+          <div className="w-full h-full blur-3xl" 
+               style={{
+                 background: 'radial-gradient(circle at center top, hsl(var(--primary) / 0.2) 0%, hsl(var(--primary) / 0.15) 30%, hsl(var(--primary) / 0.05) 60%, transparent 100%)'
+               }}>
+          </div>
+        </div>
+
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 lg:py-20 relative z-10">
           {/* Hero Section */}
           <div wb-component="smart-animate" className="text-center mb-16">
             <div className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-primary/20 to-muted-foreground/10 dark:from-primary/20 dark:to-white/10 rounded-full text-sm font-medium text-black dark:text-white mb-6">
