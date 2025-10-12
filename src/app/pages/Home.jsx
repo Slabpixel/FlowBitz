@@ -76,7 +76,7 @@ const Home = () => {
             </div>
             
             <h1 className="text-[12.5vw] sm:text-6xl md:text-6xl lg:text-7xl font-bold text-foreground" style={{ lineHeight: '1' }}>
-              <div>Interactive</div>
+              <div wb-component="gradient-text">Interactive</div>
               <div>Components</div>
               <div>for <span wb-component="text-type" 
                 wb-typing-speed="80" 

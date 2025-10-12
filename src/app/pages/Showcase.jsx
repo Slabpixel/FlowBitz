@@ -93,7 +93,7 @@ const Showcase = () => {
             </div>
             
           <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-foreground mb-6">
-            Website Showcase
+            Website <span wb-component="gradient-text">Showcase</span>
           </h1>
           <p className="text-lg sm:text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed mb-8">
             Discover real-world examples and creative implementations of FlowBitz components. 

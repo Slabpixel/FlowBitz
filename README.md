@@ -33,10 +33,10 @@ FlowBitz is a powerful JavaScript library that brings professional-grade animati
 - **📝 Text Effects**: Split text, gradient effects, typewriter, blur transitions, count-up, and more
 - **🔘 Interactive Buttons**: Gradient, ripple, pulse, and magnetic button effects
 - **⚡ Zero Configuration**: Works out of the box with a single script tag
-- **🧠 Smart GSAP Loading**: Automatically loads GSAP only when needed
+- **🧠 Dual Build System**: UMD (bundled GSAP, 85KB gzipped) or ES (smart CDN loading, 15KB)
 - **🎯 Webflow Optimized**: Designed specifically for Webflow's visual editor
 - **📱 Responsive**: All components work seamlessly across devices
-- **🚀 Performance**: Lightweight and optimized for fast loading (15KB initial)
+- **🚀 Performance**: Choose lightweight ES modules or compatible UMD builds
 - **🎛️ Customizable**: Extensive configuration options for every component
 - **📚 Well Documented**: Comprehensive examples and documentation
 
@@ -336,21 +336,27 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 <script>window.WebflowBits.init();</script>
 ```
 
-**v2.0 (15KB + smart loading):**
+**v2.0 UMD (85KB gzipped - recommended for CDN):**
 ```html
-<!-- Just one line - auto-initializes, auto-loads GSAP when needed -->
+<!-- Just one line - auto-initializes, GSAP included -->
 <script src="https://cdn.jsdelivr.net/npm/flowbitz@2/dist/flowbitz.umd.js"></script>
 ```
 
+**v2.0 ES Modules (15KB + smart loading - for modern bundlers):**
+```javascript
+import FlowBitz from 'flowbitz';
+await FlowBitz.init();
+```
+
 **Benefits:**
-- ✅ 95% smaller initial load
+- ✅ 72% smaller UMD bundle (85KB gzipped vs 300KB)
 - ✅ No manual initialization needed
-- ✅ GSAP loads automatically only when components need it
-- ✅ Works with existing GSAP installations
+- ✅ ES modules load GSAP from CDN only when needed
+- ✅ UMD works with existing GSAP installations (auto-detects)
 
 ## 🙏 Acknowledgments
 
-- **GSAP** - The backbone of all animations (now loaded smartly on-demand)
+- **GSAP** - The backbone of all animations (bundled in UMD, CDN-loaded in ES)
 - **Finsweet** - Inspiration for the lazy-loading architecture
 - **Three.js** - For 3D components (auto-loaded when needed)
 - **Webflow** - The platform that makes this all possible

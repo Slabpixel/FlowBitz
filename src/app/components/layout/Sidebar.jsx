@@ -35,7 +35,7 @@ const Sidebar = ({ showBackLink = false }) => {
   const currentLink = location.pathname
 
   return (
-    <aside className="w-full lg:max-w-[240px] lg:min-w-[240px] bg-background border-r border-border lg:overflow-y-auto lg:sticky lg:top-16 lg:self-start h-auto lg:h-[calc(100vh-4rem)]">
+    <aside className="w-full lg:max-w-[240px] lg:min-w-[240px] bg-background border-r border-border lg:overflow-y-auto lg:sticky lg:top-16 lg:self-start h-auto lg:h-[calc(100vh-4rem)] [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-thumb]:bg-transparent hover:[&::-webkit-scrollbar-thumb]:bg-muted [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:border-2 [&::-webkit-scrollbar-thumb]:border-background hover:[&::-webkit-scrollbar-thumb]:bg-muted-foreground/30">
       <div className="flex flex-col gap-4 sm:gap-6 p-4 sm:p-6 lg:h-[calc(100vh-4rem)]">        
         {/* Mobile Dropdown Toggle */}
         <button

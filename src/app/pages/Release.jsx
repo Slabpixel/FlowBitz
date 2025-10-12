@@ -15,17 +15,18 @@ const Release = () => {
             version: "2.0.0",
             date: "October 10, 2025",
             type: "stable",
-            description: "Major release featuring smart GSAP loading and lazy architecture - 95% smaller initial load!",
+            description: "Major release with modular architecture and dual-build system for maximum flexibility",
             changes: [
-                "Smart GSAP loading - auto-loads GSAP only when components need it",
-                "95% smaller initial load (15KB vs 300KB)",
+                "On-demand component loading (Finsweet-inspired architecture)",
+                "Dual build system: ES modules (CDN GSAP) and UMD (bundled GSAP)",
+                "ES module: Smart GSAP loading from CDN when needed (~15KB initial)",
+                "UMD module: GSAP fully bundled for compatibility (larger but works everywhere)",
                 "Auto-detects and reuses existing GSAP installations",
                 "Zero GSAP for CSS-only components (5 components)",
-                "On-demand component loading (Finsweet-inspired architecture)",
                 "True one-script setup - no configuration needed",
-                "New getGSAPStats() API to track loading",
-                "Individual component chunks for optimal performance",
-                "Infinite scalability - 100+ components, same 15KB initial load"
+                "New getGSAPStats() API to track GSAP usage",
+                "Individual component chunks for optimal performance (ES only)",
+                "Choose ES for modern sites or UMD for maximum compatibility"
             ]
         },
         {
@@ -96,7 +97,7 @@ const Release = () => {
                     {/* Hero Section */}
                     <div className="text-center mb-16">
                         <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-foreground mb-6">
-                            Release <span className="text-primary">Notes</span>
+                            Release <span wb-component="gradient-text">Notes</span>
                         </h1>
                         <p className="text-lg sm:text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
                             Track the evolution of FlowBitz - from pre-release to stable versions. See what's new in each release.
