@@ -57,6 +57,14 @@ const Home = () => {
         structuredData={structuredData}
       />
       <div className="relative bg-background text-foreground">
+      {/* Half Radial Gradient Background */}
+        <div wb-component="smart-animate" wb-start-delay="0.4" className="absolute top-0 left-1/2 -translate-x-1/2 w-[1200px] h-[400px] pointer-events-none">
+          <div className="w-full h-full blur-3xl" 
+               style={{
+                 background: 'radial-gradient(circle at center top, hsl(var(--primary) / 0.2) 0%, hsl(var(--primary) / 0.15) 30%, hsl(var(--primary) / 0.05) 60%, transparent 100%)'
+               }}>
+          </div>
+        </div>
       {/* Hero Section */}
       <section className="relative flex items-center justify-center px-4 sm:px-6 lg:px-8 py-[100px] sm:py-[100px] lg:py-[100px]">
         <div className="max-w-6xl mx-auto grid md:grid-cols-2 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
@@ -68,7 +76,7 @@ const Home = () => {
             </div>
             
             <h1 className="text-[12.5vw] sm:text-6xl md:text-6xl lg:text-7xl font-bold text-foreground" style={{ lineHeight: '1' }}>
-              <div>Interactive</div>
+              <div wb-component="gradient-text">Interactive</div>
               <div>Components</div>
               <div>for <span wb-component="text-type" 
                 wb-typing-speed="80" 
@@ -116,8 +124,8 @@ const Home = () => {
               />
             </div>
           </div>
-          <div className="hidden sm:flex justify-center order-1 lg:order-2">
-            <div wb-component="smart-animate" wb-start-delay="0.2" className="w-full h-[540px] sm:h-[420px] md:h-[420px] lg:h-[540px] max-w-sm sm:max-w-md lg:max-w-lg sm:rounded-3xl flex items-center justify-center">
+          <div className="hidden sm:flex justify-center order-1 lg:order-2 relative">
+            <div wb-component="smart-animate" wb-start-delay="0.2" className="relative z-10 w-full h-[540px] sm:h-[420px] md:h-[420px] lg:h-[540px] max-w-sm sm:max-w-md lg:max-w-lg sm:rounded-3xl flex items-center justify-center">
               <Three3D 
                 // Model Settings - FlowBitz specific
                 modelPath="https://www.slabpixel.dev/3d/FlowBitz-3D.glb"
