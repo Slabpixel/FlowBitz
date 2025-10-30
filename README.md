@@ -1,6 +1,6 @@
 # FlowBitz
 
-[![Version](https://img.shields.io/badge/version-2.0.0-blue.svg)](https://github.com/Slabpixel/FlowBitz)
+[![Version](https://img.shields.io/badge/version-2.1.1-blue.svg)](https://github.com/Slabpixel/FlowBitz)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 [![CDN](https://img.shields.io/badge/CDN-flowbitz.dev-orange.svg)](https://www.flowbitz.dev)
 
@@ -8,7 +8,7 @@
 
 FlowBitz is a powerful JavaScript library that brings professional-grade animations to your Webflow projects. With a simple script tag and intuitive attributes, you can create sophisticated text effects, interactive buttons, and engaging animations without writing any code.
 
-## 🎉 What's New in v2.0
+## 🎉 What's New in v2.1
 
 **Optimized Architecture & Component Splitting** - FlowBitz is now significantly lighter and faster:
 
@@ -21,7 +21,7 @@ FlowBitz is a powerful JavaScript library that brings professional-grade animati
 
 **Performance Comparison:**
 
-| Metric | v1.x | v2.0 | Improvement |
+| Metric | v1.x | v2.1 | Improvement |
 |--------|------|------|-------------|
 | **UMD (CDN)** | 300 KB | **85 KB gzipped** | 🚀 72% smaller |
 | **ES Module** | 300 KB | **15 KB** + on-demand | 95% smaller |
@@ -157,7 +157,7 @@ Simply add the `wb-component` attribute to any element in Webflow:
 
 ## 🧠 How It Works
 
-FlowBitz v2.0 features two optimized builds:
+FlowBitz v2.1 features two optimized builds:
 
 ### UMD Build (CDN - Simple Setup)
 Perfect for quick CDN usage - includes everything in one file:
@@ -194,7 +194,7 @@ FlowBitz is available via multiple CDN endpoints:
 
 ### Specific Version
 ```html
-<script src="https://cdn.jsdelivr.net/npm/flowbitz@2.0.0/dist/flowbitz.umd.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/flowbitz@2.1.1/dist/flowbitz.umd.js"></script>
 ```
 
 ### ES Modules (For Modern Bundlers)
@@ -337,13 +337,13 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 <script>window.WebflowBits.init();</script>
 ```
 
-**v2.0 UMD (85KB gzipped - recommended for CDN):**
+**v2.1 UMD (85KB gzipped - recommended for CDN):**
 ```html
 <!-- Just one line - auto-initializes, GSAP included -->
 <script src="https://cdn.jsdelivr.net/npm/flowbitz@2/dist/flowbitz.umd.js"></script>
 ```
 
-**v2.0 ES Modules (15KB + smart loading - for modern bundlers):**
+**v2.1 ES Modules (15KB + smart loading - for modern bundlers):**
 ```javascript
 import FlowBitz from 'flowbitz';
 await FlowBitz.init();

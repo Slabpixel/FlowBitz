@@ -2,7 +2,7 @@
  * FlowBitz - CDN Entry Point
  * A collection of interactive components for Webflow
  * 
- * @version 1.0.0
+ * @version 2.1.1
  * @author Slabpixel Studio
  * @license MIT
  */
@@ -37,7 +37,7 @@ import smartAnimateAnimator from '../components/effect/smartAnimate.js';
  */
 class WebflowBits {
   constructor() {
-    this.version = '1.0.0';
+    this.version = '2.1.1';
     this.initialized = false;
     this.observers = [];
     this.components = {
