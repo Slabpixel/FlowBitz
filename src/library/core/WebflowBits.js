@@ -21,6 +21,7 @@ import rotatingTextAnimator from '../components/text/rotatingText.js';
 import textPressureAnimator from '../components/text/textPressure.js';
 import shuffleAnimator from '../components/text/shuffle.js';
 import tooltipTextAnimator from '../components/text/tooltipText.js';
+import rollTextAnimator from '../components/text/rollText.js';
 
 /* Button Components */
 import pulseButtonAnimator from '../components/button/pulseButton.js';
@@ -58,6 +59,7 @@ class WebflowBits {
       shuffle: shuffleAnimator,
       tooltipText: tooltipTextAnimator,
       smartAnimate: smartAnimateAnimator,
+      rollText: rollTextAnimator,
     };
   }
 
@@ -74,7 +76,7 @@ class WebflowBits {
     const config = {
       autoInit: true,
       debug: false,
-      components: ['splitText', 'textType', 'blurText', 'shinyText', 'gradientText', 'gradientButton', 'rippleButton', 'pulseButton', 'decryptedText', 'scrambleText', 'variableProximity', 'countUp', 'rotatingText', 'textPressure', 'magnet', 'shuffle', 'tooltipText'],
+      components: ['splitText', 'textType', 'blurText', 'shinyText', 'gradientText', 'gradientButton', 'rippleButton', 'pulseButton', 'decryptedText', 'scrambleText', 'variableProximity', 'countUp', 'rotatingText', 'textPressure', 'magnet', 'shuffle', 'tooltipText', 'rollText'],
       ...options
     };
 
@@ -172,6 +174,10 @@ class WebflowBits {
       if (config.components.includes('tooltipText')) {
         this.initTooltipText(config.debug);
       }
+
+      if (config.components.includes('rollText')) {
+        this.initRollText(config.debug);
+      };
 
       // Setup mutation observer for dynamic content if autoInit is enabled
       if (config.autoInit) {
@@ -532,6 +538,20 @@ class WebflowBits {
   }
 
   /**
+   * Initialize RollText component
+   */
+  initRollText(debug = false) {
+    try {
+      rollTextAnimator.initAll();
+      if (debug) {
+        console.log('WebflowBits: RollText initialized');
+      }
+    } catch (error) {
+      console.error('WebflowBits: Failed to initialize RollText', error);
+    }
+  }
+
+  /**
    * Setup mutation observer to handle dynamically added content
    */
   setupMutationObserver(debug = false) {
@@ -712,6 +732,16 @@ class WebflowBits {
                 shouldRefresh = true;
               });
 
+              // Check for wb-component="roll-text" elements
+              const rollTextElements = node.matches?.('[wb-component="roll-text"]')
+                ? [node]
+                : Array.from(node.querySelectorAll?.('[wb-component="roll-text"]'));
+
+              rollTextElements.forEach(element => {
+                rollTextAnimator.initElement(element);
+                shouldRefresh = true;
+              });
+
               // Check for wb-component="smart-animate" elements
               const smartAnimateElements = node.matches?.('[wb-component="smart-animate"]')
                 ? [node]
@@ -743,6 +773,7 @@ class WebflowBits {
           magnetAnimator.refresh();
           shuffleAnimator.refresh();
           tooltipTextAnimator.refresh();
+          rollTextAnimator.refresh();
         }, 100);
       }
     });
@@ -1067,6 +1098,25 @@ class WebflowBits {
   }
 
   /**
+   * Manually initialize TooltipText on specific elements
+   * @param {string|NodeList|Element} selector - CSS selector or DOM elements
+   */
+  initrollTextOn(selector) {
+    const elements = typeof selector === 'string' 
+      ? document.querySelectorAll(selector)
+      : selector.nodeType ? [selector] : selector;
+    
+    Array.from(elements).forEach(element => {
+      if (element.getAttribute('wb-component') === 'roll-text') {
+        rollTextAnimator.initElement(element);
+      }
+    });
+
+    rollTextAnimator.refresh();
+    return this;
+  }
+
+  /**
    * Manually initialize SmartAnimate on specific elements
    * @param {string|NodeList|Element} selector - CSS selector or DOM elements
    */
@@ -1140,6 +1190,9 @@ class WebflowBits {
     // Destroy TooltipText animations
     tooltipTextAnimator.destroyAll();
 
+    // Destroy TooltipText animations
+    rollTextAnimator.destroyAll();
+
     // Disconnect observers
     this.observers.forEach(observer => observer.disconnect());
     this.observers = [];
@@ -1168,6 +1221,7 @@ class WebflowBits {
     magnetAnimator.refresh();
     shuffleAnimator.refresh();
     tooltipTextAnimator.refresh();
+    rollTextAnimator.refresh();
     return this;
   }
 

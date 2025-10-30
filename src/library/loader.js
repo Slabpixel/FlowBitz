@@ -56,7 +56,8 @@ const COMPONENT_REQUIREMENTS = {
   'text-pressure': ['core'],
   'shuffle': ['core', 'scrollTrigger'],
   'tooltip-text': [],  // CSS only
-  
+  'roll-text': ['core', 'splitText'],
+
   // Button components (minimal GSAP)
   'gradient-button': [],  // CSS only
   'ripple-button': [],  // CSS only
@@ -86,6 +87,7 @@ const COMPONENT_LOADERS = {
   'text-pressure': () => import('./components/text/textPressure.js'),
   'shuffle': () => import('./components/text/shuffle.js'),
   'tooltip-text': () => import('./components/text/tooltipText.js'),
+  'roll-text': () => import('./components/text/rollText.js'),
   
   // Button components
   'gradient-button': () => import('./components/button/gradientButton.js'),
