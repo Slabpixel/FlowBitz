@@ -9,12 +9,12 @@
  * - Smart GSAP loading (only if required)
  * - Detects existing GSAP installations
  * 
- * @version 2.0.0
+ * @version 2.1.1
  * @author Slabpixel Studio
  * @license MIT
  */
 
-const VERSION = '2.0.0';
+const VERSION = '2.1.1';
 const ATTR_PREFIX = 'wb-component';
 
 /**
