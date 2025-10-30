@@ -29,7 +29,7 @@ FlowBitz is a powerful JavaScript library that brings professional-grade animati
 
 ## ✨ Features
 
-- **🎨 18 Components**: 13 text effects, 4 interactive buttons, and 1 smart animation effect
+- **🎨 19 Components**: 14 text effects, 4 interactive buttons, and 1 smart animation effect
 - **📝 Text Effects**: Split text, gradient effects, typewriter, blur transitions, count-up, and more
 - **🔘 Interactive Buttons**: Gradient, ripple, pulse, and magnetic button effects
 - **⚡ Zero Configuration**: Works out of the box with a single script tag
@@ -99,6 +99,7 @@ Simply add the `wb-component` attribute to any element in Webflow:
 | **Text Pressure** | ✅ | Mouse proximity font variations with variable fonts | `wb-component="text-pressure"` |
 | **Shuffle** | ✅ | Character-based sliding shuffle effects | `wb-component="shuffle"` |
 | **Tooltip Text** | ❌ | Hover tooltips for any text element (CSS only) | `wb-component="tooltip-text"` |
+| **Roll Text** | ✅ | Vertical rolling text effect on hover | `wb-component="roll-text"` |
 
 ### Button Components
 
