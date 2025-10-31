@@ -8,7 +8,7 @@
 
 FlowBitz is a powerful JavaScript library that brings professional-grade animations to your Webflow projects. With a simple script tag and intuitive attributes, you can create sophisticated text effects, interactive buttons, and engaging animations without writing any code.
 
-## 🎉 What's New in v2.0
+## 🎉 What's New in v2
 
 **Optimized Architecture & Component Splitting** - FlowBitz is now significantly lighter and faster:
 
@@ -21,7 +21,7 @@ FlowBitz is a powerful JavaScript library that brings professional-grade animati
 
 **Performance Comparison:**
 
-| Metric | v1.x | v2.0 | Improvement |
+| Metric | v1 | v2 | Improvement |
 |--------|------|------|-------------|
 | **UMD (CDN)** | 300 KB | **85 KB gzipped** | 🚀 72% smaller |
 | **ES Module** | 300 KB | **15 KB** + on-demand | 95% smaller |
@@ -156,7 +156,7 @@ Simply add the `wb-component` attribute to any element in Webflow:
 
 ## 🧠 How It Works
 
-FlowBitz v2.0 features two optimized builds:
+FlowBitz v2 features two optimized builds:
 
 ### UMD Build (CDN - Simple Setup)
 Perfect for quick CDN usage - includes everything in one file:
@@ -169,7 +169,7 @@ Perfect for quick CDN usage - includes everything in one file:
 <button wb-component="ripple-button">Click Me</button>
 ```
 
-**Size:** 294KB (85KB gzipped) - 72% smaller than v1.x!
+**Size:** 294KB (85KB gzipped) - 72% smaller than v1!
 
 ### ES Module Build (Modern Bundlers - Maximum Optimization)
 For Vite, Webpack, Rollup with tree-shaking and code splitting:
@@ -328,21 +328,21 @@ We welcome contributions! Here's how you can help:
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-## 🔄 Migrating from v1.x
+## 🔄 Migrating from v1
 
-**v1.x (300KB bundle):**
+**v1 (300KB bundle):**
 ```html
 <script src="https://cdn.jsdelivr.net/npm/flowbitz@1/dist/flowbitz.umd.js"></script>
 <script>window.WebflowBits.init();</script>
 ```
 
-**v2.0 UMD (85KB gzipped - recommended for CDN):**
+**v2 UMD (85KB gzipped - recommended for CDN):**
 ```html
 <!-- Just one line - auto-initializes, GSAP included -->
 <script src="https://cdn.jsdelivr.net/npm/flowbitz@2/dist/flowbitz.umd.js"></script>
 ```
 
-**v2.0 ES Modules (15KB + smart loading - for modern bundlers):**
+**v2 ES Modules (15KB + smart loading - for modern bundlers):**
 ```javascript
 import FlowBitz from 'flowbitz';
 await FlowBitz.init();
