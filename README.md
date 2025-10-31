@@ -1,6 +1,6 @@
 # FlowBitz
 
-[![Version](https://img.shields.io/badge/version-2.0.0-blue.svg)](https://github.com/Slabpixel/FlowBitz)
+[![Version](https://img.shields.io/badge/version-2.1.1-blue.svg)](https://github.com/Slabpixel/FlowBitz)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 [![CDN](https://img.shields.io/badge/CDN-flowbitz.dev-orange.svg)](https://www.flowbitz.dev)
 
@@ -8,7 +8,7 @@
 
 FlowBitz is a powerful JavaScript library that brings professional-grade animations to your Webflow projects. With a simple script tag and intuitive attributes, you can create sophisticated text effects, interactive buttons, and engaging animations without writing any code.
 
-## 🎉 What's New in v2
+## 🎉 What's New in v2.1
 
 **Optimized Architecture & Component Splitting** - FlowBitz is now significantly lighter and faster:
 
@@ -29,7 +29,7 @@ FlowBitz is a powerful JavaScript library that brings professional-grade animati
 
 ## ✨ Features
 
-- **🎨 18 Components**: 13 text effects, 4 interactive buttons, and 1 smart animation effect
+- **🎨 19 Components**: 14 text effects, 4 interactive buttons, and 1 smart animation effect
 - **📝 Text Effects**: Split text, gradient effects, typewriter, blur transitions, count-up, and more
 - **🔘 Interactive Buttons**: Gradient, ripple, pulse, and magnetic button effects
 - **⚡ Zero Configuration**: Works out of the box with a single script tag
@@ -99,6 +99,7 @@ Simply add the `wb-component` attribute to any element in Webflow:
 | **Text Pressure** | ✅ | Mouse proximity font variations with variable fonts | `wb-component="text-pressure"` |
 | **Shuffle** | ✅ | Character-based sliding shuffle effects | `wb-component="shuffle"` |
 | **Tooltip Text** | ❌ | Hover tooltips for any text element (CSS only) | `wb-component="tooltip-text"` |
+| **Roll Text** | ✅ | Vertical rolling text effect on hover | `wb-component="roll-text"` |
 
 ### Button Components
 
@@ -156,7 +157,7 @@ Simply add the `wb-component` attribute to any element in Webflow:
 
 ## 🧠 How It Works
 
-FlowBitz v2 features two optimized builds:
+FlowBitz v2.1 features two optimized builds:
 
 ### UMD Build (CDN - Simple Setup)
 Perfect for quick CDN usage - includes everything in one file:
@@ -193,7 +194,7 @@ FlowBitz is available via multiple CDN endpoints:
 
 ### Specific Version
 ```html
-<script src="https://cdn.jsdelivr.net/npm/flowbitz@2.0.0/dist/flowbitz.umd.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/flowbitz@2.1.1/dist/flowbitz.umd.js"></script>
 ```
 
 ### ES Modules (For Modern Bundlers)
@@ -336,13 +337,13 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 <script>window.WebflowBits.init();</script>
 ```
 
-**v2 UMD (85KB gzipped - recommended for CDN):**
+**v2.1 UMD (85KB gzipped - recommended for CDN):**
 ```html
 <!-- Just one line - auto-initializes, GSAP included -->
 <script src="https://cdn.jsdelivr.net/npm/flowbitz@2/dist/flowbitz.umd.js"></script>
 ```
 
-**v2 ES Modules (15KB + smart loading - for modern bundlers):**
+**v2.1 ES Modules (15KB + smart loading - for modern bundlers):**
 ```javascript
 import FlowBitz from 'flowbitz';
 await FlowBitz.init();

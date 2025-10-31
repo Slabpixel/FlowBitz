@@ -12,6 +12,18 @@ const Release = () => {
     const navigate = useNavigate()
     const releases = [
         {
+            version: "2.1.1",
+            date: "October 30, 2025",
+            type: "stable",
+            description: "v2.1 maintenance release: docs and examples updated, version consistency across loader and site, CDN snippet now points to 2.1.1.",
+            changes: [
+                "Updated README to v2.1 with 2.1.1 CDN example",
+                "Synchronized internal VERSION constant to 2.1.1",
+                "Release page metadata and examples refreshed",
+                "New Roll Text component added"
+            ]
+        },
+        {
             version: "2.0.0",
             date: "October 10, 2025",
             type: "stable",
@@ -76,8 +88,8 @@ const Release = () => {
         "name": "FlowBitz",
         "description": "Interactive components library for Webflow - Release notes and version history",
         "url": "https://www.flowbitz.dev/release",
-        "version": "2.0.0",
-        "datePublished": "2025-10-10",
+        "version": "2.1.1",
+        "datePublished": "2025-10-30",
         "applicationCategory": "Web Development",
         "operatingSystem": "Web Browser"
     }

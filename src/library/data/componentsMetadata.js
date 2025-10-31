@@ -973,6 +973,56 @@ export const componentsMetadata = {
     }
   },
 
+  'roll-text': {
+    name: 'Roll Text',
+    description: 'Vertical rolling text effect on hover by duplicating content and translating the container upward.',
+    category: 'text',
+    file: 'rollText.js',
+    installationNotes: 'Wrap your text with a <div wb-component="roll-text"> wrapper. The first child inside the wrapper must be one of: <div>, <p>, <a>, <span>, <h1>, <h2>, <h3>, <h4>, <h5> or <h6> containing the text. The wrapper becomes an inline-block overflow-hidden mask; on hover, the original line rolls up and the duplicate line replaces it.',
+    attributes: [
+      {
+        name: 'wb-component',
+        description: 'Enable the Roll Text effect',
+        default: 'roll-text',
+        inputType: 'text',
+        required: true
+      },
+      {
+        name: 'wb-split-by',
+        description: 'Split strategy for GSAP SplitText',
+        default: 'words',
+        inputType: 'dropdown',
+        options: ['words', 'chars']
+      },
+      {
+        name: 'wb-duration',
+        description: 'Hover in/out animation duration in seconds',
+        default: '0.5',
+        inputType: 'slider',
+        sliderConfig: { min: 0.05, max: 2, step: 0.05 }
+      },
+      {
+        name: 'wb-ease',
+        description: 'GSAP easing for the vertical translation',
+        default: 'power3.out',
+        inputType: 'dropdown',
+        options: ['power1.out', 'power2.out', 'power3.out', 'power4.out', 'back.out(1.7)', 'elastic.out(1, 0.3)']
+      },
+      {
+        name: 'wb-stagger',
+        description: 'Required when using wb-split-by="chars" or wb-split-by="words", ensure the text contains at least two characters/words to display the staggered roll animation as intended.',
+        default: '0',
+        inputType: 'slider',
+        sliderConfig: { min: 0, max: 0.1, step: 0.01 }
+      }
+    ],
+    example: {
+      title: 'Roll Text Hover',
+      code: '<div wb-component="roll-text" wb-split-by="words" class="inline-block">\\n  <span>Hover me to roll</span>\\n</div>',
+      description: 'The content is duplicated and vertically rolled on hover; the duplicate line replaces the original.'
+    }
+  },
+
   'gradient-button': {
     name: 'Gradient Button',
     description: 'Animated gradient button with customizable colors',

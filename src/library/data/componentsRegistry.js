@@ -31,6 +31,7 @@ export const loadComponent = async (componentName) => {
       'magnetic-button': 'magnet',
       'shuffle': 'shuffle',
       'tooltip-text': 'tooltipText',
+      'roll-text': 'rollText',
       'smart-animate': 'effect/smartAnimate'
     }
 
@@ -88,6 +89,7 @@ export const getComponentFileName = (componentName) => {
     'magnetic-button': 'magnet',
     'shuffle': 'shuffle',
     'tooltip-text': 'tooltipText',
+    'roll-text': 'rollText',
     'smart-animate': 'effect/smartAnimate'
   }
 
