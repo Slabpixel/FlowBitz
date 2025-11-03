@@ -2,7 +2,7 @@
  * FlowBitz - CDN Entry Point
  * A collection of interactive components for Webflow
  * 
- * @version 2.1.1
+ * @version 2.1.2
  * @author Slabpixel Studio
  * @license MIT
  */
@@ -40,7 +40,7 @@ import { setupScrollTriggerResize } from '../utils/animation/scrollTriggerHelper
  */
 class WebflowBits {
   constructor() {
-    this.version = '2.1.1';
+    this.version = '2.1.2';
     this.initialized = false;
     this.observers = [];
     this.resizeCleanup = null; // Cleanup function for resize handler

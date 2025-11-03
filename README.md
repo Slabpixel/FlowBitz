@@ -1,6 +1,6 @@
 # FlowBitz
 
-[![Version](https://img.shields.io/badge/version-2.1.1-blue.svg)](https://github.com/Slabpixel/FlowBitz)
+[![Version](https://img.shields.io/badge/version-2.1.2-blue.svg)](https://github.com/Slabpixel/FlowBitz)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 [![CDN](https://img.shields.io/badge/CDN-flowbitz.dev-orange.svg)](https://www.flowbitz.dev)
 
@@ -194,7 +194,7 @@ FlowBitz is available via multiple CDN endpoints:
 
 ### Specific Version
 ```html
-<script src="https://cdn.jsdelivr.net/npm/flowbitz@2.1.1/dist/flowbitz.umd.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/flowbitz@2.1.2/dist/flowbitz.umd.js"></script>
 ```
 
 ### ES Modules (For Modern Bundlers)

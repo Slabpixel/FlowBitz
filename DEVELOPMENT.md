@@ -115,10 +115,10 @@ npm run deploy:app
 <script src="https://cdn.jsdelivr.net/npm/flowbitz@beta/dist/flowbitz.umd.js"></script>
 
 <!-- Specific version -->
-<script src="https://cdn.jsdelivr.net/npm/flowbitz@2.1.1/dist/flowbitz.umd.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/flowbitz@2.1.2/dist/flowbitz.umd.js"></script>
 
 <!-- Minified version (auto-minified by jsDelivr) -->
-<script src="https://cdn.jsdelivr.net/npm/flowbitz@2.1.1/dist/flowbitz.umd.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/flowbitz@2.1.2/dist/flowbitz.umd.min.js"></script>
 
 ## 🌐 CDN Structure
 
