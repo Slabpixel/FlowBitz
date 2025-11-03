@@ -5,6 +5,7 @@
 
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import { createOnceAnimationConfig } from '../../utils/animation/scrollTriggerHelper.js'
 
 // Register GSAP plugins
 gsap.registerPlugin(ScrollTrigger)
@@ -56,24 +57,25 @@ class SmartAnimate {
   }
 
   setupIntersectionObserver() {
-    const options = {
-      root: null, // viewport
-      rootMargin: this.options.rootMargin,
-      threshold: 0.1 // trigger when 10% of element is visible
-    }
-
-    this.observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting && !this.animated) {
+    // Use ScrollTrigger helper with support for all CSS units (px, %, vh, vw, em, rem)
+    const triggerConfig = createOnceAnimationConfig(
+      this.element,
+      {
+        threshold: 0.1, // trigger when 10% of element is visible
+        rootMargin: this.options.rootMargin,
+        markers: false
+      },
+      (self) => {
+        // Only trigger once when element enters viewport
+        if (self.isActive && !this.animated) {
           this.animate()
           this.animated = true
-          // Disconnect observer after first animation
-          this.observer.disconnect()
         }
-      })
-    }, options)
+      }
+    )
 
-    this.observer.observe(this.element)
+    // Create ScrollTrigger instance
+    this.scrollTrigger = ScrollTrigger.create(triggerConfig)
   }
 
   getInitialProps() {
@@ -165,6 +167,13 @@ class SmartAnimate {
   destroy() {
     gsap.killTweensOf([this.element, ...this.children])
     
+    // Kill ScrollTrigger if exists
+    if (this.scrollTrigger) {
+      this.scrollTrigger.kill()
+      this.scrollTrigger = null
+    }
+    
+    // Disconnect observer if exists (backward compatibility)
     if (this.observer) {
       this.observer.disconnect()
       this.observer = null

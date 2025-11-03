@@ -1,9 +1,14 @@
 import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { injectStyles } from '../../utils/core/injectStyles.js';
 import { parseElementConfig, commonAttributeMaps, mergeAttributeMaps } from '../../utils/core/attributeParser.js';
 import { ComponentClassManager, webflowBitsClasses } from '../../utils/core/classManager.js';
 import { checkCSSConflicts, componentClassSets } from '../../utils/core/conflictDetector.js';
 import { AnimationStateManager, PerformanceOptimizer } from '../../utils/animation/animationStateManager.js';
+import { createOnceAnimationConfig } from '../../utils/animation/scrollTriggerHelper.js';
+
+// Register GSAP plugins
+gsap.registerPlugin(ScrollTrigger);
 
 // Inject component-specific CSS with unique namespace
 const componentCSS = `
@@ -387,29 +392,31 @@ class TextTypeAnimator {
   }
 
   /**
-   * Setup intersection observer for start on visible
+   * Setup ScrollTrigger for view-based animation
+   * Using ScrollTrigger instead of IntersectionObserver for better unit support
    */
   setupIntersectionObserver(instance) {
     const { element, config } = instance;
     
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting && !instance.isVisible) {
-            instance.isVisible = true;
-            this.startTypingAnimation(instance);
-            observer.disconnect();
-          }
-        });
-      },
-      { 
+    // Use ScrollTrigger helper with support for all CSS units (px, %, vh, vw, em, rem)
+    const triggerConfig = createOnceAnimationConfig(
+      element,
+      {
         threshold: config.threshold,
-        rootMargin: config.rootMargin
+        rootMargin: config.rootMargin,
+        markers: false
+      },
+      (self) => {
+        // Only trigger once when element enters viewport
+        if (self.isActive && !instance.isVisible) {
+          instance.isVisible = true;
+          this.startTypingAnimation(instance);
+        }
       }
     );
 
-    observer.observe(element);
-    instance.intersectionObserver = observer;
+    // Create ScrollTrigger instance
+    instance.scrollTrigger = ScrollTrigger.create(triggerConfig);
   }
 
   /**

@@ -163,33 +163,16 @@ class GradientButtonAnimator {
   parseConfig(element) {
     const attributeMap = {
       // GradientButton-specific attributes
-      colors: { attribute: 'wb-colors', type: 'string' },
+      colors: { attribute: 'wb-colors', type: 'colorArray', minColors: 2 },
       animationSpeed: { attribute: 'wb-animation-speed', type: 'duration' },
       disabled: { attribute: 'wb-disabled', type: 'boolean' },
-      textColor: { attribute: 'wb-text-color', type: 'string' },
+      textColor: { attribute: 'wb-text-color', type: 'color' },
       hoverEffect: { attribute: 'wb-hover-effect', type: 'boolean' },
       scaleEffect: { attribute: 'wb-scale-effect', type: 'boolean' },
       scaleAmount: { attribute: 'wb-scale-amount', type: 'number' }
     };
     
-    const config = parseElementConfig(element, this.defaultConfig, attributeMap);
-    
-    // Parse colors array from string
-    if (config.colors && typeof config.colors === 'string') {
-      try {
-        // Handle both JSON array and comma-separated values
-        if (config.colors.startsWith('[')) {
-          config.colors = JSON.parse(config.colors);
-        } else {
-          config.colors = config.colors.split(',').map(color => color.trim());
-        }
-      } catch (error) {
-        console.warn('WebflowBits GradientButton: Invalid colors format, using default');
-        config.colors = this.defaultConfig.colors;
-      }
-    }
-    
-    return config;
+    return parseElementConfig(element, this.defaultConfig, attributeMap);
   }
 
   /**

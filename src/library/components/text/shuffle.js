@@ -166,11 +166,11 @@ class ShuffleAnimator {
         },
         colorFrom: { 
           attribute: 'wb-color-from', 
-          type: 'string' 
+          type: 'color' 
         },
         colorTo: { 
           attribute: 'wb-color-to', 
-          type: 'string' 
+          type: 'color' 
         },
         triggerOnce: { 
           attribute: 'wb-trigger-once', 
@@ -764,7 +764,8 @@ class ShuffleAnimator {
       // Calculate ScrollTrigger start position
       const scrollTriggerStart = calculateScrollTriggerStart(
         config.threshold, 
-        config.rootMargin
+        config.rootMargin,
+        element
       );
 
       // Create ScrollTrigger

@@ -32,6 +32,9 @@ import magnetAnimator from '../components/button/magneticButton.js';
 /* Effect Components */
 import smartAnimateAnimator from '../components/effect/smartAnimate.js';
 
+/* Utils */
+import { setupScrollTriggerResize } from '../utils/animation/scrollTriggerHelper.js';
+
 /**
  * Main WebflowBits class for CDN usage
  */
@@ -40,6 +43,7 @@ class WebflowBits {
     this.version = '2.1.1';
     this.initialized = false;
     this.observers = [];
+    this.resizeCleanup = null; // Cleanup function for resize handler
     this.components = {
       splitText: splitTextAnimator,
       textType: textTypeAnimator,
@@ -83,6 +87,10 @@ class WebflowBits {
     if (config.debug) {
       console.log('WebflowBits: Initializing...', { version: this.version, config });
     }
+
+    // Setup ScrollTrigger resize handler for automatic updates
+    // This ensures rootMargin with viewport units (vh, vw, %) update on window resize
+    this.resizeCleanup = setupScrollTriggerResize(250);
 
     // Wait for DOM to be ready
     if (document.readyState === 'loading') {
@@ -1196,6 +1204,12 @@ class WebflowBits {
     // Disconnect observers
     this.observers.forEach(observer => observer.disconnect());
     this.observers = [];
+
+    // Cleanup resize handler
+    if (this.resizeCleanup) {
+      this.resizeCleanup();
+      this.resizeCleanup = null;
+    }
 
     this.initialized = false;
     

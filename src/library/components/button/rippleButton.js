@@ -103,7 +103,7 @@ class RippleButtonAnimator {
   parseConfig(element) {
     const attributeMap = {
       // RippleButton-specific attributes
-      color: { attribute: 'wb-ripple-color', type: 'string' },
+      color: { attribute: 'wb-ripple-color', type: 'color' },
       duration: { attribute: 'wb-duration', type: 'number' },
       disabled: { attribute: 'wb-disabled', type: 'boolean' },
       hoverEffect: { attribute: 'wb-hover-effect', type: 'boolean' },
@@ -111,21 +111,7 @@ class RippleButtonAnimator {
       scaleAmount: { attribute: 'wb-scale-amount', type: 'number' }
     };
     
-    const config = parseElementConfig(element, this.defaultConfig, attributeMap);
-    
-    // Validate color format
-    if (config.color && !config.color.startsWith('rgba') && !config.color.startsWith('rgb') && !config.color.startsWith('#')) {
-      // Convert hex to rgba if needed
-      if (config.color.startsWith('#')) {
-        const hex = config.color.replace('#', '');
-        const r = parseInt(hex.substr(0, 2), 16);
-        const g = parseInt(hex.substr(2, 2), 16);
-        const b = parseInt(hex.substr(4, 2), 16);
-        config.color = `rgba(${r}, ${g}, ${b}, 0.6)`;
-      }
-    }
-    
-    return config;
+    return parseElementConfig(element, this.defaultConfig, attributeMap);
   }
 
   /**

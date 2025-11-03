@@ -81,14 +81,6 @@ class ShinyTextAnimator {
     }
 
   /**
-   * Normalize color value to ensure it has # prefix
-   */
-  normalizeColor(color) {
-    if (!color) return color;
-    return color.startsWith('#') ? color : `#${color}`;
-  }
-
-  /**
    * Parse custom attributes from element using utility functions
    */
   parseConfig(element) {
@@ -96,21 +88,11 @@ class ShinyTextAnimator {
       // ShinyText-specific attributes
       speed: { attribute: 'wb-speed', type: 'duration' },
       disabled: { attribute: 'wb-disable', type: 'boolean' },
-      textColor: { attribute: 'wb-text-color', type: 'string' },
-      shineColor: { attribute: 'wb-shine-color', type: 'string' }
+      textColor: { attribute: 'wb-text-color', type: 'color' },
+      shineColor: { attribute: 'wb-shine-color', type: 'color' }
     };
     
-    const config = parseElementConfig(element, this.defaultConfig, attributeMap);
-    
-    // Normalize color values
-    if (config.textColor) {
-      config.textColor = this.normalizeColor(config.textColor);
-    }
-    if (config.shineColor) {
-      config.shineColor = this.normalizeColor(config.shineColor);
-    }
-    
-    return config;
+    return parseElementConfig(element, this.defaultConfig, attributeMap);
   }
 
   /**

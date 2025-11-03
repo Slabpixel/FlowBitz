@@ -6,16 +6,57 @@ import { Popover, PopoverContent, PopoverTrigger } from "./popover"
 
 // Helper functions for color conversion
 const hexToRgb = (hex) => {
-  const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex)
-  return result ? {
-    r: parseInt(result[1], 16),
-    g: parseInt(result[2], 16),
-    b: parseInt(result[3], 16)
+  // Support 6-digit hex (#RRGGBB) and 8-digit hex (#RRGGBBAA)
+  const result6 = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex)
+  const result8 = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex)
+  
+  if (result8) {
+    return {
+      r: parseInt(result8[1], 16),
+      g: parseInt(result8[2], 16),
+      b: parseInt(result8[3], 16),
+      a: parseInt(result8[4], 16) / 255
+    }
+  }
+  
+  return result6 ? {
+    r: parseInt(result6[1], 16),
+    g: parseInt(result6[2], 16),
+    b: parseInt(result6[3], 16),
+    a: 1
   } : null
 }
 
-const rgbToHex = (r, g, b) => {
+const rgbToHex = (r, g, b, a = 1) => {
+  if (a < 1) {
+    // 8-digit hex with alpha
+    const alpha = Math.round(a * 255)
+    return "#" + ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1) + 
+           alpha.toString(16).padStart(2, '0')
+  }
   return "#" + ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1)
+}
+
+// Parse rgba/rgb string
+const parseRgbaString = (str) => {
+  const rgba = str.match(/rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*([\d.]+))?\)/)
+  if (rgba) {
+    return {
+      r: parseInt(rgba[1]),
+      g: parseInt(rgba[2]),
+      b: parseInt(rgba[3]),
+      a: rgba[4] ? parseFloat(rgba[4]) : 1
+    }
+  }
+  return null
+}
+
+// Convert rgb to rgba string
+const rgbToRgbaString = (r, g, b, a = 1) => {
+  if (a < 1) {
+    return `rgba(${r}, ${g}, ${b}, ${a.toFixed(2)})`
+  }
+  return `rgb(${r}, ${g}, ${b})`
 }
 
 const rgbToHsv = (r, g, b) => {
@@ -70,31 +111,61 @@ const ColorPicker = React.forwardRef(({
   value, 
   onChange, 
   disabled = false,
+  supportsAlpha = false,
   ...props 
 }, ref) => {
   const [open, setOpen] = React.useState(false)
   const [color, setColor] = React.useState(() => {
-    const rgb = hexToRgb(value || '#000000')
-    return rgb ? rgbToHsv(rgb.r, rgb.g, rgb.b) : { h: 0, s: 0, v: 100 }
+    // Parse initial value
+    let rgb = null
+    let alpha = 1
+    
+    if (value?.startsWith('rgb')) {
+      rgb = parseRgbaString(value)
+      alpha = rgb?.a || 1
+    } else {
+      rgb = hexToRgb(value || '#000000')
+      alpha = rgb?.a || 1
+    }
+    
+    return rgb ? { ...rgbToHsv(rgb.r, rgb.g, rgb.b), a: alpha } : { h: 0, s: 0, v: 100, a: 1 }
   })
   const [isDragging, setIsDragging] = React.useState(false)
   const [dragType, setDragType] = React.useState(null)
   const colorAreaRef = React.useRef(null)
   const hueSliderRef = React.useRef(null)
+  const alphaSliderRef = React.useRef(null)
 
   // Update color when value prop changes
   React.useEffect(() => {
-    const rgb = hexToRgb(value || '#000000')
+    let rgb = null
+    let alpha = 1
+    
+    if (value?.startsWith('rgb')) {
+      rgb = parseRgbaString(value)
+      alpha = rgb?.a || 1
+    } else {
+      rgb = hexToRgb(value || '#000000')
+      alpha = rgb?.a || 1
+    }
+    
     if (rgb) {
-      setColor(rgbToHsv(rgb.r, rgb.g, rgb.b))
+      setColor({ ...rgbToHsv(rgb.r, rgb.g, rgb.b), a: alpha })
     }
   }, [value])
 
   const updateColor = (newColor) => {
     setColor(newColor)
     const rgb = hsvToRgb(newColor.h, newColor.s, newColor.v)
-    const hex = rgbToHex(rgb.r, rgb.g, rgb.b)
-    onChange?.(hex)
+    
+    // If supportsAlpha and alpha < 1, return rgba format
+    if (supportsAlpha && newColor.a < 1) {
+      const rgba = rgbToRgbaString(rgb.r, rgb.g, rgb.b, newColor.a)
+      onChange?.(rgba)
+    } else {
+      const hex = rgbToHex(rgb.r, rgb.g, rgb.b, newColor.a)
+      onChange?.(hex)
+    }
   }
 
   const handleColorAreaMouseDown = (e) => {
@@ -141,6 +212,27 @@ const ColorPicker = React.forwardRef(({
     })
   }
 
+  const handleAlphaSliderMouseDown = (e) => {
+    if (disabled) return
+    e.preventDefault() // Prevent text selection
+    setIsDragging(true)
+    setDragType('alpha')
+    handleAlphaSliderMouseMove(e)
+  }
+
+  const handleAlphaSliderMouseMove = (e) => {
+    if (!isDragging || dragType !== 'alpha' || !alphaSliderRef.current) return
+    
+    e.preventDefault() // Prevent text selection during drag
+    const rect = alphaSliderRef.current.getBoundingClientRect()
+    const x = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width))
+    
+    updateColor({
+      ...color,
+      a: Math.round(x * 100) / 100
+    })
+  }
+
   const handleMouseUp = () => {
     setIsDragging(false)
     setDragType(null)
@@ -159,17 +251,22 @@ const ColorPicker = React.forwardRef(({
 
   React.useEffect(() => {
     if (isDragging) {
-      document.addEventListener('mousemove', dragType === 'color' ? handleColorAreaMouseMove : handleHueSliderMouseMove)
+      let moveHandler = handleColorAreaMouseMove
+      if (dragType === 'hue') moveHandler = handleHueSliderMouseMove
+      if (dragType === 'alpha') moveHandler = handleAlphaSliderMouseMove
+      
+      document.addEventListener('mousemove', moveHandler)
       document.addEventListener('mouseup', handleMouseUp)
       return () => {
-        document.removeEventListener('mousemove', dragType === 'color' ? handleColorAreaMouseMove : handleHueSliderMouseMove)
+        document.removeEventListener('mousemove', moveHandler)
         document.removeEventListener('mouseup', handleMouseUp)
       }
     }
   }, [isDragging, dragType])
 
   const currentRgb = hsvToRgb(color.h, color.s, color.v)
-  const currentHex = rgbToHex(currentRgb.r, currentRgb.g, currentRgb.b)
+  const currentHex = rgbToHex(currentRgb.r, currentRgb.g, currentRgb.b, color.a)
+  const currentRgba = rgbToRgbaString(currentRgb.r, currentRgb.g, currentRgb.b, color.a)
 
   return (
     <div className={cn("flex items-center space-x-2", className)} ref={ref} {...props}>
@@ -179,15 +276,26 @@ const ColorPicker = React.forwardRef(({
             variant="outline"
             size="sm"
             disabled={disabled}
-            className="w-10 h-8 p-0 border border-border rounded-md hover:bg-accent"
+            className="relative w-10 h-8 p-0 border border-border rounded-md hover:bg-accent overflow-hidden"
           >
+            {/* Checkerboard pattern for transparency */}
+            {supportsAlpha && color.a < 1 && (
+              <div 
+                className="absolute inset-0 pointer-events-none"
+                style={{
+                  backgroundImage: 'linear-gradient(45deg, #ccc 25%, transparent 25%, transparent 75%, #ccc 75%, #ccc), linear-gradient(45deg, #ccc 25%, transparent 25%, transparent 75%, #ccc 75%, #ccc)',
+                  backgroundSize: '8px 8px',
+                  backgroundPosition: '0 0, 4px 4px'
+                }}
+              />
+            )}
             <div 
               className="w-full h-full rounded-sm"
-              style={{ backgroundColor: currentHex }}
+              style={{ backgroundColor: currentRgba }}
             />
           </Button>
         </PopoverTrigger>
-        <PopoverContent className="w-[240px] p-2 rounded-lg dark:border-border dark:border-muted-foreground/20" align="start">
+        <PopoverContent className="w-[288px] p-3 rounded-lg dark:border-border dark:border-muted-foreground/20" align="start">
           <div className="space-y-4">
             {/* Color Area */}
             <div className="relative">
@@ -244,7 +352,41 @@ const ColorPicker = React.forwardRef(({
               </div>
             </div>
 
-            {/* RGB Inputs */}
+            {/* Alpha Slider */}
+            {supportsAlpha && (
+              <div className="relative">
+                <div className="w-full h-4 rounded-md overflow-hidden relative">
+                  {/* Checkerboard background */}
+                  <div 
+                    className="absolute inset-0"
+                    style={{
+                      backgroundImage: 'linear-gradient(45deg, #ccc 25%, transparent 25%, transparent 75%, #ccc 75%, #ccc), linear-gradient(45deg, #ccc 25%, transparent 25%, transparent 75%, #ccc 75%, #ccc)',
+                      backgroundSize: '8px 8px',
+                      backgroundPosition: '0 0, 4px 4px'
+                    }}
+                  />
+                  {/* Color gradient overlay */}
+                  <div
+                    ref={alphaSliderRef}
+                    className="absolute inset-0 cursor-pointer select-none"
+                    style={{
+                      background: `linear-gradient(to right, transparent, ${rgbToHex(currentRgb.r, currentRgb.g, currentRgb.b)})`
+                    }}
+                    onMouseDown={handleAlphaSliderMouseDown}
+                  >
+                    <div
+                      className="absolute w-3 h-3 border-2 border-white rounded-full shadow-lg pointer-events-none top-1/2"
+                      style={{
+                        left: `${color.a * 100}%`,
+                        transform: 'translate(-50%, -50%)'
+                      }}
+                    />
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {/* RGB + Alpha Inputs */}
             <div className="flex items-center space-x-2">
               <div className="flex-1">
                 <label className="text-xs text-muted-foreground block mb-1">R</label>
@@ -282,26 +424,57 @@ const ColorPicker = React.forwardRef(({
                   max="255"
                 />
               </div>
+              {supportsAlpha && (
+                <div className="flex-1">
+                  <label className="text-xs text-muted-foreground block mb-1">A</label>
+                  <Input
+                    type="number"
+                    value={Math.round(color.a * 100) / 100}
+                    onChange={(e) => {
+                      const alphaValue = Math.max(0, Math.min(1, parseFloat(e.target.value) || 0))
+                      updateColor({ ...color, a: alphaValue })
+                    }}
+                    disabled={disabled}
+                    className="h-8 text-xs"
+                    min="0"
+                    max="1"
+                    step="0.01"
+                  />
+                </div>
+              )}
             </div>
 
-            {/* Hex Input */}
+            {/* Hex/RGBA Input */}
             <div>
-              <label className="text-xs text-muted-foreground block mb-1">Hex</label>
+              <label className="text-xs text-muted-foreground block mb-1">
+                {supportsAlpha && color.a < 1 ? 'RGBA' : 'Hex'}
+              </label>
               <Input
                 type="text"
-                value={currentHex}
+                value={supportsAlpha && color.a < 1 ? currentRgba : currentHex}
                 onChange={(e) => {
-                  if (/^#[0-9A-F]{6}$/i.test(e.target.value)) {
-                    const rgb = hexToRgb(e.target.value)
+                  const val = e.target.value.trim()
+                  
+                  // Try parsing as rgba/rgb first
+                  if (val.startsWith('rgb')) {
+                    const rgb = parseRgbaString(val)
                     if (rgb) {
                       const hsv = rgbToHsv(rgb.r, rgb.g, rgb.b)
-                      updateColor(hsv)
+                      updateColor({ ...hsv, a: rgb.a })
+                    }
+                  }
+                  // Try parsing as hex (6 or 8 digits)
+                  else if (/^#[0-9A-F]{6,8}$/i.test(val)) {
+                    const rgb = hexToRgb(val)
+                    if (rgb) {
+                      const hsv = rgbToHsv(rgb.r, rgb.g, rgb.b)
+                      updateColor({ ...hsv, a: rgb.a })
                     }
                   }
                 }}
                 disabled={disabled}
                 className="h-8 text-xs font-mono"
-                placeholder="#000000"
+                placeholder={supportsAlpha ? "rgba(0, 0, 0, 1)" : "#000000"}
               />
             </div>
           </div>
@@ -310,19 +483,30 @@ const ColorPicker = React.forwardRef(({
       
       <Input
         type="text"
-        value={currentHex}
+        value={supportsAlpha && color.a < 1 ? currentRgba : currentHex}
         onChange={(e) => {
-          if (/^#[0-9A-F]{6}$/i.test(e.target.value)) {
-            const rgb = hexToRgb(e.target.value)
+          const val = e.target.value.trim()
+          
+          // Try parsing as rgba/rgb first
+          if (val.startsWith('rgb')) {
+            const rgb = parseRgbaString(val)
             if (rgb) {
               const hsv = rgbToHsv(rgb.r, rgb.g, rgb.b)
-              updateColor(hsv)
+              updateColor({ ...hsv, a: rgb.a })
+            }
+          }
+          // Try parsing as hex (6 or 8 digits)
+          else if (/^#[0-9A-F]{6,8}$/i.test(val)) {
+            const rgb = hexToRgb(val)
+            if (rgb) {
+              const hsv = rgbToHsv(rgb.r, rgb.g, rgb.b)
+              updateColor({ ...hsv, a: rgb.a })
             }
           }
         }}
         disabled={disabled}
         className="flex-1 h-8 text-xs font-mono"
-        placeholder="#000000"
+        placeholder={supportsAlpha ? "rgba(0, 0, 0, 1)" : "#000000"}
       />
     </div>
   )

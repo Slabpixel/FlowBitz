@@ -118,31 +118,14 @@ class GradientTextAnimator {
   parseConfig(element) {
     const attributeMap = {
       // GradientText-specific attributes
-      colors: { attribute: 'wb-colors', type: 'string' },
+      colors: { attribute: 'wb-colors', type: 'colorArray', minColors: 2 },
       animationSpeed: { attribute: 'wb-animation-speed', type: 'duration' },
       showBorder: { attribute: 'wb-show-border', type: 'boolean' },
       disabled: { attribute: 'wb-disabled', type: 'boolean' },
-      borderColor: { attribute: 'wb-border-color', type: 'string' }
+      borderColor: { attribute: 'wb-border-color', type: 'color' }
     };
     
-    const config = parseElementConfig(element, this.defaultConfig, attributeMap);
-    
-    // Parse colors array from string
-    if (config.colors && typeof config.colors === 'string') {
-      try {
-        // Handle both JSON array and comma-separated values
-        if (config.colors.startsWith('[')) {
-          config.colors = JSON.parse(config.colors);
-        } else {
-          config.colors = config.colors.split(',').map(color => color.trim());
-        }
-      } catch (error) {
-        console.warn('WebflowBits GradientText: Invalid colors format, using default');
-        config.colors = this.defaultConfig.colors;
-      }
-    }
-    
-    return config;
+    return parseElementConfig(element, this.defaultConfig, attributeMap);
   }
 
   /**

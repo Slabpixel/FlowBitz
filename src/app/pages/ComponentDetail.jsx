@@ -260,6 +260,7 @@ const ComponentDetail = () => {
             value={currentValue.replace(/['"]/g, '')}
             onChange={handleValueChange}
             disabled={isRequired || !isActive}
+            supportsAlpha={attr.supportsAlpha || false}
             className="w-full"
           />
         )

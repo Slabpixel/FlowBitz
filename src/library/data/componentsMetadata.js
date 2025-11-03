@@ -71,7 +71,7 @@ export const componentsMetadata = {
       },
       { 
         name: 'wb-root-margin', 
-        description: 'Root margin for intersection observer in pixels', 
+        description: 'Root margin for scroll trigger. Controls when animation starts. Positive values (e.g., "100px") trigger before element enters viewport. Negative values (e.g., "-100px") trigger after entering. Supports all CSS units: px, %, vh, vw, em, rem. Examples: "100px" (early trigger), "0px" (default), "-50px" (late trigger), "10vh" (viewport-based), "5%" (percentage)', 
         default: '100px',
         inputType: 'text'
       },
@@ -106,7 +106,7 @@ export const componentsMetadata = {
       },
       { 
         name: 'wb-colors', 
-        description: 'Gradient colors (comma-separated or JSON array)', 
+        description: 'Gradient colors (comma-separated or JSON array). Supports: hex (#FF5733), rgb/rgba, hsl/hsla, named colors (red, blue), CSS variables (var(--color)). Example: "#FF5733, rgb(64, 255, 170), var(--primary)"', 
         default: '#40ffaa, #4079ff, #40ffaa, #4079ff, #40ffaa',
         inputType: 'text'
       },
@@ -256,7 +256,7 @@ export const componentsMetadata = {
       },
       { 
         name: 'wb-root-margin', 
-        description: 'Root margin for intersection observer in pixels', 
+        description: 'Root margin for scroll trigger. Controls when animation starts. Positive values (e.g., "100px") trigger before element enters viewport. Negative values (e.g., "-100px") trigger after entering. Supports all CSS units: px, %, vh, vw, em, rem. Examples: "100px" (early trigger), "0px" (default), "-50px" (late trigger), "10vh" (viewport-based), "5%" (percentage)', 
         default: '100px',
         inputType: 'text'
       },
@@ -298,15 +298,17 @@ export const componentsMetadata = {
       },
       { 
         name: 'wb-text-color', 
-        description: 'Base text color (inherits from Webflow element if not specified)', 
+        description: 'Base text color (inherits from Webflow element if not specified). Supports: hex (#FF5733), rgb/rgba, hsl/hsla, named colors (red, blue), CSS variables (var(--color))', 
         default: '#0a70ff',
-        inputType: 'color'
+        inputType: 'color',
+        supportsAlpha: true
       },
       { 
         name: 'wb-shine-color', 
-        description: 'Shine color', 
+        description: 'Shine color. Supports: hex (#FF5733), rgb/rgba, hsl/hsla, named colors (red, blue), CSS variables (var(--color))', 
         default: '#8cbcff',
-        inputType: 'color'
+        inputType: 'color',
+        supportsAlpha: true
       }
     ],
     example: {
@@ -384,7 +386,7 @@ export const componentsMetadata = {
       },
       { 
         name: 'wb-root-margin', 
-        description: 'Root margin for intersection observer in pixels', 
+        description: 'Root margin for scroll trigger. Controls when animation starts. Positive values (e.g., "100px") trigger before element enters viewport. Negative values (e.g., "-100px") trigger after entering. Supports all CSS units: px, %, vh, vw, em, rem. Examples: "100px" (early trigger), "0px" (default), "-50px" (late trigger), "10vh" (viewport-based), "5%" (percentage)', 
         default: '100px',
         inputType: 'text'
       },
@@ -471,7 +473,7 @@ export const componentsMetadata = {
       },
       { 
         name: 'wb-root-margin', 
-        description: 'Root margin for intersection observer in pixels', 
+        description: 'Root margin for scroll trigger. Controls when animation starts. Positive values (e.g., "100px") trigger before element enters viewport. Negative values (e.g., "-100px") trigger after entering. Supports all CSS units: px, %, vh, vw, em, rem. Examples: "100px" (early trigger), "0px" (default), "-50px" (late trigger), "10vh" (viewport-based), "5%" (percentage)', 
         default: '100px',
         inputType: 'text'
       },
@@ -626,15 +628,17 @@ export const componentsMetadata = {
       },
       { 
         name: 'wb-background-color', 
-        description: 'Background color for the text container', 
+        description: 'Background color for the text container. Supports: hex (#FF5733), rgb/rgba, hsl/hsla, named colors (red, blue), CSS variables (var(--color))', 
         default: '',
-        inputType: 'color'
+        inputType: 'color',
+        supportsAlpha: true
       },
       { 
         name: 'wb-text-color', 
-        description: 'Text color for the rotating text', 
+        description: 'Text color for the rotating text. Supports: hex (#FF5733), rgb/rgba, hsl/hsla, named colors (red, blue), CSS variables (var(--color))', 
         default: '',
-        inputType: 'color'
+        inputType: 'color',
+        supportsAlpha: true
       },
       { 
         name: 'wb-border-radius', 
@@ -793,6 +797,20 @@ export const componentsMetadata = {
           { value: '800', label: '800 (Extra Bold)' },
           { value: '900', label: '900 (Black)' }
         ]
+      },
+      { 
+        name: 'wb-text-color', 
+        description: 'Text color (optional, uses currentColor by default for theme compatibility). Supports: hex (#FF5733), rgb/rgba, hsl/hsla, named colors (red, blue), CSS variables (var(--color))', 
+        default: 'currentColor',
+        inputType: 'color',
+        supportsAlpha: true
+      },
+      { 
+        name: 'wb-stroke-color', 
+        description: 'Stroke color for text outline (optional). Supports: hex (#FF5733), rgb/rgba, hsl/hsla, named colors (red, blue), CSS variables (var(--color))', 
+        default: '',
+        inputType: 'color',
+        supportsAlpha: true
       }
     ],
     example: {
@@ -879,6 +897,20 @@ export const componentsMetadata = {
         sliderConfig: { min: 0, max: 0.5, step: 0.01 }
       },
       { 
+        name: 'wb-color-from', 
+        description: 'Starting color for animation (optional). Supports: hex (#FF5733), rgb/rgba, hsl/hsla, named colors (red, blue), CSS variables (var(--color))', 
+        default: '',
+        inputType: 'color',
+        supportsAlpha: true
+      },
+      { 
+        name: 'wb-color-to', 
+        description: 'Ending color for animation (optional). Supports: hex (#FF5733), rgb/rgba, hsl/hsla, named colors (red, blue), CSS variables (var(--color))', 
+        default: '',
+        inputType: 'color',
+        supportsAlpha: true
+      },
+      { 
         name: 'wb-trigger-on-hover', 
         description: 'Enable hover trigger after initial animation', 
         default: 'true',
@@ -935,15 +967,17 @@ export const componentsMetadata = {
       },
       { 
         name: 'wb-tooltip-background', 
-        description: 'Tooltip background color', 
+        description: 'Tooltip background color. Supports: hex (#FF5733), rgb/rgba, hsl/hsla, named colors (red, blue), CSS variables (var(--color))', 
         default: '#000000',
-        inputType: 'color'
+        inputType: 'color',
+        supportsAlpha: true
       },
       { 
         name: 'wb-tooltip-color', 
-        description: 'Tooltip text color', 
+        description: 'Tooltip text color. Supports: hex (#FF5733), rgb/rgba, hsl/hsla, named colors (red, blue), CSS variables (var(--color))', 
         default: '#ffffff',
-        inputType: 'color'
+        inputType: 'color',
+        supportsAlpha: true
       },
       {
         name: 'wb-tooltip-size-template',
@@ -1039,15 +1073,16 @@ export const componentsMetadata = {
       },
       { 
         name: 'wb-colors', 
-        description: 'Gradient colors (comma-separated or JSON array)', 
+        description: 'Gradient colors (comma-separated or JSON array). Supports: hex (#FF5733), rgb/rgba, hsl/hsla, named colors (red, blue), CSS variables (var(--color)). Example: "#FF5733, rgb(64, 255, 170), var(--primary)"', 
         default: '#40ffaa, #4079ff, #40ffaa, #4079ff, #40ffaa',
         inputType: 'text'
       },
       { 
         name: 'wb-text-color', 
-        description: 'Text color for the button', 
+        description: 'Text color for the button. Supports: hex (#FF5733), rgb/rgba, hsl/hsla, named colors (red, blue), CSS variables (var(--color))', 
         default: 'white',
-        inputType: 'color'
+        inputType: 'color',
+        supportsAlpha: true
       },
       { 
         name: 'wb-animation-speed', 
@@ -1087,9 +1122,10 @@ export const componentsMetadata = {
       },
       { 
         name: 'wb-ripple-color', 
-        description: 'Ripple effect color (hex, rgb, or rgba)', 
+        description: 'Ripple effect color. Supports: hex (#FF5733), rgb/rgba, hsl/hsla, named colors (red, blue), CSS variables (var(--color))', 
         default: 'rgba(255, 255, 255, 0.6)',
-        inputType: 'color'
+        inputType: 'color',
+        supportsAlpha: true
       },
       { 
         name: 'wb-duration', 
@@ -1285,7 +1321,7 @@ export const componentsMetadata = {
       },
       { 
         name: 'wb-root-margin', 
-        description: 'Root margin for intersection observer in pixels', 
+        description: 'Root margin for scroll trigger. Controls when animation starts. Positive values (e.g., "100px") trigger before element enters viewport. Negative values (e.g., "-100px") trigger after entering. Supports all CSS units: px, %, vh, vw, em, rem. Examples: "100px" (early trigger), "0px" (default), "-50px" (late trigger), "10vh" (viewport-based), "5%" (percentage)', 
         default: '100px',
         inputType: 'text'
       },

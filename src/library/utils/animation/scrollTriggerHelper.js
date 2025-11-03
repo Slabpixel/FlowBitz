@@ -5,11 +5,13 @@
 
 /**
  * Calculate ScrollTrigger start position based on threshold and root margin
+ * Converts all CSS units to pixels for consistent GSAP behavior
  * @param {number} threshold - Intersection threshold (0-1)
- * @param {string} rootMargin - Root margin string (e.g., "-100px", "10%")
+ * @param {string} rootMargin - Root margin string (e.g., "-100px", "10vh", "5%", "2rem", "2em")
+ * @param {Element|null} element - Target element (needed for 'em' unit calculation, optional)
  * @returns {string} Calculated start position for ScrollTrigger
  */
-export function calculateScrollTriggerStart(threshold = 0.1, rootMargin = '0px') {
+export function calculateScrollTriggerStart(threshold = 0.1, rootMargin = '0px', element = null) {
   // Calculate percentage based on threshold
   const startPct = (1 - threshold) * 100;
   
@@ -24,9 +26,68 @@ export function calculateScrollTriggerStart(threshold = 0.1, rootMargin = '0px')
   const marginValue = parseFloat(marginMatch[1]);
   const marginUnit = marginMatch[2] || 'px';
   
-  // Handle negative values
-  const sign = marginValue < 0 ? `-=${Math.abs(marginValue)}${marginUnit}` : `+=${marginValue}${marginUnit}`;
+  // Convert all units to pixels for consistent GSAP behavior
+  // This avoids issues with mixing percentage positions and viewport units
+  let marginInPixels = marginValue;
   
+  if (marginUnit !== 'px') {
+    try {
+      switch (marginUnit) {
+        case 'vh':
+          // vh = percentage of viewport height
+          marginInPixels = (marginValue * window.innerHeight) / 100;
+          break;
+          
+        case 'vw':
+          // vw = percentage of viewport width
+          marginInPixels = (marginValue * window.innerWidth) / 100;
+          break;
+          
+        case '%':
+          // % = percentage of viewport height (in scroll context)
+          marginInPixels = (marginValue * window.innerHeight) / 100;
+          break;
+          
+        case 'em':
+          // em = relative to element's font-size (if element provided)
+          if (element) {
+            const elementFontSize = parseFloat(getComputedStyle(element).fontSize);
+            marginInPixels = marginValue * elementFontSize;
+          } else {
+            // Fallback to body font-size if element not available
+            const bodyFontSize = parseFloat(getComputedStyle(document.body).fontSize);
+            marginInPixels = marginValue * bodyFontSize;
+            console.warn(`WebflowBits: Element not provided for 'em' unit, using body font-size (${bodyFontSize}px) as fallback`);
+          }
+          break;
+          
+        case 'rem':
+          // rem = relative to root element font-size
+          const rootFontSize = parseFloat(getComputedStyle(document.documentElement).fontSize);
+          marginInPixels = marginValue * rootFontSize;
+          break;
+          
+        default:
+          console.warn(`WebflowBits: Unknown unit "${marginUnit}", treating as px`);
+      }
+      
+      // Round to avoid sub-pixel issues
+      marginInPixels = Math.round(marginInPixels);
+      
+      if (marginUnit !== 'px') {
+        console.info(`WebflowBits: Converted rootMargin "${rootMargin}" to "${marginInPixels}px"`);
+      }
+      
+    } catch (error) {
+      console.error(`WebflowBits: Error converting rootMargin "${rootMargin}":`, error);
+      marginInPixels = marginValue; // Fallback to original value as px
+    }
+  }
+  
+  // Handle negative values - GSAP syntax
+  const sign = marginInPixels < 0 ? `-=${Math.abs(marginInPixels)}px` : `+=${marginInPixels}px`;
+  
+  // Return start position with pixels (works consistently with GSAP)
   return `top ${startPct}%${sign}`;
 }
 
@@ -56,7 +117,7 @@ export function createScrollTriggerConfig(element, config = {}, callbacks = {}) 
   
   const triggerConfig = {
     trigger: element,
-    start: calculateScrollTriggerStart(threshold, rootMargin),
+    start: calculateScrollTriggerStart(threshold, rootMargin, element),
     toggleActions,
     once,
     refreshPriority
@@ -267,6 +328,42 @@ export function validateScrollTriggerConfig(config) {
   }
   
   return validation;
+}
+
+/**
+ * Setup automatic ScrollTrigger refresh on window resize
+ * Debounced to avoid excessive recalculations
+ * @param {number} debounceDelay - Delay in ms before refreshing (default: 250ms)
+ * @returns {Function} Cleanup function to remove resize listener
+ */
+export function setupScrollTriggerResize(debounceDelay = 250) {
+  // Import ScrollTrigger dynamically to avoid circular dependency
+  let resizeTimeout;
+  
+  const handleResize = () => {
+    clearTimeout(resizeTimeout);
+    resizeTimeout = setTimeout(() => {
+      // Refresh all ScrollTrigger instances
+      if (typeof window !== 'undefined' && window.gsap && window.gsap.ScrollTrigger) {
+        window.gsap.ScrollTrigger.refresh();
+        console.info('WebflowBits: ScrollTrigger refreshed after window resize');
+      }
+    }, debounceDelay);
+  };
+  
+  // Add resize listener
+  if (typeof window !== 'undefined') {
+    window.addEventListener('resize', handleResize);
+    console.info('WebflowBits: ScrollTrigger resize handler initialized');
+  }
+  
+  // Return cleanup function
+  return () => {
+    if (typeof window !== 'undefined') {
+      window.removeEventListener('resize', handleResize);
+      clearTimeout(resizeTimeout);
+    }
+  };
 }
 
 /**

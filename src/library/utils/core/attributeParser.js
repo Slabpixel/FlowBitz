@@ -3,6 +3,8 @@
  * Provides type-safe attribute parsing and generic configuration building
  */
 
+import { validateColor, validateColorArray } from '../validation/colorValidator.js';
+
 /**
  * Attribute parsing utilities with type safety
  */
@@ -94,6 +96,60 @@ export const parseAttribute = {
    */
   delay: (element, attributeName) => {
     return parseAttribute.number(element, attributeName, parseInt, 0);
+  },
+  
+  /**
+   * Parse color attribute with validation
+   * @param {Element} element - DOM element
+   * @param {string} attributeName - Attribute name
+   * @param {boolean} required - Whether color is required
+   * @returns {string|null} Validated and normalized color or null
+   */
+  color: (element, attributeName, required = false) => {
+    const value = element.getAttribute(attributeName);
+    
+    if (!value) {
+      if (required) {
+        console.warn(`WebflowBits: Required color attribute "${attributeName}" is missing`);
+      }
+      return null;
+    }
+
+    const validation = validateColor(value);
+    
+    if (!validation.isValid) {
+      console.warn(`WebflowBits: Invalid color format for ${attributeName}: ${validation.error}`);
+      return null;
+    }
+
+    return validation.normalizedValue;
+  },
+
+  /**
+   * Parse color array attribute (for gradients)
+   * @param {Element} element - DOM element
+   * @param {string} attributeName - Attribute name
+   * @param {number} minColors - Minimum number of colors required
+   * @returns {Array|null} Array of validated colors or null
+   */
+  colorArray: (element, attributeName, minColors = 2) => {
+    const value = element.getAttribute(attributeName);
+    
+    if (!value) return null;
+
+    const validation = validateColorArray(value);
+    
+    if (!validation.isValid) {
+      console.warn(`WebflowBits: Invalid color array for ${attributeName}:`, validation.errors);
+      return null;
+    }
+
+    if (validation.normalizedValue.length < minColors) {
+      console.warn(`WebflowBits: ${attributeName} requires at least ${minColors} colors`);
+      return null;
+    }
+
+    return validation.normalizedValue;
   }
 };
 
@@ -108,7 +164,7 @@ export function parseElementConfig(element, defaultConfig, attributeMap) {
   const config = { ...defaultConfig };
   
   Object.entries(attributeMap).forEach(([configKey, attributeConfig]) => {
-    const { attribute, type, validValues, parser, min, max } = attributeConfig;
+    const { attribute, type, validValues, parser, min, max, required, minColors } = attributeConfig;
     let parsedValue = null;
     
     switch (type) {
@@ -129,6 +185,12 @@ export function parseElementConfig(element, defaultConfig, attributeMap) {
         break;
       case 'delay':
         parsedValue = parseAttribute.delay(element, attribute);
+        break;
+      case 'color':
+        parsedValue = parseAttribute.color(element, attribute, required);
+        break;
+      case 'colorArray':
+        parsedValue = parseAttribute.colorArray(element, attribute, minColors || 2);
         break;
       default:
         console.warn(`WebflowBits: Unknown attribute type "${type}" for ${configKey}`);
@@ -158,6 +220,12 @@ export const commonAttributeMaps = {
   timing: {
     delay: { attribute: 'wb-delay', type: 'delay' },
     staggerDelay: { attribute: 'wb-stagger-delay', type: 'delay' }
+  },
+  
+  // Common color attributes
+  color: {
+    textColor: { attribute: 'wb-text-color', type: 'color' },
+    backgroundColor: { attribute: 'wb-background-color', type: 'color' }
   }
 };
 

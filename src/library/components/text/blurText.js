@@ -341,20 +341,23 @@ class BlurTextAnimator {
   }
 
   /**
-   * Setup intersection observer for view-based animation
+   * Setup ScrollTrigger for view-based animation
+   * Using ScrollTrigger instead of IntersectionObserver for better unit support
    */
   setupIntersectionObserver(instance) {
     const { element, config, domStructure } = instance;
 
-    const observerOptions = {
-      root: null,
-      rootMargin: config.rootMargin,
-      threshold: config.threshold
-    };
-
-    instance.observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting && !instance.animationCompleted) {
+    // Use ScrollTrigger helper with support for all CSS units (px, %, vh, vw, em, rem)
+    const triggerConfig = createOnceAnimationConfig(
+      element,
+      {
+        threshold: config.threshold,
+        rootMargin: config.rootMargin,
+        markers: false
+      },
+      (self) => {
+        // Only trigger once when element enters viewport
+        if (self.isActive && !instance.animationCompleted) {
           // Add delay if specified
           if (config.startDelay > 0) {
             setTimeout(() => {
@@ -363,13 +366,12 @@ class BlurTextAnimator {
           } else {
             this.startAnimationImmediately(instance);
           }
-          // Disconnect observer after first animation like smartAnimate
-          instance.observer.disconnect();
         }
-      });
-    }, observerOptions);
+      }
+    );
 
-    instance.observer.observe(element);
+    // Create ScrollTrigger instance
+    instance.scrollTrigger = ScrollTrigger.create(triggerConfig);
   }
 
   /**

@@ -1,5 +1,6 @@
 import { gsap } from "gsap";
 import { injectStyles } from '../../utils/core/injectStyles.js';
+import { parseAttribute } from '../../utils/core/attributeParser.js';
 
 // Component CSS
 const componentCSS = `
@@ -174,8 +175,8 @@ class RotatingTextAnimator {
       ease: element.getAttribute('wb-ease') || 'back.out(1.7)',
       loop: element.getAttribute('wb-rotating-loop') !== 'false',
       auto: element.getAttribute('wb-rotating-auto') !== 'false',
-      bgColor: element.getAttribute('wb-background-color') || null,
-      textColor: element.getAttribute('wb-text-color') || null,
+      bgColor: parseAttribute.color(element, 'wb-background-color'),
+      textColor: parseAttribute.color(element, 'wb-text-color'),
       borderRadius: element.getAttribute('wb-border-radius') || null
     };
 
