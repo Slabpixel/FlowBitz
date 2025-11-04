@@ -31,6 +31,7 @@ import magnetAnimator from '../components/button/magneticButton.js';
 
 /* Effect Components */
 import smartAnimateAnimator from '../components/effect/smartAnimate.js';
+import CardHover3DAnimator from '../components/effect/3dCardHover.js';
 
 /* Utils */
 import { setupScrollTriggerResize } from '../utils/animation/scrollTriggerHelper.js';
@@ -64,6 +65,7 @@ class WebflowBits {
       tooltipText: tooltipTextAnimator,
       smartAnimate: smartAnimateAnimator,
       rollText: rollTextAnimator,
+      cardHover3d: CardHover3DAnimator,
     };
   }
 
@@ -80,7 +82,7 @@ class WebflowBits {
     const config = {
       autoInit: true,
       debug: false,
-      components: ['splitText', 'textType', 'blurText', 'shinyText', 'gradientText', 'gradientButton', 'rippleButton', 'pulseButton', 'decryptedText', 'scrambleText', 'variableProximity', 'countUp', 'rotatingText', 'textPressure', 'magnet', 'shuffle', 'tooltipText', 'rollText'],
+      components: ['splitText', 'textType', 'blurText', 'shinyText', 'gradientText', 'gradientButton', 'rippleButton', 'pulseButton', 'decryptedText', 'scrambleText', 'variableProximity', 'countUp', 'rotatingText', 'textPressure', 'magnet', 'shuffle', 'tooltipText', 'rollText', 'cardHover3d'],
       ...options
     };
 
@@ -186,6 +188,10 @@ class WebflowBits {
       if (config.components.includes('rollText')) {
         this.initRollText(config.debug);
       };
+
+      if (config.components.includes('cardHover3d')) {
+        this.initCardHover3d(config.debug);
+      }
 
       // Setup mutation observer for dynamic content if autoInit is enabled
       if (config.autoInit) {
@@ -560,6 +566,20 @@ class WebflowBits {
   }
 
   /**
+   * Initialize 3D Card Hover component
+   */
+  initCardHover3d(debug = false) {
+    try {
+      CardHover3DAnimator.initAll();
+      if (debug) {
+        console.log('WebflowBits: 3D Card Hover initialized');
+      }
+    } catch (error) {
+      console.error('WebflowBits: Failed to initialize 3D Card Hover', error);
+    }
+  }
+
+  /**
    * Setup mutation observer to handle dynamically added content
    */
   setupMutationObserver(debug = false) {
@@ -757,6 +777,16 @@ class WebflowBits {
 
               smartAnimateElements.forEach(element => {
                 smartAnimateAnimator.initElement(element);
+                shouldRefresh = true;
+              });
+
+              // Check for wb-component="3d-card-hover" elements
+              const hover3dElements = node.matches?.('[wb-component="3d-card-hover"]')
+                ? [node]
+                : Array.from(node.querySelectorAll?.('[wb-component="3d-card-hover"]') || []);
+
+              hover3dElements.forEach(element => {
+                CardHover3DAnimator.initElement(element);
                 shouldRefresh = true;
               });
             }
@@ -1144,6 +1174,25 @@ class WebflowBits {
   }
 
   /**
+   * Manually initialize CardHover3D on specific elements
+   * @param {string|NodeList|Element} selector - CSS selector or DOM elements
+   */
+  initCardHover3DteOn(selector) {
+    const elements = typeof selector === 'string' 
+      ? document.querySelectorAll(selector)
+      : selector.nodeType ? [selector] : selector;
+    
+    Array.from(elements).forEach(element => {
+      if (element.getAttribute('wb-component') === '3d-card-hover') {
+        smartAnimateAnimator.initElement(element);
+      }
+    });
+
+    CardHover3DAnimator.refresh();
+    return this;
+  }
+
+  /**
    * Destroy all components and observers
    */
   destroy() {
@@ -1200,6 +1249,9 @@ class WebflowBits {
 
     // Destroy TooltipText animations
     rollTextAnimator.destroyAll();
+
+    // Destroy CardHover3D animations
+    CardHover3DAnimator.destroyAll();
 
     // Disconnect observers
     this.observers.forEach(observer => observer.disconnect());

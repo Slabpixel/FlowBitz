@@ -28,6 +28,7 @@ export { default as RippleButton } from './components/button/rippleButton.js'
 export { default as PulseButton } from './components/button/pulseButton.js'
 export { default as MagneticButton } from './components/button/magneticButton.js'
 export { default as SmartAnimate } from './components/effect/smartAnimate.js'
+export { default as CardHover3D } from './components/effect/3dCardHover.js'
 
 // Export utilities
 export { ComponentClassManager, webflowBitsClasses } from './utils/core/classManager.js'

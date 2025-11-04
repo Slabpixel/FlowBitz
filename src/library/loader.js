@@ -66,6 +66,7 @@ const COMPONENT_REQUIREMENTS = {
   
   // Effect components
   'smart-animate': ['core', 'scrollTrigger'],
+  '3d-card-hover': [],
 };
 
 /**
@@ -97,6 +98,7 @@ const COMPONENT_LOADERS = {
   
   // Effect components
   'smart-animate': () => import('./components/effect/smartAnimate.js'),
+  '3d-card-hover': () => import('./components/effect/3dCardHover.js'),
 };
 
 /**
