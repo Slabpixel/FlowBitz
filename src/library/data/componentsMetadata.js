@@ -1348,14 +1348,14 @@ export const componentsMetadata = {
   installationNotes: 'Only suppoerted for <div> or <button> HTML elements.',
   attributes: [
     { name: 'wb-component', description: 'Enable 3D Card Hover', default: '3d-card-hover', inputType: 'text', required: true },
-    { name: 'wb-perspective', description: 'Perspective value (px)', default: '1000', inputType: 'slider', sliderConfig: { min: 100, max: 2000, step: 50 } },
-    { name: 'wb-rotate-divisor', description: 'Rotation divisor factor (smaller = more sensitive)', default: '25', inputType: 'slider', sliderConfig: { min: 5, max: 50, step: 5 } },
+    { name: 'wb-perspective', description: 'Perspective value (px)', default: '800', inputType: 'slider', sliderConfig: { min: 100, max: 2000, step: 50 } },
+    { name: 'wb-rotate-divisor', description: 'Rotation divisor factor (smaller = more sensitive)', default: '15', inputType: 'slider', sliderConfig: { min: 5, max: 50, step: 5 } },
     { name: 'wb-transition', description: 'Transition CSS for transform', default: 'transform 200ms linear', inputType: 'text' }
   ],
   example: {
     title: '3D Card Hover',
     code: `
-      <div id="card-hover-3d" wb-component="3d-card-hover" wb-perspective="1000" wb-rotate-divisor="25" class="w-[280px] rounded-xl bg-card border border-border flex flex-col items-start p-6 justify-start gap-4">
+      <div id="card-hover-3d" wb-component="3d-card-hover" wb-perspective="800" wb-rotate-divisor="15" class="w-[280px] rounded-xl bg-card border border-border flex flex-col items-start p-6 justify-start gap-4">
         <p>Hover me</p>
         <img src="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?q=80&w=2560&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Placeholder" class="w-full h-[200px]">
       </div>`,
