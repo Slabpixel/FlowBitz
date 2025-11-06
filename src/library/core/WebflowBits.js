@@ -364,12 +364,6 @@ class WebflowBits {
       if (tooltipTextConflicts) {
         allConflicts.push(...tooltipTextConflicts);
       }
-
-      // Check Shuffle conflicts
-      const shuffleConflicts = shuffleAnimator.checkForConflicts();
-      if (shuffleConflicts) {
-        allConflicts.push(...shuffleConflicts);
-      }
       
       if (allConflicts.length > 0) {
         document.dispatchEvent(new CustomEvent('webflow-bits-conflicts', {
@@ -893,16 +887,6 @@ class WebflowBits {
 
               outlineGradientElements.forEach(element => {
                 outlineGradientAnimator.initElement(element);
-                shouldRefresh = true;
-              });
-
-              // Check for wb-text-animate="shuffle" elements
-              const shuffleElements = node.matches?.('[wb-text-animate="shuffle"]')
-                ? [node]
-                : Array.from(node.querySelectorAll?.('[wb-text-animate="shuffle"]') || []);
-
-              shuffleElements.forEach(element => {
-                shuffleAnimator.initElement(element);
                 shouldRefresh = true;
               });
             }
