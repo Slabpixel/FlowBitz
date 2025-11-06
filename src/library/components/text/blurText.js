@@ -326,10 +326,6 @@ class BlurTextAnimator {
       // Apply performance optimizations
       PerformanceOptimizer.optimizeForAnimation(instance.domStructure.segments);
       
-      // Remove FOUC prevention CSS from parent - GSAP will handle segment opacity
-      // Set parent to visible since segments will be animated
-      gsap.set(element, { opacity: 1 });
-      
       // Setup animation based on triggerOnView setting
       if (config.triggerOnView) {
         this.setupIntersectionObserver(instance);
