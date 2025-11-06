@@ -30,6 +30,7 @@ const Navbar = () => {
             className="flex items-center gap-2 transition-opacity duration-200 hover:opacity-80"
           >
             <Logo className="h-6 w-auto" />
+            <span className="text-xs text-muted-foreground">v{process.env.REACT_APP_VERSION || '1.0.0'}</span>
           </button>
         </div>
         <div className={`nav-menu ${isMenuOpen ? 'active' : ''} hidden md:flex items-center gap-1`} id="nav-menu">
