@@ -55,8 +55,12 @@ class SmartAnimate {
       gsap.set(child, initialProps)
     })
     
-    // GSAP's inline styles will now override the FOUC prevention CSS
-    // No need to manually remove CSS - GSAP handles it
+    // Remove FOUC prevention CSS override after GSAP sets initial state
+    // GSAP's inline styles will take precedence now
+    if (this.element.style.opacity === '0' && this.element.style.opacity !== '') {
+      // Only remove if it's still the default, GSAP will set it properly
+      this.element.style.removeProperty('opacity')
+    }
   }
 
   setupIntersectionObserver() {

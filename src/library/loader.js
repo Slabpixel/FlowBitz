@@ -20,33 +20,7 @@
  */
 (function() {
   if (typeof document === 'undefined' || typeof window === 'undefined') return;
-  
-  // Check if already injected (prevents duplicate injection in module systems)
-  if (document.getElementById('flowbitz-fouc-prevention')) return;
-  
-  // CSS to hide elements that will be animated by GSAP
-  // Note: We don't use !important so GSAP's inline styles can override it
-  const foucPreventionCSS = `
-    /* FlowBitz - FOUC Prevention Styles */
-    /* Hide elements that use GSAP opacity animations until JS initializes */
-    /* GSAP's inline styles will override this CSS once it sets initial states */
-    
-    /* Smart Animate - hides parent and children until GSAP sets initial state */
-    [wb-component="smart-animate"] {
-      opacity: 0;
-    }
-    
-    /* Split Text - hide parent until split elements are created and animated */
-    [wb-component="split-text"] {
-      opacity: 0;
-    }
-    
-    /* Blur Text - hide parent until segments are created and animated */
-    [wb-component="blur-text"] {
-      opacity: 0;
-    }
-  `;
-  
+
   // Inject CSS synchronously at the very beginning of <head>
   const style = document.createElement('style');
   style.id = 'flowbitz-fouc-prevention';

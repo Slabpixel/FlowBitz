@@ -251,6 +251,10 @@ class WebflowBits {
         this.initOutlineGradientAnimate(config.debug);
       }
 
+      if (config.components.includes('shuffle')) {
+        this.initShuffle(config.debug);
+      }
+
       // Setup mutation observer for dynamic content if autoInit is enabled
       if (config.autoInit) {
         this.setupMutationObserver(config.debug);
@@ -648,6 +652,20 @@ class WebflowBits {
       }
     } catch (error) {
       console.error('WebflowBits: Failed to initialize Outline Gradient Animate', error);
+    }
+  }
+
+  /**
+   * Initialize Shuffle component
+   */
+  initShuffle(debug = false) {
+    try {
+      shuffleAnimator.initAll();
+      if (debug) {
+        console.log('WebflowBits: Shuffle initialized');
+      }
+    } catch (error) {
+      console.error('WebflowBits: Failed to initialize Shuffle', error);
     }
   }
 
@@ -1295,6 +1313,25 @@ class WebflowBits {
   }
 
   /**
+   * Manually initialize Shuffle on specific elements
+   * @param {string|NodeList|Element} selector - CSS selector or DOM elements
+   */
+  initShuffleOn(selector) {
+    const elements = typeof selector === 'string' 
+      ? document.querySelectorAll(selector)
+      : selector.nodeType ? [selector] : selector;
+    
+    Array.from(elements).forEach(element => {
+      if (element.getAttribute('wb-text-animate') === 'shuffle') {
+        shuffleAnimator.initElement(element);
+      }
+    });
+
+    shuffleAnimator.refresh();
+    return this;
+  }
+
+  /**
    * Destroy all components and observers
    */
   destroy() {
@@ -1357,6 +1394,9 @@ class WebflowBits {
 
     // Destroy OutlineGradientAnimate animations
     outlineGradientAnimator.destroyAll();
+
+    // Destroy Shuffle animations
+    shuffleAnimator.destroyAll();
 
     // Disconnect observers
     this.observers.forEach(observer => observer.disconnect());
