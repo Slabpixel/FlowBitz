@@ -270,10 +270,6 @@ class SplitTextAnimator {
       immediateRender: false, 
       force3D: true 
     });
-    
-    // Remove FOUC prevention CSS from parent - GSAP will handle child opacity
-    // Set parent to visible since children will be animated
-    gsap.set(element, { opacity: 1 });
 
     if (config.triggerOnView) {
       // Use IntersectionObserver like smartAnimate

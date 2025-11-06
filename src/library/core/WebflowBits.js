@@ -38,58 +38,6 @@ import outlineGradientAnimator from '../components/effect/outlineGradientAnimate
 import { setupScrollTriggerResize } from '../utils/animation/scrollTriggerHelper.js';
 
 /**
- * ⚡ FOUC Prevention - Inject CSS synchronously to prevent Flash of Unstyled Content
- * This must run immediately when the script loads, before any component initialization
- * 
- * Components that use GSAP opacity animations need to be hidden until JS sets initial states.
- * This prevents content from flashing visible before animations are ready.
- */
-(function() {
-  if (typeof document === 'undefined' || typeof window === 'undefined') return;
-  
-  // Check if already injected (prevents duplicate injection in module systems)
-  if (document.getElementById('flowbitz-fouc-prevention')) return;
-  
-  // CSS to hide elements that will be animated by GSAP
-  // Note: We don't use !important so GSAP's inline styles can override it
-  const foucPreventionCSS = `
-    /* FlowBitz - FOUC Prevention Styles */
-    /* Hide elements that use GSAP opacity animations until JS initializes */
-    /* GSAP's inline styles will override this CSS once it sets initial states */
-    
-    /* Smart Animate - hides parent and children until GSAP sets initial state */
-    [wb-component="smart-animate"] {
-      opacity: 0;
-    }
-    
-    /* Split Text - hide parent until split elements are created and animated */
-    [wb-component="split-text"] {
-      opacity: 0;
-    }
-    
-    /* Blur Text - hide parent until segments are created and animated */
-    [wb-component="blur-text"] {
-      opacity: 0;
-    }
-  `;
-  
-  // Inject CSS synchronously at the very beginning of <head>
-  const style = document.createElement('style');
-  style.id = 'flowbitz-fouc-prevention';
-  style.textContent = foucPreventionCSS;
-  
-  // Insert at the very beginning of head for maximum priority
-  const head = document.head || document.getElementsByTagName('head')[0];
-  if (head) {
-    if (head.firstChild) {
-      head.insertBefore(style, head.firstChild);
-    } else {
-      head.appendChild(style);
-    }
-  }
-})();
-
-/**
  * Main WebflowBits class for CDN usage
  */
 class WebflowBits {
@@ -249,6 +197,10 @@ class WebflowBits {
 
       if (config.components.includes('outlineGradient')) {
         this.initOutlineGradientAnimate(config.debug);
+      }
+
+      if (config.components.includes('shuffle')) {
+        this.initShuffle(config.debug);
       }
 
       // Setup mutation observer for dynamic content if autoInit is enabled
@@ -648,6 +600,20 @@ class WebflowBits {
       }
     } catch (error) {
       console.error('WebflowBits: Failed to initialize Outline Gradient Animate', error);
+    }
+  }
+
+  /**
+   * Initialize Shuffle component
+   */
+  initShuffle(debug = false) {
+    try {
+      shuffleAnimator.initAll();
+      if (debug) {
+        console.log('WebflowBits: Shuffle initialized');
+      }
+    } catch (error) {
+      console.error('WebflowBits: Failed to initialize Shuffle', error);
     }
   }
 
@@ -1295,6 +1261,25 @@ class WebflowBits {
   }
 
   /**
+   * Manually initialize Shuffle on specific elements
+   * @param {string|NodeList|Element} selector - CSS selector or DOM elements
+   */
+  initShuffleOn(selector) {
+    const elements = typeof selector === 'string' 
+      ? document.querySelectorAll(selector)
+      : selector.nodeType ? [selector] : selector;
+    
+    Array.from(elements).forEach(element => {
+      if (element.getAttribute('wb-text-animate') === 'shuffle') {
+        shuffleAnimator.initElement(element);
+      }
+    });
+
+    shuffleAnimator.refresh();
+    return this;
+  }
+
+  /**
    * Destroy all components and observers
    */
   destroy() {
@@ -1357,6 +1342,9 @@ class WebflowBits {
 
     // Destroy OutlineGradientAnimate animations
     outlineGradientAnimator.destroyAll();
+
+    // Destroy Shuffle animations
+    shuffleAnimator.destroyAll();
 
     // Disconnect observers
     this.observers.forEach(observer => observer.disconnect());
