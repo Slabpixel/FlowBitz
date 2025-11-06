@@ -435,7 +435,7 @@ class OutlineGradientAnimator {
    * Initialize all elements with wb-component="outline-gradient-animate"
    */
   initAll() {
-    const elements = document.querySelectorAll('[wb-component="outline-gradient-animate"]')
+    const elements = document.querySelectorAll('[wb-component="outline-gradient"]')
     elements.forEach(element => this.initElement(element))
   }
 

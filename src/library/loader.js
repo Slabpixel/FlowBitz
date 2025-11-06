@@ -100,7 +100,7 @@ const COMPONENT_LOADERS = {
   // Effect components
   'smart-animate': () => import('./components/effect/smartAnimate.js'),
   '3d-card-hover': () => import('./components/effect/3dCardHover.js'),
-  'outline-gradient-animate': () => import('./components/effect/outlineGradientAnimate.js'),
+  'outline-gradient': () => import('./components/effect/outlineGradientAnimate.js'),
 };
 
 /**

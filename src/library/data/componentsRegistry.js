@@ -92,7 +92,7 @@ export const getComponentFileName = (componentName) => {
     'tooltip-text': 'tooltipText',
     'roll-text': 'rollText',
     'smart-animate': 'effect/smartAnimate',
-    'outline-gradient-animate': 'effect/outlineGradientAnimate'
+    'outline-gradient': 'effect/outlineGradientAnimate'
   }
 
   return componentMap[componentName] || null

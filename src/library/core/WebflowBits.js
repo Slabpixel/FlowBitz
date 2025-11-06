@@ -67,7 +67,7 @@ class WebflowBits {
       smartAnimate: smartAnimateAnimator,
       rollText: rollTextAnimator,
       cardHover3d: CardHover3DAnimator,
-      outlineGradientAnimate: outlineGradientAnimator,
+      outlineGradient: outlineGradientAnimator,
     };
   }
 
@@ -84,7 +84,7 @@ class WebflowBits {
     const config = {
       autoInit: true,
       debug: false,
-      components: ['splitText', 'textType', 'blurText', 'shinyText', 'gradientText', 'gradientButton', 'rippleButton', 'pulseButton', 'decryptedText', 'scrambleText', 'variableProximity', 'countUp', 'rotatingText', 'textPressure', 'magnet', 'shuffle', 'tooltipText', 'rollText', 'cardHover3d', 'outlineGradientAnimate'],
+      components: ['splitText', 'textType', 'blurText', 'shinyText', 'gradientText', 'gradientButton', 'rippleButton', 'pulseButton', 'decryptedText', 'scrambleText', 'variableProximity', 'countUp', 'rotatingText', 'textPressure', 'magnet', 'shuffle', 'tooltipText', 'rollText', 'cardHover3d', 'outlineGradient'],
       ...options
     };
 
@@ -195,7 +195,7 @@ class WebflowBits {
         this.initCardHover3d(config.debug);
       }
 
-      if (config.components.includes('outlineGradientAnimate')) {
+      if (config.components.includes('outlineGradient')) {
         this.initOutlineGradientAnimate(config.debug);
       }
 
@@ -810,10 +810,10 @@ class WebflowBits {
                 shouldRefresh = true;
               });
 
-              // Check for wb-component="outline-gradient-animate" elements
-              const outlineGradientElements = node.matches?.('[wb-component="outline-gradient-animate"]')
+              // Check for wb-component="outline-gradient" elements
+              const outlineGradientElements = node.matches?.('[wb-component="outline-gradient"]')
                 ? [node]
-                : Array.from(node.querySelectorAll?.('[wb-component="outline-gradient-animate"]') || []);
+                : Array.from(node.querySelectorAll?.('[wb-component="outline-gradient"]') || []);
 
               outlineGradientElements.forEach(element => {
                 outlineGradientAnimator.initElement(element);
@@ -1233,7 +1233,7 @@ class WebflowBits {
       : selector.nodeType ? [selector] : selector;
     
     Array.from(elements).forEach(element => {
-      if (element.getAttribute('wb-component') === 'outline-gradient-animate') {
+      if (element.getAttribute('wb-component') === 'outline-gradient') {
         outlineGradientAnimator.initElement(element);
       }
     });

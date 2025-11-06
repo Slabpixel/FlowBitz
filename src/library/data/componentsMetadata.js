@@ -1363,8 +1363,8 @@ export const componentsMetadata = {
   }
 },
 
-'outline-gradient-animate': {
-  name: 'Outline Gradient Animate',
+'outline-gradient': {
+  name: 'Outline Gradient',
   description: 'Animated rotating gradient border effect using pure CSS',
   category: 'effect',
   file: 'outlineGradientAnimate.js',
@@ -1373,7 +1373,7 @@ export const componentsMetadata = {
     { 
       name: 'wb-component', 
       description: 'Enable outline gradient animation', 
-      default: 'outline-gradient-animate',
+      default: 'outline-gradient',
       inputType: 'text',
       required: true
     },
@@ -1424,13 +1424,10 @@ export const componentsMetadata = {
     }
   ],
   example: {
-    title: 'Outline Gradient Animate',
+    title: 'Outline Gradient',
     code: `<div 
-  wb-component="outline-gradient-animate" 
-  wb-speed="8" 
-  wb-hover-accelerate="true"
+  wb-component="outline-gradient" 
   wb-colors="#833AB4 0%, #FD1D1D 50%, #FCB045 100%"
-  wb-border-width="2"
   class="rounded-3xl bg-gradient-to-br from-slate-900 to-slate-800 flex items-center justify-center relative"
   style="width: 200px; height: 200px;"
 >
