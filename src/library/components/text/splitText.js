@@ -33,6 +33,7 @@ const componentCSS = `
 .wb-split-char {
   display: inline-block;
   will-change: transform, opacity;
+  visibility: hidden;
 }
 
 .wb-split-line {
@@ -78,8 +79,8 @@ class SplitTextAnimator {
       duration: 0.6,
       threshold: 0.1,
       rootMargin: "100px",
-      from: { opacity: 0, y: 40 },
-      to: { opacity: 1, y: 0 }
+      from: { autoAlpha: 0, y: 40 },
+      to: { autoAlpha: 1, y: 0 }
     };
     
   }

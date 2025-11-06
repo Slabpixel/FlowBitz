@@ -60,6 +60,7 @@ const componentCSS = `
   font-weight: inherit;
   line-height: inherit;
   vertical-align: baseline;
+  visibility: hidden;
 }
 
 .wb-rotating-text-space {
@@ -323,7 +324,7 @@ class RotatingTextAnimator {
   setTextDirectly(instance, text) {
     this.clearContainer(instance);
     this.createTextElements(instance, text);
-    gsap.set(instance.splitElements, { y: 0, opacity: 1 });
+    gsap.set(instance.splitElements, { y: 0, autoAlpha: 1 });
   }
 
   /**
@@ -344,7 +345,7 @@ class RotatingTextAnimator {
         const delay = this.getStaggerDelay(instance, index, exitElements.length);
         gsap.to(element, {
           y: '-100%',
-          opacity: 0,
+          autoAlpha: 0,
           duration: exitDuration,
           ease: instance.config.ease,
           delay: delay
@@ -359,14 +360,14 @@ class RotatingTextAnimator {
       this.createTextElements(instance, newText);
       
       // Set initial state
-      gsap.set(instance.splitElements, { y: '100%', opacity: 0 });
+      gsap.set(instance.splitElements, { y: '100%', autoAlpha: 0 });
       
       // Enter animation
       instance.splitElements.forEach((element, index) => {
         const delay = this.getStaggerDelay(instance, index, instance.splitElements.length);
         gsap.to(element, {
           y: 0,
-          opacity: 1,
+          autoAlpha: 1,
           duration: instance.config.duration,
           ease: instance.config.ease,
           delay: delay

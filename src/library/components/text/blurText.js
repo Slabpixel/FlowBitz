@@ -22,6 +22,7 @@ const componentCSS = `
 .wb-blur-text__segment {
   display: inline-block;
   will-change: transform, filter, opacity;
+  visibility: hidden;
 }
 
 /* Performance optimization during animation */
@@ -245,18 +246,18 @@ class BlurTextAnimator {
     
     // Define animation states based on direction
     const fromState = config.direction === 'top'
-      ? { filter: 'blur(10px)', opacity: 0, y: -50 }
-      : { filter: 'blur(10px)', opacity: 0, y: 50 };
+      ? { filter: 'blur(10px)', autoAlpha: 0, y: -50 }
+      : { filter: 'blur(10px)', autoAlpha: 0, y: 50 };
 
     const midState = {
       filter: 'blur(5px)',
-      opacity: 0.5,
+      autoAlpha: 0.5,
       y: config.direction === 'top' ? 5 : -5,
     };
 
     const toState = { 
       filter: 'blur(0px)', 
-      opacity: 1, 
+      autoAlpha: 1, 
       y: 0 
     };
 
@@ -287,7 +288,7 @@ class BlurTextAnimator {
       // First animation step: from initial to mid state
       segmentTimeline.to(segment, {
         filter: midState.filter,
-        opacity: midState.opacity,
+        autoAlpha: midState.autoAlpha,
         y: midState.y,
         duration: config.stepDuration,
         ease: config.ease,
@@ -297,7 +298,7 @@ class BlurTextAnimator {
       // Second animation step: from mid to final state
       segmentTimeline.to(segment, {
         filter: toState.filter,
-        opacity: toState.opacity,
+        autoAlpha: toState.autoAlpha,
         y: toState.y,
         duration: config.stepDuration,
         ease: config.ease
@@ -324,7 +325,7 @@ class BlurTextAnimator {
     // Clean up and set final state
     gsap.set(instance.domStructure.segments, {
       filter: 'blur(0px)',
-      opacity: 1,
+      autoAlpha: 1,
       y: 0,
       clearProps: 'willChange',
       immediateRender: true,
