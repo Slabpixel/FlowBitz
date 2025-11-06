@@ -32,6 +32,7 @@ import magnetAnimator from '../components/button/magneticButton.js';
 /* Effect Components */
 import smartAnimateAnimator from '../components/effect/smartAnimate.js';
 import CardHover3DAnimator from '../components/effect/3dCardHover.js';
+import outlineGradientAnimator from '../components/effect/outlineGradientAnimate.js';
 
 /* Utils */
 import { setupScrollTriggerResize } from '../utils/animation/scrollTriggerHelper.js';
@@ -66,6 +67,7 @@ class WebflowBits {
       smartAnimate: smartAnimateAnimator,
       rollText: rollTextAnimator,
       cardHover3d: CardHover3DAnimator,
+      outlineGradientAnimate: outlineGradientAnimator,
     };
   }
 
@@ -82,7 +84,7 @@ class WebflowBits {
     const config = {
       autoInit: true,
       debug: false,
-      components: ['splitText', 'textType', 'blurText', 'shinyText', 'gradientText', 'gradientButton', 'rippleButton', 'pulseButton', 'decryptedText', 'scrambleText', 'variableProximity', 'countUp', 'rotatingText', 'textPressure', 'magnet', 'shuffle', 'tooltipText', 'rollText', 'cardHover3d'],
+      components: ['splitText', 'textType', 'blurText', 'shinyText', 'gradientText', 'gradientButton', 'rippleButton', 'pulseButton', 'decryptedText', 'scrambleText', 'variableProximity', 'countUp', 'rotatingText', 'textPressure', 'magnet', 'shuffle', 'tooltipText', 'rollText', 'cardHover3d', 'outlineGradientAnimate'],
       ...options
     };
 
@@ -191,6 +193,10 @@ class WebflowBits {
 
       if (config.components.includes('cardHover3d')) {
         this.initCardHover3d(config.debug);
+      }
+
+      if (config.components.includes('outlineGradientAnimate')) {
+        this.initOutlineGradientAnimate(config.debug);
       }
 
       // Setup mutation observer for dynamic content if autoInit is enabled
@@ -580,6 +586,20 @@ class WebflowBits {
   }
 
   /**
+   * Initialize Outline Gradient Animate component
+   */
+  initOutlineGradientAnimate(debug = false) {
+    try {
+      outlineGradientAnimator.initAll();
+      if (debug) {
+        console.log('WebflowBits: Outline Gradient Animate initialized');
+      }
+    } catch (error) {
+      console.error('WebflowBits: Failed to initialize Outline Gradient Animate', error);
+    }
+  }
+
+  /**
    * Setup mutation observer to handle dynamically added content
    */
   setupMutationObserver(debug = false) {
@@ -789,6 +809,16 @@ class WebflowBits {
                 CardHover3DAnimator.initElement(element);
                 shouldRefresh = true;
               });
+
+              // Check for wb-component="outline-gradient-animate" elements
+              const outlineGradientElements = node.matches?.('[wb-component="outline-gradient-animate"]')
+                ? [node]
+                : Array.from(node.querySelectorAll?.('[wb-component="outline-gradient-animate"]') || []);
+
+              outlineGradientElements.forEach(element => {
+                outlineGradientAnimator.initElement(element);
+                shouldRefresh = true;
+              });
             }
           });
         }
@@ -812,6 +842,7 @@ class WebflowBits {
           shuffleAnimator.refresh();
           tooltipTextAnimator.refresh();
           rollTextAnimator.refresh();
+          outlineGradientAnimator.refresh();
         }, 100);
       }
     });
@@ -1193,6 +1224,25 @@ class WebflowBits {
   }
 
   /**
+   * Manually initialize OutlineGradientAnimate on specific elements
+   * @param {string|NodeList|Element} selector - CSS selector or DOM elements
+   */
+  initOutlineGradientAnimateOn(selector) {
+    const elements = typeof selector === 'string' 
+      ? document.querySelectorAll(selector)
+      : selector.nodeType ? [selector] : selector;
+    
+    Array.from(elements).forEach(element => {
+      if (element.getAttribute('wb-component') === 'outline-gradient-animate') {
+        outlineGradientAnimator.initElement(element);
+      }
+    });
+
+    outlineGradientAnimator.refresh();
+    return this;
+  }
+
+  /**
    * Destroy all components and observers
    */
   destroy() {
@@ -1253,6 +1303,9 @@ class WebflowBits {
     // Destroy CardHover3D animations
     CardHover3DAnimator.destroyAll();
 
+    // Destroy OutlineGradientAnimate animations
+    outlineGradientAnimator.destroyAll();
+
     // Disconnect observers
     this.observers.forEach(observer => observer.disconnect());
     this.observers = [];
@@ -1288,6 +1341,7 @@ class WebflowBits {
     shuffleAnimator.refresh();
     tooltipTextAnimator.refresh();
     rollTextAnimator.refresh();
+    outlineGradientAnimator.refresh();
     return this;
   }
 

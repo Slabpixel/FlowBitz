@@ -32,7 +32,8 @@ export const loadComponent = async (componentName) => {
       'shuffle': 'shuffle',
       'tooltip-text': 'tooltipText',
       'roll-text': 'rollText',
-      'smart-animate': 'effect/smartAnimate'
+      'smart-animate': 'effect/smartAnimate',
+      'outline-gradient-animate': 'effect/outlineGradientAnimate'
     }
 
     const fileName = componentMap[componentName]
@@ -90,7 +91,8 @@ export const getComponentFileName = (componentName) => {
     'shuffle': 'shuffle',
     'tooltip-text': 'tooltipText',
     'roll-text': 'rollText',
-    'smart-animate': 'effect/smartAnimate'
+    'smart-animate': 'effect/smartAnimate',
+    'outline-gradient-animate': 'effect/outlineGradientAnimate'
   }
 
   return componentMap[componentName] || null

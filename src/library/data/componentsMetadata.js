@@ -1363,6 +1363,83 @@ export const componentsMetadata = {
   }
 },
 
+'outline-gradient-animate': {
+  name: 'Outline Gradient Animate',
+  description: 'Animated rotating gradient border effect using pure CSS',
+  category: 'effect',
+  file: 'outlineGradientAnimate.js',
+  installationNotes: 'Works with any block-level element like <div>, <button>, etc. The component creates an animated gradient border that rotates smoothly using CSS @property. Make sure to apply position: relative or position: absolute to the element.',
+  attributes: [
+    { 
+      name: 'wb-component', 
+      description: 'Enable outline gradient animation', 
+      default: 'outline-gradient-animate',
+      inputType: 'text',
+      required: true
+    },
+    { 
+      name: 'wb-speed', 
+      description: 'Animation speed in seconds (default: 8s)', 
+      default: '8',
+      inputType: 'slider',
+      sliderConfig: { min: 1, max: 20, step: 0.5 }
+    },
+    { 
+      name: 'wb-hover-accelerate', 
+      description: 'Enable speed boost on hover', 
+      default: 'true',
+      inputType: 'toggle'
+    },
+    { 
+      name: 'wb-hover-speed-percentage', 
+      description: 'Hover speed as percentage of original (20% = 80% faster)', 
+      default: '20',
+      inputType: 'slider',
+      sliderConfig: { min: 5, max: 50, step: 5 }
+    },
+    { 
+      name: 'wb-colors', 
+      description: 'Gradient colors with stops. Supports multiple formats: "red, blue, green" or "#833AB4 0%, #FD1D1D 50%, #FCB045 100%". Colors will be evenly distributed if no percentages provided.', 
+      default: '#833AB4 0%, #FD1D1D 50%, #FCB045 100%',
+      inputType: 'text'
+    },
+    { 
+      name: 'wb-border-width', 
+      description: 'Border thickness in pixels', 
+      default: '2',
+      inputType: 'slider',
+      sliderConfig: { min: 1, max: 10, step: 1 }
+    },
+    { 
+      name: 'wb-paused', 
+      description: 'Start animation in paused state', 
+      default: 'false',
+      inputType: 'toggle'
+    },
+    { 
+      name: 'wb-disabled', 
+      description: 'Disable animation completely', 
+      default: 'false',
+      inputType: 'toggle'
+    }
+  ],
+  example: {
+    title: 'Outline Gradient Animate',
+    code: `<div 
+  wb-component="outline-gradient-animate" 
+  wb-speed="8" 
+  wb-hover-accelerate="true"
+  wb-colors="#833AB4 0%, #FD1D1D 50%, #FCB045 100%"
+  wb-border-width="2"
+  class="rounded-3xl bg-gradient-to-br from-slate-900 to-slate-800 flex items-center justify-center relative"
+  style="width: 200px; height: 200px;"
+>
+  <h2 class="text-3xl font-bold text-white">Gradient Border</h2>
+</div>`,
+    description: 'Smooth rotating gradient border that accelerates on hover. Works perfectly with rounded corners.'
+  }
+},
+
 }
 
 /**
