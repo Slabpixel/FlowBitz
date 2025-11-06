@@ -54,6 +54,9 @@ class SmartAnimate {
     this.children.forEach(child => {
       gsap.set(child, initialProps)
     })
+    
+    // GSAP's inline styles will now override the FOUC prevention CSS
+    // No need to manually remove CSS - GSAP handles it
   }
 
   setupIntersectionObserver() {
