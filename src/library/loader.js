@@ -14,29 +14,6 @@
  * @license MIT
  */
 
-/**
- * ⚡ FOUC Prevention - Inject CSS synchronously to prevent Flash of Unstyled Content
- * This must run immediately when the script loads, before any component initialization
- */
-(function() {
-  if (typeof document === 'undefined' || typeof window === 'undefined') return;
-
-  // Inject CSS synchronously at the very beginning of <head>
-  const style = document.createElement('style');
-  style.id = 'flowbitz-fouc-prevention';
-  style.textContent = foucPreventionCSS;
-  
-  // Insert at the very beginning of head for maximum priority
-  const head = document.head || document.getElementsByTagName('head')[0];
-  if (head) {
-    if (head.firstChild) {
-      head.insertBefore(style, head.firstChild);
-    } else {
-      head.appendChild(style);
-    }
-  }
-})();
-
 const VERSION = '2.1.2';
 const ATTR_PREFIX = 'wb-component';
 
