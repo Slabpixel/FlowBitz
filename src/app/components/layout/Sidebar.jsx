@@ -39,7 +39,7 @@ const Sidebar = ({ showBackLink = false }) => {
       <span>{component.name}</span>
       {component.newComponent && (
         <span
-          className={`rounded-full px-2 py-0 text-[10px] font-semibold uppercase tracking-wide border transition-colors ${
+          className={`rounded-sm px-1 py-0 text-[9px] font-bold uppercase border transition-colors ${
             isActive
               ? 'bg-white/20 text-white border-white/40'
               : 'bg-primary/15 text-primary border-primary/30'
