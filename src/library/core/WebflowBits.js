@@ -606,7 +606,7 @@ class WebflowBits {
   }
 
   /**
-   * Initialize Shuffle component
+   * Initialize Image Trail component
    */
   initImageTrail(debug = false) {
     try {
