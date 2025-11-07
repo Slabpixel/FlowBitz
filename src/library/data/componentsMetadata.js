@@ -1431,10 +1431,10 @@ export const componentsMetadata = {
       title: 'Outline Gradient',
       code: `<div 
     wb-component="outline-gradient" 
-    class="rounded-3xl bg-gradient-to-br from-slate-900 to-slate-800 flex items-center justify-center relative"
+    class="rounded-3xl flex items-center justify-center relative"
     style="width: 200px; height: 200px;"
   >
-    <h2 class="text-3xl font-bold text-white">Gradient Border</h2>
+    <h2 class="text-3xl font-bold">Gradient Border</h2>
   </div>`,
       description: 'Smooth rotating gradient border that accelerates on hover. Works perfectly with rounded corners.'
     }
@@ -1504,12 +1504,12 @@ export const componentsMetadata = {
       title: 'Image Trail Effect - Variant 1',
       code: `<div 
   wb-component="image-trail" 
-  wb-image-1="https://images.unsplash.com/photo-1579546929518-9e396f3cc809?w=300"
-  wb-image-2="https://images.unsplash.com/photo-1579546929662-711aa81148cf?w=300"
-  wb-image-3="https://images.unsplash.com/photo-1557804506-669a67965ba0?w=300"
+  wb-image-1="/images/img-1.webp"
+  wb-image-2="/images/img-2.webp"
+  wb-image-3="/images/img-3.webp"
   class="w-[800px] h-[400px] flex items-center justify-center"
 >
-  <h2 class="text-2xl font-bold text-white text-center pointer-events-none">
+  <h2 class="text-2xl font-bold text-center pointer-events-none">
     Move Your Mouse Here
   </h2>
 </div>`,
