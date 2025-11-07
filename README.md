@@ -29,7 +29,7 @@ FlowBitz is a powerful JavaScript library that brings professional-grade animati
 
 ## ✨ Features
 
-- **🎨 20 Components**: 14 text effects, 4 interactive buttons, and 2 component effect
+- **🎨 22 Components**: 14 text effects, 4 interactive buttons, and 4 component effect
 - **📝 Text Effects**: Split text, gradient effects, typewriter, blur transitions, count-up, and more
 - **🔘 Interactive Buttons**: Gradient, ripple, pulse, and magnetic button effects
 - **⚡ Zero Configuration**: Works out of the box with a single script tag
@@ -116,6 +116,8 @@ Simply add the `wb-component` attribute to any element in Webflow:
 |-----------|------|-------------|---------|
 | **Smart Animate** | ✅ | Intelligent scroll-based animations with GSAP | `wb-component="smart-animate"` |
 | **3D Hover Card** | ❌ | 3D tilt on hover animations | `wb-component="3d-card-hover"` |
+| **Outline Gradient** | ❌ | Animated gradient border (CSS only) | `wb-component="outline-gradient"` |
+| **Image Trail** | ✅ | Mouse-following image trail with variants | `wb-component="image-trail"` |
 
 **💡 Pro Tip:** Components marked with ❌ (5 total) don't require GSAP - use them for the lightest setup (just 15KB)!
 

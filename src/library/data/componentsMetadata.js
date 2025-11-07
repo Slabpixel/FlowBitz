@@ -925,6 +925,7 @@ export const componentsMetadata = {
   },
 
   'tooltip-text': {
+    newComponent: true,
     name: 'Tooltip Text',
     description: 'Hover tooltips for any text element with customizable positioning and styling',
     category: 'text',
@@ -1008,6 +1009,7 @@ export const componentsMetadata = {
   },
 
   'roll-text': {
+    newComponent: true,
     name: 'Roll Text',
     description: 'Vertical rolling text effect on hover by duplicating content and translating the container upward.',
     category: 'text',
@@ -1341,6 +1343,7 @@ export const componentsMetadata = {
   },
 
   '3d-card-hover': {
+    newComponent: true,
     name: '3D Card Hover',
     description: '3D tilt on hover effect with configurable perspective and rotation sensitivity',
     category: 'effect',
@@ -1364,6 +1367,7 @@ export const componentsMetadata = {
   },
 
   'outline-gradient': {
+    newComponent: true,
     name: 'Outline Gradient',
     description: 'Animated rotating gradient border effect using pure CSS',
     category: 'effect',
@@ -1438,6 +1442,7 @@ export const componentsMetadata = {
   },
 
   'image-trail': {
+    newComponent: true,
     name: 'Image Trail',
     description: 'Animated image trail effect following mouse movement with 8 different animation variants',
     category: 'effect',
@@ -1514,6 +1519,12 @@ export const componentsMetadata = {
     }
   },
 }
+
+Object.values(componentsMetadata).forEach((component) => {
+  if (typeof component.newComponent !== 'boolean') {
+    component.newComponent = false;
+  }
+});
 
 /**
  * Get all components grouped by category
