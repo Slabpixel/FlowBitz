@@ -1047,14 +1047,14 @@ export const componentsMetadata = {
       {
         name: 'wb-stagger',
         description: 'Required when using wb-split-by="chars" or wb-split-by="words", ensure the text contains at least two characters/words to display the staggered roll animation as intended.',
-        default: '0',
+        default: '0.05',
         inputType: 'slider',
         sliderConfig: { min: 0, max: 0.1, step: 0.01 }
       }
     ],
     example: {
       title: 'Roll Text Hover',
-      code: '<div wb-component="roll-text" wb-split-by="words" class="inline-block">\\n  <span>Hover me to roll</span>\\n</div>',
+      code: '<div wb-component="roll-text" class="inline-block">\\n  <span>Hover me to roll</span>\\n</div>',
       description: 'The content is duplicated and vertically rolled on hover; the duplicate line replaces the original.'
     }
   },
