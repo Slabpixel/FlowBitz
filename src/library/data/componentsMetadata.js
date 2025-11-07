@@ -1431,7 +1431,6 @@ export const componentsMetadata = {
       title: 'Outline Gradient',
       code: `<div 
     wb-component="outline-gradient" 
-    wb-colors="#833AB4 0%, #FD1D1D 50%, #FCB045 100%"
     class="rounded-3xl bg-gradient-to-br from-slate-900 to-slate-800 flex items-center justify-center relative"
     style="width: 200px; height: 200px;"
   >
@@ -1461,7 +1460,6 @@ export const componentsMetadata = {
         description: 'First image URL', 
         default: 'https://images.unsplash.com/photo-1579546929518-9e396f3cc809?w=300',
         inputType: 'text',
-        required: true
       },
       { 
         name: 'wb-image-2', 
@@ -1509,7 +1507,7 @@ export const componentsMetadata = {
   wb-image-1="https://images.unsplash.com/photo-1579546929518-9e396f3cc809?w=300"
   wb-image-2="https://images.unsplash.com/photo-1579546929662-711aa81148cf?w=300"
   wb-image-3="https://images.unsplash.com/photo-1557804506-669a67965ba0?w=300"
-  class="w-[400px] h-[400px] border border-[#bdbdbd] rounded-2xl flex items-center justify-center"
+  class="w-[800px] h-[400px] flex items-center justify-center"
 >
   <h2 class="text-2xl font-bold text-white text-center pointer-events-none">
     Move Your Mouse Here

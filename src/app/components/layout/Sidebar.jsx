@@ -35,11 +35,11 @@ const Sidebar = ({ showBackLink = false }) => {
   const currentLink = location.pathname
 
   const renderComponentLabel = (component, isActive) => (
-    <span className="flex w-full items-center justify-between gap-2">
+    <span className="flex w-full items-center gap-2">
       <span>{component.name}</span>
       {component.newComponent && (
         <span
-          className={`rounded-full px-2 py-[2px] text-[10px] font-semibold uppercase tracking-wide border transition-colors ${
+          className={`rounded-full px-2 py-0 text-[10px] font-semibold uppercase tracking-wide border transition-colors ${
             isActive
               ? 'bg-white/20 text-white border-white/40'
               : 'bg-primary/15 text-primary border-primary/30'
