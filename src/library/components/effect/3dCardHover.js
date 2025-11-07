@@ -166,8 +166,8 @@ class CardHover3DAnimator {
     this.componentName = '3d-card-hover';
     this.instances = new Map();
     this.defaultConfig = {
-      perspective: 1000,
-      rotateDivisor: 25,
+      perspective: 800,
+      rotateDivisor: 15,
       transition: 'transform 300ms linear'
     };
     this.attributeMap = mergeAttributeMaps({
