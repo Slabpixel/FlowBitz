@@ -1,11 +1,24 @@
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { injectStyles } from '../../utils/core/injectStyles.js';
-import { parseElementConfig, commonAttributeMaps, mergeAttributeMaps } from '../../utils/core/attributeParser.js';
-import { ComponentClassManager, webflowBitsClasses } from '../../utils/core/classManager.js';
-import { checkCSSConflicts, componentClassSets } from '../../utils/core/conflictDetector.js';
-import { createOnceAnimationConfig } from '../../utils/animation/scrollTriggerHelper.js';
-import { AnimationStateManager, PerformanceOptimizer } from '../../utils/animation/animationStateManager.js';
+import {
+  AnimationStateManager,
+  PerformanceOptimizer,
+} from "../../utils/animation/animationStateManager.js";
+import { createOnceAnimationConfig } from "../../utils/animation/scrollTriggerHelper.js";
+import {
+  commonAttributeMaps,
+  mergeAttributeMaps,
+  parseElementConfig,
+} from "../../utils/core/attributeParser.js";
+import {
+  ComponentClassManager,
+  webflowBitsClasses,
+} from "../../utils/core/classManager.js";
+import {
+  checkCSSConflicts,
+  componentClassSets,
+} from "../../utils/core/conflictDetector.js";
+import { injectStyles } from "../../utils/core/injectStyles.js";
 
 // Register GSAP plugins
 gsap.registerPlugin(ScrollTrigger);
@@ -21,7 +34,7 @@ const componentCSS = `
 .wb-blur-text__segment {
   display: inline-block;
   will-change: transform, filter, opacity;
-  opacity: 0;
+  visibility: hidden;
 }
 
 .wb-blur-text__space {
@@ -51,22 +64,22 @@ const componentCSS = `
 
 class BlurTextAnimator {
   constructor() {
-    this.instances = new Map()
+    this.instances = new Map();
     this.stylesInjected = false;
-    this.componentName = 'BlurText';
-    this.componentClasses = webflowBitsClasses.forComponent('blur-text');
+    this.componentName = "BlurText";
+    this.componentClasses = webflowBitsClasses.forComponent("blur-text");
     this.defaultConfig = {
-      animateBy: 'words', // words | letters
-      direction: 'top',   // top | bottom
-      delay: 200,         // delay between elements in ms
+      animateBy: "words", // words | letters
+      direction: "top", // top | bottom
+      delay: 200, // delay between elements in ms
       triggerOnView: true,
       threshold: 0.1,
-      rootMargin: '100px',
+      rootMargin: "100px",
       startDelay: 0,
       stepDuration: 0.35,
-      ease: "back.out(1.4)"
+      ease: "back.out(1.4)",
     };
-    
+
     // this.injectComponentStyles();
   }
 
@@ -75,19 +88,19 @@ class BlurTextAnimator {
    */
   injectComponentStyles() {
     if (this.stylesInjected) return;
-    
+
     try {
-      injectStyles('wb-blur-text-styles', componentCSS);
+      injectStyles("wb-blur-text-styles", componentCSS);
       this.stylesInjected = true;
-      console.log('WebflowBits: BlurText styles injected');
+      console.log("WebflowBits: BlurText styles injected");
     } catch (error) {
-      console.warn('WebflowBits: Failed to inject BlurText styles', error);
+      console.warn("WebflowBits: Failed to inject BlurText styles", error);
     }
   }
 
   /**
- * Ensure styles are injected when needed
- */
+   * Ensure styles are injected when needed
+   */
   ensureStylesInjected() {
     if (!this.stylesInjected) {
       this.injectComponentStyles();
@@ -98,27 +111,31 @@ class BlurTextAnimator {
    * Parse custom attributes from element using utility functions
    */
   parseConfig(element) {
-    const attributeMap = mergeAttributeMaps(
-      commonAttributeMaps.animation,
-      {
-        // BlurText-specific attributes
-        animateBy: { 
-          attribute: 'wb-animate-by', 
-          type: 'string', 
-          validValues: ['words', 'chars'] 
-        },
-        direction: { 
-          attribute: 'wb-direction', 
-          type: 'string', 
-          validValues: ['top', 'bottom'] 
-        },
-        delay: { attribute: 'wb-delay', type: 'delay' },
-        triggerOnView: { attribute: 'wb-trigger-on-view', type: 'boolean' },
-        rootMargin: { attribute: 'wb-root-margin', type: 'string' },
-        startDelay: { attribute: 'wb-start-delay', type: 'number', parser: parseFloat, min: 0, max: 2, step: 0.1 }
-      }
-    );
-    
+    const attributeMap = mergeAttributeMaps(commonAttributeMaps.animation, {
+      // BlurText-specific attributes
+      animateBy: {
+        attribute: "wb-animate-by",
+        type: "string",
+        validValues: ["words", "chars"],
+      },
+      direction: {
+        attribute: "wb-direction",
+        type: "string",
+        validValues: ["top", "bottom"],
+      },
+      delay: { attribute: "wb-delay", type: "delay" },
+      triggerOnView: { attribute: "wb-trigger-on-view", type: "boolean" },
+      rootMargin: { attribute: "wb-root-margin", type: "string" },
+      startDelay: {
+        attribute: "wb-start-delay",
+        type: "number",
+        parser: parseFloat,
+        min: 0,
+        max: 2,
+        step: 0.1,
+      },
+    });
+
     return parseElementConfig(element, this.defaultConfig, attributeMap);
   }
 
@@ -128,13 +145,13 @@ class BlurTextAnimator {
   applyComponentClasses(element, config) {
     const classesToApply = [
       this.componentClasses.parent,
-      this.componentClasses.animating
+      this.componentClasses.animating,
     ];
-    
+
     ComponentClassManager.applyClasses(
-      element, 
-      classesToApply, 
-      this.instances, 
+      element,
+      classesToApply,
+      this.instances,
       this.componentName
     );
   }
@@ -146,13 +163,13 @@ class BlurTextAnimator {
     const fallbackClasses = [
       this.componentClasses.parent,
       this.componentClasses.animating,
-      this.componentClasses.completed
+      this.componentClasses.completed,
     ];
-    
+
     ComponentClassManager.removeClasses(
-      element, 
-      fallbackClasses, 
-      this.instances, 
+      element,
+      fallbackClasses,
+      this.instances,
       this.componentName
     );
   }
@@ -163,40 +180,41 @@ class BlurTextAnimator {
   createDOMStructure(element, config) {
     const originalContent = element.innerHTML;
     const text = element.textContent.trim();
-    
+
     // Split text based on configuration
-    const elements = config.animateBy === 'words' ? text.split(' ') : text.split('');
-    
+    const elements =
+      config.animateBy === "words" ? text.split(" ") : text.split("");
+
     // Clear only the content of this element, not affecting parent structure
-    element.innerHTML = '';
-    
+    element.innerHTML = "";
+
     // Create segments
     const segments = [];
-    
+
     elements.forEach((segment, index) => {
-      if (config.animateBy === 'words') {
+      if (config.animateBy === "words") {
         // Create word span
-        const wordSpan = document.createElement('span');
-        wordSpan.className = 'wb-blur-text__segment';
+        const wordSpan = document.createElement("span");
+        wordSpan.className = "wb-blur-text__segment";
         wordSpan.textContent = segment;
         element.appendChild(wordSpan);
         segments.push(wordSpan);
-        
+
         // Add space span if not the last word
         if (index < elements.length - 1) {
-          const spaceSpan = document.createElement('span');
-          spaceSpan.className = 'wb-blur-text__space';
-          spaceSpan.textContent = ' ';
-          spaceSpan.style.display = 'inline'; // Ensure spaces are visible
+          const spaceSpan = document.createElement("span");
+          spaceSpan.className = "wb-blur-text__space";
+          spaceSpan.textContent = " ";
+          spaceSpan.style.display = "inline"; // Ensure spaces are visible
           element.appendChild(spaceSpan);
           // Don't add space spans to segments array as they don't need animation
         }
       } else {
         // For characters, handle spaces properly
-        const charSpan = document.createElement('span');
-        charSpan.className = 'wb-blur-text__segment';
-        if (segment === ' ') {
-          charSpan.innerHTML = '&nbsp;';
+        const charSpan = document.createElement("span");
+        charSpan.className = "wb-blur-text__segment";
+        if (segment === " ") {
+          charSpan.innerHTML = "&nbsp;";
         } else {
           charSpan.textContent = segment;
         }
@@ -208,7 +226,7 @@ class BlurTextAnimator {
     return {
       originalContent,
       segments,
-      elements
+      elements,
     };
   }
 
@@ -218,9 +236,10 @@ class BlurTextAnimator {
   isElementInView(element, config) {
     const rect = element.getBoundingClientRect();
     const rootMargin = parseInt(config.rootMargin) || 200;
-    
-    return rect.top < window.innerHeight + rootMargin && 
-           rect.bottom > -rootMargin;
+
+    return (
+      rect.top < window.innerHeight + rootMargin && rect.bottom > -rootMargin
+    );
   }
 
   /**
@@ -228,22 +247,23 @@ class BlurTextAnimator {
    */
   startAnimationImmediately(instance) {
     const { element, config, domStructure } = instance;
-    
+
     // Define animation states based on direction
-    const fromState = config.direction === 'top'
-      ? { filter: 'blur(10px)', opacity: 0, y: -50 }
-      : { filter: 'blur(10px)', opacity: 0, y: 50 };
+    const fromState =
+      config.direction === "top"
+        ? { filter: "blur(10px)", autoAlpha: 0, y: -50 }
+        : { filter: "blur(10px)", autoAlpha: 0, y: 50 };
 
     const midState = {
-      filter: 'blur(5px)',
-      opacity: 0.5,
-      y: config.direction === 'top' ? 5 : -5,
+      filter: "blur(5px)",
+      autoAlpha: 0.5,
+      y: config.direction === "top" ? 5 : -5,
     };
 
-    const toState = { 
-      filter: 'blur(0px)', 
-      opacity: 1, 
-      y: 0 
+    const toState = {
+      filter: "blur(0px)",
+      autoAlpha: 1,
+      y: 0,
     };
 
     // Set initial state for all segments
@@ -253,31 +273,35 @@ class BlurTextAnimator {
     const timeline = gsap.timeline({
       onComplete: () => {
         this.completeAnimation(instance);
-      }
+      },
     });
 
     // Animate each segment with stagger
     domStructure.segments.forEach((segment, index) => {
       const segmentTimeline = gsap.timeline();
-      
+
       // First animation step: from initial to mid state
       segmentTimeline.to(segment, {
         filter: midState.filter,
-        opacity: midState.opacity,
+        autoAlpha: midState.autoAlpha,
         y: midState.y,
         duration: config.stepDuration,
         ease: config.ease,
-        delay: (index * config.delay) / 1000
+        delay: (index * config.delay) / 1000,
       });
-      
+
       // Second animation step: from mid to final state
-      segmentTimeline.to(segment, {
-        filter: toState.filter,
-        opacity: toState.opacity,
-        y: toState.y,
-        duration: config.stepDuration,
-        ease: config.ease
-      }, `-=${config.stepDuration * 0.3}`); // Overlap animations slightly
+      segmentTimeline.to(
+        segment,
+        {
+          filter: toState.filter,
+          autoAlpha: toState.autoAlpha,
+          y: toState.y,
+          duration: config.stepDuration,
+          ease: config.ease,
+        },
+        `-=${config.stepDuration * 0.3}`
+      ); // Overlap animations slightly
 
       timeline.add(segmentTimeline, 0);
     });
@@ -292,17 +316,17 @@ class BlurTextAnimator {
     this.ensureStylesInjected();
 
     if (!element || !element.textContent.trim()) {
-      console.warn('WebflowBits BlurText: Element is empty or invalid');
+      console.warn("WebflowBits BlurText: Element is empty or invalid");
       return;
     }
 
     if (this.instances.has(element)) {
-      console.warn('WebflowBits BlurText: Element already initialized');
+      console.warn("WebflowBits BlurText: Element already initialized");
       return;
     }
 
     const config = this.parseConfig(element);
-    
+
     // Create instance object to track this animation
     const instance = {
       element,
@@ -311,30 +335,29 @@ class BlurTextAnimator {
       timeline: null,
       scrollTrigger: null,
       animationCompleted: false,
-      addedClasses: []
+      addedClasses: [],
     };
 
     this.instances.set(element, instance);
-    
+
     try {
       // Apply component classes using utility
       this.applyComponentClasses(element, config);
-      
+
       // Create DOM structure
       instance.domStructure = this.createDOMStructure(element, config);
-      
+
       // Apply performance optimizations
       PerformanceOptimizer.optimizeForAnimation(instance.domStructure.segments);
-      
+
       // Setup animation based on triggerOnView setting
       if (config.triggerOnView) {
         this.setupIntersectionObserver(instance);
       } else {
         this.startAnimationImmediately(instance);
       }
-      
     } catch (error) {
-      console.error('WebflowBits BlurText: Failed to setup animation', error);
+      console.error("WebflowBits BlurText: Failed to setup animation", error);
       this.removeComponentClasses(element);
       this.instances.delete(element);
     }
@@ -353,7 +376,7 @@ class BlurTextAnimator {
       {
         threshold: config.threshold,
         rootMargin: config.rootMargin,
-        markers: false
+        markers: false,
       },
       (self) => {
         // Only trigger once when element enters viewport
@@ -379,22 +402,23 @@ class BlurTextAnimator {
    */
   setupAnimation(instance) {
     const { element, config, domStructure } = instance;
-    
+
     // Define animation states based on direction
-    const fromState = config.direction === 'top'
-      ? { filter: 'blur(10px)', opacity: 0, y: -50 }
-      : { filter: 'blur(10px)', opacity: 0, y: 50 };
+    const fromState =
+      config.direction === "top"
+        ? { filter: "blur(10px)", autoAlpha: 0, y: -50 }
+        : { filter: "blur(10px)", autoAlpha: 0, y: 50 };
 
     const midState = {
-      filter: 'blur(5px)',
-      opacity: 0.5,
-      y: config.direction === 'top' ? 5 : -5,
+      filter: "blur(5px)",
+      autoAlpha: 0.5,
+      y: config.direction === "top" ? 5 : -5,
     };
 
-    const toState = { 
-      filter: 'blur(0px)', 
-      opacity: 1, 
-      y: 0 
+    const toState = {
+      filter: "blur(0px)",
+      autoAlpha: 1,
+      y: 0,
     };
 
     // Set initial state for all segments
@@ -414,7 +438,7 @@ class BlurTextAnimator {
       scrollTrigger: scrollTriggerConfig,
       onComplete: () => {
         this.completeAnimation(instance);
-      }
+      },
     });
 
     // Add delay if specified
@@ -425,25 +449,29 @@ class BlurTextAnimator {
     // Animate each segment with stagger
     domStructure.segments.forEach((segment, index) => {
       const segmentTimeline = gsap.timeline();
-      
+
       // First animation step: from initial to mid state
       segmentTimeline.to(segment, {
         filter: midState.filter,
-        opacity: midState.opacity,
+        autoAlpha: midState.autoAlpha,
         y: midState.y,
         duration: config.stepDuration,
         ease: config.ease,
-        delay: (index * config.delay) / 1000
+        delay: (index * config.delay) / 1000,
       });
-      
+
       // Second animation step: from mid to final state
-      segmentTimeline.to(segment, {
-        filter: toState.filter,
-        opacity: toState.opacity,
-        y: toState.y,
-        duration: config.stepDuration,
-        ease: config.ease
-      }, `-=${config.stepDuration * 0.3}`); // Overlap animations slightly
+      segmentTimeline.to(
+        segment,
+        {
+          filter: toState.filter,
+          autoAlpha: toState.autoAlpha,
+          y: toState.y,
+          duration: config.stepDuration,
+          ease: config.ease,
+        },
+        `-=${config.stepDuration * 0.3}`
+      ); // Overlap animations slightly
 
       timeline.add(segmentTimeline, 0);
     });
@@ -456,27 +484,27 @@ class BlurTextAnimator {
    */
   completeAnimation(instance) {
     instance.animationCompleted = true;
-    
+
     // Update state using utility
-    AnimationStateManager.setCompletedState(instance.element, 'wb-blur-text');
-    
+    AnimationStateManager.setCompletedState(instance.element, "wb-blur-text");
+
     // Clean up performance optimizations
     PerformanceOptimizer.cleanupAfterAnimation(instance.domStructure.segments);
-    
+
     // Clean up and set final state
     gsap.set(instance.domStructure.segments, {
-      filter: 'blur(0px)',
-      opacity: 1,
+      filter: "blur(0px)",
+      autoAlpha: 1,
       y: 0,
-      clearProps: 'willChange',
+      clearProps: "willChange",
       immediateRender: true,
     });
 
     // Dispatch completion event using utility
     AnimationStateManager.dispatchLifecycleEvent(
-      instance.element, 
-      'complete', 
-      'blur-text',
+      instance.element,
+      "complete",
+      "blur-text",
       { instance }
     );
   }
@@ -486,8 +514,8 @@ class BlurTextAnimator {
    */
   initAll() {
     const elements = document.querySelectorAll('[wb-component="blur-text"]');
-    elements.forEach(element => this.initElement(element));
-    
+    elements.forEach((element) => this.initElement(element));
+
     // Force ScrollTrigger to recalculate positions after initialization
     // This ensures elements outside the initial viewport are properly detected
     ScrollTrigger.refresh();
@@ -554,10 +582,7 @@ class BlurTextAnimator {
    * Check for potential CSS conflicts using utility
    */
   checkForConflicts() {
-    return checkCSSConflicts(
-      componentClassSets.blurText, 
-      this.componentName
-    );
+    return checkCSSConflicts(componentClassSets.blurText, this.componentName);
   }
 }
 
