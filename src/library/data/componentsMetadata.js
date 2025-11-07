@@ -1458,19 +1458,25 @@ export const componentsMetadata = {
       { 
         name: 'wb-image-1', 
         description: 'First image URL', 
-        default: 'https://images.unsplash.com/photo-1579546929518-9e396f3cc809?w=300',
+        default: '',
         inputType: 'text',
       },
       { 
         name: 'wb-image-2', 
         description: 'Second image URL', 
-        default: 'https://images.unsplash.com/photo-1579546929662-711aa81148cf?w=300',
+        default: '',
         inputType: 'text'
       },
       { 
         name: 'wb-image-3', 
         description: 'Third image URL (add more with wb-image-4, wb-image-5, etc.)', 
-        default: 'https://images.unsplash.com/photo-1557804506-669a67965ba0?w=300',
+        default: '',
+        inputType: 'text'
+      },
+      { 
+        name: 'wb-image-4', 
+        description: 'Third image URL (add more with wb-image-4, wb-image-5, etc.)', 
+        default: '',
         inputType: 'text'
       },
       { 
@@ -1504,9 +1510,10 @@ export const componentsMetadata = {
       title: 'Image Trail Effect - Variant 1',
       code: `<div 
   wb-component="image-trail" 
-  wb-image-1="/images/img-1.webp"
-  wb-image-2="/images/img-2.webp"
-  wb-image-3="/images/img-3.webp"
+  wb-image-1="https://cdn.prod.website-files.com/65f957334240a5c2923ed99e/689db4e993707000bc39177f_Foto%20wesite%20ase.webp"
+  wb-image-2="https://cdn.prod.website-files.com/65f957334240a5c2923ed99e/6698147926931635bf00f3e9_Sheii%20profile.webp"
+  wb-image-3="https://cdn.prod.website-files.com/65f957334240a5c2923ed99e/689db4b2b5fc2fa4bbea8f15_Foto%20wesite%20rukul.webp"
+  wb-image-4="https://cdn.prod.website-files.com/65f957334240a5c2923ed99e/669813c821d769664d0816ff_Muadz%20profile.webp"
   class="w-[800px] h-[400px] flex items-center justify-center"
 >
   <h2 class="text-2xl font-bold text-center pointer-events-none">

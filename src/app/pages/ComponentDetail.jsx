@@ -345,13 +345,14 @@ const ComponentDetail = () => {
               {wbAttributes.map((attr, attrIndex) => (
                 <div
                   key={attrIndex}
-                  className="inline-flex items-center px-1.5 sm:px-2 py-0.5 sm:py-1 rounded-md text-xs font-medium bg-background/90 backdrop-blur-sm text-foreground border border-border/50 shadow-sm"
+                  className="inline-flex items-center gap-0 sm:gap-0 px-1.5 sm:px-2 py-0.5 sm:py-1 rounded-md text-xs font-medium bg-background/90 backdrop-blur-sm text-foreground border border-border/50 shadow-sm max-w-[320px]"
                 >
                   <span
-                    className="cursor-pointer hover:text-primary transition-colors duration-200 relative group"
+                    className="cursor-pointer hover:text-primary transition-colors duration-200 relative group inline-flex max-w-[130px]"
+                    title={attr.name}
                     onClick={() => copyToClipboard(attr.name, `attrName_${attrIndex}`)}
                   >
-                    {attr.name}
+                    <span className="truncate whitespace-nowrap block">{attr.name}</span>
                     {/* Tooltip for attribute name */}
                     <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-2 py-1 text-xs text-white bg-gray-800 rounded shadow-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none whitespace-nowrap z-20">
                       {copyStates[`attrName_${attrIndex}`] ? 'Copied!' : 'Click to copy'}
@@ -359,12 +360,13 @@ const ComponentDetail = () => {
                   </span>
                   {attr.value && (
                     <>
-                      <span className="mx-1 text-muted-foreground">=</span>
+                      <span className="mx-1 text-muted-foreground shrink-0">=</span>
                       <span
-                        className="cursor-pointer hover:text-primary transition-colors duration-200 relative group"
+                        className="cursor-pointer hover:text-primary transition-colors duration-200 relative group flex-1 min-w-0"
+                        title={attr.value}
                         onClick={() => copyToClipboard(attr.value, `attrValue_${attrIndex}`)}
                       >
-                        {attr.value}
+                        <span className="truncate whitespace-nowrap block">{attr.value}</span>
                         {/* Tooltip for attribute value */}
                         <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-2 py-1 text-xs text-white bg-gray-800 rounded shadow-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none whitespace-nowrap z-20">
                           {copyStates[`attrValue_${attrIndex}`] ? 'Copied!' : 'Click to copy'}
