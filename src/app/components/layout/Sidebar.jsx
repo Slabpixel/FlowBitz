@@ -9,7 +9,7 @@ const Sidebar = ({ showBackLink = false }) => {
   const componentsByCategory = getComponentsByCategory()
   
   // Temporarily disabled components (same as in componentsMetadata.js)
-  const disabledComponents = ['shape-blur', 'image-trail', 'magnet-lines', 'text-cursor']
+  const disabledComponents = ['shape-blur', 'magnet-lines', 'text-cursor']
   
   // Filter out disabled components
   const textComponents = componentsByCategory.text?.filter(component => 

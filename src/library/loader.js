@@ -68,6 +68,7 @@ const COMPONENT_REQUIREMENTS = {
   'smart-animate': ['core', 'scrollTrigger'],
   '3d-card-hover': [],
   'outline-gradient-animate': [], // CSS only, no GSAP needed
+  'image-trail': ['core'],
 };
 
 /**
@@ -101,6 +102,7 @@ const COMPONENT_LOADERS = {
   'smart-animate': () => import('./components/effect/smartAnimate.js'),
   '3d-card-hover': () => import('./components/effect/3dCardHover.js'),
   'outline-gradient': () => import('./components/effect/outlineGradientAnimate.js'),
+  'image-trail': () => import('./components/effect/imageTrail.js'),
 };
 
 /**

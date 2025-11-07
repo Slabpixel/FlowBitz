@@ -33,7 +33,8 @@ export const loadComponent = async (componentName) => {
       'tooltip-text': 'tooltipText',
       'roll-text': 'rollText',
       'smart-animate': 'effect/smartAnimate',
-      'outline-gradient-animate': 'effect/outlineGradientAnimate'
+      'outline-gradient-animate': 'effect/outlineGradientAnimate',
+      'image-trail': 'effect/imageTrail',
     }
 
     const fileName = componentMap[componentName]
@@ -92,7 +93,8 @@ export const getComponentFileName = (componentName) => {
     'tooltip-text': 'tooltipText',
     'roll-text': 'rollText',
     'smart-animate': 'effect/smartAnimate',
-    'outline-gradient': 'effect/outlineGradientAnimate'
+    'outline-gradient': 'effect/outlineGradientAnimate',
+    'image-trail': 'effect/imageTrail',
   }
 
   return componentMap[componentName] || null

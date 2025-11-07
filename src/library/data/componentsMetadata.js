@@ -1341,102 +1341,178 @@ export const componentsMetadata = {
   },
 
   '3d-card-hover': {
-  name: '3D Card Hover',
-  description: '3D tilt on hover effect with configurable perspective and rotation sensitivity',
-  category: 'effect',
-  file: '3dCardHover.js',
-  installationNotes: 'Only suppoerted for <div> or <button> HTML elements.',
-  attributes: [
-    { name: 'wb-component', description: 'Enable 3D Card Hover', default: '3d-card-hover', inputType: 'text', required: true },
-    { name: 'wb-perspective', description: 'Perspective value (px)', default: '800', inputType: 'slider', sliderConfig: { min: 100, max: 2000, step: 50 } },
-    { name: 'wb-rotate-divisor', description: 'Rotation divisor factor (smaller = more sensitive)', default: '15', inputType: 'slider', sliderConfig: { min: 5, max: 50, step: 5 } },
-    { name: 'wb-transition', description: 'Transition CSS for transform', default: 'transform 200ms linear', inputType: 'text' }
-  ],
-  example: {
-    title: '3D Card Hover',
-    code: `
-      <div id="card-hover-3d" wb-component="3d-card-hover" wb-perspective="800" wb-rotate-divisor="15" class="w-[280px] rounded-xl bg-card border border-border flex flex-col items-start p-6 justify-start gap-4">
-        <p>Hover me</p>
-        <img src="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?q=80&w=2560&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Placeholder" class="w-full h-[200px]">
-      </div>`,
-    description: 'Card smoothly follows cursor position.'
-  }
-},
-
-'outline-gradient': {
-  name: 'Outline Gradient',
-  description: 'Animated rotating gradient border effect using pure CSS',
-  category: 'effect',
-  file: 'outlineGradientAnimate.js',
-  installationNotes: 'Works with any block-level element like <div>, <button>, etc. The component creates an animated gradient border that rotates smoothly using CSS @property. Make sure to apply position: relative or position: absolute to the element.',
-  attributes: [
-    { 
-      name: 'wb-component', 
-      description: 'Enable outline gradient animation', 
-      default: 'outline-gradient',
-      inputType: 'text',
-      required: true
-    },
-    { 
-      name: 'wb-speed', 
-      description: 'Animation speed in seconds (default: 8s)', 
-      default: '8',
-      inputType: 'slider',
-      sliderConfig: { min: 1, max: 20, step: 0.5 }
-    },
-    { 
-      name: 'wb-hover-accelerate', 
-      description: 'Enable speed boost on hover', 
-      default: 'true',
-      inputType: 'toggle'
-    },
-    { 
-      name: 'wb-hover-speed-percentage', 
-      description: 'Hover speed as percentage of original (20% = 80% faster)', 
-      default: '20',
-      inputType: 'slider',
-      sliderConfig: { min: 5, max: 50, step: 5 }
-    },
-    { 
-      name: 'wb-colors', 
-      description: 'Gradient colors with stops. Supports multiple formats: "red, blue, green" or "#833AB4 0%, #FD1D1D 50%, #FCB045 100%". Colors will be evenly distributed if no percentages provided.', 
-      default: '#833AB4 0%, #FD1D1D 50%, #FCB045 100%',
-      inputType: 'text'
-    },
-    { 
-      name: 'wb-border-width', 
-      description: 'Border thickness in pixels', 
-      default: '2',
-      inputType: 'slider',
-      sliderConfig: { min: 1, max: 10, step: 1 }
-    },
-    { 
-      name: 'wb-paused', 
-      description: 'Start animation in paused state', 
-      default: 'false',
-      inputType: 'toggle'
-    },
-    { 
-      name: 'wb-disabled', 
-      description: 'Disable animation completely', 
-      default: 'false',
-      inputType: 'toggle'
+    name: '3D Card Hover',
+    description: '3D tilt on hover effect with configurable perspective and rotation sensitivity',
+    category: 'effect',
+    file: '3dCardHover.js',
+    installationNotes: 'Only suppoerted for <div> or <button> HTML elements.',
+    attributes: [
+      { name: 'wb-component', description: 'Enable 3D Card Hover', default: '3d-card-hover', inputType: 'text', required: true },
+      { name: 'wb-perspective', description: 'Perspective value (px)', default: '800', inputType: 'slider', sliderConfig: { min: 100, max: 2000, step: 50 } },
+      { name: 'wb-rotate-divisor', description: 'Rotation divisor factor (smaller = more sensitive)', default: '15', inputType: 'slider', sliderConfig: { min: 5, max: 50, step: 5 } },
+      { name: 'wb-transition', description: 'Transition CSS for transform', default: 'transform 200ms linear', inputType: 'text' }
+    ],
+    example: {
+      title: '3D Card Hover',
+      code: `
+        <div id="card-hover-3d" wb-component="3d-card-hover" wb-perspective="800" wb-rotate-divisor="15" class="w-[280px] rounded-xl bg-card border border-border flex flex-col items-start p-6 justify-start gap-4">
+          <p>Hover me</p>
+          <img src="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?q=80&w=2560&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Placeholder" class="w-full h-[200px]">
+        </div>`,
+      description: 'Card smoothly follows cursor position.'
     }
-  ],
-  example: {
-    title: 'Outline Gradient',
-    code: `<div 
-  wb-component="outline-gradient" 
-  wb-colors="#833AB4 0%, #FD1D1D 50%, #FCB045 100%"
-  class="rounded-3xl bg-gradient-to-br from-slate-900 to-slate-800 flex items-center justify-center relative"
-  style="width: 200px; height: 200px;"
->
-  <h2 class="text-3xl font-bold text-white">Gradient Border</h2>
-</div>`,
-    description: 'Smooth rotating gradient border that accelerates on hover. Works perfectly with rounded corners.'
-  }
-},
+  },
 
+  'outline-gradient': {
+    name: 'Outline Gradient',
+    description: 'Animated rotating gradient border effect using pure CSS',
+    category: 'effect',
+    file: 'outlineGradientAnimate.js',
+    installationNotes: 'Works with any block-level element like <div>, <button>, etc. The component creates an animated gradient border that rotates smoothly using CSS @property. Make sure to apply position: relative or position: absolute to the element.',
+    attributes: [
+      { 
+        name: 'wb-component', 
+        description: 'Enable outline gradient animation', 
+        default: 'outline-gradient',
+        inputType: 'text',
+        required: true
+      },
+      { 
+        name: 'wb-speed', 
+        description: 'Animation speed in seconds (default: 8s)', 
+        default: '8',
+        inputType: 'slider',
+        sliderConfig: { min: 1, max: 20, step: 0.5 }
+      },
+      { 
+        name: 'wb-hover-accelerate', 
+        description: 'Enable speed boost on hover', 
+        default: 'true',
+        inputType: 'toggle'
+      },
+      { 
+        name: 'wb-hover-speed-percentage', 
+        description: 'Hover speed as percentage of original (20% = 80% faster)', 
+        default: '20',
+        inputType: 'slider',
+        sliderConfig: { min: 5, max: 50, step: 5 }
+      },
+      { 
+        name: 'wb-colors', 
+        description: 'Gradient colors with stops. Supports multiple formats: "red, blue, green" or "#833AB4 0%, #FD1D1D 50%, #FCB045 100%". Colors will be evenly distributed if no percentages provided.', 
+        default: '#833AB4 0%, #FD1D1D 50%, #FCB045 100%',
+        inputType: 'text'
+      },
+      { 
+        name: 'wb-border-width', 
+        description: 'Border thickness in pixels', 
+        default: '2',
+        inputType: 'slider',
+        sliderConfig: { min: 1, max: 10, step: 1 }
+      },
+      { 
+        name: 'wb-paused', 
+        description: 'Start animation in paused state', 
+        default: 'false',
+        inputType: 'toggle'
+      },
+      { 
+        name: 'wb-disabled', 
+        description: 'Disable animation completely', 
+        default: 'false',
+        inputType: 'toggle'
+      }
+    ],
+    example: {
+      title: 'Outline Gradient',
+      code: `<div 
+    wb-component="outline-gradient" 
+    wb-colors="#833AB4 0%, #FD1D1D 50%, #FCB045 100%"
+    class="rounded-3xl bg-gradient-to-br from-slate-900 to-slate-800 flex items-center justify-center relative"
+    style="width: 200px; height: 200px;"
+  >
+    <h2 class="text-3xl font-bold text-white">Gradient Border</h2>
+  </div>`,
+      description: 'Smooth rotating gradient border that accelerates on hover. Works perfectly with rounded corners.'
+    }
+  },
+
+  'image-trail': {
+    name: 'Image Trail',
+    description: 'Animated image trail effect following mouse movement with 8 different animation variants',
+    category: 'effect',
+    file: 'imageTrail.js',
+    installationNotes: 'Works with any container element. Provide image URLs via wb-image-1, wb-image-2, wb-image-3, etc. (similar to text-type). Choose from 8 stunning animation variants. Requires GSAP for animations. Perfect for creative portfolios and interactive showcases.',
+    attributes: [
+      { 
+        name: 'wb-component', 
+        description: 'Enable image trail effect', 
+        default: 'image-trail',
+        inputType: 'text',
+        required: true
+      },
+      { 
+        name: 'wb-image-1', 
+        description: 'First image URL', 
+        default: 'https://images.unsplash.com/photo-1579546929518-9e396f3cc809?w=300',
+        inputType: 'text',
+        required: true
+      },
+      { 
+        name: 'wb-image-2', 
+        description: 'Second image URL', 
+        default: 'https://images.unsplash.com/photo-1579546929662-711aa81148cf?w=300',
+        inputType: 'text'
+      },
+      { 
+        name: 'wb-image-3', 
+        description: 'Third image URL (add more with wb-image-4, wb-image-5, etc.)', 
+        default: 'https://images.unsplash.com/photo-1557804506-669a67965ba0?w=300',
+        inputType: 'text'
+      },
+      { 
+        name: 'wb-variant', 
+        description: 'Animation variant (1-8): 1=Basic fade, 2=Scale+brightness, 3=Scatter upward, 4=Direction-based, 5=Rotation, 6=Speed effects, 7=Multiple visible, 8=3D perspective', 
+        default: '1',
+        inputType: 'dropdown',
+        options: ['1', '2', '3', '4', '5', '6', '7', '8']
+      },
+      { 
+        name: 'wb-threshold', 
+        description: 'Distance threshold in pixels before showing new image', 
+        default: '80',
+        inputType: 'slider',
+        sliderConfig: { min: 20, max: 200, step: 10 }
+      },
+      { 
+        name: 'wb-image-width', 
+        description: 'Width of trail images (e.g., "190px", "10rem")', 
+        default: '190px',
+        inputType: 'text'
+      },
+      { 
+        name: 'wb-image-height', 
+        description: 'Height of trail images (use "auto" for aspect ratio)', 
+        default: 'auto',
+        inputType: 'text'
+      }
+    ],
+    example: {
+      title: 'Image Trail Effect - Variant 1',
+      code: `<div 
+  wb-component="image-trail" 
+  wb-image-1="https://images.unsplash.com/photo-1579546929518-9e396f3cc809?w=300"
+  wb-image-2="https://images.unsplash.com/photo-1579546929662-711aa81148cf?w=300"
+  wb-image-3="https://images.unsplash.com/photo-1557804506-669a67965ba0?w=300"
+  class="w-[400px] h-[400px] border border-[#bdbdbd] rounded-2xl flex items-center justify-center"
+>
+  <h2 class="text-2xl font-bold text-white text-center pointer-events-none">
+    Move Your Mouse Here
+  </h2>
+</div>`,
+      description: 'Images follow cursor with smooth animations. Add more images with wb-image-4, wb-image-5, etc. Try different variants (1-8) for unique effects.'
+    }
+  },
 }
 
 /**
@@ -1478,7 +1554,7 @@ export const getAllComponentKeys = () => {
  */
 export const getFilteredComponentKeys = () => {
   // Temporarily disabled components
-  const disabledComponents = ['shape-blur', 'image-trail', 'magnet-lines', 'text-cursor']
+  const disabledComponents = ['shape-blur', 'magnet-lines', 'text-cursor']
   
   return Object.keys(componentsMetadata).filter(key => 
     !disabledComponents.includes(key)

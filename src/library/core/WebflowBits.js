@@ -33,6 +33,7 @@ import magnetAnimator from '../components/button/magneticButton.js';
 import smartAnimateAnimator from '../components/effect/smartAnimate.js';
 import CardHover3DAnimator from '../components/effect/3dCardHover.js';
 import outlineGradientAnimator from '../components/effect/outlineGradientAnimate.js';
+import imageTrailAnimator from '../components/effect/imageTrail.js';
 
 /* Utils */
 import { setupScrollTriggerResize } from '../utils/animation/scrollTriggerHelper.js';
@@ -68,6 +69,7 @@ class WebflowBits {
       rollText: rollTextAnimator,
       cardHover3d: CardHover3DAnimator,
       outlineGradient: outlineGradientAnimator,
+      imageTrail: imageTrailAnimator,
     };
   }
 
@@ -84,7 +86,7 @@ class WebflowBits {
     const config = {
       autoInit: true,
       debug: false,
-      components: ['splitText', 'textType', 'blurText', 'shinyText', 'gradientText', 'gradientButton', 'rippleButton', 'pulseButton', 'decryptedText', 'scrambleText', 'variableProximity', 'countUp', 'rotatingText', 'textPressure', 'magnet', 'shuffle', 'tooltipText', 'rollText', 'cardHover3d', 'outlineGradient'],
+      components: ['splitText', 'textType', 'blurText', 'shinyText', 'gradientText', 'gradientButton', 'rippleButton', 'pulseButton', 'decryptedText', 'scrambleText', 'variableProximity', 'countUp', 'rotatingText', 'textPressure', 'magnet', 'shuffle', 'tooltipText', 'rollText', 'cardHover3d', 'outlineGradient', 'imageTrail'],
       ...options
     };
 
@@ -199,8 +201,8 @@ class WebflowBits {
         this.initOutlineGradientAnimate(config.debug);
       }
 
-      if (config.components.includes('shuffle')) {
-        this.initShuffle(config.debug);
+      if (config.components.includes('imageTrail')) {
+        this.initImageTrail(config.debug);
       }
 
       // Setup mutation observer for dynamic content if autoInit is enabled
@@ -606,14 +608,14 @@ class WebflowBits {
   /**
    * Initialize Shuffle component
    */
-  initShuffle(debug = false) {
+  initImageTrail(debug = false) {
     try {
-      shuffleAnimator.initAll();
+      imageTrailAnimator.initAll();
       if (debug) {
-        console.log('WebflowBits: Shuffle initialized');
+        console.log('WebflowBits: Image Trail initialized');
       }
     } catch (error) {
-      console.error('WebflowBits: Failed to initialize Shuffle', error);
+      console.error('WebflowBits: Failed to initialize Image Trail', error);
     }
   }
 
@@ -837,6 +839,16 @@ class WebflowBits {
                 outlineGradientAnimator.initElement(element);
                 shouldRefresh = true;
               });
+
+              // Check for wb-component="image-trail" elements
+              const imageTrailElements = node.matches?.('[wb-component="image-trail"]')
+                ? [node]
+                : Array.from(node.querySelectorAll?.('[wb-component="image-trail"]') || []);
+
+              imageTrailElements.forEach(element => {
+                imageTrailAnimator.initElement(element);
+                shouldRefresh = true;
+              });
             }
           });
         }
@@ -861,6 +873,7 @@ class WebflowBits {
           tooltipTextAnimator.refresh();
           rollTextAnimator.refresh();
           outlineGradientAnimator.refresh();
+          imageTrailAnimator.refresh();
         }, 100);
       }
     });
@@ -1261,21 +1274,21 @@ class WebflowBits {
   }
 
   /**
-   * Manually initialize Shuffle on specific elements
+   * Manually initialize ImageTrail on specific elements
    * @param {string|NodeList|Element} selector - CSS selector or DOM elements
    */
-  initShuffleOn(selector) {
+  initImageTrailAnimateOn(selector) {
     const elements = typeof selector === 'string' 
       ? document.querySelectorAll(selector)
       : selector.nodeType ? [selector] : selector;
     
     Array.from(elements).forEach(element => {
-      if (element.getAttribute('wb-text-animate') === 'shuffle') {
-        shuffleAnimator.initElement(element);
+      if (element.getAttribute('wb-component') === 'image-trail') {
+        imageTrailAnimator.initElement(element);
       }
     });
 
-    shuffleAnimator.refresh();
+    imageTrailAnimator.refresh();
     return this;
   }
 
@@ -1343,8 +1356,8 @@ class WebflowBits {
     // Destroy OutlineGradientAnimate animations
     outlineGradientAnimator.destroyAll();
 
-    // Destroy Shuffle animations
-    shuffleAnimator.destroyAll();
+     // Destroy ImageTrail animations
+    imageTrailAnimator.destroyAll();
 
     // Disconnect observers
     this.observers.forEach(observer => observer.disconnect());
@@ -1382,6 +1395,7 @@ class WebflowBits {
     tooltipTextAnimator.refresh();
     rollTextAnimator.refresh();
     outlineGradientAnimator.refresh();
+    imageTrailAnimator.refresh();
     return this;
   }
 
