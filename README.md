@@ -1,6 +1,6 @@
 # FlowBitz
 
-[![Version](https://img.shields.io/badge/version-2.3.2-blue.svg)](https://github.com/Slabpixel/FlowBitz)
+[![Version](https://img.shields.io/badge/version-2.3.4-blue.svg)](https://github.com/Slabpixel/FlowBitz)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 [![CDN](https://img.shields.io/badge/CDN-flowbitz.dev-orange.svg)](https://www.flowbitz.dev)
 
@@ -142,16 +142,16 @@ countUp.startCountUp(el);
 
 ## Bundles & CDN Options
 - `@latest` — newest stable build
-- `@2.3.2` — pinned release
+- `@2.3.4` — pinned release
 - `@beta` — beta channel
 
 ```html
 <!-- Stable UMD -->
-<script src="https://cdn.jsdelivr.net/npm/flowbitz@2.3.2/dist/flowbitz.umd.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/flowbitz@2.3.4/dist/flowbitz.umd.js"></script>
 
 <!-- ES module -->
 <script type="module">
-  import FlowBitz from 'https://cdn.jsdelivr.net/npm/flowbitz@2.3.2/dist/flowbitz.es.js';
+  import FlowBitz from 'https://cdn.jsdelivr.net/npm/flowbitz@2.3.4/dist/flowbitz.es.js';
   await FlowBitz.init();
 </script>
 ```
@@ -198,7 +198,7 @@ src/
     └── utils/
 ```
 
-Deployments run on Vercel (`npm run deploy:*`) with immutable, versioned CDN paths like `flowbitz.dev/v2.3.2/`.
+Deployments run on Vercel (`npm run deploy:*`) with immutable, versioned CDN paths like `flowbitz.dev/v2.3.4/`.
 
 ---
 
