@@ -3,15 +3,16 @@ import { Helmet } from 'react-helmet-async'
 
 const SEO = ({ 
   title = "FlowBitz - Free GSAP Animation Components for Webflow | No Coding Required",
-  description = "Transform your Webflow projects with 16+ professional animation components. Zero JavaScript knowledge needed - just add HTML attributes. GSAP-powered, mobile-responsive, and completely free.",
-  keywords = "webflow animations, webflow components, gsap webflow, webflow text effects, webflow animation library, free webflow components, webflow split text, webflow gradient text, webflow typewriter effect, webflow interactive components, webflow animation plugins, webflow gsap integration, webflow animation tools, webflow effects library, webflow animation components, webflow text animations, webflow hover effects, webflow scroll animations, webflow animation code, webflow animation examples",
+  description = `Transform your Webflow projects with 20+ professional animation components. Zero JavaScript knowledge needed - just add HTML attributes. GSAP-powered, mobile-responsive, and completely free.`,
+  keywords = `webflow animations, webflow components, gsap webflow, webflow text effects, webflow animation library, free webflow components, webflow split text, webflow gradient text, webflow typewriter effect, webflow interactive components, webflow animation plugins, webflow gsap integration, webflow animation tools, webflow effects library, webflow animation components, webflow text animations, webflow hover effects, webflow scroll animations, webflow animation code, webflow animation examples, 20+ components`,
   image = "https://www.slabpixel.dev/images/FlowBitz-OpenGraph.webp",
   url = "https://www.flowbitz.dev",
   type = "website",
   author = "SlabPixel Studio",
   publishedTime,
   modifiedTime,
-  structuredData
+  structuredData,
+  componentCount
 }) => {
   const fullTitle = title.includes('FlowBitz') ? title : `${title} | FlowBitz`
   const fullImage = image.startsWith('http') ? image : `https://www.flowbitz.dev${image}`
