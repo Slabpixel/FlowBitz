@@ -20,7 +20,6 @@ const componentCSS = `
   -moz-user-select: none;
   -ms-user-select: none;
   text-decoration: none;
-  color: inherit;
   transition: transform 0.1s ease-out;
 }
 
@@ -39,7 +38,6 @@ const componentCSS = `
 .wb-pulse-button[href]:visited,
 .wb-pulse-button[href]:active,
 .wb-pulse-button[href]:focus {
-  color: inherit;
   text-decoration: none;
 }
 

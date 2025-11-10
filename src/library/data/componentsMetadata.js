@@ -1103,7 +1103,7 @@ export const componentsMetadata = {
     ],
     example: {
       title: 'Gradient Button Animation',
-      code: '<button wb-component="gradient-button" class="text-md px-6 py-3 rounded-full font-semibold">Gradient Button</button>',
+      code: '<button wb-component="gradient-button" class="text-md px-6 py-3 rounded-md font-semibold">Gradient Button</button>',
       description: 'Animated gradient button with customizable colors and hover effects'
     }
   },
@@ -1146,7 +1146,7 @@ export const componentsMetadata = {
     ],
     example: {
       title: 'Ripple Button Animation',
-      code: '<a href="#" wb-component="ripple-button" class="text-md px-6 py-3 rounded-full font-semibold bg-primary text-white">Click me to see the effect!</a>',
+      code: '<a href="#" wb-component="ripple-button" class="text-md px-6 py-3 rounded-md font-semibold bg-primary text-white">Click me to see the effect!</a>',
       description: 'Button with Material Design ripple effect and scale animation that spreads from click point'
     }
   },
@@ -1195,7 +1195,7 @@ export const componentsMetadata = {
     ],
     example: {
       title: 'Pulse Button Animation',
-      code: '<a href="#" wb-component="pulse-button" class="text-md px-6 py-3 rounded-full font-semibold bg-primary text-white">Pulse Button</a>',
+      code: '<a href="#" wb-component="pulse-button" class="text-md px-6 py-3 rounded-md font-semibold bg-primary text-white">Pulse Button</a>',
       description: 'Button or link with gentle pulsing animation to draw attention to important actions'
     }
   },
@@ -1267,7 +1267,7 @@ export const componentsMetadata = {
     ],
     example: {
       title: 'Magnetic Button',
-      code: '<a src="#" wb-component="magnetic-button" class="text-md bg-primary text-white rounded-full px-6 py-3 hover:bg-primary-dark transition-colors hover:cursor-pointer">Hover me!</a>',
+      code: '<a src="#" wb-component="magnetic-button" class="text-md bg-primary text-white rounded-md px-6 py-3 hover:bg-primary-dark transition-colors hover:cursor-pointer">Hover me!</a>',
       description: 'Button that follows mouse movement with magnetic attraction - the entire button (background, text, and all styling) moves together'
     }
   },
