@@ -3,7 +3,7 @@ import { useNavigate, useLocation } from 'react-router-dom'
 import ThemeToggle from '../ThemeToggle'
 import Logo from '../Logo'
 import { Badge } from '../ui/badge.jsx'
-import { Home, Layers, BookOpen, Github, Sparkles, HelpCircle, User, MessageSquare, FileText, Tag, Mail } from 'lucide-react'
+import { Home, Layers, BookOpen, Github, Sparkles, HelpCircle, User, MessageSquare, Tag, Mail, FileText } from 'lucide-react'
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
@@ -15,8 +15,8 @@ const Navbar = () => {
   }
 
   const isActive = (path) => {
-    if (path === '/components') {
-      return location.pathname === path || location.pathname.startsWith('/components/')
+    if (path === '/components' || path === '/blog') {
+      return location.pathname === path || location.pathname.startsWith(`${path}/`)
     }
     return location.pathname === path
   }
@@ -66,6 +66,17 @@ const Navbar = () => {
           >
             <Sparkles className="w-4 h-4" />
             <span className="hidden lg:inline">Showcase</span>
+          </button>
+          <button 
+            onClick={() => navigate('/blog')}
+            className={`px-3 lg:px-4 py-2 rounded-md font-medium text-sm transition-all duration-200 flex items-center gap-2 ${
+              isActive('/blog') 
+                ? 'text-foreground bg-accent' 
+                : 'text-muted-foreground hover:text-foreground hover:bg-accent'
+            }`}
+          >
+            <FileText className="w-4 h-4" />
+            <span className="hidden lg:inline">Blog</span>
           </button>
         </div>
         <div className="flex items-center gap-2">
@@ -127,6 +138,20 @@ const Navbar = () => {
                 >
                   <Layers className="w-5 h-5" />
                   Components
+                </button>
+                <button 
+                  onClick={() => {
+                    navigate('/blog')
+                    setIsMenuOpen(false)
+                  }}
+                  className={`w-full py-3 px-4 rounded-lg font-medium transition-all duration-200 flex items-center gap-3 ${
+                    isActive('/blog') 
+                      ? 'text-foreground bg-accent' 
+                      : 'text-muted-foreground hover:text-foreground hover:bg-accent'
+                  }`}
+                >
+                  <FileText className="w-5 h-5" />
+                  Blog
                 </button>
                 <button 
                   onClick={() => {

@@ -1,0 +1,9 @@
+{
+  "slug": "flowbitz-v23-whats-new",
+  "title": "FlowBitz v2.3: New Motion Components, Smarter Controls, Faster Workflow",
+  "description": "FlowBitz v2.3 introduces new components like Image Trail and 3D Card Hover, plus advanced configuration options built for Webflow teams that need GSAP-level polish.",
+  "heroImage": "https://www.slabpixel.dev/images/FlowBitz-OpenGraph.webp",
+  "publishedAt": "2025-11-07T09:00:00.000Z",
+  "tags": ["release", "webflow", "gsap", "components"]
+}
+

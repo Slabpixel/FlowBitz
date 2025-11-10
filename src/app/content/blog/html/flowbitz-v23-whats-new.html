@@ -1,0 +1,78 @@
+<section class="space-y-6 text-muted-foreground">
+  <h2 class="mt-12 text-3xl font-semibold text-foreground">Why v2.3 Matters</h2>
+  <p class="text-base leading-relaxed">
+    FlowBitz v2.3 is our biggest step forward since launch. Based on real-world Webflow projects, we shipped four headline components, unlocked deeper control over motion behaviour, and trimmed bundle sizes so you can keep Core Web Vitals smiling. This post walks through what’s new and how to start using it on day one.
+  </p>
+
+  <h2 class="mt-12 text-3xl font-semibold text-foreground">New Components That Ship Emotion</h2>
+  <ul class="ml-6 space-y-2 text-base leading-relaxed list-disc marker:text-primary">
+    <li><strong>Image Trail</strong> — Eight cursor-following presets with GSAP under the hood. Perfect for hero sections and portfolio grids that need personality.</li>
+    <li><strong>3D Card Hover</strong> — A perspective hover effect that feels like a native WebGL experience but runs entirely in CSS.</li>
+    <li><strong>Outline Gradient</strong> — Gradient strokes on buttons, cards, and text without adding custom CSS.</li>
+    <li><strong>Roll Text Refresh</strong> — Updated presets for vertical reveal choreography powered by SplitText.</li>
+  </ul>
+
+  <pre class="overflow-auto rounded-2xl border border-border bg-card p-4 text-sm leading-relaxed whitespace-pre-wrap break-words"><code class="language-html break-words">&lt;div
+  wb-component="image-trail"
+  wb-images='["portrait1.webp","portrait2.webp","portrait3.webp"]'
+  wb-variant="6"
+  wb-trail-gap="12"
+&gt;&lt;/div&gt;</code></pre>
+
+  <p class="text-base leading-relaxed">
+    Every component comes with Webflow-friendly attributes, demo content in the playground, and a debugger overlay so you can see thresholds, durations, and trigger states while you iterate.
+  </p>
+
+  <h2 class="mt-12 text-3xl font-semibold text-foreground">Smarter Controls for Production Teams</h2>
+  <p class="text-base leading-relaxed">
+    v2.3 adds the kind of knobs agencies kept asking for:
+  </p>
+  <ul class="ml-6 space-y-2 text-base leading-relaxed list-disc marker:text-primary">
+    <li><strong>Root Margin Options</strong> — Use <code class="rounded bg-muted px-1 py-0.5 text-xs text-foreground">%</code>, <code class="rounded bg-muted px-1 py-0.5 text-xs text-foreground">vh</code>, <code class="rounded bg-muted px-1 py-0.5 text-xs text-foreground">px</code>, or any CSS unit to fine-tune scroll triggers.</li>
+    <li><strong>RGBA Color Support</strong> — All colour-driven components accept full RGBA strings so you can match brand systems precisely.</li>
+    <li><strong>Hover Toggles</strong> — Quickly disable or enable hover states by setting <code class="rounded bg-muted px-1 py-0.5 text-xs text-foreground">wb-hover="false"</code>.</li>
+    <li><strong>Repeat Logic</strong> — Decide if animations should replay when elements re-enter the viewport.</li>
+  </ul>
+
+  <pre class="overflow-auto rounded-2xl border border-border bg-card p-4 text-sm leading-relaxed whitespace-pre-wrap break-words"><code class="language-html break-words">&lt;section
+  wb-component="smart-animate"
+  wb-root-margin="25% 0px"
+  wb-repeat="true"
+  wb-on-hover="false"
+&gt;
+  ...
+&lt;/section&gt;</code></pre>
+
+  <h2 class="mt-12 text-3xl font-semibold text-foreground">Performance Wins Without Compromise</h2>
+  <p class="text-base leading-relaxed">
+    Despite the new components, the UMD bundle still weighs in at <strong>~85 KB gzipped</strong>, which is 72% smaller than v1. ES modules remain leaner (15 KB entry + lazy chunks). CSS-only variants continue to ship without GSAP to keep marketing pages fast.
+  </p>
+
+  <ul class="ml-6 space-y-2 text-base leading-relaxed list-disc marker:text-primary">
+    <li>UMD: includes GSAP for plug-and-play compatibility.</li>
+    <li>ESM: loads GSAP from the CDN only when needed.</li>
+    <li>CSS-only: zero GSAP—ideal for static marketing blocks.</li>
+  </ul>
+
+  <h2 class="mt-12 text-3xl font-semibold text-foreground">Release Workflow Recap</h2>
+  <p class="text-base leading-relaxed">
+    v2.3 shipped through the same beta → stable pipeline described on the <a class="text-primary underline underline-offset-4 hover:text-primary/80" href="/release">Release Notes</a> page:
+  </p>
+  <ol class="ml-6 space-y-2 text-base leading-relaxed list-decimal marker:text-primary">
+    <li>Build the library with Vite and publish a beta build via <code class="rounded bg-muted px-1 py-0.5 text-xs text-foreground">npm run deploy:beta</code>.</li>
+    <li>Test the beta bundle at <code class="rounded bg-muted px-1 py-0.5 text-xs text-foreground">https://www.flowbitz.dev/beta/flowbitz.umd.js</code>.</li>
+    <li>Promote to stable with <code class="rounded bg-muted px-1 py-0.5 text-xs text-foreground">npm run deploy:promote</code> when it’s ready for production.</li>
+  </ol>
+
+  <h2 class="mt-12 text-3xl font-semibold text-foreground">Try v2.3 Today</h2>
+  <p class="text-base leading-relaxed">
+    If you’re already using FlowBitz, you can pin the new release via npm or swap the CDN reference:
+  </p>
+  <pre class="overflow-auto rounded-2xl border border-border bg-card p-4 text-sm leading-relaxed whitespace-pre-wrap break-words"><code class="language-bash">npm install flowbitz@2.3.4</code></pre>
+  <pre class="overflow-auto rounded-2xl border border-border bg-card p-4 text-sm leading-relaxed whitespace-pre-wrap break-words"><code class="language-html break-words">&lt;script src="https://cdn.jsdelivr.net/npm/flowbitz@2.3.4/dist/flowbitz.umd.js"&gt;&lt;/script&gt;</code></pre>
+
+  <p class="text-base leading-relaxed text-foreground">
+    Ready to build? Explore the new components in the playground, test the beta bundle if you’re curious about upcoming tweaks, and let us know what you want to see in v2.4.
+  </p>
+</section>
+

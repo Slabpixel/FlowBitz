@@ -16,6 +16,8 @@ import ShowcaseSubmit from './pages/ShowcaseSubmit'
 import FAQ from './pages/FAQ'
 import Release from './pages/Release'
 import License from './pages/License'
+import Blog from './pages/Blog'
+import BlogPost from './pages/BlogPost'
 import NotFound from './pages/NotFound'
 import { ThemeProvider } from './contexts/ThemeContext'
 import { Analytics } from "@vercel/analytics/react"
@@ -45,6 +47,8 @@ function App() {
               <Route path="/faq" element={<FAQ />} />
               <Route path="/showcase" element={<Showcase />} />
               <Route path="/showcase/submit" element={<ShowcaseSubmit />} />
+              <Route path="/blog" element={<Blog />} />
+              <Route path="/blog/:slug" element={<BlogPost />} />
               <Route path="/release" element={<Release />} />
               <Route path="/license" element={<License />} />
               <Route path="*" element={<NotFound />} />

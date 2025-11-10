@@ -1,0 +1,81 @@
+<section class="space-y-6 text-muted-foreground">
+  <h2 class="mt-12 text-3xl font-semibold text-foreground">FlowBitz at a Glance</h2>
+  <p class="text-base leading-relaxed">
+    FlowBitz is a motion component library designed for Webflow teams who want GSAP-level polish without leaving the visual Designer. Drop in a single script, configure components with <code class="rounded bg-muted px-1 py-0.5 text-xs text-foreground">wb-*</code> attributes, and FlowBitz takes care of timeline orchestration, lifecycle management, and performance tuning.
+  </p>
+  <ul class="ml-6 space-y-2 text-base leading-relaxed list-disc marker:text-primary">
+    <li>20+ production-ready text, button, and effects components</li>
+    <li>Attribute-based configuration—no custom JavaScript required</li>
+    <li>GSAP-powered with CSS fallbacks for lean, resilient builds</li>
+    <li>Debugger overlays, metadata, and presets built for fast iteration</li>
+  </ul>
+
+  <pre class="overflow-auto rounded-2xl border border-border bg-card p-4 text-sm leading-relaxed whitespace-pre-wrap break-words"><code class="language-html break-words">&lt;!-- One script unlocks the full FlowBitz library --&gt;
+&lt;script src="https://cdn.jsdelivr.net/npm/flowbitz@latest/dist/flowbitz.umd.js"&gt;&lt;/script&gt;
+
+&lt;h1 wb-component="split-text" wb-split-type="words"&gt;
+  Explain your value prop with motion that converts
+&lt;/h1&gt;</code></pre>
+
+  <h2 class="mt-12 text-3xl font-semibold text-foreground">Why Webflow Developers Love It</h2>
+  <p class="text-base leading-relaxed">
+    FlowBitz was born inside a Webflow studio that needed to ship high-end motion without breaking no-code workflows. Every component is mapped to Webflow’s structure and naming conventions so designers can:
+  </p>
+  <ul class="ml-6 space-y-2 text-base leading-relaxed list-disc marker:text-primary">
+    <li>Clone components across pages without re-writing logic</li>
+    <li>Change animation behaviour by editing attributes right in the Designer</li>
+    <li>Debug timelines via the FlowBitz overlay while previewing the site</li>
+    <li>Switch between beta/stable builds with scripted deploy commands</li>
+  </ul>
+
+  <pre class="overflow-auto rounded-2xl border border-border bg-card p-4 text-sm leading-relaxed"><code class="language-html">&lt;div
+  wb-component="image-trail"
+  wb-images='["portrait1.webp","portrait2.webp","portrait3.webp"]'
+  wb-variant="6"
+&gt;&lt;/div&gt;</code></pre>
+
+  <h2 class="mt-12 text-3xl font-semibold text-foreground">Built for Webflow—Ready for Anything Else</h2>
+  <p class="text-base leading-relaxed">
+    While FlowBitz feels native to Webflow, it’s ultimately just JavaScript. If you outgrow Webflow or need to embed components elsewhere, the same bundle works in:
+  </p>
+  <ul class="ml-6 space-y-2 text-base leading-relaxed list-disc marker:text-primary">
+    <li>React, Next.js, and other frameworks via the ES module build</li>
+    <li>Static sites by importing the UMD bundle</li>
+    <li>Legacy projects by loading the CDN script and initialising components manually</li>
+  </ul>
+
+  <pre class="overflow-auto rounded-2xl border border-border bg-card p-4 text-sm leading-relaxed"><code class="language-javascript">import FlowBitz from 'flowbitz'
+
+await FlowBitz.init({
+  components: ['splitText', 'magneticButton'],
+  debug: false
+})
+
+// Programmatic control is available everywhere
+const splitText = FlowBitz.getComponent('splitText')
+splitText.replay(document.querySelector('[wb-component="split-text"]'))</code></pre>
+
+  <h2 class="mt-12 text-3xl font-semibold text-foreground">Deployment Workflow You Can Trust</h2>
+  <p class="text-base leading-relaxed">
+    We treat FlowBitz like a product, not a side project. Every update runs through a beta channel before promotion to stable:
+  </p>
+  <ol class="ml-6 space-y-2 text-base leading-relaxed list-decimal marker:text-primary">
+    <li>Develop in Webflow using the local Vite playground</li>
+    <li>Release a beta build with <code class="rounded bg-muted px-1 py-0.5 text-xs text-foreground">npm run deploy:beta</code> and test via the CDN</li>
+    <li>Promote to stable when everything checks out—your production sites stay locked to the latest stable automatically</li>
+  </ol>
+
+  <h2 class="mt-12 text-3xl font-semibold text-foreground">Where to Go Next</h2>
+  <p class="text-base leading-relaxed">
+    FlowBitz is ready whether you’re crafting a single hero section or building an entire design system:
+  </p>
+  <ul class="ml-6 space-y-2 text-base leading-relaxed list-disc marker:text-primary">
+    <li><a class="text-primary underline underline-offset-4 hover:text-primary/80" href="https://www.flowbitz.dev/components" target="_blank" rel="noreferrer">Browse the component catalog</a> to see what drops in instantly</li>
+    <li>Clone the <strong>Webflow</strong> attribute patterns for fast iteration, then reuse the same config in React or any future stack</li>
+    <li><a class="text-primary underline underline-offset-4 hover:text-primary/80" href="https://github.com/Slabpixel/FlowBitz" target="_blank" rel="noreferrer">Join the GitHub repo</a> to request components or contribute</li>
+  </ul>
+  <p class="text-base leading-relaxed text-foreground">
+    Whether you stay in Webflow or graduate to a custom front end, FlowBitz keeps your motion system portable, performant, and easy to maintain.
+  </p>
+</section>
+
