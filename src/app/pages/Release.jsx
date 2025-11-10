@@ -12,10 +12,10 @@ const Release = () => {
     const navigate = useNavigate()
     const releases = [
         {
-            version: "2.3.2",
+            version: "2.3.4",
             date: "November 7, 2025",
             type: "stable",
-            description: "v2.3.2 feature release: Three new visual components plus enhanced configuration options and improved color support.",
+            description: "v2.3.4 feature release: Three new visual components plus enhanced configuration options and improved color support.",
             changes: [
                 "New Components - Roll Text, 3D Card Hover, Outline Gradient, and Image Trail",
                 "Added Root Margin Options - Support for %, vh, px, em, rem, and other CSS units",
@@ -89,7 +89,7 @@ const Release = () => {
         "name": "FlowBitz",
         "description": "Interactive components library for Webflow - Release notes and version history",
         "url": "https://www.flowbitz.dev/release",
-        "version": "2.3.2",
+        "version": "2.3.4",
         "datePublished": "2025-11-07",
         "applicationCategory": "Web Development",
         "operatingSystem": "Web Browser"

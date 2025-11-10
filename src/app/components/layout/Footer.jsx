@@ -1,6 +1,6 @@
 import React from 'react'
 import { useNavigate, useLocation } from 'react-router-dom'
-import { Github, Heart, ExternalLink, Layers, HelpCircle, User, MessageSquare, Sparkles, Download, Bug, MessageCircle, FileText, Home, Tag } from 'lucide-react'
+import { Github, Heart, ExternalLink, Layers, HelpCircle, User, MessageSquare, Sparkles, Download, Bug, MessageCircle, Home, Tag, FileText } from 'lucide-react'
 import { getFilteredComponentKeys } from '../../../library/data/componentsMetadata.js'
 import Logo from '../Logo'
 
@@ -91,6 +91,15 @@ const Footer = () => {
                 >
                   <Layers className="w-4 h-4" />
                   Components
+                </button>
+              </li>
+              <li>
+                <button 
+                  onClick={() => handleNavigation('/blog')}
+                  className="text-muted-foreground hover:text-foreground transition-colors duration-200 text-sm flex items-center gap-2"
+                >
+                  <FileText className="w-4 h-4" />
+                  Blog
                 </button>
               </li>
               <li>

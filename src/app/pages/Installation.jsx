@@ -132,7 +132,7 @@ const Installation = () => {
                     <CardTitle className="text-xl">Add FlowBitz Script</CardTitle>
                   </div>
                   <CardDescription className="text-muted-foreground text-sm sm:text-base">
-                    Add the FlowBitz script to your Webflow project's custom code section to enable all animations. <span className="font-semibold text-foreground">Go to your Webflow project settings → Custom Code → Head Code</span>, and paste the script there.
+                    Add the FlowBitz script to your Webflow project's custom code section to enable all animations. <span className="font-semibold text-foreground">Go to your Webflow project settings → Custom Code → Footer Code</span>, and paste the script there.
                   </CardDescription>
                 </CardHeader>
                 <CardContent className="space-y-4">
@@ -154,13 +154,13 @@ const Installation = () => {
                           }
                         }}
                       >
-                        {'<script async src="https://cdn.jsdelivr.net/npm/flowbitz@latest/dist/flowbitz.umd.js"></script>'}
+                        {'<script src="https://cdn.jsdelivr.net/npm/flowbitz@latest/dist/flowbitz.umd.js"></script>'}
                       </SyntaxHighlighter>
                       <Button 
                         variant="ghost" 
                         size="sm"
                         className="absolute right-2 top-2 h-8 w-8 p-0 hover:bg-gray-700" 
-                        onClick={() => copyToClipboard('<script async src="https://cdn.jsdelivr.net/npm/flowbitz@latest/dist/flowbitz.umd.js"></script>', 'scriptTag')}
+                        onClick={() => copyToClipboard('<script src="https://cdn.jsdelivr.net/npm/flowbitz@latest/dist/flowbitz.umd.js"></script>', 'scriptTag')}
                       >
                         {copyStates.scriptTag ? (
                           <CheckCircle className="w-4 h-4 text-green-500" />
