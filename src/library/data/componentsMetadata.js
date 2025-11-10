@@ -1410,7 +1410,7 @@ export const componentsMetadata = {
       { 
         name: 'wb-border-width', 
         description: 'Border thickness in pixels', 
-        default: '2',
+        default: '4',
         inputType: 'slider',
         sliderConfig: { min: 1, max: 10, step: 1 }
       },

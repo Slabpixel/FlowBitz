@@ -103,7 +103,7 @@ class OutlineGradientAnimator {
       hoverAccelerate: true, // Accelerate on hover
       hoverSpeedPercentage: 20, // Speed up to 20% (80% faster)
       colors: '#833AB4 0%, #FD1D1D 50%, #FCB045 100%', // Gradient color stops
-      borderWidth: 2, // Border width in pixels
+      borderWidth: 4, // Border width in pixels
       paused: false, // Start paused
       disabled: false
     }
