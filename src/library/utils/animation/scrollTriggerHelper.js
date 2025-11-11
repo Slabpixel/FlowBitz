@@ -102,7 +102,7 @@ export function createScrollTriggerConfig(element, config = {}, callbacks = {}) 
   const {
     threshold = 0.1,
     rootMargin = '0px',
-    toggleActions = 'play none none none',
+    toggleActions = 'play none play none',
     once = true,
     markers = false,
     refreshPriority = 0
