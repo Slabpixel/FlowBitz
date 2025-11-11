@@ -12,6 +12,20 @@ const Release = () => {
     const navigate = useNavigate()
     const releases = [
         {
+            version: "2.3.5",
+            date: "November 11, 2025",
+            type: "stable",
+            description: "v2.3.5 maintenance and content update: ScrollTrigger helper refinements, SplitText and SmartAnimate bug fixes, refreshed component metadata, and new showcase/blog content.",
+            changes: [
+                "Improved ScrollTrigger helper calculations for consistent viewport unit behavior",
+                "Fixed SplitText animation lifecycle to prevent duplicate initializations and ensure cleanup",
+                "Resolved SmartAnimate timing issues for staggered children and ScrollTrigger start margins",
+                "Launched new blog features highlighting release updates and implementation tips",
+                "Expanded component metadata with richer attribute guidance and defaults",
+                "Updated Showcase page with latest community projects and CTA enhancements"
+            ]
+        },
+        {
             version: "2.3.4",
             date: "November 7, 2025",
             type: "stable",
@@ -89,7 +103,7 @@ const Release = () => {
         "name": "FlowBitz",
         "description": "Interactive components library for Webflow - Release notes and version history",
         "url": "https://www.flowbitz.dev/release",
-        "version": "2.3.4",
+        "version": "2.3.5",
         "datePublished": "2025-11-07",
         "applicationCategory": "Web Development",
         "operatingSystem": "Web Browser"

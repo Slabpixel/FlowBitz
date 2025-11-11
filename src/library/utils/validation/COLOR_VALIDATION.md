@@ -273,7 +273,7 @@ Jika Anda mengupdate dari versi sebelumnya:
 
 ---
 
-**Version**: 2.3.4
+**Version**: 2.3.5
 **Last Updated**: November 2025  
 **Maintained by**: Slabpixel Studio
 
