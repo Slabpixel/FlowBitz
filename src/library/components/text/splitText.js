@@ -1,12 +1,25 @@
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { SplitText } from "gsap/SplitText";
-import { injectStyles } from '../../utils/core/injectStyles.js';
-import { parseElementConfig, commonAttributeMaps, mergeAttributeMaps } from '../../utils/core/attributeParser.js';
-import { ComponentClassManager, webflowBitsClasses } from '../../utils/core/classManager.js';
-import { checkCSSConflicts, componentClassSets } from '../../utils/core/conflictDetector.js';
-import { createOnceAnimationConfig, calculateScrollTriggerStart } from '../../utils/animation/scrollTriggerHelper.js';
-import { AnimationStateManager, PerformanceOptimizer } from '../../utils/animation/animationStateManager.js';
+import {
+  AnimationStateManager,
+  PerformanceOptimizer,
+} from "../../utils/animation/animationStateManager.js";
+import { createOnceAnimationConfig } from "../../utils/animation/scrollTriggerHelper.js";
+import {
+  commonAttributeMaps,
+  mergeAttributeMaps,
+  parseElementConfig,
+} from "../../utils/core/attributeParser.js";
+import {
+  ComponentClassManager,
+  webflowBitsClasses,
+} from "../../utils/core/classManager.js";
+import {
+  checkCSSConflicts,
+  componentClassSets,
+} from "../../utils/core/conflictDetector.js";
+import { injectStyles } from "../../utils/core/injectStyles.js";
 
 // Register GSAP plugins
 gsap.registerPlugin(ScrollTrigger, SplitText);
@@ -33,7 +46,7 @@ const componentCSS = `
 .wb-split-char {
   display: inline-block;
   will-change: transform, opacity;
-  opacity: 0;
+  visibility: hidden;
 }
 
 .wb-split-line {
@@ -70,8 +83,8 @@ class SplitTextAnimator {
   constructor() {
     this.instances = new Map();
     this.stylesInjected = false;
-    this.componentName = 'SplitText';
-    this.componentClasses = webflowBitsClasses.forComponent('split');
+    this.componentName = "SplitText";
+    this.componentClasses = webflowBitsClasses.forComponent("split");
     this.defaultConfig = {
       splitType: "chars",
       ease: "power3.out",
@@ -81,10 +94,9 @@ class SplitTextAnimator {
       threshold: 0.1,
       rootMargin: "100px",
       startDelay: 0,
-      from: { opacity: 0, y: 40 },
-      to: { opacity: 1, y: 0 }
+      from: { autoAlpha: 0, y: 40 },
+      to: { autoAlpha: 1, y: 0 },
     };
-    
   }
 
   /**
@@ -92,13 +104,13 @@ class SplitTextAnimator {
    */
   injectComponentStyles() {
     if (this.stylesInjected) return;
-    
+
     try {
-      injectStyles('wb-split-text-styles', componentCSS);
+      injectStyles("wb-split-text-styles", componentCSS);
       this.stylesInjected = true;
-      console.log('WebflowBits: SplitText styles injected');
+      console.log("WebflowBits: SplitText styles injected");
     } catch (error) {
-      console.warn('WebflowBits: Failed to inject SplitText styles', error);
+      console.warn("WebflowBits: Failed to inject SplitText styles", error);
     }
   }
 
@@ -120,17 +132,24 @@ class SplitTextAnimator {
       commonAttributeMaps.timing,
       {
         // Component-specific attributes
-        splitType: { 
-          attribute: 'wb-split-type', 
-          type: 'string', 
-          validValues: ['chars', 'words', 'lines'] 
+        splitType: {
+          attribute: "wb-split-type",
+          type: "string",
+          validValues: ["chars", "words", "lines"],
         },
-        triggerOnView: { attribute: 'wb-trigger-on-view', type: 'boolean' },
-        rootMargin: { attribute: 'wb-root-margin', type: 'string' },
-        startDelay: { attribute: 'wb-start-delay', type: 'number', parser: parseFloat, min: 0, max: 2, step: 0.1 }
+        triggerOnView: { attribute: "wb-trigger-on-view", type: "boolean" },
+        rootMargin: { attribute: "wb-root-margin", type: "string" },
+        startDelay: {
+          attribute: "wb-start-delay",
+          type: "number",
+          parser: parseFloat,
+          min: 0,
+          max: 2,
+          step: 0.1,
+        },
       }
     );
-    
+
     return parseElementConfig(element, this.defaultConfig, attributeMap);
   }
 
@@ -140,13 +159,13 @@ class SplitTextAnimator {
   applyComponentClasses(element, config) {
     const classesToApply = [
       this.componentClasses.parent,
-      this.componentClasses.animating
+      this.componentClasses.animating,
     ];
-    
+
     ComponentClassManager.applyClasses(
-      element, 
-      classesToApply, 
-      this.instances, 
+      element,
+      classesToApply,
+      this.instances,
       this.componentName
     );
   }
@@ -158,13 +177,13 @@ class SplitTextAnimator {
     const fallbackClasses = [
       this.componentClasses.parent,
       this.componentClasses.animating,
-      this.componentClasses.completed
+      this.componentClasses.completed,
     ];
-    
+
     ComponentClassManager.removeClasses(
-      element, 
-      fallbackClasses, 
-      this.instances, 
+      element,
+      fallbackClasses,
+      this.instances,
       this.componentName
     );
   }
@@ -174,20 +193,20 @@ class SplitTextAnimator {
    */
   initElement(element) {
     this.ensureStylesInjected();
-    
+
     if (!element || !element.textContent.trim()) {
-      console.warn('WebflowBits SplitText: Element is empty or invalid');
+      console.warn("WebflowBits SplitText: Element is empty or invalid");
       return;
     }
 
     // Check if already initialized
     if (this.instances.has(element)) {
-      console.warn('WebflowBits SplitText: Element already initialized');
+      console.warn("WebflowBits SplitText: Element already initialized");
       return;
     }
 
     const config = this.parseConfig(element);
-    
+
     // Create instance object to track this animation
     const instance = {
       element,
@@ -196,18 +215,18 @@ class SplitTextAnimator {
       timeline: null,
       scrollTrigger: null,
       animationCompleted: false,
-      addedClasses: []
+      addedClasses: [],
     };
 
     this.instances.set(element, instance);
-    
+
     // Apply component-specific classes
     this.applyComponentClasses(element, config);
 
     try {
       this.setupAnimation(instance);
     } catch (error) {
-      console.error('WebflowBits SplitText: Failed to setup animation', error);
+      console.error("WebflowBits SplitText: Failed to setup animation", error);
       this.removeComponentClasses(element);
       this.instances.delete(element);
     }
@@ -224,13 +243,13 @@ class SplitTextAnimator {
       type: config.splitType,
       autoSplit: true,
       aria: true,
-      mask: config.splitType === 'lines' ? 'wb-split-line-mask' : false,
-      linesClass: 'wb-split-line',
-      wordsClass: 'wb-split-word', 
-      charsClass: 'wb-split-char',
+      mask: config.splitType === "lines" ? "wb-split-line-mask" : false,
+      linesClass: "wb-split-line",
+      wordsClass: "wb-split-word",
+      charsClass: "wb-split-char",
       onSplit: (self) => {
         return this.createAnimation(self, config, instance);
-      }
+      },
     });
 
     instance.splitter = splitter;
@@ -243,13 +262,13 @@ class SplitTextAnimator {
     // Get targets based on split type
     let targets;
     switch (config.splitType) {
-      case 'lines':
+      case "lines":
         targets = splitter.lines;
         break;
-      case 'words':
+      case "words":
         targets = splitter.words;
         break;
-      case 'chars':
+      case "chars":
         targets = splitter.chars;
         break;
       default:
@@ -257,7 +276,7 @@ class SplitTextAnimator {
     }
 
     if (!targets || targets.length === 0) {
-      console.warn('WebflowBits SplitText: No targets found for animation');
+      console.warn("WebflowBits SplitText: No targets found for animation");
       return;
     }
 
@@ -265,10 +284,10 @@ class SplitTextAnimator {
     PerformanceOptimizer.optimizeForAnimation(targets);
 
     // Set initial state
-    gsap.set(targets, { 
-      ...config.from, 
-      immediateRender: false, 
-      force3D: true 
+    gsap.set(targets, {
+      ...config.from,
+      immediateRender: false,
+      force3D: true,
     });
 
     if (config.triggerOnView) {
@@ -293,7 +312,7 @@ class SplitTextAnimator {
       {
         threshold: config.threshold,
         rootMargin: config.rootMargin,
-        markers: false
+        markers: false,
       },
       (self) => {
         if (!self.isActive) return;
@@ -327,7 +346,7 @@ class SplitTextAnimator {
     const timeline = gsap.timeline({
       onComplete: () => {
         this.completeAnimation(instance, targets);
-      }
+      },
     });
 
     instance.timeline = timeline;
@@ -349,26 +368,26 @@ class SplitTextAnimator {
    */
   completeAnimation(instance, targets) {
     instance.animationCompleted = true;
-    
+
     // Update state using utility
-    AnimationStateManager.setCompletedState(instance.element, 'wb-split');
-    
+    AnimationStateManager.setCompletedState(instance.element, "wb-split");
+
     // Clean up performance optimizations
     PerformanceOptimizer.cleanupAfterAnimation(targets);
-    
+
     // Clear performance properties
     gsap.set(targets, {
       visibility: 'visible',
       ...instance.config.to,
-      clearProps: 'willChange',
+      clearProps: "willChange",
       immediateRender: true,
     });
 
     // Dispatch completion event using utility
     AnimationStateManager.dispatchLifecycleEvent(
-      instance.element, 
-      'complete', 
-      'split-text',
+      instance.element,
+      "complete",
+      "split-text",
       { instance, targets }
     );
   }
@@ -396,7 +415,7 @@ class SplitTextAnimator {
    */
   initAll() {
     const elements = document.querySelectorAll('[wb-component="split-text"]');
-    elements.forEach(element => this.initElement(element));
+    elements.forEach((element) => this.initElement(element));
   }
 
   /**
@@ -455,10 +474,7 @@ class SplitTextAnimator {
    * Check for potential CSS conflicts using utility
    */
   checkForConflicts() {
-    return checkCSSConflicts(
-      componentClassSets.splitText, 
-      this.componentName
-    );
+    return checkCSSConflicts(componentClassSets.splitText, this.componentName);
   }
 }
 
