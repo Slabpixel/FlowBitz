@@ -351,6 +351,9 @@ class SplitTextAnimator {
 
     instance.timeline = timeline;
 
+    // Ensure visibility is restored before animating; opacity still animates from config
+    gsap.set(targets, { visibility: 'visible' });
+
     timeline.to(targets, {
       ...config.to,
       duration: config.duration,
@@ -374,6 +377,7 @@ class SplitTextAnimator {
 
     // Clear performance properties
     gsap.set(targets, {
+      visibility: 'visible',
       ...instance.config.to,
       clearProps: "willChange",
       immediateRender: true,
@@ -396,6 +400,7 @@ class SplitTextAnimator {
     PerformanceOptimizer.cleanupAfterAnimation(targets);
 
     gsap.set(targets, {
+      visibility: 'visible',
       ...instance.config.to,
       force3D: true,
       clearProps: 'willChange',

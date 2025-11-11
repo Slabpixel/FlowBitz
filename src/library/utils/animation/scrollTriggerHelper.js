@@ -102,7 +102,7 @@ export function createScrollTriggerConfig(element, config = {}, callbacks = {}) 
   const {
     threshold = 0.1,
     rootMargin = '0px',
-    toggleActions = 'play none none none',
+    toggleActions = 'play none play none',
     once = true,
     markers = false,
     refreshPriority = 0
@@ -147,7 +147,7 @@ export function createScrollTriggerConfig(element, config = {}, callbacks = {}) 
 export function createOnceAnimationConfig(element, config = {}, onToggleCallback = null) {
   return createScrollTriggerConfig(
     element,
-    { ...config, once: true },
+    { ...config, once: false },
     { onToggle: onToggleCallback }
   );
 }
