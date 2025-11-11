@@ -48,6 +48,36 @@ const Showcase = () => {
       url: 'https://formahaus.webflow.io',
       image: 'https://slabpixel.dev/images/formahaus.webp',
       description: 'Design & Architecture'
+    },
+    {
+      name: 'Vexum',
+      url: 'https://vexum.webflow.io',
+      image: 'https://slabpixel.dev/images/vexum.webp',
+      description: 'WEB3 & Finance'
+    },
+    {
+      name: 'Langford',
+      url: 'https://llangford.webflow.io',
+      image: 'https://slabpixel.dev/images/langford.webp',
+      description: 'Fashion & Lifestyle'
+    },
+    {
+      name: 'Stagetimer',
+      url: 'https://stagetimer.webflow.io',
+      image: 'https://slabpixel.dev/images/stagetimer.webp',
+      description: 'Tools & Management'
+    },
+    {
+      name: 'Art-Doc',
+      url: 'https://art-doc.webflow.io',
+      image: 'https://slabpixel.dev/images/artdoc.webp',
+      description: 'Art & Culture'
+    },
+    {
+      name: 'Swiftmate',
+      url: 'https://swftmate.webflow.io',
+      image: 'https://slabpixel.dev/images/swiftmate.webp',
+      description: 'Finance Application'
     }
   ]
 
