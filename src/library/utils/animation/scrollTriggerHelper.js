@@ -147,7 +147,7 @@ export function createScrollTriggerConfig(element, config = {}, callbacks = {}) 
 export function createOnceAnimationConfig(element, config = {}, onToggleCallback = null) {
   return createScrollTriggerConfig(
     element,
-    { ...config, once: true },
+    { ...config, once: false },
     { onToggle: onToggleCallback }
   );
 }
