@@ -1469,13 +1469,13 @@ export const componentsMetadata = {
       },
       { 
         name: 'wb-image-3', 
-        description: 'Third image URL (add more with wb-image-4, wb-image-5, etc.)', 
+        description: 'Third image URL', 
         default: '',
         inputType: 'text'
       },
       { 
         name: 'wb-image-4', 
-        description: 'Third image URL (add more with wb-image-4, wb-image-5, etc.)', 
+        description: 'Fourth image URL (add more with wb-image-5, wb-image-6, etc.)', 
         default: '',
         inputType: 'text'
       },
