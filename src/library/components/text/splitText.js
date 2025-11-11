@@ -315,8 +315,10 @@ class SplitTextAnimator {
         markers: false,
       },
       (self) => {
+        if (!self.isActive) return;
+
         // Only trigger once when element enters viewport
-        if (self.isActive && !instance.animationCompleted) {
+        if (!instance.animationCompleted) {
           // Add delay if specified
           if (config.startDelay > 0) {
             setTimeout(() => {
@@ -325,7 +327,11 @@ class SplitTextAnimator {
           } else {
             this.startAnimation(instance, targets, config);
           }
+          return;
         }
+
+        // If animation already completed restore final state after a refresh
+        this.restoreCompletedState(instance, targets);
       }
     );
 
@@ -380,6 +386,23 @@ class SplitTextAnimator {
       "split-text",
       { instance, targets }
     );
+  }
+
+  /**
+   * Restore completed state for already-finished animations (e.g., after refresh)
+   */
+  restoreCompletedState(instance, targets) {
+    // Ensure performance styles are cleaned up
+    PerformanceOptimizer.cleanupAfterAnimation(targets);
+
+    gsap.set(targets, {
+      ...instance.config.to,
+      force3D: true,
+      clearProps: 'willChange',
+      immediateRender: true
+    });
+
+    AnimationStateManager.setCompletedState(instance.element, 'wb-split');
   }
 
   /**
