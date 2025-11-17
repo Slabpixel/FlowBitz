@@ -1,0 +1,272 @@
+<section class="space-y-6 text-muted-foreground">
+  <h2 class="mt-12 text-3xl font-semibold text-foreground">Why Attribute Editor Changes Everything</h2>
+  <p class="text-base leading-relaxed">
+    Webflow's Attribute Editor is the secret weapon that transforms FlowBitz from a powerful library into a creative playground. While you could manually type every <code class="rounded bg-muted px-1 py-0.5 text-xs text-foreground">wb-*</code> attribute in the code, the Attribute Editor gives you a visual interface to experiment, iterate, and build complex motion systems—all without leaving the Designer. This guide shows you how to unlock that potential.
+  </p>
+
+  <h2 class="mt-12 text-3xl font-semibold text-foreground">Getting Started: The Attribute Editor Basics</h2>
+  <p class="text-base leading-relaxed">
+    Every FlowBitz component starts with the <code class="rounded bg-muted px-1 py-0.5 text-xs text-foreground">wb-component</code> attribute. Here's how to set it up:
+  </p>
+  <ol class="ml-6 space-y-2 text-base leading-relaxed list-decimal marker:text-primary">
+    <li>Select any element in your Webflow Designer (text, div, button, etc.)</li>
+    <li>Open the <strong>Element Settings</strong> panel (or press <code class="rounded bg-muted px-1 py-0.5 text-xs text-foreground">D</code>)</li>
+    <li>Scroll to <strong>Custom Attributes</strong> at the bottom</li>
+    <li>Click <strong>+ Add Custom Attribute</strong></li>
+    <li>Set <strong>Name</strong> to <code class="rounded bg-muted px-1 py-0.5 text-xs text-foreground">wb-component</code></li>
+    <li>Set <strong>Value</strong> to your component name (e.g., <code class="rounded bg-muted px-1 py-0.5 text-xs text-foreground">split-text</code>, <code class="rounded bg-muted px-1 py-0.5 text-xs text-foreground">image-trail</code>)</li>
+  </ol>
+
+  <pre class="overflow-auto rounded-2xl border border-border bg-card p-4 text-sm leading-relaxed whitespace-pre-wrap break-words"><code class="language-html break-words">&lt;!-- This is what you're creating in Attribute Editor --&gt;
+&lt;h1 wb-component="split-text"&gt;
+  Your animated heading
+&lt;/h1&gt;</code></pre>
+
+  <h2 class="mt-12 text-3xl font-semibold text-foreground">Creative Workflow: Building Component Systems</h2>
+  <p class="text-base leading-relaxed">
+    The real power emerges when you combine multiple attributes to create unique motion experiences. Here are three creative approaches:
+  </p>
+
+  <h3 class="mt-8 text-2xl font-semibold text-foreground">1. Layered Animations with Smart Timing</h3>
+  <p class="text-base leading-relaxed">
+    Combine <code class="rounded bg-muted px-1 py-0.5 text-xs text-foreground">wb-root-margin</code>, <code class="rounded bg-muted px-1 py-0.5 text-xs text-foreground">wb-stagger-delay</code>, and <code class="rounded bg-muted px-1 py-0.5 text-xs text-foreground">wb-start-delay</code> to create cascading reveals that feel orchestrated:
+  </p>
+  <pre class="overflow-auto rounded-2xl border border-border bg-card p-4 text-sm leading-relaxed whitespace-pre-wrap break-words"><code class="language-html break-words">&lt;!-- Hero Section: Text appears before images enter --&gt;
+&lt;h1 
+  wb-component="split-text"
+  wb-split-type="words"
+  wb-root-margin="200px 0px"
+  wb-stagger-delay="80"
+  wb-duration="0.8"
+&gt;Welcome to the Future&lt;/h1&gt;
+
+&lt;div 
+  wb-component="image-trail"
+  wb-images='["hero1.webp","hero2.webp"]'
+  wb-variant="3"
+  wb-root-margin="150px 0px"
+&gt;&lt;/div&gt;</code></pre>
+  <p class="text-base leading-relaxed">
+    <strong>Pro Tip:</strong> Use viewport-based units like <code class="rounded bg-muted px-1 py-0.5 text-xs text-foreground">25vh</code> for <code class="rounded bg-muted px-1 py-0.5 text-xs text-foreground">wb-root-margin</code> to create responsive trigger points that adapt to screen height.
+  </p>
+
+  <h3 class="mt-8 text-2xl font-semibold text-foreground">2. Dynamic Color Systems with RGBA</h3>
+  <p class="text-base leading-relaxed">
+    FlowBitz v2.3 introduced full RGBA support, which means you can match brand colors precisely and create transparency effects:
+  </p>
+  <pre class="overflow-auto rounded-2xl border border-border bg-card p-4 text-sm leading-relaxed whitespace-pre-wrap break-words"><code class="language-html break-words">&lt;!-- Gradient text with brand colors and transparency --&gt;
+&lt;h2 
+  wb-component="gradient-text"
+  wb-colors="rgba(64, 255, 170, 1), rgba(64, 121, 255, 0.8), rgba(255, 87, 51, 0.6)"
+  wb-animation-speed="6"
+&gt;Brand-Aligned Motion&lt;/h2&gt;
+
+&lt;!-- Outline gradient with semi-transparent stroke --&gt;
+&lt;button 
+  wb-component="outline-gradient"
+  wb-gradient="linear-gradient(135deg, rgba(64, 255, 170, 0.9), rgba(64, 121, 255, 0.9))"
+  wb-border-width="2px"
+&gt;Hover Me&lt;/button&gt;</code></pre>
+  <p class="text-base leading-relaxed">
+    <strong>Creative Use Case:</strong> Use CSS variables in your color attributes to create theme-aware animations that automatically adapt when you switch between light and dark modes in Webflow.
+  </p>
+
+  <h3 class="mt-8 text-2xl font-semibold text-foreground">3. Conditional Behaviors with Toggles</h3>
+  <p class="text-base leading-relaxed">
+    Many components support boolean toggles that let you enable or disable behaviors on the fly. This is perfect for A/B testing or responsive design:
+  </p>
+  <pre class="overflow-auto rounded-2xl border border-border bg-card p-4 text-sm leading-relaxed whitespace-pre-wrap break-words"><code class="language-html break-words">&lt;!-- Disable hover on mobile, enable on desktop --&gt;
+&lt;div 
+  wb-component="smart-animate"
+  wb-on-hover="false"
+  wb-trigger-on-view="true"
+  wb-repeat="true"
+&gt;
+  &lt;!-- Content that only animates on scroll, not hover --&gt;
+&lt;/div&gt;
+
+&lt;!-- Magnetic button that only works on desktop --&gt;
+&lt;button 
+  wb-component="magnetic-button"
+  wb-hover="true"
+  wb-strength="50"
+&gt;Interactive Element&lt;/button&gt;</code></pre>
+
+  <h2 class="mt-12 text-3xl font-semibold text-foreground">Advanced Techniques: Pushing the Boundaries</h2>
+
+  <h3 class="mt-8 text-2xl font-semibold text-foreground">Multi-Text Sequences</h3>
+  <p class="text-base leading-relaxed">
+    The <code class="rounded bg-muted px-1 py-0.5 text-xs text-foreground">text-type</code> component supports unlimited text strings via <code class="rounded bg-muted px-1 py-0.5 text-xs text-foreground">wb-text-1</code>, <code class="rounded bg-muted px-1 py-0.5 text-xs text-foreground">wb-text-2</code>, <code class="rounded bg-muted px-1 py-0.5 text-xs text-foreground">wb-text-3</code>, and beyond. Create dynamic hero sections that cycle through value propositions:
+  </p>
+  <pre class="overflow-auto rounded-2xl border border-border bg-card p-4 text-sm leading-relaxed whitespace-pre-wrap break-words"><code class="language-html break-words">&lt;span 
+  wb-component="text-type"
+  wb-text-1="Build faster"
+  wb-text-2="Ship smarter"
+  wb-text-3="Scale effortlessly"
+  wb-text-4="Deliver excellence"
+  wb-typing-speed="80"
+  wb-pause-duration="2500"
+  wb-cursor-character="pipe"
+  wb-show-cursor="true"
+&gt;&lt;/span&gt;</code></pre>
+
+  <h3 class="mt-8 text-2xl font-semibold text-foreground">Image Trail Variants</h3>
+  <p class="text-base leading-relaxed">
+    The <code class="rounded bg-muted px-1 py-0.5 text-xs text-foreground">image-trail</code> component offers eight preset variants, each with unique motion characteristics. Experiment with different variants to match your brand's personality:
+  </p>
+  <ul class="ml-6 space-y-2 text-base leading-relaxed list-disc marker:text-primary">
+    <li><strong>Variant 1-2:</strong> Subtle, elegant follows—perfect for professional portfolios</li>
+    <li><strong>Variant 3-4:</strong> Dynamic, energetic motion—ideal for creative agencies</li>
+    <li><strong>Variant 5-6:</strong> Playful, bouncy interactions—great for consumer brands</li>
+    <li><strong>Variant 7-8:</strong> Advanced physics-based effects—for cutting-edge projects</li>
+  </ul>
+  <pre class="overflow-auto rounded-2xl border border-border bg-card p-4 text-sm leading-relaxed whitespace-pre-wrap break-words"><code class="language-html break-words">&lt;div 
+  wb-component="image-trail"
+  wb-images='["team1.webp","team2.webp","team3.webp","team4.webp"]'
+  wb-variant="6"
+  wb-trail-gap="15"
+  wb-image-width="200px"
+  wb-image-height="250px"
+&gt;&lt;/div&gt;</code></pre>
+
+  <h3 class="mt-8 text-2xl font-semibold text-foreground">Precision Scroll Control</h3>
+  <p class="text-base leading-relaxed">
+    The <code class="rounded bg-muted px-1 py-0.5 text-xs text-foreground">wb-root-margin</code> attribute accepts any CSS unit, giving you pixel-perfect control over when animations trigger:
+  </p>
+  <ul class="ml-6 space-y-2 text-base leading-relaxed list-disc marker:text-primary">
+    <li><code class="rounded bg-muted px-1 py-0.5 text-xs text-foreground">"200px 0px"</code> — Triggers 200px before element enters viewport (early reveal)</li>
+    <li><code class="rounded bg-muted px-1 py-0.5 text-xs text-foreground">"0px"</code> — Triggers exactly when element enters (standard)</li>
+    <li><code class="rounded bg-muted px-1 py-0.5 text-xs text-foreground">"-100px 0px"</code> — Triggers 100px after element enters (late reveal)</li>
+    <li><code class="rounded bg-muted px-1 py-0.5 text-xs text-foreground">"25vh 0px"</code> — Viewport-relative trigger (responsive)</li>
+    <li><code class="rounded bg-muted px-1 py-0.5 text-xs text-foreground">"10% 0px"</code> — Percentage-based trigger (scales with element size)</li>
+  </ul>
+
+  <h2 class="mt-12 text-3xl font-semibold text-foreground">Workflow Optimization: Speed Up Your Process</h2>
+
+  <h3 class="mt-8 text-2xl font-semibold text-foreground">Create Reusable Component Classes</h3>
+  <p class="text-base leading-relaxed">
+    Instead of adding attributes to every element, create Webflow classes with preset attribute configurations:
+  </p>
+  <ol class="ml-6 space-y-2 text-base leading-relaxed list-decimal marker:text-primary">
+    <li>Add attributes to one element and perfect the settings</li>
+    <li>Create a class from that element (e.g., <code class="rounded bg-muted px-1 py-0.5 text-xs text-foreground">.hero-split-text</code>)</li>
+    <li>Apply the class to other elements—attributes copy automatically</li>
+    <li>Update the class to change all instances at once</li>
+  </ol>
+  <p class="text-base leading-relaxed">
+    <strong>Pro Tip:</strong> Use Webflow's <strong>Combo Classes</strong> to create variations (e.g., <code class="rounded bg-muted px-1 py-0.5 text-xs text-foreground">.hero-split-text.fast</code> with <code class="rounded bg-muted px-1 py-0.5 text-xs text-foreground">wb-stagger-delay="50"</code>).
+  </p>
+
+  <h3 class="mt-8 text-2xl font-semibold text-foreground">Use Symbols for Complex Components</h3>
+  <p class="text-base leading-relaxed">
+    For multi-element components like <code class="rounded bg-muted px-1 py-0.5 text-xs text-foreground">image-trail</code> or nested animations, convert them to Webflow Symbols:
+  </p>
+  <ul class="ml-6 space-y-2 text-base leading-relaxed list-disc marker:text-primary">
+    <li>Build the complete component with all attributes configured</li>
+    <li>Select the parent container and create a Symbol</li>
+    <li>Instance the Symbol across pages—all attributes stay intact</li>
+    <li>Edit the master Symbol to update all instances globally</li>
+  </ul>
+
+  <h3 class="mt-8 text-2xl font-semibold text-foreground">Leverage the Debugger Overlay</h3>
+  <p class="text-base leading-relaxed">
+    FlowBitz includes a built-in debugger that shows trigger states, timelines, and thresholds. Enable it by adding <code class="rounded bg-muted px-1 py-0.5 text-xs text-foreground">?debug=true</code> to your preview URL or setting <code class="rounded bg-muted px-1 py-0.5 text-xs text-foreground">wb-debug="true"</code> on any component. Use it to:
+  </p>
+  <ul class="ml-6 space-y-2 text-base leading-relaxed list-disc marker:text-primary">
+    <li>Verify <code class="rounded bg-muted px-1 py-0.5 text-xs text-foreground">wb-root-margin</code> values are triggering at the right scroll position</li>
+    <li>Check if <code class="rounded bg-muted px-1 py-0.5 text-xs text-foreground">wb-repeat</code> is working as expected</li>
+    <li>See animation durations and delays in real-time</li>
+    <li>Identify performance bottlenecks during development</li>
+  </ul>
+
+  <h2 class="mt-12 text-3xl font-semibold text-foreground">Real-World Creative Examples</h2>
+
+  <h3 class="mt-8 text-2xl font-semibold text-foreground">Example 1: Hero Section with Orchestrated Motion</h3>
+  <pre class="overflow-auto rounded-2xl border border-border bg-card p-4 text-sm leading-relaxed whitespace-pre-wrap break-words"><code class="language-html break-words">&lt;!-- Main headline appears first --&gt;
+&lt;h1 
+  wb-component="split-text"
+  wb-split-type="words"
+  wb-root-margin="300px 0px"
+  wb-stagger-delay="100"
+  wb-duration="0.7"
+  wb-ease="power3.out"
+&gt;Transform Your Digital Presence&lt;/h1&gt;
+
+&lt;!-- Subheadline follows with delay --&gt;
+&lt;p 
+  wb-component="split-text"
+  wb-split-type="words"
+  wb-root-margin="250px 0px"
+  wb-start-delay="0.3"
+  wb-stagger-delay="60"
+  wb-duration="0.5"
+&gt;Build stunning websites without code&lt;/p&gt;
+
+&lt;!-- CTA button animates last --&gt;
+&lt;button 
+  wb-component="magnetic-button"
+  wb-root-margin="200px 0px"
+  wb-start-delay="0.6"
+  wb-strength="30"
+&gt;Get Started&lt;/button&gt;</code></pre>
+
+  <h3 class="mt-8 text-2xl font-semibold text-foreground">Example 2: Portfolio Grid with Image Trails</h3>
+  <pre class="overflow-auto rounded-2xl border border-border bg-card p-4 text-sm leading-relaxed whitespace-pre-wrap break-words"><code class="language-html break-words">&lt;!-- Each portfolio item has its own image trail --&gt;
+&lt;div class="portfolio-item"&gt;
+  &lt;div 
+    wb-component="image-trail"
+    wb-images='["project1-1.webp","project1-2.webp","project1-3.webp"]'
+    wb-variant="4"
+    wb-trail-gap="12"
+    wb-threshold="0.3"
+  &gt;&lt;/div&gt;
+  &lt;h3 wb-component="split-text" wb-split-type="chars"&gt;Project Name&lt;/h3&gt;
+&lt;/div&gt;</code></pre>
+
+  <h3 class="mt-8 text-2xl font-semibold text-foreground">Example 3: Dynamic Pricing Section</h3>
+  <pre class="overflow-auto rounded-2xl border border-border bg-card p-4 text-sm leading-relaxed whitespace-pre-wrap break-words"><code class="language-html break-words">&lt;!-- Price animates with gradient --&gt;
+&lt;div 
+  wb-component="gradient-text"
+  wb-colors="rgba(64, 255, 170, 1), rgba(64, 121, 255, 1)"
+  wb-animation-speed="5"
+&gt;$99&lt;/div&gt;
+
+&lt;!-- Feature list with staggered reveal --&gt;
+&lt;ul&gt;
+  &lt;li 
+    wb-component="smart-animate"
+    wb-root-margin="100px 0px"
+    wb-stagger-delay="150"
+  &gt;Feature 1&lt;/li&gt;
+  &lt;li 
+    wb-component="smart-animate"
+    wb-root-margin="100px 0px"
+    wb-stagger-delay="150"
+  &gt;Feature 2&lt;/li&gt;
+&lt;/ul&gt;</code></pre>
+
+  <h2 class="mt-12 text-3xl font-semibold text-foreground">Common Pitfalls and How to Avoid Them</h2>
+  <ul class="ml-6 space-y-2 text-base leading-relaxed list-disc marker:text-primary">
+    <li><strong>Attribute Name Typos:</strong> Always double-check attribute names. <code class="rounded bg-muted px-1 py-0.5 text-xs text-foreground">wb-stagger-delay</code> (correct) vs <code class="rounded bg-muted px-1 py-0.5 text-xs text-foreground">wb-staggerdelay</code> (won't work). Use the component documentation as reference.</li>
+    <li><strong>JSON Array Formatting:</strong> For attributes like <code class="rounded bg-muted px-1 py-0.5 text-xs text-foreground">wb-images</code>, ensure proper JSON formatting with quotes around strings: <code class="rounded bg-muted px-1 py-0.5 text-xs text-foreground">'["img1.webp","img2.webp"]'</code></li>
+    <li><strong>Unit Consistency:</strong> Mixing units in <code class="rounded bg-muted px-1 py-0.5 text-xs text-foreground">wb-root-margin</code> can cause unexpected behavior. Stick to one unit type per value (e.g., all <code class="rounded bg-muted px-1 py-0.5 text-xs text-foreground">px</code> or all <code class="rounded bg-muted px-1 py-0.5 text-xs text-foreground">vh</code>).</li>
+    <li><strong>Over-animating:</strong> Too many simultaneous animations can hurt performance. Limit to 2-3 components per viewport and use <code class="rounded bg-muted px-1 py-0.5 text-xs text-foreground">wb-disabled</code> to toggle components during testing.</li>
+  </ul>
+
+  <h2 class="mt-12 text-3xl font-semibold text-foreground">Next Steps: Build Your Motion System</h2>
+  <p class="text-base leading-relaxed">
+    Now that you understand the creative possibilities, here's how to put it into practice:
+  </p>
+  <ol class="ml-6 space-y-2 text-base leading-relaxed list-decimal marker:text-primary">
+    <li><strong>Start Small:</strong> Pick one component and master all its attributes before moving to the next</li>
+    <li><strong>Document Your Patterns:</strong> Create a Webflow style guide with your favorite attribute combinations</li>
+    <li><strong>Test Responsively:</strong> Use Webflow's responsive breakpoints to adjust attributes for mobile (e.g., disable hover effects, reduce animation complexity)</li>
+    <li><strong>Iterate with the Debugger:</strong> Use the debugger overlay to fine-tune timing and triggers until everything feels perfect</li>
+    <li><strong>Share Your Work:</strong> Tag <a class="text-primary underline underline-offset-4 hover:text-primary/80" href="https://twitter.com/flowbitz" target="_blank" rel="noreferrer">@flowbitz</a> when you ship something amazing</li>
+  </ol>
+
+  <p class="text-base leading-relaxed text-foreground">
+    The Attribute Editor isn't just a configuration tool—it's your creative canvas. Every attribute combination opens new possibilities, and with FlowBitz's component library, you're only limited by your imagination. Start experimenting, break the rules, and build motion experiences that make your Webflow projects unforgettable.
+  </p>
+</section>
+
