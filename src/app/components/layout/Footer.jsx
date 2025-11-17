@@ -40,22 +40,6 @@ const Footer = () => {
             <p className="text-muted-foreground leading-relaxed text-sm mb-4">
               Interactive components for Webflow. Create stunning animations and effects with our powerful library of {componentCount}+ components.
             </p>
-            {/* Product Hunt Button - Fixed Bottom Right */}
-            <div className="mb-4">
-              <a href="https://www.producthunt.com/products/flowbitz-webflow-animation-library?embed=true&utm_source=badge-featured&utm_medium=badge&utm_source=badge-flowbitz&#0045;2" 
-                target="_blank" 
-                rel="noopener noreferrer"
-              >
-                <img 
-                  src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=1020609&theme=light&t=1760584749748" 
-                  alt="FlowBitz - Free Interactive Components for Webflow — No Code? | Product Hunt" 
-                  style={{ width: '200px', height: '40px' }} 
-                  width="200" 
-                  height="40"
-                  className="rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300"
-                />
-              </a>
-            </div>
             <div className="flex items-center gap-2 text-sm text-muted-foreground">
               <span>Made with</span>
               <Heart className="w-4 h-4 text-red-500" />
