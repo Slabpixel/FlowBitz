@@ -1476,15 +1476,17 @@ class ImageTrailAnimator {
   /**
    * Initialize all ImageTrail elements on the page
    */
-  initAll() {
+  async initAll() {
     this.ensureStylesInjected();
     
     const elements = document.querySelectorAll('[wb-component="image-trail"]');
-    elements.forEach(element => {
+    const initPromises = Array.from(elements).map(element => {
       if (!this.instances.has(element)) {
-        this.initElement(element);
+        return this.initElement(element);
       }
     });
+    
+    await Promise.all(initPromises);
   }
 
   /**
@@ -1528,10 +1530,71 @@ class ImageTrailAnimator {
   }
 
   /**
+   * Preload an image and return a promise
+   * @param {string} url - Image URL to preload
+   * @returns {Promise<HTMLImageElement>} Promise that resolves when image loads
+   */
+  preloadImage(url) {
+    return new Promise((resolve, reject) => {
+      const img = new Image();
+      
+      img.onload = () => {
+        resolve(img);
+      };
+      
+      img.onerror = (error) => {
+        console.warn(`ImageTrail: Failed to load image: ${url}`, error);
+        // Still resolve to allow component to work with available images
+        // You can change this to reject() if you want to fail completely
+        resolve(null);
+      };
+      
+      // Set crossOrigin for CORS if needed (only for absolute URLs from different origins)
+      try {
+        if (url.startsWith('http://') || url.startsWith('https://')) {
+          const imgUrl = new URL(url, window.location.href);
+          const currentOrigin = window.location.origin;
+          if (imgUrl.origin !== currentOrigin) {
+            img.crossOrigin = 'anonymous';
+          }
+        }
+      } catch (e) {
+        // If URL parsing fails, skip CORS setting
+      }
+      
+      img.src = url;
+    });
+  }
+
+  /**
+   * Preload all images and return a promise
+   * @param {string[]} imageUrls - Array of image URLs
+   * @returns {Promise<HTMLImageElement[]>} Promise that resolves when all images load
+   */
+  async preloadAllImages(imageUrls) {
+    const loadPromises = imageUrls.map(url => this.preloadImage(url));
+    const results = await Promise.all(loadPromises);
+    
+    // Filter out failed images and log warning
+    const loadedImages = results.filter(img => img !== null);
+    const failedCount = results.length - loadedImages.length;
+    
+    if (failedCount > 0) {
+      console.warn(`ImageTrail: ${failedCount} image(s) failed to load. Component will use ${loadedImages.length} available image(s).`);
+    }
+    
+    if (loadedImages.length === 0) {
+      throw new Error('ImageTrail: No images could be loaded');
+    }
+    
+    return loadedImages;
+  }
+
+  /**
    * Initialize a specific element
    * @param {HTMLElement} element - Element to initialize
    */
-  initElement(element) {
+  async initElement(element) {
     if (this.instances.has(element)) {
       return; // Already initialized
     }
@@ -1583,7 +1646,20 @@ class ImageTrailAnimator {
         element.style.position = 'relative';
       }
 
-      // Create image elements
+      // Preload all images before creating DOM elements
+      const loadedImages = await this.preloadAllImages(config.images);
+      
+      // Filter config.images to only include successfully loaded images
+      const validImageUrls = loadedImages.map(img => img.src);
+      config.images = config.images.filter(url => validImageUrls.includes(url));
+      
+      if (config.images.length === 0) {
+        console.error('ImageTrail: No valid images to display');
+        element.classList.remove(this.componentClasses.base);
+        return;
+      }
+
+      // Create image elements with preloaded images
       const imageElements = config.images.map((url, i) => {
         const imgDiv = document.createElement('div');
         imgDiv.className = 'wb-image-trail__img';
@@ -1594,6 +1670,7 @@ class ImageTrailAnimator {
         
         const imgInner = document.createElement('div');
         imgInner.className = 'wb-image-trail__img-inner';
+        // Use the preloaded image URL (ensures it's loaded)
         imgInner.style.backgroundImage = `url(${url})`;
         
         imgDiv.appendChild(imgInner);
@@ -1605,7 +1682,7 @@ class ImageTrailAnimator {
       // Get variant class
       const VariantClass = variantMap[config.variant] || variantMap[1];
       
-      // Initialize variant
+      // Initialize variant (images are now guaranteed to be loaded)
       const variantInstance = new VariantClass(element, config);
 
       // Store instance
@@ -1620,6 +1697,10 @@ class ImageTrailAnimator {
 
     } catch (error) {
       console.error('ImageTrail: Failed to initialize element', error);
+      // Clean up on error
+      if (element.classList.contains(this.componentClasses.base)) {
+        element.classList.remove(this.componentClasses.base);
+      }
     }
   }
 
@@ -1679,15 +1760,19 @@ class ImageTrailAnimator {
 // Create and export singleton instance
 const imageTrailAnimator = new ImageTrailAnimator()
 
-// Auto-initialize components with wb-component="outline-gradient-animate"
+// Auto-initialize components with wb-component="image-trail"
 if (typeof document !== 'undefined') {
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', () => {
-      imageTrailAnimator.initAll()
+      imageTrailAnimator.initAll().catch(err => {
+        console.error('ImageTrail: Error during auto-initialization', err);
+      });
     })
   } else {
     // DOM already loaded, initialize immediately
-    imageTrailAnimator.initAll()
+    imageTrailAnimator.initAll().catch(err => {
+      console.error('ImageTrail: Error during auto-initialization', err);
+    });
   }
 }
 
