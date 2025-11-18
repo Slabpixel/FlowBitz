@@ -63,6 +63,7 @@ const COMPONENT_REQUIREMENTS = {
   'ripple-button': [],  // CSS only
   'pulse-button': [],  // CSS only
   'magnetic-button': ['core'],
+  'shimmer-button': [],  // CSS only
   
   // Effect components
   'smart-animate': ['core', 'scrollTrigger'],
@@ -97,6 +98,7 @@ const COMPONENT_LOADERS = {
   'ripple-button': () => import('./components/button/rippleButton.js'),
   'pulse-button': () => import('./components/button/pulseButton.js'),
   'magnetic-button': () => import('./components/button/magneticButton.js'),
+  'shimmer-button': () => import('./components/button/shimmerButton.js'),
   
   // Effect components
   'smart-animate': () => import('./components/effect/smartAnimate.js'),

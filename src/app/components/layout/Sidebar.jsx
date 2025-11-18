@@ -186,7 +186,7 @@ const Sidebar = ({ showBackLink = false }) => {
             <div className="sidebar-section border-t border-border pt-2 pb-2 bg-background">
               <ul className="list-none">
                 <li className="mb-0.5">
-                  <Link s
+                  <Link 
                     to="/about" 
                     onClick={() => setIsComponentsOpen(false)}
                     className={`flex items-center gap-2 px-0 py-2 text-black dark:text-white no-underline rounded-md transition-all duration-200 text-sm font-normal ${
