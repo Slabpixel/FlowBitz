@@ -4,15 +4,13 @@ This directory contains all documentation files for the FlowBitz project (except
 
 ## 📚 Available Documentation
 
-### Development Guides
-
-- **[COMPONENT_GUIDE.md](./COMPONENT.md)** - Comprehensive guide on how to add new components to the FlowBitz library. Includes component structure, registration steps, naming conventions, and step-by-step examples.
+- **[COMPONENT.md](./COMPONENT.md)** - Comprehensive guide on how to add new components to the FlowBitz library. Includes component structure, registration steps, naming conventions, and step-by-step examples.
 
 - **[DEVELOPMENT.md](./DEVELOPMENT.md)** - Development workflow, build scripts, release process, testing procedures, and troubleshooting guide.
 
-### SEO & Marketing
-
 - **[SEO.md](./SEO.md)** - SEO implementation guide, including meta tags, structured data, technical optimizations, and content strategy.
+
+- **[VERSION.md](./VERSION.md)** - Version update guide with checklist and detailed instructions for updating version numbers across all project files during releases. 
 
 ---
 
