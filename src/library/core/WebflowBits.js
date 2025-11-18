@@ -35,6 +35,7 @@ import smartAnimateAnimator from '../components/effect/smartAnimate.js';
 import CardHover3DAnimator from '../components/effect/3dCardHover.js';
 import outlineGradientAnimator from '../components/effect/outlineGradientAnimate.js';
 import imageTrailAnimator from '../components/effect/imageTrail.js';
+import hoverZoomAnimator from '../components/effect/hoverZoom.js';
 
 /* Utils */
 import { setupScrollTriggerResize } from '../utils/animation/scrollTriggerHelper.js';
@@ -72,6 +73,7 @@ class WebflowBits {
       cardHover3d: CardHover3DAnimator,
       outlineGradient: outlineGradientAnimator,
       imageTrail: imageTrailAnimator,
+      hoverZoom: hoverZoomAnimator,
     };
   }
 
@@ -88,7 +90,7 @@ class WebflowBits {
     const config = {
       autoInit: true,
       debug: false,
-      components: ['splitText', 'textType', 'blurText', 'shinyText', 'gradientText', 'gradientButton', 'rippleButton', 'pulseButton', 'shimmerButton', 'decryptedText', 'scrambleText', 'variableProximity', 'countUp', 'rotatingText', 'textPressure', 'magnet', 'shuffle', 'tooltipText', 'rollText', 'cardHover3d', 'outlineGradient', 'imageTrail'],
+      components: ['splitText', 'textType', 'blurText', 'shinyText', 'gradientText', 'gradientButton', 'rippleButton', 'pulseButton', 'shimmerButton', 'decryptedText', 'scrambleText', 'variableProximity', 'countUp', 'rotatingText', 'textPressure', 'magnet', 'shuffle', 'tooltipText', 'rollText', 'cardHover3d', 'outlineGradient', 'imageTrail', 'hoverZoom'],
       ...options
     };
 
@@ -209,6 +211,10 @@ class WebflowBits {
 
       if (config.components.includes('imageTrail')) {
         this.initImageTrail(config.debug);
+      }
+
+      if (config.components.includes('hoverZoom')) {
+        this.initHoverZoom(config.debug);
       }
 
       // Setup mutation observer for dynamic content if autoInit is enabled
@@ -640,6 +646,20 @@ class WebflowBits {
   }
 
   /**
+   * Initialize HoverZoom component
+   */
+  initHoverZoom(debug = false) {
+    try {
+      hoverZoomAnimator.initAll();
+      if (debug) {
+        console.log('WebflowBits: HoverZoom initialized');
+      }
+    } catch (error) {
+      console.error('WebflowBits: Failed to initialize HoverZoom', error);
+    }
+  }
+
+  /**
    * Setup mutation observer to handle dynamically added content
    */
   setupMutationObserver(debug = false) {
@@ -896,6 +916,16 @@ class WebflowBits {
                 imageTrailAnimator.initElement(element);
                 shouldRefresh = true;
               });
+
+              // Check for wb-component="hover-zoom" elements
+              const hoverZoomElements = node.matches?.('[wb-component="hover-zoom"]')
+                ? [node]
+                : Array.from(node.querySelectorAll?.('[wb-component="hover-zoom"]') || []);
+
+              hoverZoomElements.forEach(element => {
+                hoverZoomAnimator.initElement(element);
+                shouldRefresh = true;
+              });
             }
           });
         }
@@ -922,6 +952,7 @@ class WebflowBits {
           shimmerButtonAnimator.refresh();
           outlineGradientAnimator.refresh();
           imageTrailAnimator.refresh();
+          hoverZoomAnimator.refresh();
         }, 100);
       }
     });
@@ -1356,6 +1387,25 @@ class WebflowBits {
   }
 
   /**
+   * Manually initialize HoverZoom on specific elements
+   * @param {string|NodeList|Element} selector - CSS selector or DOM elements
+   */
+  initHoverZoomOn(selector) {
+    const elements = typeof selector === 'string' 
+      ? document.querySelectorAll(selector)
+      : selector.nodeType ? [selector] : selector;
+    
+    Array.from(elements).forEach(element => {
+      if (element.getAttribute('wb-component') === 'hover-zoom') {
+        hoverZoomAnimator.initElement(element);
+      }
+    });
+
+    hoverZoomAnimator.refresh();
+    return this;
+  }
+
+  /**
    * Destroy all components and observers
    */
   destroy() {
@@ -1422,6 +1472,9 @@ class WebflowBits {
      // Destroy ImageTrail animations
     imageTrailAnimator.destroyAll();
 
+    // Destroy HoverZoom animations
+    hoverZoomAnimator.destroyAll();
+
     // Disconnect observers
     this.observers.forEach(observer => observer.disconnect());
     this.observers = [];
@@ -1460,6 +1513,7 @@ class WebflowBits {
     shimmerButtonAnimator.refresh();
     outlineGradientAnimator.refresh();
     imageTrailAnimator.refresh();
+    hoverZoomAnimator.refresh();
     return this;
   }
 

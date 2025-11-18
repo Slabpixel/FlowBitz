@@ -70,6 +70,7 @@ const COMPONENT_REQUIREMENTS = {
   '3d-card-hover': [],
   'outline-gradient-animate': [], // CSS only, no GSAP needed
   'image-trail': ['core'],
+  'hover-zoom': [], // CSS only, no GSAP needed
 };
 
 /**
@@ -105,6 +106,7 @@ const COMPONENT_LOADERS = {
   '3d-card-hover': () => import('./components/effect/3dCardHover.js'),
   'outline-gradient': () => import('./components/effect/outlineGradientAnimate.js'),
   'image-trail': () => import('./components/effect/imageTrail.js'),
+  'hover-zoom': () => import('./components/effect/hoverZoom.js'),
 };
 
 /**

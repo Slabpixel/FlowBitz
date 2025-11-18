@@ -33,6 +33,7 @@ export { default as SmartAnimate } from './components/effect/smartAnimate.js'
 export { default as CardHover3D } from './components/effect/3dCardHover.js'
 export { default as OutlineGradientAnimate } from './components/effect/outlineGradientAnimate.js'
 export { default as ImageTrail } from './components/effect/imageTrail.js'
+export { default as HoverZoom } from './components/effect/hoverZoom.js'
 
 // Export utilities
 export { ComponentClassManager, webflowBitsClasses } from './utils/core/classManager.js'

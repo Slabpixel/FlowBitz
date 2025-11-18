@@ -1573,6 +1573,41 @@ export const componentsMetadata = {
       description: 'Images follow cursor with smooth animations. Add more images with wb-image-4, wb-image-5, etc. Try different variants (1-8) for unique effects.'
     }
   },
+
+  'hover-zoom': {
+    newComponent: true,
+    name: 'Hover Zoom',
+    description: 'Zoom effect on hover with parallax movement that follows mouse direction',
+    category: 'effect',
+    file: 'hoverZoom.js',
+    installationNotes: 'Works with img elements, divs with background images, or divs containing img elements. The image zooms on hover and moves in the opposite direction of the mouse cursor for a dynamic parallax effect.',
+    attributes: [
+      { 
+        name: 'wb-component', 
+        description: 'Enable hover zoom effect', 
+        default: 'hover-zoom',
+        inputType: 'text',
+        required: true
+      },
+      { 
+        name: 'wb-zoom-scale', 
+        description: 'Zoom scale on hover (1 = no zoom, 1.5 = 50% zoom, 2 = 100% zoom). Parallax movement is automatically calculated based on this value to prevent overflow.', 
+        default: '1.5',
+        inputType: 'slider',
+        sliderConfig: { min: 1, max: 3, step: 0.1 }
+      }
+    ],
+    example: {
+      title: 'Hover Zoom Effect',
+      code: `<img 
+  wb-component="hover-zoom" 
+  src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4"
+  alt="Hover to zoom"
+  class="w-full h-64 object-cover"
+/>`,
+      description: 'Image zooms on hover and moves in opposite direction of mouse cursor. Parallax movement is automatically calculated based on zoom scale to prevent overflow. Works with img tags, background images, or nested images.'
+    }
+  },
 }
 
 Object.values(componentsMetadata).forEach((component) => {
