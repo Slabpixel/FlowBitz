@@ -1,8 +1,9 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { Calendar } from 'lucide-react'
+import { Book, Calendar, FileText } from 'lucide-react'
 import SEO from '../components/SEO.jsx'
 import { getAllPosts } from '../data/blogPosts.js'
+import Footer from '../components/layout/Footer.jsx'
 
 const posts = getAllPosts()
 
@@ -32,6 +33,7 @@ const Blog = () => {
         <div className="max-w-5xl mx-auto flex justify-center items-center flex-col gap-12 px-4 sm:px-6 lg:px-8 py-12 sm:py-16 lg:py-20">
           <header wb-component="smart-animate" className="max-w-4xl space-y-4 text-center">
             <p className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-primary/20 to-muted-foreground/10 dark:from-primary/20 dark:to-white/10 rounded-full text-sm font-medium text-black dark:text-white">
+              <FileText className="w-4 h-4" />
               FlowBitz Blog
             </p>
             <h1 className="text-3xl font-bold tracking-tight sm:text-4xl lg:text-5xl">
@@ -100,6 +102,8 @@ const Blog = () => {
           </section>
         </div>
       </div>
+    {/* Footer */}
+    <Footer />
     </>
   )
 }
