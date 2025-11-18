@@ -4,12 +4,62 @@ This guide explains how to add a new component to the WebflowBits library. Follo
 
 ## Table of Contents
 
-1. [Component File Structure](#component-file-structure)
-2. [Component Registration Steps](#component-registration-steps)
-3. [File Locations](#file-locations)
-4. [Naming Conventions](#naming-conventions)
-5. [Component Requirements](#component-requirements)
-6. [Step-by-Step Example](#step-by-step-example)
+1. [Quick Checklist](#quick-checklist)
+2. [Component File Structure](#component-file-structure)
+3. [Component Registration Steps](#component-registration-steps)
+4. [File Locations](#file-locations)
+5. [Naming Conventions](#naming-conventions)
+6. [Component Requirements](#component-requirements)
+7. [Step-by-Step Example](#step-by-step-example)
+
+---
+
+## Quick Checklist
+
+Use this checklist to ensure you've completed all registration steps:
+
+### Component File
+- [ ] Created component file in correct directory (`text/`, `button/`, or `effect/`)
+- [ ] Implemented all required methods: `initElement()`, `initAll()`, `destroyElement()`, `destroyAll()`, `refresh()`
+- [ ] Set `componentName` (kebab-case)
+- [ ] Set `componentClasses` with CSS class names
+- [ ] Set `defaultConfig` with default values
+- [ ] Exported singleton instance as default
+
+### Registration Files
+
+#### `componentsMetadata.js`
+- [ ] Added component entry with kebab-case key
+- [ ] Included all required fields: `name`, `description`, `category`, `file`
+- [ ] Added all `wb-*` attributes to `attributes` array
+- [ ] Added `example` with code snippet
+
+#### `loader.js`
+- [ ] Added to `COMPONENT_REQUIREMENTS` (GSAP dependencies)
+- [ ] Added to `COMPONENT_LOADERS` with correct import path
+
+#### `index.js`
+- [ ] Added export with PascalCase name
+- [ ] Import path matches file location
+
+#### `WebflowBits.js`
+- [ ] Added import statement at top of file
+- [ ] Added to `this.components` object (camelCase key)
+- [ ] Added to `config.components` array in `init()`
+- [ ] Added initialization check in `initComponents()`
+- [ ] Created `initYourComponent()` method
+- [ ] Added to mutation observer in `setupMutationObserver()`
+- [ ] Added `refresh()` call in mutation observer timeout
+- [ ] Added `refresh()` call in `refresh()` method
+- [ ] Added `destroyAll()` call in `destroy()` method
+- [ ] Added manual `initYourComponentOn()` method (optional)
+
+### Testing
+- [ ] Tested component in development mode
+- [ ] Tested with HTML markup
+- [ ] Tested dynamic element addition
+- [ ] Tested cleanup and memory leaks
+- [ ] Verified naming conventions are correct
 
 ---
 
