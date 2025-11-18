@@ -2,7 +2,7 @@
   "slug": "what-is-flowbitz",
   "title": "What Is FlowBitz? Build Premium Motion Without Leaving Webflow",
   "description": "FlowBitz is a component library that gives Webflow developers GSAP-grade motion with a no-code workflow—yet it still runs in React and other environments when you need to ship beyond Webflow.",
-  "heroImage": "https://www.slabpixel.dev/images/FlowBitz-3D.png",
+  "heroImage": "https://www.slabpixel.dev/images/blog-1.png",
   "publishedAt": "2025-11-01T09:00:00.000Z",
   "tags": ["webflow", "gsap", "introduction", "workflow"]
 }
