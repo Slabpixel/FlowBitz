@@ -12,6 +12,21 @@ const Release = () => {
     const navigate = useNavigate()
     const releases = [
         {
+            version: "2.4.0",
+            date: "November 19, 2025",
+            type: "stable",
+            description: "v2.4.0 feature release: Two new interactive components, ImageTrail improvements, and enhanced showcase and SEO updates.",
+            changes: [
+                "New Component - Shimmer Button with customizable direction, speed, and color options",
+                "New Component - Hover Zoom with parallax movement that follows mouse direction",
+                "ImageTrail improvements - Enhanced performance and better image preloading",
+                "ScrollTrigger improvements - Enhanced helper calculations and viewport unit handling",
+                "Updated showcase lists with latest community projects and examples",
+                "Blog updates with new implementation guides and component highlights",
+                "SEO improvements for index page and robots.txt optimization"
+            ]
+        },
+        {
             version: "2.3.5",
             date: "November 11, 2025",
             type: "stable",
@@ -103,8 +118,8 @@ const Release = () => {
         "name": "FlowBitz",
         "description": "Interactive components library for Webflow - Release notes and version history",
         "url": "https://www.flowbitz.dev/release",
-        "version": "2.3.5",
-        "datePublished": "2025-11-07",
+        "version": "2.4.0",
+        "datePublished": "2025-12-20",
         "applicationCategory": "Web Development",
         "operatingSystem": "Web Browser"
     }
