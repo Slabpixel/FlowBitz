@@ -930,7 +930,7 @@ class WebflowBits {
       childList: true,
       subtree: true,
       attributes: true,
-      attributeFilter: ['wb-component', 'wb-shimmer-direction', 'wb-shimmer-speed', 'wb-shimmer-color', 'wb-shadow', 'wb-scale-amount']
+      attributeFilter: ['wb-component', 'wb-shimmer-direction', 'wb-shimmer-speed', 'wb-shimmer-color', 'wb-shadow']
     });
 
     this.observers.push(observer);

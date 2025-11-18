@@ -1303,7 +1303,7 @@ export const componentsMetadata = {
       },
       {
         name: 'wb-shimmer-speed',
-        description: 'Speed of shimmer animation: "slow" (1.2s), "medium" (0.7s), or "fast" (0.4s)',
+        description: 'Speed of shimmer animation: "slow" (0.7s), "medium" (0.5s), or "fast" (0.3s)',
         default: 'medium',
         inputType: 'dropdown',
         options: ['slow', 'medium', 'fast']
@@ -1313,13 +1313,6 @@ export const componentsMetadata = {
         description: 'Enable shadow effect on hover (shadow color is based on button color)',
         default: 'true',
         inputType: 'toggle'
-      },
-      { 
-        name: 'wb-scale-amount', 
-        description: 'Scale amount when clicked (0-1, where 1 = no scale)', 
-        default: '0.95',
-        inputType: 'slider',
-        sliderConfig: { min: 0.7, max: 1, step: 0.01 }
       }
     ],
     example: {

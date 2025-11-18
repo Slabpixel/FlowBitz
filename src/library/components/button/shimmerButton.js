@@ -16,13 +16,7 @@ const componentCSS = `
 .wb-shimmer-button {
   position: relative;
   overflow: hidden;
-  transition: transform 0.1s ease-out;
   cursor: pointer;
-}
-
-/* Scale animation for button click feedback */
-.wb-shimmer-button--clicked {
-  transform: scale(var(--wb-scale-amount, 0.95));
 }
 
 /* Shimmer effect overlay */
@@ -155,9 +149,7 @@ class ShimmerButtonAnimator {
       direction: 'left', // 'left', 'right', 'top', 'bottom'
       speed: 'medium', // 'slow', 'medium', 'fast'
       shadow: true, // Enable shadow effect based on button color
-      disabled: false,
-      scaleEffect: true, // Enable scale animation on click
-      scaleAmount: 0.95 // Scale amount (0.95 = shrink to 95%)
+      disabled: false
     };
   }
 
@@ -225,9 +217,7 @@ class ShimmerButtonAnimator {
       direction: { attribute: 'wb-shimmer-direction', type: 'string' },
       speed: { attribute: 'wb-shimmer-speed', type: 'string' },
       shadow: { attribute: 'wb-shadow', type: 'boolean' },
-      disabled: { attribute: 'wb-disabled', type: 'boolean' },
-      scaleEffect: { attribute: 'wb-scale-effect', type: 'boolean' },
-      scaleAmount: { attribute: 'wb-scale-amount', type: 'number' }
+      disabled: { attribute: 'wb-disabled', type: 'boolean' }
     };
     
     const config = parseElementConfig(element, this.defaultConfig, attributeMap);
@@ -426,26 +416,6 @@ class ShimmerButtonAnimator {
     // Apply custom styles immediately
     this.applyCustomStyles(instance);
     
-    // Add click handler for scale animation
-    const clickHandler = (event) => {
-      if (config.disabled) return;
-      
-      // Apply scale animation if enabled
-      if (config.scaleEffect) {
-        // Set the scale amount as a CSS custom property
-        element.style.setProperty('--wb-scale-amount', config.scaleAmount);
-        element.classList.add(`${this.componentClasses.parent}--clicked`);
-        
-        // Remove scale class after brief moment for bounce-back effect
-        setTimeout(() => {
-          element.classList.remove(`${this.componentClasses.parent}--clicked`);
-        }, 100);
-      }
-    };
-    
-    element.addEventListener('click', clickHandler);
-    instance.clickHandler = clickHandler;
-    
     // Dispatch initialization event using utility
     AnimationStateManager.dispatchLifecycleEvent(
       element, 
@@ -544,11 +514,6 @@ class ShimmerButtonAnimator {
   destroyElement(element) {
     const instance = this.instances.get(element);
     if (!instance) return;
-    
-    // Remove click handler
-    if (instance.clickHandler) {
-      element.removeEventListener('click', instance.clickHandler);
-    }
     
     // Remove component classes
     this.removeComponentClasses(element);
