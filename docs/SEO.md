@@ -17,10 +17,11 @@ This document outlines the comprehensive SEO improvements implemented for the Fl
 - **FAQ Schema**: FAQ page with question-answer structured data
 - **Organization Schema**: SlabPixel Studio information
 - **Collection Page Schema**: Components library and showcase pages
+- **BlogPosting Schema**: Individual blog posts with author, publisher, and metadata
 
 ### 3. Technical SEO
-- **Sitemap.xml**: Complete XML sitemap with all pages and components
-- **Robots.txt**: Search engine crawling instructions
+- **Sitemap.xml**: Complete XML sitemap with all pages, components, and blog posts
+- **Robots.txt**: Search engine crawling instructions (includes blog pages)
 - **Manifest.json**: PWA manifest for better mobile experience
 - **Favicon Optimization**: Multiple favicon sizes for different devices
 
@@ -86,6 +87,16 @@ This document outlines the comprehensive SEO improvements implemented for the Fl
 - **Focus Keywords**: flowbitz showcase, webflow components examples
 - **Structured Data**: CollectionPage schema
 
+#### Blog Page
+- **Title**: "FlowBitz Blog — Tutorials, Release Notes, and Motion Workflows"
+- **Focus Keywords**: flowbitz blog, webflow animation blog, gsap webflow tutorial, flowbitz release notes
+- **Structured Data**: Blog schema
+
+#### Individual Blog Posts
+- **Title**: Dynamic based on post title
+- **Focus Keywords**: Post-specific keywords + webflow, flowbitz, gsap
+- **Structured Data**: BlogPosting schema with author, publisher, datePublished, and article metadata
+
 ## 🔍 Search Engine Optimization
 
 ### Target Keywords
@@ -93,12 +104,14 @@ This document outlines the comprehensive SEO improvements implemented for the Fl
 2. **Secondary**: text animations, webflow effects, free webflow components
 3. **Long-tail**: webflow components library free, interactive text effects webflow
 4. **Component-specific**: split text webflow, gradient text animation, webflow text effects
+5. **Blog-specific**: flowbitz blog, webflow animation blog, gsap webflow tutorial, flowbitz release notes
 
 ### Content Strategy
 - **Component Documentation**: Detailed, keyword-rich descriptions
 - **Tutorial Content**: Step-by-step implementation guides
 - **Use Cases**: Real-world examples and showcases
 - **Community Content**: User-generated examples and testimonials
+- **Blog Content**: Regular blog posts covering releases, tutorials, and Webflow/GSAP workflows
 
 ## 📱 Mobile & Performance
 

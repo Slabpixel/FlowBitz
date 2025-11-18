@@ -14,3 +14,6 @@ Allow: /about
 Allow: /support
 Allow: /faq
 Allow: /showcase
+Allow: /contact
+Allow: /blog
+Allow: /blog/
