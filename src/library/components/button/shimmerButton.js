@@ -287,6 +287,10 @@ class ShimmerButtonAnimator {
     // Save original content first
     const originalContent = element.innerHTML || element.textContent;
     
+    // Get computed styles BEFORE clearing content (to preserve flex properties)
+    const computedStyle = getComputedStyle(element);
+    const isFlex = computedStyle.display === 'flex' || computedStyle.display === 'inline-flex';
+    
     // Clear element content temporarily
     element.innerHTML = '';
     
@@ -298,6 +302,19 @@ class ShimmerButtonAnimator {
     // Create content wrapper
     const contentWrapper = document.createElement('span');
     contentWrapper.className = 'wb-shimmer-button__content';
+    
+    // If parent is flex, make content wrapper also flex with same properties
+    if (isFlex) {
+      contentWrapper.style.display = computedStyle.display; // 'flex' or 'inline-flex'
+      contentWrapper.style.flexDirection = computedStyle.flexDirection;
+      contentWrapper.style.justifyContent = computedStyle.justifyContent;
+      contentWrapper.style.alignItems = computedStyle.alignItems;
+      contentWrapper.style.alignContent = computedStyle.alignContent;
+      contentWrapper.style.flexWrap = computedStyle.flexWrap;
+      contentWrapper.style.gap = computedStyle.gap;
+      contentWrapper.style.columnGap = computedStyle.columnGap;
+      contentWrapper.style.rowGap = computedStyle.rowGap;
+    }
     
     // Restore content to wrapper
     if (originalContent) {
