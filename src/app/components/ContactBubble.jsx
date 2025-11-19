@@ -132,7 +132,7 @@ const ContactBubble = () => {
           className={`
           relative
           ${isContactFormOpen 
-            ? 'w-[90vw] sm:w-[560px] bg-background/95 backdrop-blur-md border-2 border-border/50 shadow-2xl overflow-hidden' 
+            ? 'w-[90vw] sm:w-[460px] bg-background/95 backdrop-blur-md border-2 border-border/50 shadow-2xl overflow-hidden' 
             : 'h-12 w-12 bg-gradient-to-br from-primary to-primary/80 shadow-lg shadow-primary/50 cursor-pointer overflow-hidden hover:w-[130px] hover:px-3 group'
           }
         `}
@@ -141,7 +141,7 @@ const ContactBubble = () => {
           borderRadius: isContactFormOpen ? '0.5rem' : '9999px', // rounded-lg = 0.5rem, rounded-full = 9999px
           transition: isContactFormOpen 
             ? 'width 0ms ease-out, height 0ms ease-out, background 0ms ease-out, border 0ms ease-out, box-shadow 0ms ease-out, border-radius 0ms ease-out'
-            : 'width 300ms ease-out, padding 300ms ease-out, border-radius 0ms ease-out',
+            : 'width 100ms ease-out, padding 300ms ease-out, border-radius 0ms ease-out',
         }}
       >
         {/* Bubble Icon - Hidden immediately when expanded */}
@@ -260,7 +260,7 @@ const ContactBubble = () => {
                         required
                         placeholder="Tell us how we can help..."
                         rows={4}
-                        className="min-h-[80px]"
+                        className="min-h-[60px] h-[60px]"
                       />
                     </div>
                     <Button type="submit" variant="animated" disabled={isSubmitting} className="w-full">
@@ -361,7 +361,7 @@ const ContactBubble = () => {
                         onChange={(e) => handleInputChange('steps', e.target.value)}
                         placeholder="1. Go to... 2. Click... 3. See error..."
                         rows={3}
-                        className="min-h-[60px]"
+                        className="min-h-[60px] h-[60px]"
                       />
                     </div>
                     <div className="space-y-2">
@@ -373,7 +373,7 @@ const ContactBubble = () => {
                         required
                         placeholder="Describe the bug in detail..."
                         rows={4}
-                        className="min-h-[80px]"
+                        className="min-h-[60px] h-[60px]"
                       />
                     </div>
                     <Button type="submit" variant="animated" disabled={isSubmitting} className="w-full">
@@ -469,7 +469,7 @@ const ContactBubble = () => {
                         onChange={(e) => handleInputChange('useCase', e.target.value)}
                         placeholder="Describe how you would use this feature..."
                         rows={3}
-                        className="min-h-[60px]"
+                        className="min-h-[60px] h-[60px]"
                       />
                     </div>
                     <div className="space-y-2">
@@ -481,7 +481,7 @@ const ContactBubble = () => {
                         required
                         placeholder="Describe the feature in detail..."
                         rows={4}
-                        className="min-h-[80px]"
+                        className="min-h-[60px] h-[60px]"
                       />
                     </div>
                     <Button type="submit" variant="animated" disabled={isSubmitting} className="w-full">
