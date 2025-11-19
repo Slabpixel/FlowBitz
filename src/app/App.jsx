@@ -4,6 +4,7 @@ import { HelmetProvider } from 'react-helmet-async'
 import Navbar from './components/layout/Navbar'
 import Footer from './components/layout/Footer'
 import ScrollToTop from './components/ScrollToTop'
+import ContactBubble from './components/ContactBubble'
 import Home from './pages/Home'
 import Components from './pages/Components'
 import ComponentDetail from './pages/ComponentDetail'
@@ -35,6 +36,7 @@ function App() {
         <div className="app">
           <ScrollToTop />
           <Navbar />
+          <ContactBubble />
           <main id="main-content">
             <Routes>
               <Route path="/" element={<Home />} />
