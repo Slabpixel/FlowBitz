@@ -1272,6 +1272,56 @@ export const componentsMetadata = {
     }
   },
 
+  'shimmer-button': {
+    newComponent: true,
+    name: 'Shimmer Button',
+    description: 'Button with shimmer effect on hover with customizable direction and color. Button color is inherited from Webflow CSS settings.',
+    category: 'button',
+    file: 'shimmerButton.js',
+    installationNotes: 'Use with <button>, <a>, or any clickable element. The component adds a shimmer effect on hover that moves across the button. Button background and text colors are inherited from your Webflow CSS settings.',
+    attributes: [
+      { 
+        name: 'wb-component', 
+        description: 'Enable shimmer button animation', 
+        default: 'shimmer-button',
+        inputType: 'text',
+        required: true
+      },
+      { 
+        name: 'wb-shimmer-color', 
+        description: 'Shimmer effect color. Supports: hex (#FF5733), rgb/rgba, hsl/hsla, named colors (red, blue), CSS variables (var(--color))', 
+        default: 'rgba(255, 255, 255, 0.2)',
+        inputType: 'color',
+        supportsAlpha: true
+      },
+      {
+        name: 'wb-shimmer-direction',
+        description: 'Direction of shimmer effect: "left", "right", "top", or "bottom"',
+        default: 'left',
+        inputType: 'dropdown',
+        options: ['left', 'right', 'top', 'bottom']
+      },
+      {
+        name: 'wb-shimmer-speed',
+        description: 'Speed of shimmer animation: "slow" (0.7s), "medium" (0.5s), or "fast" (0.3s)',
+        default: 'medium',
+        inputType: 'dropdown',
+        options: ['slow', 'medium', 'fast']
+      },
+      {
+        name: 'wb-shadow',
+        description: 'Enable shadow effect on hover (shadow color is based on button color)',
+        default: 'true',
+        inputType: 'toggle'
+      }
+    ],
+    example: {
+      title: 'Shimmer Button Animation',
+      code: '<button wb-component="shimmer-button" class="text-md px-6 py-3 rounded-md font-semibold bg-primary text-white">Shimmer Button</button>',
+      description: 'Button with shimmer effect on hover. Button color is inherited from Webflow CSS settings.'
+    }
+  },
+
   // Effect Components
   'smart-animate': {
     name: 'Smart Animate',
@@ -1521,6 +1571,41 @@ export const componentsMetadata = {
   </h2>
 </div>`,
       description: 'Images follow cursor with smooth animations. Add more images with wb-image-4, wb-image-5, etc. Try different variants (1-8) for unique effects.'
+    }
+  },
+
+  'hover-zoom': {
+    newComponent: true,
+    name: 'Hover Zoom',
+    description: 'Zoom effect on hover with parallax movement that follows mouse direction',
+    category: 'effect',
+    file: 'hoverZoom.js',
+    installationNotes: 'Works with img elements, divs with background images, or divs containing img elements. The image zooms on hover and moves in the opposite direction of the mouse cursor for a dynamic parallax effect.',
+    attributes: [
+      { 
+        name: 'wb-component', 
+        description: 'Enable hover zoom effect', 
+        default: 'hover-zoom',
+        inputType: 'text',
+        required: true
+      },
+      { 
+        name: 'wb-zoom-scale', 
+        description: 'Zoom scale on hover (1 = no zoom, 1.5 = 50% zoom, 2 = 100% zoom). Parallax movement is automatically calculated based on this value to prevent overflow.', 
+        default: '1.5',
+        inputType: 'slider',
+        sliderConfig: { min: 1, max: 3, step: 0.1 }
+      }
+    ],
+    example: {
+      title: 'Hover Zoom Effect',
+      code: `<img 
+  wb-component="hover-zoom" 
+  src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4"
+  alt="Hover to zoom"
+  class="w-full h-64 object-cover"
+/>`,
+      description: 'Image zooms on hover and moves in opposite direction of mouse cursor. Parallax movement is automatically calculated based on zoom scale to prevent overflow. Works with img tags, background images, or nested images.'
     }
   },
 }

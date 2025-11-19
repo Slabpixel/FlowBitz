@@ -1,6 +1,6 @@
 # FlowBitz
 
-[![Version](https://img.shields.io/badge/version-2.3.5-blue.svg)](https://github.com/Slabpixel/FlowBitz)
+[![Version](https://img.shields.io/badge/version-2.4.1-blue.svg)](https://github.com/Slabpixel/FlowBitz)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 [![CDN](https://img.shields.io/badge/CDN-flowbitz.dev-orange.svg)](https://www.flowbitz.dev)
 
@@ -10,7 +10,7 @@
 
 ## Table of Contents
 - [Overview](#overview)
-- [What’s New in v2.3](#whats-new-in-v23)
+- [What's New in v2.4](#whats-new-in-v24)
 - [Component Catalog](#component-catalog)
 - [Quick Start](#quick-start)
 - [Usage Examples](#usage-examples)
@@ -22,7 +22,7 @@
 ---
 
 ## Overview
-- 22 plug-and-play animations covering text, buttons, and immersive effects
+- 24 plug-and-play animations covering text, buttons, and immersive effects
 - Built for visual developers: configure everything with `wb-*` attributes inside Webflow
 - GSAP under the hood with graceful CSS fallbacks where possible
 - Dual build pipeline (UMD + ES modules) with smart lazy loading
@@ -30,10 +30,10 @@
 
 ---
 
-## What’s New in v2.3
-- **New effects:** `3d-card-hover`, `outline-gradient`, `image-trail`
-- **Roll Text refresh:** extra presets for vertical motion reveals
-- **Advanced controls:** RGBA colors, hover toggles, repeat logic, flexible root margins
+## What's New in v2.4
+- **New components:** `shimmer-button`, `hover-zoom`
+- **ImageTrail improvements:** Enhanced performance and better image preloading
+- **ScrollTrigger improvements:** Enhanced helper calculations and viewport unit handling
 - **Performance wins:** UMD bundle still 85 KB gzipped (−72% vs v1)
 
 ---
@@ -64,6 +64,7 @@
 | `gradient-button` | ❌ | Animated gradient background |
 | `ripple-button` | ❌ | Material-style click ripple |
 | `pulse-button` | ❌ | Attention pulse |
+| `shimmer-button` | ❌ | Shimmer effect with customizable direction and color |
 | `magnetic-button` | ✅ | Cursor-follow magnetism |
 
 ### Effects
@@ -73,6 +74,7 @@
 | `3d-card-hover` | ❌ | CSS perspective tilt |
 | `outline-gradient` | ❌ | Animated gradient outlines |
 | `image-trail` | ✅ | Mouse-following image trails (8 variants) |
+| `hover-zoom` | ❌ | Zoom effect with parallax movement on hover |
 
 > Components marked ❌ are CSS-only and ship without GSAP for minimal bundles.
 
@@ -142,21 +144,21 @@ countUp.startCountUp(el);
 
 ## Bundles & CDN Options
 - `@latest` — newest stable build
-- `@2.3.5` — pinned release
+- `@2.4.1` — pinned release
 - `@beta` — beta channel
 
 ```html
 <!-- Stable UMD -->
-<script src="https://cdn.jsdelivr.net/npm/flowbitz@2.3.5/dist/flowbitz.umd.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/flowbitz@2.4.1/dist/flowbitz.umd.js"></script>
 
 <!-- ES module -->
 <script type="module">
-  import FlowBitz from 'https://cdn.jsdelivr.net/npm/flowbitz@2.3.5/dist/flowbitz.es.js';
+  import FlowBitz from 'https://cdn.jsdelivr.net/npm/flowbitz@2.4.1/dist/flowbitz.es.js';
   await FlowBitz.init();
 </script>
 ```
 
-| Bundle | v1 | v2.3 | Improvement |
+| Bundle | v1 | v2.4 | Improvement |
 |--------|----|------|-------------|
 | UMD (gzipped) | 300 KB | **85 KB** | −72% |
 | ES entry | 300 KB | **15 KB** + lazy chunks | −95% |
@@ -198,7 +200,7 @@ src/
     └── utils/
 ```
 
-Deployments run on Vercel (`npm run deploy:*`) with immutable, versioned CDN paths like `flowbitz.dev/v2.3.5/`.
+Deployments run on Vercel (`npm run deploy:*`) with immutable, versioned CDN paths like `flowbitz.dev/v2.4.1/`.
 
 ---
 

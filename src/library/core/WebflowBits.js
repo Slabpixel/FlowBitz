@@ -2,7 +2,7 @@
  * FlowBitz - CDN Entry Point
  * A collection of interactive components for Webflow
  * 
- * @version 2.3.5
+ * @version 2.4.1
  * @author Slabpixel Studio
  * @license MIT
  */
@@ -27,6 +27,7 @@ import rollTextAnimator from '../components/text/rollText.js';
 import pulseButtonAnimator from '../components/button/pulseButton.js';
 import gradientButtonAnimator from '../components/button/gradientButton.js';
 import rippleButtonAnimator from '../components/button/rippleButton.js';
+import shimmerButtonAnimator from '../components/button/shimmerButton.js';
 import magnetAnimator from '../components/button/magneticButton.js';
 
 /* Effect Components */
@@ -34,6 +35,7 @@ import smartAnimateAnimator from '../components/effect/smartAnimate.js';
 import CardHover3DAnimator from '../components/effect/3dCardHover.js';
 import outlineGradientAnimator from '../components/effect/outlineGradientAnimate.js';
 import imageTrailAnimator from '../components/effect/imageTrail.js';
+import hoverZoomAnimator from '../components/effect/hoverZoom.js';
 
 /* Utils */
 import { setupScrollTriggerResize } from '../utils/animation/scrollTriggerHelper.js';
@@ -43,7 +45,7 @@ import { setupScrollTriggerResize } from '../utils/animation/scrollTriggerHelper
  */
 class WebflowBits {
   constructor() {
-    this.version = '2.3.5';
+    this.version = '2.4.1';
     this.initialized = false;
     this.observers = [];
     this.resizeCleanup = null; // Cleanup function for resize handler
@@ -62,6 +64,7 @@ class WebflowBits {
       gradientButton: gradientButtonAnimator,
       rippleButton: rippleButtonAnimator,
       pulseButton: pulseButtonAnimator,
+      shimmerButton: shimmerButtonAnimator,
       magnet: magnetAnimator,
       shuffle: shuffleAnimator,
       tooltipText: tooltipTextAnimator,
@@ -70,6 +73,7 @@ class WebflowBits {
       cardHover3d: CardHover3DAnimator,
       outlineGradient: outlineGradientAnimator,
       imageTrail: imageTrailAnimator,
+      hoverZoom: hoverZoomAnimator,
     };
   }
 
@@ -86,7 +90,7 @@ class WebflowBits {
     const config = {
       autoInit: true,
       debug: false,
-      components: ['splitText', 'textType', 'blurText', 'shinyText', 'gradientText', 'gradientButton', 'rippleButton', 'pulseButton', 'decryptedText', 'scrambleText', 'variableProximity', 'countUp', 'rotatingText', 'textPressure', 'magnet', 'shuffle', 'tooltipText', 'rollText', 'cardHover3d', 'outlineGradient', 'imageTrail'],
+      components: ['splitText', 'textType', 'blurText', 'shinyText', 'gradientText', 'gradientButton', 'rippleButton', 'pulseButton', 'shimmerButton', 'decryptedText', 'scrambleText', 'variableProximity', 'countUp', 'rotatingText', 'textPressure', 'magnet', 'shuffle', 'tooltipText', 'rollText', 'cardHover3d', 'outlineGradient', 'imageTrail', 'hoverZoom'],
       ...options
     };
 
@@ -152,6 +156,10 @@ class WebflowBits {
         this.initPulseButton(config.debug);
       }
 
+      if (config.components.includes('shimmerButton')) {
+        this.initShimmerButton(config.debug);
+      }
+
       if (config.components.includes('decryptedText')) {
         this.initDecryptedText(config.debug);
       }
@@ -203,6 +211,10 @@ class WebflowBits {
 
       if (config.components.includes('imageTrail')) {
         this.initImageTrail(config.debug);
+      }
+
+      if (config.components.includes('hoverZoom')) {
+        this.initHoverZoom(config.debug);
       }
 
       // Setup mutation observer for dynamic content if autoInit is enabled
@@ -438,6 +450,20 @@ class WebflowBits {
   }
 
   /**
+   * Initialize ShimmerButton component
+   */
+  initShimmerButton(debug = false) {
+    try {
+      shimmerButtonAnimator.initAll();
+      if (debug) {
+        console.log('WebflowBits: ShimmerButton initialized');
+      }
+    } catch (error) {
+      console.error('WebflowBits: Failed to initialize ShimmerButton', error);
+    }
+  }
+
+  /**
    * Initialize DecryptedText component
    */
   initDecryptedText(debug = false) {
@@ -620,6 +646,20 @@ class WebflowBits {
   }
 
   /**
+   * Initialize HoverZoom component
+   */
+  initHoverZoom(debug = false) {
+    try {
+      hoverZoomAnimator.initAll();
+      if (debug) {
+        console.log('WebflowBits: HoverZoom initialized');
+      }
+    } catch (error) {
+      console.error('WebflowBits: Failed to initialize HoverZoom', error);
+    }
+  }
+
+  /**
    * Setup mutation observer to handle dynamically added content
    */
   setupMutationObserver(debug = false) {
@@ -627,6 +667,23 @@ class WebflowBits {
       let shouldRefresh = false;
 
       mutations.forEach((mutation) => {
+        // Handle attribute changes
+        if (mutation.type === 'attributes') {
+          const target = mutation.target;
+          if (target.nodeType === Node.ELEMENT_NODE) {
+            // Check if it's a shimmer-button and attributes changed
+            if (target.getAttribute('wb-component') === 'shimmer-button') {
+              // Destroy existing instance if any
+              if (shimmerButtonAnimator.instances.has(target)) {
+                shimmerButtonAnimator.destroyElement(target);
+              }
+              // Re-initialize
+              shimmerButtonAnimator.initElement(target);
+              shouldRefresh = true;
+            }
+          }
+        }
+
         if (mutation.type === 'childList') {
           mutation.addedNodes.forEach((node) => {
             if (node.nodeType === Node.ELEMENT_NODE) {
@@ -707,6 +764,16 @@ class WebflowBits {
 
               pulseButtonElements.forEach(element => {
                 pulseButtonAnimator.initElement(element);
+                shouldRefresh = true;
+              });
+
+              // Check for wb-component="shimmer-button" elements
+              const shimmerButtonElements = node.matches?.('[wb-component="shimmer-button"]') 
+                ? [node] 
+                : Array.from(node.querySelectorAll?.('[wb-component="shimmer-button"]') || []);
+
+              shimmerButtonElements.forEach(element => {
+                shimmerButtonAnimator.initElement(element);
                 shouldRefresh = true;
               });
 
@@ -849,6 +916,16 @@ class WebflowBits {
                 imageTrailAnimator.initElement(element);
                 shouldRefresh = true;
               });
+
+              // Check for wb-component="hover-zoom" elements
+              const hoverZoomElements = node.matches?.('[wb-component="hover-zoom"]')
+                ? [node]
+                : Array.from(node.querySelectorAll?.('[wb-component="hover-zoom"]') || []);
+
+              hoverZoomElements.forEach(element => {
+                hoverZoomAnimator.initElement(element);
+                shouldRefresh = true;
+              });
             }
           });
         }
@@ -872,15 +949,19 @@ class WebflowBits {
           shuffleAnimator.refresh();
           tooltipTextAnimator.refresh();
           rollTextAnimator.refresh();
+          shimmerButtonAnimator.refresh();
           outlineGradientAnimator.refresh();
           imageTrailAnimator.refresh();
+          hoverZoomAnimator.refresh();
         }, 100);
       }
     });
 
     observer.observe(document.body, {
       childList: true,
-      subtree: true
+      subtree: true,
+      attributes: true,
+      attributeFilter: ['wb-component', 'wb-shimmer-direction', 'wb-shimmer-speed', 'wb-shimmer-color', 'wb-shadow']
     });
 
     this.observers.push(observer);
@@ -1021,6 +1102,19 @@ class WebflowBits {
     Array.from(elements).forEach(element => {
       if (element.getAttribute('wb-component') === 'pulse-button') {
         pulseButtonAnimator.initElement(element);
+      }
+    });
+    return this;
+  }
+
+  initShimmerButtonOn(selector) {
+    const elements = typeof selector === 'string' 
+      ? document.querySelectorAll(selector)
+      : selector.nodeType ? [selector] : selector;
+
+    Array.from(elements).forEach(element => {
+      if (element.getAttribute('wb-component') === 'shimmer-button') {
+        shimmerButtonAnimator.initElement(element);
       }
     });
     return this;
@@ -1293,6 +1387,25 @@ class WebflowBits {
   }
 
   /**
+   * Manually initialize HoverZoom on specific elements
+   * @param {string|NodeList|Element} selector - CSS selector or DOM elements
+   */
+  initHoverZoomOn(selector) {
+    const elements = typeof selector === 'string' 
+      ? document.querySelectorAll(selector)
+      : selector.nodeType ? [selector] : selector;
+    
+    Array.from(elements).forEach(element => {
+      if (element.getAttribute('wb-component') === 'hover-zoom') {
+        hoverZoomAnimator.initElement(element);
+      }
+    });
+
+    hoverZoomAnimator.refresh();
+    return this;
+  }
+
+  /**
    * Destroy all components and observers
    */
   destroy() {
@@ -1359,6 +1472,9 @@ class WebflowBits {
      // Destroy ImageTrail animations
     imageTrailAnimator.destroyAll();
 
+    // Destroy HoverZoom animations
+    hoverZoomAnimator.destroyAll();
+
     // Disconnect observers
     this.observers.forEach(observer => observer.disconnect());
     this.observers = [];
@@ -1394,8 +1510,10 @@ class WebflowBits {
     shuffleAnimator.refresh();
     tooltipTextAnimator.refresh();
     rollTextAnimator.refresh();
+    shimmerButtonAnimator.refresh();
     outlineGradientAnimator.refresh();
     imageTrailAnimator.refresh();
+    hoverZoomAnimator.refresh();
     return this;
   }
 

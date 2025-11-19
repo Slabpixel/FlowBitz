@@ -63,12 +63,14 @@ const COMPONENT_REQUIREMENTS = {
   'ripple-button': [],  // CSS only
   'pulse-button': [],  // CSS only
   'magnetic-button': ['core'],
+  'shimmer-button': [],  // CSS only
   
   // Effect components
   'smart-animate': ['core', 'scrollTrigger'],
   '3d-card-hover': [],
   'outline-gradient-animate': [], // CSS only, no GSAP needed
   'image-trail': ['core'],
+  'hover-zoom': [], // CSS only, no GSAP needed
 };
 
 /**
@@ -97,12 +99,14 @@ const COMPONENT_LOADERS = {
   'ripple-button': () => import('./components/button/rippleButton.js'),
   'pulse-button': () => import('./components/button/pulseButton.js'),
   'magnetic-button': () => import('./components/button/magneticButton.js'),
+  'shimmer-button': () => import('./components/button/shimmerButton.js'),
   
   // Effect components
   'smart-animate': () => import('./components/effect/smartAnimate.js'),
   '3d-card-hover': () => import('./components/effect/3dCardHover.js'),
   'outline-gradient': () => import('./components/effect/outlineGradientAnimate.js'),
   'image-trail': () => import('./components/effect/imageTrail.js'),
+  'hover-zoom': () => import('./components/effect/hoverZoom.js'),
 };
 
 /**

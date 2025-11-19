@@ -50,6 +50,42 @@
     <priority>0.8</priority>
   </url>
   
+  <url>
+    <loc>https://www.flowbitz.dev/contact</loc>
+    <lastmod>2024-01-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <!-- Blog Pages -->
+  <url>
+    <loc>https://www.flowbitz.dev/blog</loc>
+    <lastmod>2025-11-17</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.flowbitz.dev/blog/what-is-flowbitz</loc>
+    <lastmod>2025-11-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.flowbitz.dev/blog/flowbitz-v23-whats-new</loc>
+    <lastmod>2025-11-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.flowbitz.dev/blog/maximize-flowbitz-attribute-editor</loc>
+    <lastmod>2025-11-17</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  
   <!-- Component Pages -->
   <url>
     <loc>https://www.flowbitz.dev/components/split-text</loc>
@@ -129,13 +165,6 @@
   </url>
   
   <url>
-    <loc>https://www.flowbitz.dev/components/text-cursor</loc>
-    <lastmod>2024-01-15</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  
-  <url>
     <loc>https://www.flowbitz.dev/components/shuffle</loc>
     <lastmod>2024-01-15</lastmod>
     <changefreq>weekly</changefreq>
@@ -143,7 +172,63 @@
   </url>
   
   <url>
-    <loc>https://www.flowbitz.dev/components/shape-blur</loc>
+    <loc>https://www.flowbitz.dev/components/tooltip-text</loc>
+    <lastmod>2024-01-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.flowbitz.dev/components/roll-text</loc>
+    <lastmod>2024-01-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.flowbitz.dev/components/gradient-button</loc>
+    <lastmod>2024-01-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.flowbitz.dev/components/ripple-button</loc>
+    <lastmod>2024-01-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.flowbitz.dev/components/pulse-button</loc>
+    <lastmod>2024-01-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.flowbitz.dev/components/magnetic-button</loc>
+    <lastmod>2024-01-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.flowbitz.dev/components/shimmer-button</loc>
+    <lastmod>2024-01-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.flowbitz.dev/components/smart-animate</loc>
+    <lastmod>2024-01-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.flowbitz.dev/components/outline-gradient</loc>
     <lastmod>2024-01-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
@@ -157,7 +242,7 @@
   </url>
   
   <url>
-    <loc>https://www.flowbitz.dev/components/magnet-lines</loc>
+    <loc>https://www.flowbitz.dev/components/hover-zoom</loc>
     <lastmod>2024-01-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
