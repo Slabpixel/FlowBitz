@@ -12,10 +12,10 @@ const Release = () => {
     const navigate = useNavigate()
     const releases = [
         {
-            version: "2.4.1",
-            date: "November 19, 2025",
+            version: "2.4.2",
+            date: "November 24, 2025",
             type: "stable",
-            description: "v2.4.1 feature release: Two new interactive components, ContactBubble with morphing animation, ImageTrail improvements, and enhanced showcase and SEO updates.",
+            description: "v2.4.2 feature release: Two new interactive components, ContactBubble with morphing animation, ImageTrail improvements, and enhanced showcase and SEO updates.",
             changes: [
                 "New Component - Shimmer Button with customizable direction, speed, and color options",
                 "New Component - Hover Zoom with parallax movement that follows mouse direction",
@@ -24,7 +24,8 @@ const Release = () => {
                 "ScrollTrigger improvements - Enhanced helper calculations and viewport unit handling",
                 "Updated showcase lists with latest community projects and examples",
                 "Blog updates with new implementation guides and component highlights",
-                "SEO improvements for index page and robots.txt optimization"
+                "SEO improvements for index page and robots.txt optimization",
+                "Fixed hoverZoom component initialization and cleanup issues"
             ]
         },
         {
@@ -119,7 +120,7 @@ const Release = () => {
         "name": "FlowBitz",
         "description": "Interactive components library for Webflow - Release notes and version history",
         "url": "https://www.flowbitz.dev/release",
-        "version": "2.4.0",
+        "version": "2.4.2",
         "datePublished": "2025-12-20",
         "applicationCategory": "Web Development",
         "operatingSystem": "Web Browser"

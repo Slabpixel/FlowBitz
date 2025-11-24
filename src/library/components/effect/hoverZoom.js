@@ -76,6 +76,10 @@ class HoverZoomAnimator {
       zoomScale: 1.5,
     };
     
+    // Flag to prevent concurrent refresh calls
+    this.isRefreshing = false;
+    this.refreshTimeout = null;
+    
     // Inject CSS once
     injectStyles(this.componentName, componentCSS);
   }
@@ -108,6 +112,80 @@ class HoverZoomAnimator {
     
     // Clamp between 0 and 0.5 to prevent excessive movement
     return Math.min(maxMovement, 0.5);
+  }
+
+  /**
+   * Wrap an img element in a div with overflow hidden
+   * Returns the wrapper div and the original img element
+   */
+  wrapImgElement(imgElement) {
+    // Create wrapper div
+    const wrapper = document.createElement('div');
+    wrapper.style.overflow = 'hidden';
+    
+    // Preserve img's display style on wrapper (default to inline-block for hover-zoom)
+    const imgComputedStyle = window.getComputedStyle(imgElement);
+    const imgDisplay = imgComputedStyle.display;
+    // If img is inline, use inline-block for wrapper to allow proper sizing
+    // Otherwise preserve the display type
+    if (imgDisplay === 'inline') {
+      wrapper.style.display = 'inline-block';
+    } else {
+      wrapper.style.display = imgDisplay;
+    }
+    
+    // Store original classes before modifying
+    const originalImgClasses = imgElement.getAttribute('class') || '';
+    
+    // Copy classes from img to wrapper to preserve sizing (width, height, etc.)
+    // This ensures the wrapper respects classes like w-full, h-64, etc.
+    const imgClasses = imgElement.getAttribute('class');
+    if (imgClasses) {
+      const classList = imgClasses.split(' ').filter(c => c.trim());
+      
+      // Separate object-fit classes (keep on img) from other classes (move to wrapper)
+      const objectFitClasses = classList.filter(c => 
+        c.startsWith('object-') || c === 'object-cover' || c === 'object-contain' || 
+        c === 'object-fill' || c === 'object-none' || c === 'object-scale-down'
+      );
+      
+      // Copy all classes to wrapper (for sizing)
+      wrapper.setAttribute('class', imgClasses);
+      
+      // Keep object-fit classes on img for proper image display
+      if (objectFitClasses.length > 0) {
+        imgElement.setAttribute('class', objectFitClasses.join(' '));
+      } else {
+        imgElement.removeAttribute('class');
+      }
+    }
+    
+    // Copy the wb-component attribute to the wrapper
+    const componentAttr = imgElement.getAttribute('wb-component');
+    if (componentAttr) {
+      wrapper.setAttribute('wb-component', componentAttr);
+      imgElement.removeAttribute('wb-component');
+    }
+    
+    // Copy other wb-* attributes to the wrapper
+    Array.from(imgElement.attributes).forEach(attr => {
+      if (attr.name.startsWith('wb-')) {
+        wrapper.setAttribute(attr.name, attr.value);
+        imgElement.removeAttribute(attr.name);
+      }
+    });
+    
+    // Insert wrapper before img in the DOM
+    imgElement.parentNode.insertBefore(wrapper, imgElement);
+    
+    // Move img into wrapper
+    wrapper.appendChild(imgElement);
+    
+    // Make img fill the wrapper (width and height 100%)
+    imgElement.style.width = '100%';
+    imgElement.style.height = '100%';
+    
+    return { wrapper, originalImg: imgElement, originalImgClasses };
   }
 
   /**
@@ -234,21 +312,6 @@ class HoverZoomAnimator {
       display: element.style.display || '',
     };
     
-    // Handle parent container for direct img elements
-    let parentStyles = null;
-    if (isImg && element.parentElement) {
-      const parent = element.parentElement;
-      const parentComputed = window.getComputedStyle(parent);
-      parentStyles = {
-        overflow: parent.style.overflow || '',
-      };
-      
-      // Ensure parent has overflow hidden if it's visible
-      if (parentComputed.overflow === 'visible' || parentComputed.overflow === '') {
-        parent.style.overflow = 'hidden';
-      }
-    }
-    
     // For img elements, ensure they maintain their size
     if (isImg) {
       // Set explicit width to prevent growing, but preserve aspect ratio for height
@@ -281,8 +344,6 @@ class HoverZoomAnimator {
       originalWidth,
       originalHeight,
       isImg,
-      parentStyles,
-      parentElement: isImg ? element.parentElement : null,
     };
   }
 
@@ -295,31 +356,62 @@ class HoverZoomAnimator {
       return;
     }
 
-    // Parse configuration
-    const config = this.parseConfig(element);
+    // If element is an img, check if it's already inside a tracked wrapper
+    if (element.tagName === 'IMG' && element.parentElement) {
+      const parent = element.parentElement;
+      // If parent is already tracked, skip (img is already wrapped and initialized)
+      if (this.instances.has(parent)) {
+        return;
+      }
+    }
 
-    // Detect image target
-    const { target, type } = this.detectImageTarget(element);
+    // If element is an img, wrap it in a div with overflow hidden
+    let wrapper = null;
+    let originalImg = null;
+    let originalImgClasses = null;
+    let actualElement = element;
+    
+    if (element.tagName === 'IMG') {
+      const wrapResult = this.wrapImgElement(element);
+      wrapper = wrapResult.wrapper;
+      originalImg = wrapResult.originalImg;
+      originalImgClasses = wrapResult.originalImgClasses;
+      actualElement = wrapper; // Use wrapper as the element to track
+      
+      // Skip if wrapper is already initialized (shouldn't happen, but safety check)
+      if (this.instances.has(actualElement)) {
+        return;
+      }
+    }
+
+    // Parse configuration (use original element to get attributes before wrapping)
+    const config = this.parseConfig(element.tagName === 'IMG' ? originalImg : element);
+
+    // Detect image target (use actualElement which is now the wrapper if img was wrapped)
+    const { target, type } = this.detectImageTarget(actualElement);
     
     if (!target) {
-      console.warn('HoverZoom: No image target found for element', element);
+      console.warn('HoverZoom: No image target found for element', actualElement);
       return;
     }
 
-    // Preserve original dimensions
-    const dimensionData = this.preserveElementDimensions(element);
+    // Preserve original dimensions (use actualElement)
+    const dimensionData = this.preserveElementDimensions(actualElement);
+
+    // Determine final type - if we wrapped an img, it's now nested-img
+    const finalType = wrapper ? 'nested-img' : type;
 
     // Apply component classes
     const classesToApply = [this.componentClasses.parent, 'wb-hover-zoom--preserve-size'];
     
-    if (type === 'nested-img') {
+    if (finalType === 'nested-img') {
       classesToApply.push(this.componentClasses.hasImg);
-    } else if (type === 'bg') {
+    } else if (finalType === 'bg') {
       classesToApply.push(this.componentClasses.hasBg);
     }
     
     ComponentClassManager.applyClasses(
-      element,
+      actualElement,
       classesToApply,
       this.instances,
       this.componentName
@@ -327,14 +419,18 @@ class HoverZoomAnimator {
 
     // Create instance first
     const instance = {
-      element,
+      element: actualElement, // Track the wrapper if img was wrapped, otherwise the original element
       target,
       config,
-      type,
+      type: finalType,
       mouseX: null,
       mouseY: null,
       handlers: {},
       dimensionData,
+      wrapper, // Store wrapper if img was wrapped
+      originalImg, // Store original img if it was wrapped
+      originalImgClasses, // Store original img classes for restoration
+      originalElement: element, // Store the original element that had the attribute
     };
 
     // Create event handlers (after instance is created)
@@ -352,12 +448,12 @@ class HoverZoomAnimator {
     // Set transform-origin explicitly for better browser compatibility
     target.style.transformOrigin = '50% 50%';
 
-    // Attach event listeners
-    element.addEventListener('mouseenter', handleMouseEnter);
-    element.addEventListener('mousemove', handleMouseMove);
-    element.addEventListener('mouseleave', handleMouseLeave);
+    // Attach event listeners to actualElement (wrapper if img was wrapped)
+    actualElement.addEventListener('mouseenter', handleMouseEnter);
+    actualElement.addEventListener('mousemove', handleMouseMove);
+    actualElement.addEventListener('mouseleave', handleMouseLeave);
 
-    this.instances.set(element, instance);
+    this.instances.set(actualElement, instance);
 
     // Dispatch initialization event
     AnimationStateManager.dispatchLifecycleEvent(
@@ -387,9 +483,9 @@ class HoverZoomAnimator {
 
     // Remove event listeners
     const { handlers } = instance;
-    element.removeEventListener('mouseenter', handlers.mouseenter);
-    element.removeEventListener('mousemove', handlers.mousemove);
-    element.removeEventListener('mouseleave', handlers.mouseleave);
+    instance.element.removeEventListener('mouseenter', handlers.mouseenter);
+    instance.element.removeEventListener('mousemove', handlers.mousemove);
+    instance.element.removeEventListener('mouseleave', handlers.mouseleave);
 
     // Reset transform
     if (instance.target) {
@@ -398,40 +494,84 @@ class HoverZoomAnimator {
 
     // Restore original dimensions if they were modified
     if (instance.dimensionData) {
-      const { originalStyles, parentStyles, parentElement } = instance.dimensionData;
-      element.style.width = originalStyles.width;
-      element.style.height = originalStyles.height;
-      element.style.maxWidth = originalStyles.maxWidth;
-      element.style.maxHeight = originalStyles.maxHeight;
-      element.style.minWidth = originalStyles.minWidth;
-      element.style.minHeight = originalStyles.minHeight;
-      element.style.overflow = originalStyles.overflow;
-      element.style.display = originalStyles.display;
-      
-      // Restore parent styles if modified
-      if (parentElement && parentStyles) {
-        parentElement.style.overflow = parentStyles.overflow;
-      }
+      const { originalStyles } = instance.dimensionData;
+      instance.element.style.width = originalStyles.width;
+      instance.element.style.height = originalStyles.height;
+      instance.element.style.maxWidth = originalStyles.maxWidth;
+      instance.element.style.maxHeight = originalStyles.maxHeight;
+      instance.element.style.minWidth = originalStyles.minWidth;
+      instance.element.style.minHeight = originalStyles.minHeight;
+      instance.element.style.overflow = originalStyles.overflow;
+      instance.element.style.display = originalStyles.display;
     }
 
     // Cleanup: remove classes
+    const fallbackClasses = [
+      this.componentClasses.parent,
+      this.componentClasses.hasImg,
+      this.componentClasses.hasBg,
+      'wb-hover-zoom--preserve-size',
+    ];
+    
     ComponentClassManager.removeClasses(
-      element,
-      this.componentClasses,
+      instance.element,
+      fallbackClasses,
       this.instances,
       this.componentName
     );
 
-    // Dispatch destroy event
+    // If img was wrapped, unwrap it
+    if (instance.wrapper && instance.originalImg) {
+      const wrapper = instance.wrapper;
+      const originalImg = instance.originalImg;
+      const parent = wrapper.parentNode;
+      
+      // Restore original classes to img (stored before wrapping)
+      if (instance.originalImgClasses !== null && instance.originalImgClasses !== undefined) {
+        if (instance.originalImgClasses) {
+          originalImg.setAttribute('class', instance.originalImgClasses);
+        } else {
+          originalImg.removeAttribute('class');
+        }
+      }
+      
+      // Restore img styles (remove the 100% width/height we added)
+      originalImg.style.width = '';
+      originalImg.style.height = '';
+      
+      // Move wb-component attribute back to img
+      const componentAttr = wrapper.getAttribute('wb-component');
+      if (componentAttr) {
+        originalImg.setAttribute('wb-component', componentAttr);
+        wrapper.removeAttribute('wb-component');
+      }
+      
+      // Move other wb-* attributes back to img
+      Array.from(wrapper.attributes).forEach(attr => {
+        if (attr.name.startsWith('wb-')) {
+          originalImg.setAttribute(attr.name, attr.value);
+          wrapper.removeAttribute(attr.name);
+        }
+      });
+      
+      // Move img out of wrapper
+      parent.insertBefore(originalImg, wrapper);
+      
+      // Remove wrapper
+      wrapper.remove();
+    }
+
+    // Dispatch destroy event (use original element if available, otherwise use instance.element)
+    const eventElement = instance.originalElement || instance.element;
     AnimationStateManager.dispatchLifecycleEvent(
-      element,
+      eventElement,
       'destroy',
       this.componentName,
       { instance }
     );
 
     // Remove from instances
-    this.instances.delete(element);
+    this.instances.delete(instance.element);
   }
 
   /**
@@ -445,15 +585,85 @@ class HoverZoomAnimator {
 
   /**
    * Refresh all instances - re-initialize elements that may have changed
+   * Debounced to prevent rapid successive calls
    */
   refresh() {
-    const allElements = document.querySelectorAll(`[wb-component="${this.componentName}"]`);
-    allElements.forEach(element => {
-      if (this.instances.has(element)) {
+    // Clear any pending refresh
+    if (this.refreshTimeout) {
+      clearTimeout(this.refreshTimeout);
+    }
+    
+    // Debounce refresh calls
+    this.refreshTimeout = setTimeout(() => {
+      this._doRefresh();
+    }, 50);
+  }
+  
+  /**
+   * Internal refresh method that actually performs the refresh
+   */
+  _doRefresh() {
+    // Prevent concurrent refresh calls
+    if (this.isRefreshing) {
+      return;
+    }
+    
+    this.isRefreshing = true;
+    
+    try {
+      const allElements = document.querySelectorAll(`[wb-component="${this.componentName}"]`);
+      const elementsToInit = new Set();
+      const trackedElements = new Set(this.instances.keys());
+      
+      // Find elements that need initialization (not already tracked)
+      allElements.forEach(element => {
+        // Skip if this element is already tracked
+        if (this.instances.has(element)) {
+          return;
+        }
+        
+        // Skip if this is an img that's already inside a tracked wrapper
+        if (element.tagName === 'IMG' && element.parentElement) {
+          if (this.instances.has(element.parentElement)) {
+            return;
+          }
+        }
+        
+        // Add to initialization set
+        elementsToInit.add(element);
+      });
+      
+      // Find tracked elements that no longer have the attribute (need cleanup)
+      const elementsToDestroy = [];
+      trackedElements.forEach(trackedElement => {
+        // Check if the tracked element or its original element still has the attribute
+        const instance = this.instances.get(trackedElement);
+        const originalElement = instance?.originalElement || trackedElement;
+        
+        // If neither the tracked element nor original has the attribute, destroy it
+        const trackedHasAttr = trackedElement.getAttribute('wb-component') === this.componentName;
+        const originalHasAttr = originalElement.getAttribute('wb-component') === this.componentName;
+        
+        if (!trackedHasAttr && !originalHasAttr) {
+          elementsToDestroy.push(trackedElement);
+        }
+      });
+      
+      // Destroy elements that no longer need the component
+      elementsToDestroy.forEach(element => {
         this.destroyElement(element);
-      }
-      this.initElement(element);
-    });
+      });
+      
+      // Initialize new elements
+      elementsToInit.forEach(element => {
+        if (element && element.isConnected) {
+          this.initElement(element);
+        }
+      });
+    } finally {
+      this.isRefreshing = false;
+      this.refreshTimeout = null;
+    }
   }
 
   /**
