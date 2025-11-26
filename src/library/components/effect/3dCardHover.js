@@ -11,6 +11,8 @@ const componentCSS = `
     transition: transform 300ms linear;
     backface-visibility: hidden;
     transform-origin: center center;
+    width: 100%;
+    height: 100%;
   }
 `;
 
@@ -29,8 +31,6 @@ class Hover3DCard {
     this.boundMouseLeave = null;
     this.componentName = '3d-card-hover';
     this.movedRootClasses = [];
-    this.movedRootId = null;
-    this.originalTransform = null; // Store original transform to preserve it
     this.init();
   }
 
@@ -45,123 +45,69 @@ class Hover3DCard {
 
     ensureStylesInjected();
 
-    // Save all original root classes (BUT DON'T REMOVE - keep them on root)
-    // Classes need to stay on root for CSS selectors (e.g., .product-grid > .product-card)
-    // and also on wrapper for visual styling
-    this.movedRootClasses = Array.from(this.root.classList);
-    // DON'T remove classes from root - keep them for CSS selectors and layout
+    // 1) Root hanya sebagai pembungkus (perspective saja)
+    this.root.style.perspective = `${this.config.perspective}px`;
 
-    // 2) Create inner wrapper
+    // Simpan semua class asli root dan hapus dari root
+    this.movedRootClasses = Array.from(this.root.classList);
+    if (this.movedRootClasses.length) {
+      this.root.className = ''; // Remove classes from root
+    }
+
+    // 2) Buat wrapper inner
     const wrapper = document.createElement('div');
     wrapper.classList.add('wb-hover3d__inner');
-
-    // Add all classes to wrapper as well (root already has them)
-    // Wrapper needs classes for visual styling because it's the element being transformed
+    
+    // Move original classes to wrapper (removed from root)
     if (this.movedRootClasses.length) {
       wrapper.classList.add(...this.movedRootClasses);
     }
 
-    this.movedRootId = this.root.id || null;
-    if (this.movedRootId) {
-      wrapper.id = this.movedRootId;
-      this.root.removeAttribute('id');
-    }
-
-    // Separate layout properties from visual/transform properties
-    // Layout properties must stay on root to preserve grid, flexbox, positioning, etc.
+    // Keep ID on root element (with wb-component) - don't move it to wrapper
+    // ID should stay on the element with wb-component attribute
+    
+    // Check inline styles for width/height
     const originalStyle = this.root.getAttribute('style') || '';
+    // Remove the perspective we just added to get the true original style
+    const trueOriginalStyle = originalStyle.replace(/perspective\s*:\s*[^;]+;?/gi, '').trim();
     
-    // Layout properties that must stay on root (for grid, flexbox, positioning, etc.)
-    const layoutProperties = [
-      'display', 'width', 'height', 'min-width', 'max-width', 'min-height', 'max-height',
-      'grid-area', 'grid-column', 'grid-row', 'grid-column-start', 'grid-column-end',
-      'grid-row-start', 'grid-row-end',
-      'position', 'top', 'right', 'bottom', 'left', 'z-index',
-      'margin', 'margin-top', 'margin-right', 'margin-bottom', 'margin-left',
-      'padding', 'padding-top', 'padding-right', 'padding-bottom', 'padding-left',
-      'flex', 'flex-basis', 'flex-grow', 'flex-shrink', 'flex-direction',
-      'align-self', 'justify-self', 'order',
-      'float', 'clear', 'box-sizing', 'overflow', 'overflow-x', 'overflow-y'
-    ];
+    // Remove perspective, width, and height from styles that go to wrapper
+    let cleanedStyle = trueOriginalStyle
+      .replace(/width\s*:\s*[^;]+;?/gi, '')
+      .replace(/height\s*:\s*[^;]+;?/gi, '')
+      .trim();
     
-    // Visual/transform properties that can be moved to wrapper
-    const visualProperties = [
-      'transform', 'translate', 'rotate', 'scale', 'opacity', 'visibility',
-      'background', 'background-color', 'background-image', 'background-size',
-      'border', 'border-radius', 'box-shadow', 'filter', 'backdrop-filter'
-    ];
+    // Clean up any double semicolons or trailing/leading semicolons
+    cleanedStyle = cleanedStyle.replace(/;;+/g, ';').replace(/^;|;$/g, '').trim();
     
-    // Parse and separate styles
-    const layoutStyles = [];
-    const visualStyles = [];
-    const allStyles = originalStyle.split(';').filter(s => s.trim());
+    if (cleanedStyle) wrapper.setAttribute('style', cleanedStyle);
     
-    allStyles.forEach(style => {
-      const colonIndex = style.indexOf(':');
-      if (colonIndex === -1) return;
-      
-      const property = style.substring(0, colonIndex).trim();
-      const value = style.substring(colonIndex + 1).trim();
-      
-      if (!property || !value) return;
-      
-      const normalizedProp = property.toLowerCase();
-      
-      // Check if it's a layout property
-      if (layoutProperties.some(lp => normalizedProp === lp || normalizedProp.startsWith(lp + '-'))) {
-        layoutStyles.push(`${property}: ${value}`);
-      }
-      // Check if it's a visual property (but not transform - we handle that separately)
-      else if (visualProperties.some(vp => normalizedProp === vp || normalizedProp.startsWith(vp + '-'))) {
-        if (normalizedProp === 'transform') {
-          // Extract transform for merging later
-          this.originalTransform = value;
-        } else {
-          visualStyles.push(`${property}: ${value}`);
-        }
-      }
-      // Unknown properties - keep on root to be safe (layout-first approach)
-      else if (normalizedProp !== 'perspective') {
-        layoutStyles.push(`${property}: ${value}`);
-      }
-    });
-    
-    // Keep layout styles on root (add perspective)
-    if (layoutStyles.length > 0) {
-      const rootStyle = [...layoutStyles, `perspective: ${this.config.perspective}px`].join('; ');
-      this.root.setAttribute('style', rootStyle);
-    } else {
-      // Only perspective if no other layout styles
-      this.root.style.perspective = `${this.config.perspective}px`;
-    }
-    
-    // Move visual styles to wrapper
-    if (visualStyles.length > 0) {
-      wrapper.setAttribute('style', visualStyles.join('; '));
-    }
+    // Set width and height to 100% on root
+    this.root.style.width = '100%';
+    this.root.style.height = '100%';
 
-    // Default transition if not already set
+    // Default transition jika belum diset
     if (!wrapper.style.transition) {
       wrapper.style.transition = this.config.transition;
     }
 
-    // Performance optimization
+    // Optimasi performa
     PerformanceOptimizer.optimizeForAnimation(wrapper, {
       willChange: 'transform',
       backfaceVisibility: 'hidden',
       perspective: ''
     });
 
-    // 3) Move children from root → wrapper
+    // 3) Pindahkan children root → wrapper
     while (this.root.firstChild) {
       wrapper.appendChild(this.root.firstChild);
     }
 
-    // 4) Insert wrapper into root
+    // 4) Sisipkan wrapper ke root
     this.root.appendChild(wrapper);
     this.wrapper = wrapper;
 
-    // 5) Attach events to wrapper
+    // 5) Event pada wrapper
     const throttledMove = PerformanceOptimizer.throttle((e) => this.handleMouseMove(e), 16);
     this.boundMouseMove = (e) => throttledMove.call(this, e);
     this.boundMouseEnter = () => this.handleMouseEnter();
@@ -174,24 +120,8 @@ class Hover3DCard {
     this.root.dataset.hover3dInitialized = 'true';
   }
 
-  /**
-   * Merge original transform with 3D hover transform
-   * Preserves original transform (e.g., translate(0px, 0px)) and adds 3D rotation
-   */
-  mergeTransform(rotateX, rotateY) {
-    const hover3D = `translateZ(0) rotateY(${rotateY}deg) rotateX(${rotateX}deg)`;
-    
-    if (this.originalTransform) {
-      // If original transform exists, combine them
-      // Original transform first, then 3D transforms
-      return `${this.originalTransform} ${hover3D}`;
-    }
-    
-    return hover3D;
-  }
-
   handleMouseEnter() {
-    // Set state on wrapper (root is just a container)
+    // State pada wrapper (root hanya pembungkus)
     AnimationStateManager.setAnimatingState(this.wrapper, 'wb-hover3d');
     AnimationStateManager.dispatchLifecycleEvent(this.root, 'start', this.componentName);
   }
@@ -203,28 +133,23 @@ class Hover3DCard {
     const dy = (e.clientY - rect.top - rect.height / 2);
     const x = dx / this.config.rotateDivisor;
     const y = -dy / this.config.rotateDivisor;
-    
-    // Merge original transform with 3D hover transform
-    this.wrapper.style.transform = this.mergeTransform(x, y);
+    this.wrapper.style.transform = `translateZ(0) rotateY(${x}deg) rotateX(${y}deg)`;
   }
 
   handleMouseLeave() {
     if (!this.wrapper) return;
-    
-    // Merge original transform with reset 3D rotation
-    this.wrapper.style.transform = this.mergeTransform(0, 0);
-    
+    this.wrapper.style.transform = 'translateZ(0) rotateY(0deg) rotateX(0deg)';
     AnimationStateManager.setCompletedState(this.wrapper, 'wb-hover3d');
     AnimationStateManager.dispatchLifecycleEvent(this.root, 'complete', this.componentName);
   }
 
   destroy() {
-    // Remove event listeners from wrapper
+    // Lepas listener dari wrapper
     if (this.boundMouseMove) this.wrapper?.removeEventListener('mousemove', this.boundMouseMove);
     if (this.boundMouseEnter) this.wrapper?.removeEventListener('mouseenter', this.boundMouseEnter);
     if (this.boundMouseLeave) this.wrapper?.removeEventListener('mouseleave', this.boundMouseLeave);
 
-    // Move children back to root
+    // Kembalikan children ke root, kembalikan classes ke root
     if (this.wrapper) {
       PerformanceOptimizer.cleanupAfterAnimation(this.wrapper, { restoreOriginal: true });
 
@@ -232,17 +157,16 @@ class Hover3DCard {
         this.root.appendChild(this.wrapper.firstChild);
       }
 
-      // Classes are already on root (never removed), so no need to restore
-      // Just remove classes from wrapper
+      // Restore classes to root (they were moved to wrapper)
       if (this.movedRootClasses.length) {
-        this.movedRootClasses.forEach(cls => {
-          this.wrapper.classList.remove(cls);
-        });
+        this.root.classList.add(...this.movedRootClasses);
       }
+      
+      // Clean up wrapper styles
+      this.wrapper.style.width = '';
+      this.wrapper.style.height = '';
 
-      if (this.movedRootId) {
-        this.root.id = this.movedRootId;
-      }
+      // ID is already on root (never moved), so no need to restore
 
       this.root.removeChild(this.wrapper);
       this.wrapper = null;
@@ -300,4 +224,3 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 export default cardHover3DAnimator;
-export { Hover3DCard, CardHover3DAnimator };
