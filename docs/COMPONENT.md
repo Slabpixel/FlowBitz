@@ -818,5 +818,5 @@ initGlowTextOn(selector) {
 
 ---
 
-**Last Updated:** Based on WebflowBits v2.4.3
+**Last Updated:** Based on WebflowBits v2.4.4
 
