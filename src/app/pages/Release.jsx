@@ -15,7 +15,7 @@ const Release = () => {
             version: "2.4.3",
             date: "November 27, 2025",
             type: "stable",
-            description: "v2.4.2 feature release: Two new interactive components, ContactBubble with morphing animation, ImageTrail improvements, and enhanced showcase and SEO updates.",
+            description: "v2.4.3 feature release: Two new interactive components, ContactBubble with morphing animation, ImageTrail improvements, and enhanced showcase and SEO updates.",
             changes: [
                 "New Component - Shimmer Button with customizable direction, speed, and color options",
                 "New Component - Hover Zoom with parallax movement that follows mouse direction",
