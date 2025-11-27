@@ -12,8 +12,8 @@ const Release = () => {
     const navigate = useNavigate()
     const releases = [
         {
-            version: "2.4.2",
-            date: "November 24, 2025",
+            version: "2.4.3",
+            date: "November 27, 2025",
             type: "stable",
             description: "v2.4.2 feature release: Two new interactive components, ContactBubble with morphing animation, ImageTrail improvements, and enhanced showcase and SEO updates.",
             changes: [
@@ -25,7 +25,10 @@ const Release = () => {
                 "Updated showcase lists with latest community projects and examples",
                 "Blog updates with new implementation guides and component highlights",
                 "SEO improvements for index page and robots.txt optimization",
-                "Fixed hoverZoom component initialization and cleanup issues"
+                "Fixed hoverZoom component initialization and cleanup issues",
+                "Fixed smartAnimate wb-start-delay issue",
+                "Blog content updates",
+                "CardHover component bug fixes"
             ]
         },
         {

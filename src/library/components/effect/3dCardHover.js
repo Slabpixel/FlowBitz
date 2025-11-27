@@ -11,6 +11,8 @@ const componentCSS = `
     transition: transform 300ms linear;
     backface-visibility: hidden;
     transform-origin: center center;
+    width: 100%;
+    height: 100%;
   }
 `;
 
@@ -29,7 +31,6 @@ class Hover3DCard {
     this.boundMouseLeave = null;
     this.componentName = '3d-card-hover';
     this.movedRootClasses = [];
-    this.movedRootId = null;
     this.init();
   }
 
@@ -47,31 +48,43 @@ class Hover3DCard {
     // 1) Root hanya sebagai pembungkus (perspective saja)
     this.root.style.perspective = `${this.config.perspective}px`;
 
-    // Simpan semua class asli root dan kosongkan
+    // Simpan semua class asli root dan hapus dari root
     this.movedRootClasses = Array.from(this.root.classList);
     if (this.movedRootClasses.length) {
-      this.root.className = '';
+      this.root.className = ''; // Remove classes from root
     }
 
     // 2) Buat wrapper inner
     const wrapper = document.createElement('div');
     wrapper.classList.add('wb-hover3d__inner');
-
-    // Pindahkan semua kelas visual dari root → wrapper
+    
+    // Move original classes to wrapper (removed from root)
     if (this.movedRootClasses.length) {
       wrapper.classList.add(...this.movedRootClasses);
     }
 
-    this.movedRootId = this.root.id || null;
-    if (this.movedRootId) {
-      wrapper.id = this.movedRootId;
-      this.root.removeAttribute('id');
-    }
-
-    // Salin inline style root, buang perspective
+    // Keep ID on root element (with wb-component) - don't move it to wrapper
+    // ID should stay on the element with wb-component attribute
+    
+    // Check inline styles for width/height
     const originalStyle = this.root.getAttribute('style') || '';
-    const cleanedStyle = originalStyle.replace(/perspective\s*:\s*[^;]+;?/gi, '').trim();
+    // Remove the perspective we just added to get the true original style
+    const trueOriginalStyle = originalStyle.replace(/perspective\s*:\s*[^;]+;?/gi, '').trim();
+    
+    // Remove perspective, width, and height from styles that go to wrapper
+    let cleanedStyle = trueOriginalStyle
+      .replace(/width\s*:\s*[^;]+;?/gi, '')
+      .replace(/height\s*:\s*[^;]+;?/gi, '')
+      .trim();
+    
+    // Clean up any double semicolons or trailing/leading semicolons
+    cleanedStyle = cleanedStyle.replace(/;;+/g, ';').replace(/^;|;$/g, '').trim();
+    
     if (cleanedStyle) wrapper.setAttribute('style', cleanedStyle);
+    
+    // Set width and height to 100% on root
+    this.root.style.width = '100%';
+    this.root.style.height = '100%';
 
     // Default transition jika belum diset
     if (!wrapper.style.transition) {
@@ -144,14 +157,16 @@ class Hover3DCard {
         this.root.appendChild(this.wrapper.firstChild);
       }
 
-      // Kembalikan kelas yang dipindah ke root
+      // Restore classes to root (they were moved to wrapper)
       if (this.movedRootClasses.length) {
         this.root.classList.add(...this.movedRootClasses);
       }
+      
+      // Clean up wrapper styles
+      this.wrapper.style.width = '';
+      this.wrapper.style.height = '';
 
-      if (this.movedRootId) {
-        this.root.id = this.movedRootId;
-      }
+      // ID is already on root (never moved), so no need to restore
 
       this.root.removeChild(this.wrapper);
       this.wrapper = null;
@@ -209,4 +224,3 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 export default cardHover3DAnimator;
-export { Hover3DCard, CardHover3DAnimator };

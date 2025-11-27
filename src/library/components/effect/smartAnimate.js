@@ -36,7 +36,14 @@ class SmartAnimate {
     if (this.options.triggerOnView) {
       this.setupIntersectionObserver();
     } else {
-      this.animate();
+      // Add delay if specified when not using view trigger
+      if (this.options.startDelay > 0) {
+        setTimeout(() => {
+          this.animate();
+        }, this.options.startDelay * 1000);
+      } else {
+        this.animate();
+      }
     }
   }
 
@@ -68,8 +75,16 @@ class SmartAnimate {
       (self) => {
         // Only trigger once when element enters viewport
         if (self.isActive && !this.animated) {
-          this.animate();
-          this.animated = true;
+          // Add delay if specified
+          if (this.options.startDelay > 0) {
+            setTimeout(() => {
+              this.animate();
+              this.animated = true;
+            }, this.options.startDelay * 1000);
+          } else {
+            this.animate();
+            this.animated = true;
+          }
         }
       }
     );
@@ -128,16 +143,11 @@ class SmartAnimate {
   }
 
   animate() {
-    const { duration, ease, intervalDelay, startDelay } = this.options;
+    const { duration, ease, intervalDelay } = this.options;
     const animationProps = this.getAnimationProps();
 
     // Create timeline for staggered animation
     const tl = gsap.timeline();
-
-    // Add start delay if specified
-    if (startDelay > 0) {
-      tl.delay(startDelay);
-    }
 
     // Animate parent element first
     tl.to(this.element, {
