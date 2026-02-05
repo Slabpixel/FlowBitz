@@ -10,6 +10,9 @@ import {
   faCode as faCodeRegular,
   faSidebar as faSidebarRegular,
   faFile as faFileRegular,
+  faBookOpen as faBookOpenRegular,
+  faBug as faBugRegular,
+  faLightbulb as faLightbulbRegular,
 } from '@fortawesome/pro-regular-svg-icons'
 
 import { 
@@ -36,6 +39,9 @@ library.add(
   faCodeRegular,
   faSidebarRegular,
   faFileRegular,
+  faBookOpenRegular,
+  faBugRegular,
+  faLightbulbRegular,
   
   // Solid
   faHomeSolid,

@@ -12,7 +12,7 @@ const ThemeToggle = () => {
       size="sm"
       iconPosition="iconOnly"
       onClick={toggleTheme}
-      className="h-9 w-9 p-0"
+      className={`h-9 w-9 p-0 ${theme === 'light' ? 'border-black/10 hover:bg-black/10' : 'border-white/10 hover:bg-white/10'}`}
     >
       {theme === 'light' ? (
         <Moon className="h-4 w-4 text-black" />

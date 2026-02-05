@@ -55,7 +55,7 @@ function App() {
   }, [location.pathname])
 
   // Show footer only on home page
-  const showFooter = location.pathname === '/'
+  const isHomePage = location.pathname === '/'
 
   return (
     <HelmetProvider>
@@ -83,7 +83,7 @@ function App() {
               <Route path="*" element={<NotFound />} />
             </Routes>
           </main>
-          {showFooter && <Footer />}
+          {isHomePage && <Footer />}
         </div>
       </ThemeProvider>
       <Analytics />
