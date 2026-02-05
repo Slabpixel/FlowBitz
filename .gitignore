@@ -27,6 +27,7 @@ dist-ssr
 .env.local
 .env
 *.env
+.npmrc
 
 # Build outputs
 build/

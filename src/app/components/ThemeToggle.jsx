@@ -8,14 +8,14 @@ const ThemeToggle = () => {
 
   return (
     <Button
-      variant="ghost"
+      variant="outline"
       size="sm"
       iconPosition="iconOnly"
       onClick={toggleTheme}
       className="h-9 w-9 p-0"
     >
       {theme === 'light' ? (
-        <Moon className="h-4 w-4" />
+        <Moon className="h-4 w-4 text-black" />
       ) : (
         <Sun className="h-4 w-4" />
       )}

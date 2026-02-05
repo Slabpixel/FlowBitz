@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Routes, Route, useLocation } from 'react-router-dom'
 import { HelmetProvider } from 'react-helmet-async'
 import Navbar from './components/layout/Navbar'
@@ -26,6 +26,33 @@ import { SpeedInsights } from "@vercel/speed-insights/react"
 
 function App() {
   const location = useLocation()
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollElement = document.getElementById('root')
+      const scrollTop = scrollElement?.scrollTop || 0
+      
+      setIsScrolled(scrollTop > 100)
+    }
+
+    const scrollElement = document.getElementById('root')
+    scrollElement?.addEventListener('scroll', handleScroll)
+    
+    handleScroll()
+
+    return () => {
+      scrollElement?.removeEventListener('scroll', handleScroll)
+    }
+  }, [])
+
+  // Reset scroll position on route change (optional)
+  useEffect(() => {
+    const scrollElement = document.getElementById('root')
+    if (scrollElement) {
+      scrollElement.scrollTop = 0
+    }
+  }, [location.pathname])
 
   // Show footer only on home page
   const showFooter = location.pathname === '/'
@@ -35,7 +62,7 @@ function App() {
       <ThemeProvider>
         <div className="app">
           <ScrollToTop />
-          <Navbar />
+          <Navbar isScrolled={isScrolled} />
           <ContactBubble />
           <main id="main-content">
             <Routes>
