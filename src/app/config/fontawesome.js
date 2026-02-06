@@ -17,6 +17,7 @@ import {
 
 import { 
   faHome as faHomeSolid,
+  faHeart as faHeartSolid,
 } from '@fortawesome/pro-solid-svg-icons'
 
 import { 
@@ -26,7 +27,8 @@ import {
 // Brand icons (always free)
 import { 
   faGithub, 
-  faTwitter 
+  faTwitter,
+  faInstagram
 } from '@fortawesome/free-brands-svg-icons'
 
 // Add to library
@@ -45,11 +47,13 @@ library.add(
   
   // Solid
   faHomeSolid,
+  faHeartSolid,
   
   // Duotone
   faHomeDuotone,
   
   // Brands
   faGithub,
-  faTwitter
+  faTwitter,
+  faInstagram
 )

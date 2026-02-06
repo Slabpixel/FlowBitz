@@ -113,15 +113,40 @@ body {
 /* Custom Font */
 .inter-med-16 {
   font-family: 'Inter', sans-serif;
+  font-weight: 400;
+  line-height: 160%;
+  letter-spacing: normal;
+  font-size: 1rem;
+}
+
+.inter-med-16 {
+  font-family: 'Inter', sans-serif;
   font-weight: 500;
   line-height: 100%;
   letter-spacing: -0.01em;
   font-size: 1rem;
 }
 
+.display-semi-16 {
+  font-family: 'Inter', sans-serif;
+  font-weight: 600;
+  line-height: 140%;
+  letter-spacing: normal;
+  font-optical-sizing: auto;
+  font-variation-settings: "opsz" 32;
+  font-size: 1rem;
+}
+
 .inter-reg-18 {
   font-family: 'Inter', sans-serif;
   font-weight: 400;
+  line-height: 140%;
+  font-size: 1.125rem;
+}
+
+.inter-med-18 {
+  font-family: 'Inter', sans-serif;
+  font-weight: 500;
   line-height: 140%;
   font-size: 1.125rem;
 }
@@ -138,7 +163,9 @@ body {
   font-family: 'Inter', sans-serif;
   font-weight: 600;
   line-height: 100%;
-  letter-spacing: -0.05em;
+  letter-spacing: -0.04em;
+  font-optical-sizing: auto;
+  font-variation-settings: "opsz" 32;
   font-size: 4.5rem;
 }
 
@@ -146,6 +173,20 @@ body {
   .bg-gradient-custom {
     background: linear-gradient(295deg, rgba(217, 217, 217, 0.00) 0%, hsl(var(--background)) 75%);
   }
+}
+
+/* Shimmer animation for gallery previews */
+@keyframes shimmer {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+.animate-shimmer {
+  animation: shimmer 2s infinite;
 }
 
 /* Ensure proper touch scrolling on mobile */

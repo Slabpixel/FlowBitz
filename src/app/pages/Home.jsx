@@ -9,6 +9,7 @@ import { useResponsive } from '../hooks/useResponsive.js'
 import Logo from '../components/Logo.jsx'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useTheme } from '../contexts/ThemeContext.jsx'
+import { GalleryContainer } from '../components/gallery'
 
 const Home = () => {
   const navigate = useNavigate()
@@ -88,80 +89,14 @@ const Home = () => {
         </section>
         {/* End Hero Section */}
 
-        {/* Features Section */}
-        <section className=" py-12 sm:py-16 lg:py-96 px-4 sm:px-6 lg:px-8">
-          <div className="max-w-6xl mx-auto">
-            <div className="flex flex-col items-center justify-center text-center mb-12 sm:mb-16">
-              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4 sm:mb-6 max-w-3xl">
-                Why <span wb-component="gradient-text">FlowBitz</span> Solves Your Animation Problems
-              </h2>
-              <p className="text-lg sm:text-xl text-muted-foreground max-w-2xl mx-auto">
-                Stop struggling with Webflow's limited animations. Get professional GSAP effects without coding.
-              </p>
-            </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
-              <div className="group relative p-6 bg-background/60 backdrop-blur-sm rounded-2xl border border-border/50 hover:border-primary/30 transition-all duration-300 hover:shadow-lg hover:shadow-primary/10">
-                <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
-                  <Layers className="w-6 h-6 text-white" />
-                </div>
-                <h3 className="text-lg sm:text-xl font-semibold mb-2 sm:mb-3 text-foreground">{componentCount} Ready-to-Use Components</h3>
-                <p className="text-sm sm:text-base text-muted-foreground">Professional text animations, hover effects, and scroll triggers - no coding required</p>
-              </div>
-              
-              <div className="group relative p-6 bg-background/60 backdrop-blur-sm rounded-2xl border border-border/50 hover:border-primary/30 transition-all duration-300 hover:shadow-lg hover:shadow-primary/10">
-                <div className="w-12 h-12 bg-gradient-to-br from-yellow-500 to-orange-500 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
-                  <Zap className="w-6 h-6 text-white" />
-                </div>
-                <h3 className="text-lg sm:text-xl font-semibold mb-2 sm:mb-3 text-foreground">GSAP-Powered Performance</h3>
-                <p className="text-sm sm:text-base text-muted-foreground">Industry-standard animation engine ensures smooth 60fps animations across all devices</p>
-              </div>
-              
-              <div className="group relative p-6 bg-background/60 backdrop-blur-sm rounded-2xl border border-border/50 hover:border-primary/30 transition-all duration-300 hover:shadow-lg hover:shadow-primary/10">
-                <div className="w-12 h-12 bg-gradient-to-br from-green-500 to-green-600 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
-                  <Plus className="w-6 h-6 text-white" />
-                </div>
-                <h3 className="text-lg sm:text-xl font-semibold mb-2 sm:mb-3 text-foreground">Zero JavaScript Required</h3>
-                <p className="text-sm sm:text-base text-muted-foreground">Just add HTML attributes to any Webflow element - no coding knowledge needed</p>
-              </div>
-              
-              <div className="group relative p-6 bg-background/60 backdrop-blur-sm rounded-2xl border border-border/50 hover:border-primary/30 transition-all duration-300 hover:shadow-lg hover:shadow-primary/10">
-                <div className="w-12 h-12 bg-gradient-to-br from-purple-500 to-purple-600 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
-                  <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z" />
-                  </svg>
-                </div>
-                <h3 className="text-lg sm:text-xl font-semibold mb-2 sm:mb-3 text-foreground">Responsive</h3>
-                <p className="text-sm sm:text-base text-muted-foreground">Works perfectly across all devices and screen sizes</p>
-              </div>
-              
-              <div className="group relative p-6 bg-background/60 backdrop-blur-sm rounded-2xl border border-border/50 hover:border-primary/30 transition-all duration-300 hover:shadow-lg hover:shadow-primary/10">
-                <div className="w-12 h-12 bg-gradient-to-br from-pink-500 to-pink-600 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
-                  <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                  </svg>
-                </div>
-                <h3 className="text-lg sm:text-xl font-semibold mb-2 sm:mb-3 text-foreground">Built for Webflow</h3>
-                <p className="text-sm sm:text-base text-muted-foreground">Designed specifically for Webflow's visual editor - works seamlessly with your existing projects</p>
-              </div>
-              
-              <div className="group relative p-6 bg-background/60 backdrop-blur-sm rounded-2xl border border-border/50 hover:border-primary/30 transition-all duration-300 hover:shadow-lg hover:shadow-primary/10">
-                <div className="w-12 h-12 bg-gradient-to-br from-indigo-500 to-indigo-600 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
-                  <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
-                  </svg>
-                </div>
-                <h3 className="text-lg sm:text-xl font-semibold mb-2 sm:mb-3 text-foreground">Lightning Fast</h3>
-                <p className="text-sm sm:text-base text-muted-foreground">Optimized for speed with minimal impact on page load times and Core Web Vitals</p>
-              </div>
-            </div>
-          </div>
-        </section>
+        {/* Component Gallery Section */}
+        <GalleryContainer />
 
         {/* CTA Section */}
         <section>
           <div className='max-w-[1200px] mx-auto py-7 border-x-[1px] border-foreground/10'>
-            <div className='relative w-full h-[500px] border-y-[1px] border-foreground/10 flex justify-between items-center pl-[3.75rem]'>
-              <div className='flex flex-col gap-10 max-w-[550px]'>
+            <div className='relative w-full h-[500px] border-y-[1px] border-foreground/10 flex justify-between items-center pl-[3.75rem] overflow-hidden'>
+              <div className='flex flex-col gap-10 max-w-[550px] relative z-[3]'>
                 <div className='flex flex-col gap-4 items-start'>
                   <Logo className='h-8 w-auto'/>
                   <h2 className='inter-semi-48 text-foreground'>Pro Animations, <br/> Zero Code.</h2>
@@ -199,10 +134,18 @@ const Home = () => {
                 </div>
               </div>
               
-              <div className='relative w-1/2 h-full'>
+              <div className='relative w-1/2 h-full z-[1]'>
                 <video src="/videos/flowbitz-tutorial.mp4" autoPlay loop muted playsInline className='relative w-full z-[1] h-full object-cover'></video>
                 <div className='absolute top-0 w-full h-full z-[2] pointer-events-none bg-gradient-custom'></div>
               </div>
+
+              <img 
+                src="/images/cta-gradient.webp"
+                alt=""
+                aria-hidden="true"
+                className="absolute top-0 left-0 w-full object-contain z-[1] pointer-events-none"
+                loading='lazy'
+              />
             </div>
           </div>
         </section>

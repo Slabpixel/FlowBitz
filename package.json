@@ -61,6 +61,7 @@
   "author": "Slabpixel Studio",
   "license": "MIT",
   "dependencies": {
+    "@fontsource-variable/inter": "^5.2.8",
     "@fortawesome/fontawesome-svg-core": "^7.1.0",
     "@fortawesome/free-brands-svg-icons": "^7.1.0",
     "@fortawesome/free-regular-svg-icons": "^7.1.0",
