@@ -65,10 +65,10 @@ const Footer = () => {
         {/* Footer Link List */}
         <div className='flex flex-col items-center py-[3.75rem] border-b-[1px] border-foreground/10'>
           <div className='max-w-[548px] w-[45.67%] flex'>
-            <div className='flex flex-col items-start pr-8 border-r-[1px] border-foreground/10 gap-4 flex-grow'>
+            <div className='flex flex-col items-center pr-8 border-r-[1px] border-foreground/10 gap-4 flex-grow'>
               <h4 className='display-semi-16 text-foreground'>Navigation</h4>
 
-              <div className='flex flex-col items-start gap-2'>
+              <div className='flex flex-col items-center gap-2'>
                 <button onClick={() =>handleNavigation('/')} className='inter-reg-16 opacity-80 text-foreground hover:opacity-100'>
                   Home
                 </button>
@@ -87,10 +87,10 @@ const Footer = () => {
               </div>
             </div>
 
-            <div className='flex flex-col items-start px-8 border-r-[1px] border-foreground/10 gap-4 flex-grow'>
+            <div className='flex flex-col items-center px-8 border-r-[1px] border-foreground/10 gap-4 flex-grow'>
               <h4 className='display-semi-16 text-foreground'>Support</h4>
 
-              <div className='flex flex-col items-start gap-2'>
+              <div className='flex flex-col items-center gap-2'>
                 <button onClick={() =>handleNavigation('/faq')} className='inter-reg-16 opacity-80 text-foreground hover:opacity-100'>
                   FAQ
                 </button>
@@ -106,10 +106,10 @@ const Footer = () => {
               </div>
             </div>
 
-            <div className='flex flex-col items-start pl-8 gap-4 flex-grow'>
+            <div className='flex flex-col items-center pl-8 gap-4 flex-grow'>
               <h4 className='display-semi-16 text-foreground'>Resources</h4>
 
-              <div className='flex flex-col items-start gap-2'>
+              <div className='flex flex-col items-center gap-2'>
                 <button onClick={() =>handleNavigation('/release')} className='inter-reg-16 opacity-80 text-foreground hover:opacity-100'>
                   Release notes
                 </button>
@@ -132,12 +132,14 @@ const Footer = () => {
         <div className='px-10 py-8 flex justify-between'>
           <p className='inter-reg-16 text-foreground'>© {getYear} FlowBitz. All rights reserved.</p>
 
-          <div className="flex gap-6 inter-reg-16 text-foreground">
+          <div className="flex gap-3 inter-reg-16 text-foreground">
             <div className='flex gap-1 items-baseline'>
               <p>Made with</p>
               <FontAwesomeIcon icon={['fas', 'heart']} className='w-4 h-4' />
               <p>by <a className='underline' href="https://www.slabpixel.com/" target='_blank'>SlabPixel</a></p>
             </div>
+
+            <div className='w-[1px] h-full bg-foreground/30' />
 
             <p>v{process.env.REACT_APP_VERSION || '1.0.0'}</p>
           </div>

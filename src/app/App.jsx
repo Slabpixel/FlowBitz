@@ -60,11 +60,24 @@ function App() {
   return (
     <HelmetProvider>
       <ThemeProvider>
-        <div className="app">
+        <div className="app relative">
           <ScrollToTop />
           <Navbar isScrolled={isScrolled} />
           <ContactBubble />
-          <main id="main-content">
+          { isHomePage && (
+              <>
+                {/* Hero Gradient Top */}
+                <img 
+                  src="/images/BG.webp"
+                  alt=""
+                  aria-hidden="true"
+                  className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-[1440px] object-cover z-[1- pointer-events-none"
+                  loading='lazy'
+                />
+                {/* End Hero Gradient Top */}
+              </>
+            ) }
+          <main id="main-content" className='relative mt-18'>
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/components" element={<Components />} />

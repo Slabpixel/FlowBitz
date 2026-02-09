@@ -61,19 +61,9 @@ const Home = () => {
         url="https://www.flowbitz.dev"
         structuredData={structuredData}
       />
-      <div className="relative z-[2] bg-background text-foreground">
-        {/* Hero Gradient Top */}
-        <img 
-          src="/images/home-gradient.webp"
-          alt=""
-          aria-hidden="true"
-          className="absolute top-0 w-full object-cover -z-10 pointer-events-none"
-          loading='lazy'
-        />
-        {/* End Hero Gradient Top */}
-
+      <div className="relative overflow-scroll h-[calc(100dvh-4.5rem)] z-[2] text-foreground">
         {/* Hero Section */}
-        <section className="relative pt-18">
+        <section className="relative">
           <div className='max-w-[1200px] mx-auto py-16 flex flex-col items-center border-x-[1px] border-b-[1px] border-foreground/10'>
             <div className='max-w-[800px] w-2/3 flex flex-col items-center gap-[1.625rem]'>
               <div className='flex gap-[0.875rem] px-4 py-2 bg-foreground/10 rounded-[2px] items-center'>
@@ -110,7 +100,7 @@ const Home = () => {
                     `}
                   >
                     <FontAwesomeIcon icon={['far', 'book-open']} className='w-4 h-4 opacity-60'/>
-                    <span className="hidden lg:inline">Installation Guide</span>
+                    <span className="hidden lg:inline text-nowrap">Installation Guide</span>
                   </button>
 
                   <button 
@@ -120,7 +110,7 @@ const Home = () => {
                     `}
                   >
                     <FontAwesomeIcon icon={['far', 'bug']} className='w-4 h-4 opacity-60'/>
-                    <span className="hidden lg:inline">Report Bug</span>
+                    <span className="hidden lg:inline text-nowrap">Report Bug</span>
                   </button>
 
                   <button 
@@ -129,7 +119,7 @@ const Home = () => {
                     `}
                   >
                     <FontAwesomeIcon icon={['far', 'lightbulb']} className='w-4 h-4 opacity-60'/>
-                    <span className="hidden lg:inline">Request a Feature</span>
+                    <span className="hidden lg:inline text-nowrap">Request a Feature</span>
                   </button>
                 </div>
               </div>

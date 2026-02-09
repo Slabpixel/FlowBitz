@@ -5,7 +5,7 @@ const ComponentCard = ({ id, name, category, isNew, onClick, index }) => {
   return (
     <div 
       onClick={onClick}
-      className="group cursor-pointer border border-foreground/10 transition-all duration-300 hover:border-foreground/30 hover:scale-[1.02] hover:z-10"
+      className="group cursor-pointer border border-foreground/10 transition-all duration-300 hover:border-foreground/30 hover:z-10"
       style={{
         // Stagger animation delay based on index
         animationDelay: `${index * 50}ms`
@@ -19,14 +19,14 @@ const ComponentCard = ({ id, name, category, isNew, onClick, index }) => {
       {/* Metadata Area */}
       <div className="bg-transparent px-4 py-4 border-t border-foreground/10">
         <div className="flex items-center gap-2">
-          <h3 className="text-foreground font-semibold text-sm">{name}</h3>
+          <h3 className="text-foreground display-semi-16">{name}</h3>
           {isNew && (
             <span className="px-2 py-0.5 text-[10px] font-semibold uppercase bg-primary text-white rounded-full">
               NEW
             </span>
           )}
         </div>
-        <p className="text-muted-foreground text-xs mt-1">{category}</p>
+        <p className="text-foreground/70 inter-reg-16 mt-1">{category}</p>
       </div>
     </div>
   )

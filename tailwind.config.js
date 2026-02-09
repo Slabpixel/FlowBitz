@@ -7,6 +7,9 @@ export default {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        inter: ["InterVariable", "Inter", "sans-serif"],
+      },
       spacing: {
         '18': '4.5rem'
       },
