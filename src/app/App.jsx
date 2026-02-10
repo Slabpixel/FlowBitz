@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useRef } from 'react'
 import { Routes, Route, useLocation } from 'react-router-dom'
 import { HelmetProvider } from 'react-helmet-async'
 import Navbar from './components/layout/Navbar'
@@ -27,6 +27,8 @@ import { SpeedInsights } from "@vercel/speed-insights/react"
 function App() {
   const location = useLocation()
   const [isScrolled, setIsScrolled] = useState(false);
+  const heroGradientRef = useRef(null);
+  const isHomePage = location.pathname === '/'
 
   useEffect(() => {
     const handleScroll = () => {
@@ -54,17 +56,62 @@ function App() {
     }
   }, [location.pathname])
 
-  // Show footer only on home page
-  const showFooter = location.pathname === '/'
+  // Top Gradient Parallax
+  useEffect(() => {
+    if (!isHomePage || !heroGradientRef) return;
+
+    const gsap = window.gsap
+    if (!gsap || !window.ScrollTrigger) return
+
+    const heroGrad = heroGradientRef.current;
+    const scroller = document.getElementById('main-content');
+
+    if (!scroller) return;
+
+    gsap.set(heroGrad, { xPercent: -50 });
+
+    const heroGradTween = gsap.to(heroGrad, {
+      y: -500,
+      ease: 'none',
+      scrollTrigger: {
+        scroller: scroller,
+        trigger: scroller,
+        start: 'top top',
+        end: '600px top',
+        scrub: true,
+      }
+    });
+
+    return () => {
+      heroGradTween.scrollTrigger?.kill();
+      heroGradTween.kill();
+      gsap.set(heroGrad, { clearProps: 'all' })
+    }
+  }, [isHomePage]);
 
   return (
     <HelmetProvider>
       <ThemeProvider>
-        <div className="app">
+        <div className="app relative bg-background">
           <ScrollToTop />
           <Navbar isScrolled={isScrolled} />
           <ContactBubble />
-          <main id="main-content">
+          { isHomePage && (
+              <>
+                {/* Hero Gradient Top */}
+                <img 
+                  ref={heroGradientRef}
+                  id='hero-top-gradient'
+                  src="/images/BG.webp"
+                  alt=""
+                  aria-hidden="true"
+                  className={`absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-[1440px] object-cover z-[1] pointer-events-none`}
+                  loading='lazy'
+                />
+                {/* End Hero Gradient Top */}
+              </>
+            ) }
+          <main id="main-content" className='relative overflow-scroll h-[calc(100dvh-4.5rem)] mt-18'>
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/components" element={<Components />} />
@@ -82,8 +129,8 @@ function App() {
               <Route path="/license" element={<License />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
+            {isHomePage && <Footer />}
           </main>
-          {showFooter && <Footer />}
         </div>
       </ThemeProvider>
       <Analytics />

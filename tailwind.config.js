@@ -7,6 +7,12 @@ export default {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        inter: ["InterVariable", "Inter", "sans-serif"],
+      },
+      spacing: {
+        '18': '4.5rem'
+      },
       borderRadius: {
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",
@@ -46,6 +52,7 @@ export default {
         },
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
+        main: "hsl(var(--main))",
         ring: "hsl(var(--ring))",
         chart: {
           "1": "hsl(var(--chart-1))",

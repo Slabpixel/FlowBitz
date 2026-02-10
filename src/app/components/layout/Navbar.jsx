@@ -25,7 +25,10 @@ const Navbar = ({ isScrolled }) => {
   }
 
   return (
-    <nav id='navbar' className={`w-full fixed top-0 left-0 border-b border-border z-[70] transition-all duration-200 ${isScrolled ? 'bg-background/50 backdrop-blur-md shadow-sm' : 'bg-transparent'}`}>
+    <nav id='navbar' className={`w-full fixed top-0 left-0 border-b z-[70] transition-all duration-200 
+      ${isScrolled ? 'bg-background/50 backdrop-blur-md shadow-sm' : 'bg-transparent'}
+      ${ theme === 'dark' ? 'border-white/10' : 'border-black/10' }
+    `}>
       {/* Navbar Desktop Container */}
       <div className="mx-auto px-4 py-4 sm:px-6 lg:px-0 lg:max-w-[1200px] sm:gap-8 flex items-center justify-between sm:justify-normal">
         {/* Navbar Logo */}
@@ -45,7 +48,7 @@ const Navbar = ({ isScrolled }) => {
           <div className={`nav-menu ${isMenuOpen ? 'active' : ''} hidden md:flex items-center`} id="nav-menu">
             <button 
               onClick={() => navigate('/components')}
-              className={`px-3 lg:px-8 py-[10px] border-x font-medium text-foreground text-sm transition-all duration-200 flex items-center gap-3 hover:text-foreground/50
+              className={`px-3 lg:px-8 py-[10px] border-x text-foreground inter-med-16 transition-all duration-200 flex items-center gap-3 hover:text-foreground/50
                 ${ theme === 'dark' ? 'border-white/10' : 'border-black/10' }
               `}
             >
@@ -55,7 +58,7 @@ const Navbar = ({ isScrolled }) => {
 
             <button 
               onClick={() => navigate('/showcase')}
-              className={`px-3 lg:px-8 py-[10px] border-r font-medium text-sm text-foreground transition-all duration-200 flex items-center gap-3 hover:text-foreground/50
+              className={`px-3 lg:px-8 py-[10px] border-r inter-med-16 text-foreground transition-all duration-200 flex items-center gap-3 hover:text-foreground/50
                 ${ theme === 'dark' ? 'border-white/10' : 'border-black/10' }
               `}
             >
@@ -65,7 +68,7 @@ const Navbar = ({ isScrolled }) => {
 
             <button 
               onClick={() => navigate('/blog')}
-              className={`px-3 lg:px-8 py-[10px] border-r font-medium text-sm text-foreground transition-all duration-200 flex items-center gap-3 hover:text-foreground/50
+              className={`px-3 lg:px-8 py-[10px] border-r inter-med-16 text-foreground transition-all duration-200 flex items-center gap-3 hover:text-foreground/50
                 ${ theme === 'dark' ? 'border-white/10' : 'border-black/10' }
               `}
             >
@@ -82,7 +85,7 @@ const Navbar = ({ isScrolled }) => {
               href="https://github.com/Slabpixel/FlowBitz"
               target="_blank"
               rel="noopener noreferrer"
-              className={`py-[10px] hidden sm:flex font-medium text-sm text-foreground transition-all duration-200 items-center gap-2 hover:text-foreground/50`}
+              className={`py-[10px] hidden sm:flex inter-med-16 text-foreground transition-all duration-200 items-center gap-2 hover:text-foreground/50`}
             >
               <FontAwesomeIcon icon={['fab', 'github']} className='w-4 h-4'/>
               <span className="hidden lg:inline">Github</span>
