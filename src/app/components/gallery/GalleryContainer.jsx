@@ -1,17 +1,18 @@
-import React, { useState, useMemo } from 'react'
+import React, { useState, useMemo, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { ChevronDown } from 'lucide-react'
+import { ArrowRight } from 'lucide-react'
 import FilterNav from './FilterNav'
 import ComponentCard from './ComponentCard'
 import { componentsMetadata, getFilteredComponentKeys } from '../../../library/data/componentsMetadata'
+import { useWebflowBits } from '../../hooks/useWebflowBits'
 
-const ITEMS_PER_PAGE = 9
+const MAX_ITEMS = 9
 
 const GalleryContainer = () => {
   const navigate = useNavigate()
-  const [activeFilter, setActiveFilter] = useState('all')
+  const [activeFilter, setActiveFilter] = useState('text')
   const [searchQuery, setSearchQuery] = useState('')
-  const [visibleCount, setVisibleCount] = useState(ITEMS_PER_PAGE)
+  const { reinitializeComponents } = useWebflowBits()
 
   // Get all filtered component keys and map to full data
   const allComponents = useMemo(() => {
@@ -44,29 +45,27 @@ const GalleryContainer = () => {
     return result
   }, [allComponents, activeFilter, searchQuery])
 
-  // Get visible components based on pagination
-  const visibleComponents = useMemo(() => {
-    return filteredComponents.slice(0, visibleCount)
-  }, [filteredComponents, visibleCount])
+  // Limit to MAX_ITEMS
+  const displayedComponents = useMemo(() => {
+    return filteredComponents.slice(0, MAX_ITEMS)
+  }, [filteredComponents])
 
-  // Check if there are more items to load
-  const hasMore = visibleCount < filteredComponents.length
+  // Reinitialize FlowBitz components after render or filter change
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      reinitializeComponents()
+    }, 150)
+    return () => clearTimeout(timer)
+  }, [reinitializeComponents, displayedComponents])
 
-  // Handle load more
-  const handleLoadMore = () => {
-    setVisibleCount(prev => prev + ITEMS_PER_PAGE)
-  }
-
-  // Reset pagination when filter changes
+  // Handle filter change
   const handleFilterChange = (filter) => {
     setActiveFilter(filter)
-    setVisibleCount(ITEMS_PER_PAGE)
   }
 
-  // Reset pagination when search changes
+  // Handle search change
   const handleSearchChange = (query) => {
     setSearchQuery(query)
-    setVisibleCount(ITEMS_PER_PAGE)
   }
 
   // Handle card click - navigate to component detail
@@ -86,7 +85,7 @@ const GalleryContainer = () => {
 
   return (
     <section>
-      <div className="max-w-[1200px] mx-auto border-x-[1px] border-foreground/10">
+      <div className="max-w-[1200px] mx-auto">
         {/* Filter Navigation */}
         <FilterNav 
           activeFilter={activeFilter}
@@ -97,13 +96,15 @@ const GalleryContainer = () => {
 
         {/* Components Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
-          {visibleComponents.map((component, index) => (
+          {displayedComponents.map((component, index) => (
             <ComponentCard
               key={component.id}
               id={component.id}
               name={component.name}
               category={getCategoryLabel(component.category)}
               isNew={component.newComponent}
+              exampleCode={component.example?.code || ''}
+              hoverPreview={component.hoverPreview || false}
               onClick={() => handleCardClick(component.id)}
               index={index}
             />
@@ -112,7 +113,7 @@ const GalleryContainer = () => {
 
         {/* Empty State */}
         {filteredComponents.length === 0 && (
-          <div className="flex flex-col items-center justify-center py-20 text-center">
+          <div className="flex flex-col items-center justify-center py-20 text-center border-x border-b border-foreground/10">
             <p className="text-muted-foreground text-lg">No components found matching your criteria.</p>
             <button 
               onClick={() => {
@@ -126,15 +127,15 @@ const GalleryContainer = () => {
           </div>
         )}
 
-        {/* Load More Button */}
-        {hasMore && (
-          <div className="flex justify-center mt-8">
+        {/* See More Button */}
+        {filteredComponents.length > 0 && (
+          <div className="flex justify-center py-8 border-x border-b border-foreground/10">
             <button 
-              onClick={handleLoadMore}
-              className="flex items-center gap-2 px-6 py-3 border border-foreground/10 rounded text-foreground hover:text-foreground transition-colors duration-200"
+              onClick={() => navigate('/components')}
+              className="flex items-center gap-2 px-6 py-3 border border-foreground/10 rounded text-foreground hover:text-foreground/70 transition-colors duration-200"
             >
-              <span className="text-sm font-medium">Load more</span>
-              <ChevronDown className="w-4 h-4" />
+              <span className="text-sm font-medium">See More</span>
+              <ArrowRight className="w-4 h-4" />
             </button>
           </div>
         )}

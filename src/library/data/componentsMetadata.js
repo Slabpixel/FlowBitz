@@ -27,6 +27,7 @@ export const componentsMetadata = {
     category: 'text',
     file: 'splitText.js',
     installationNotes: 'Works with any text element like <h1>, <h2>, <p>, <span>, <div>, etc. The component automatically splits the text content and wraps each part in spans for animation.',
+    hoverPreview: true,
     attributes: [
       { 
         name: 'wb-component', 
@@ -96,6 +97,7 @@ export const componentsMetadata = {
     category: 'text',
     file: 'gradientText.js',
     installationNotes: 'Perfect for headings like <h1>, <h2>, <h3> or any text element. The gradient animation works best with larger text sizes for better visual impact.',
+    hoverPreview: false,
     attributes: [
       { 
         name: 'wb-component', 
@@ -131,6 +133,7 @@ export const componentsMetadata = {
     category: 'text',
     file: 'textType.js',
     installationNotes: 'Use with <span> elements inside headings or paragraphs. The component replaces the text content with a typewriter animation. Works best with monospace fonts.',
+    hoverPreview: false,
     attributes: [
       { 
         name: 'wb-component', 
@@ -212,6 +215,7 @@ export const componentsMetadata = {
     category: 'text',
     file: 'blurText.js',
     installationNotes: 'Works with any text element like <h1>, <h2>, <p>, <span>. The blur effect is applied on scroll or hover, revealing text from blur to clear.',
+    hoverPreview: true,
     attributes: [
       { 
         name: 'wb-component', 
@@ -281,6 +285,7 @@ export const componentsMetadata = {
     category: 'text',
     file: 'shinyText.js',
     installationNotes: 'Best used with larger headings like <h1>, <h2> or prominent text elements. The shine effect creates a moving gradient overlay across the text.',
+    hoverPreview: false,
     attributes: [
       { 
         name: 'wb-component', 
@@ -324,6 +329,7 @@ export const componentsMetadata = {
     category: 'text',
     file: 'countUp.js',
     installationNotes: 'Perfect for statistics, numbers, or counters. Use with <span>, <div>, or any element containing numeric values. The component animates from a starting number to a target value.',
+    hoverPreview: true,
     attributes: [
       { 
         name: 'wb-component', 
@@ -411,6 +417,7 @@ export const componentsMetadata = {
     category: 'text',
     file: 'decryptedText.js',
     installationNotes: 'Great for dramatic reveals and tech-themed content. Works with any text element like <h1>, <h2>, <p>, <span>. The component scrambles characters before revealing the final text.',
+    hoverPreview: true,
     attributes: [
       { 
         name: 'wb-component', 
@@ -498,6 +505,7 @@ export const componentsMetadata = {
     category: 'text',
     file: 'scrambleText.js',
     installationNotes: 'Interactive hover effect that scrambles text on mouse proximity. Works with any text element like <p>, <span>, <div>. Best with monospace fonts for consistent character spacing.',
+    hoverPreview: false,
     attributes: [
       { 
         name: 'wb-component', 
@@ -568,6 +576,7 @@ export const componentsMetadata = {
     category: 'text',
     file: 'variableProximity.js',
     installationNotes: 'Requires variable fonts that support weight variations. Works with any text element like <h1>, <h2>, <p>, <span>. The font weight changes based on mouse proximity.',
+    hoverPreview: false,
     attributes: [
       { 
         name: 'wb-component', 
@@ -611,6 +620,7 @@ export const componentsMetadata = {
     category: 'text',
     file: 'rotatingText.js',
     installationNotes: 'Use with <span> elements inside headings or paragraphs. The component cycles through different text options with smooth transitions. Great for highlighting multiple features or benefits.',
+    hoverPreview: false,
     attributes: [
       { 
         name: 'wb-component', 
@@ -725,6 +735,7 @@ export const componentsMetadata = {
     category: 'text',
     file: 'textPressure.js',
     installationNotes: 'Requires variable fonts (like Compressa VF, Recursive, Roboto Flex). Works with any text element. The component dynamically changes font weight, width, and italic based on mouse proximity.',
+    hoverPreview: false,
     attributes: [
       { 
         name: 'wb-component', 
@@ -826,6 +837,7 @@ export const componentsMetadata = {
     category: 'text',
     file: 'shuffle.js',
     installationNotes: 'Works with any text element like <h1>, <h2>, <p>, <span>. The component creates sliding shuffle effects with characters moving in different directions. Best with monospace fonts.',
+    hoverPreview: false,
     attributes: [
       { 
         name: 'wb-component', 
@@ -931,6 +943,7 @@ export const componentsMetadata = {
     category: 'text',
     file: 'tooltipText.js',
     installationNotes: 'Use with any text element like <span>, <a>, <strong>, <em>. The component adds a hover tooltip with customizable content, position, and styling.',
+    hoverPreview: false,
     attributes: [
       { 
         name: 'wb-component', 
@@ -1015,6 +1028,7 @@ export const componentsMetadata = {
     category: 'text',
     file: 'rollText.js',
     installationNotes: 'Wrap your text with a <div wb-component="roll-text"> wrapper. The first child inside the wrapper must be one of: <div>, <p>, <a>, <span>, <h1>, <h2>, <h3>, <h4>, <h5> or <h6> containing the text. The wrapper becomes an inline-block overflow-hidden mask; on hover, the original line rolls up and the duplicate line replaces it.',
+    hoverPreview: false,
     attributes: [
       {
         name: 'wb-component',
@@ -1329,6 +1343,7 @@ export const componentsMetadata = {
     category: 'effect',
     file: 'smartAnimate.js',
     installationNotes: 'Use with any container element like <div>, <section>, <article>. The component animates the selected element first, then animates all direct children with customizable stagger timing. Perfect for revealing content sections.',
+    hoverPreview: true,
     attributes: [
       { 
         name: 'wb-component', 

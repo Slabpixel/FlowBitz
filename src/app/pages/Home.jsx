@@ -61,7 +61,7 @@ const Home = () => {
         url="https://www.flowbitz.dev"
         structuredData={structuredData}
       />
-      <div className="relative overflow-scroll h-[calc(100dvh-4.5rem)] z-[2] text-foreground">
+      <div className="relative z-[2] text-foreground">
         {/* Hero Section */}
         <section className="relative">
           <div className='max-w-[1200px] mx-auto py-16 flex flex-col items-center border-x-[1px] border-b-[1px] border-foreground/10'>

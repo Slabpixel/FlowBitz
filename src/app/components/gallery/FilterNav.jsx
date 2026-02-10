@@ -3,20 +3,19 @@ import { Search } from 'lucide-react'
 
 const FilterNav = ({ activeFilter, onFilterChange, searchQuery, onSearchChange }) => {
   const filters = [
-    { id: 'all', label: 'All Components' },
     { id: 'text', label: 'Text' },
     { id: 'button', label: 'Button' },
     { id: 'effect', label: 'Effects' }
   ]
 
   return (
-    <div className="flex items-center justify-between p-8">
+    <div className="flex items-center justify-between p-8 border-x border-foreground/10">
       {/* Navigation Links */}
       <nav className="flex items-center gap-6">
         {filters.map((filter) => (
           <button
             key={filter.id}
-            onClick={() => onFilterChange(filter.id)}
+            onClick={() => onFilterChange(activeFilter === filter.id ? 'all' : filter.id)}
             className={`inter-med-18 transition-colors duration-200 ${
               activeFilter === filter.id
                 ? 'text-foreground'
