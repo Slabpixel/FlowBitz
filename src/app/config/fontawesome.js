@@ -13,11 +13,18 @@ import {
   faBookOpen as faBookOpenRegular,
   faBug as faBugRegular,
   faLightbulb as faLightbulbRegular,
+  faHand as faHandRegular,
+  faQuestion as faQuestionRegular,
+  faMessage as faMessageRegular,
 } from '@fortawesome/pro-regular-svg-icons'
 
 import { 
   faHome as faHomeSolid,
   faHeart as faHeartSolid,
+  faHand as faHandSolid,
+  faCode as faCodeSolid,
+  faQuestion as faQuestionSolid,
+  faMessage as faMessageSolid,
 } from '@fortawesome/pro-solid-svg-icons'
 
 import { 
@@ -44,10 +51,17 @@ library.add(
   faBookOpenRegular,
   faBugRegular,
   faLightbulbRegular,
+  faHandRegular,
+  faQuestionRegular,
+  faMessageRegular,
   
   // Solid
   faHomeSolid,
   faHeartSolid,
+  faHandSolid,
+  faCodeSolid,
+  faQuestionSolid,
+  faMessageSolid,
   
   // Duotone
   faHomeDuotone,

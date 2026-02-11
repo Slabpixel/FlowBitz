@@ -191,8 +191,8 @@ const FAQ = () => {
         url="https://www.flowbitz.dev/faq"
         structuredData={structuredData}
       />
-      <div className="bg-background text-foreground pt-[64px] min-h-screen">
-      <div className="flex flex-col lg:flex-row lg:h-[calc(100vh-4rem)]">
+      <div className="bg-background text-foreground h-full overflow-hidden">
+      <div className="flex flex-col lg:flex-row lg:h-[calc(100vh-4.5rem)]">
         {/* Shared Sidebar */}
         <Sidebar showBackLink={false} />
 

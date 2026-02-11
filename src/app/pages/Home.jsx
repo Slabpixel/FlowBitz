@@ -68,7 +68,16 @@ const Home = () => {
             <div className='max-w-[800px] w-2/3 flex flex-col items-center gap-[1.625rem]'>
               <div className='flex gap-[0.875rem] px-4 py-2 bg-foreground/10 rounded-[2px] items-center'>
                 <div className='w-2 h-2 bg-[#51A2FF]' />
-                <p className='inter-med-16 text-foreground'>24 components available</p>
+                <p className='inter-med-16 text-foreground'>
+                  <span
+                    wb-component='text-type'
+                    wb-text-1="24 components available" 
+                    wb-text-2="Open source" 
+                    wb-text-3="100% free to use"
+                  >
+                    24 components available
+                  </span>
+                </p>
               </div>
 
               <h1 className='inter-semi-72 text-center'>Free GSAP Components for Webflow</h1>
