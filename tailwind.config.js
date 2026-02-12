@@ -36,6 +36,9 @@ export default {
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
         'primary-blue': '#0B64FF',
+        'base-medium': "var(--base-medium)",
+        'base-high': "var(--base-high)",
+        'text-medium': "var(--text-medium)",
         card: {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))"

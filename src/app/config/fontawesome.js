@@ -16,6 +16,8 @@ import {
   faHand as faHandRegular,
   faQuestion as faQuestionRegular,
   faMessage as faMessageRegular,
+  faSearch as faSearchRegular,
+  faRefresh as faRefreshRegular,
 } from '@fortawesome/pro-regular-svg-icons'
 
 import { 
@@ -54,6 +56,8 @@ library.add(
   faHandRegular,
   faQuestionRegular,
   faMessageRegular,
+  faSearchRegular,
+  faRefreshRegular,
   
   // Solid
   faHomeSolid,

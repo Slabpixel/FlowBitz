@@ -17,6 +17,9 @@
     --background: 0 0% 100%;
     --foreground: 0 0% 0%;
     --not-background: 240, 10%, 4%;
+    --base-medium: #18181B;
+    --base-high: #27272A;
+    --text-medium: #D4D4D8;
     --card: 0 0% 100%;
     --card-foreground: 222.2 84% 4.9%;
     --popover: 0 0% 100%;
@@ -65,6 +68,9 @@
     --background: 240, 10%, 4%;
     --foreground: 0 0% 100%;
     --not-background: 0 0% 100%;
+    --base-high: #27272A;
+    --base-medium: #18181B;
+    --text-medium: #D4D4D8;
     --card: 222.2 84% 4.9%;
     --card-foreground: 210 40% 98%;
     --popover: 222.2 84% 4.9%;
@@ -124,6 +130,38 @@ body {
 }
 
 /* Component Custom Font */
+.text-heading-small {
+  font-family: 'InterVariable', sans-serif;
+  font-weight: 600;
+  font-size: 1.25rem;
+  line-height: 120%;
+  letter-spacing: normal;
+}
+
+.text-paragraph {
+  font-family: 'InterVariable', sans-serif;
+  font-weight: 400;
+  font-size: 0.875rem;
+  line-height: 150%;
+  letter-spacing: -0.01em;
+}
+
+.text-attribute {
+  font-family: 'DM Mono', monospace;
+  font-weight: 500;
+  line-height: 100%;
+  letter-spacing: -0.02em;
+  font-size: 0.875rem;
+}
+
+.text-tooltip {
+  font-family: 'InterVariable', sans-serif;
+  font-weight: 500;
+  font-size: 0.75rem;
+  line-height: 100%;
+  letter-spacing: -0.01em;
+}
+
 .text-overline {
   font-family: 'DM Mono', monospace;
   font-weight: 500;

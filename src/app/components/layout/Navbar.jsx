@@ -9,9 +9,20 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 const Navbar = ({ isScrolled }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const [fullNav, setFullNav] = useState(false)
   const location = useLocation()
   const navigate = useNavigate()
   const { theme } = useTheme();
+  const SIDEBAR_PATHS = ['/components', '/installation', '/support', '/faq']
+
+  useEffect(() => {
+    const hasSidebar = SIDEBAR_PATHS.some(path => 
+      location.pathname === path || location.pathname.startsWith(`${path}/`)
+    )
+    setFullNav(hasSidebar)
+    console.log(`Has Sidebar: ${hasSidebar}`);
+    console.log(`State full nav: ${fullNav}`);
+  }, [location.pathname])
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen)
@@ -25,25 +36,32 @@ const Navbar = ({ isScrolled }) => {
   }
 
   return (
-    <nav id='navbar' className={`w-full fixed top-0 left-0 border-b z-[70] transition-all duration-200 
+    <nav id='navbar' className={`w-full fixed top-0 left-0 border-b z-[70] transition-all duration-500 
       ${isScrolled ? 'bg-background/50 backdrop-blur-md shadow-sm' : 'bg-transparent'}
       ${ theme === 'dark' ? 'border-white/10' : 'border-black/10' }
     `}>
       {/* Navbar Desktop Container */}
-      <div className="mx-auto px-4 py-4 sm:px-6 lg:px-0 lg:max-w-[1200px] sm:gap-8 flex items-center justify-between sm:justify-normal">
+      <div className={`
+        mx-auto px-4 py-4 sm:px-6 flex items-center justify-between sm:justify-normal transition-all duration-500 
+        ${ fullNav ? 'lg:px-0' : 'lg:px-0 lg:max-w-[1200px] sm:gap-8' }
+      `}>
         {/* Navbar Logo */}
-        <div className="nav-logo">
+        <div className={`nav-logo transition-all duration-200  ${fullNav ? 'px-6 w-full lg:max-w-[300px] lg:min-w-[300px] flex gap-2 items-end justify-start' : ''}`}>
           <button 
             onClick={() => navigate('/')}
             className="flex items-center gap-2 transition-opacity duration-200 hover:opacity-80"
           >
             <Logo className="h-10 w-auto" />
           </button>
+
+          { fullNav && (
+            <p className='text-paragraph text-text-medium'>v{process.env.REACT_APP_VERSION || '1.0.0'}</p>
+          ) }
         </div>
         {/* End Navbar Logo */}
 
         {/* Navbar Menu Wrapper */}
-        <div className="flex sm:w-full items-center justify-between">
+        <div className={`flex sm:w-full items-center justify-between transition-all duration-500  ${fullNav ? 'pr-12' : ''}`}>
           {/* Navbar Menu List */}
           <div className={`nav-menu ${isMenuOpen ? 'active' : ''} hidden md:flex items-center`} id="nav-menu">
             <button 
