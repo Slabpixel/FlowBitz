@@ -18,6 +18,7 @@ import {
   faMessage as faMessageRegular,
   faSearch as faSearchRegular,
   faRefresh as faRefreshRegular,
+  faSparkle as faSparkleRegular,
 } from '@fortawesome/pro-regular-svg-icons'
 
 import { 
@@ -27,6 +28,8 @@ import {
   faCode as faCodeSolid,
   faQuestion as faQuestionSolid,
   faMessage as faMessageSolid,
+  faGripLinesVertical as faGripLinesVerticalSolid,
+  faInfoCircle as faInfoCircleSolid,
 } from '@fortawesome/pro-solid-svg-icons'
 
 import { 
@@ -58,6 +61,7 @@ library.add(
   faMessageRegular,
   faSearchRegular,
   faRefreshRegular,
+  faSparkleRegular,
   
   // Solid
   faHomeSolid,
@@ -66,6 +70,8 @@ library.add(
   faCodeSolid,
   faQuestionSolid,
   faMessageSolid,
+  faGripLinesVerticalSolid,
+  faInfoCircleSolid,
   
   // Duotone
   faHomeDuotone,

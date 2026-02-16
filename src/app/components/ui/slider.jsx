@@ -1,6 +1,7 @@
 import * as React from "react"
 import * as SliderPrimitive from "@radix-ui/react-slider"
 import { cn } from "../../../shared/lib/utils"
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 const Slider = React.forwardRef(({ className, ...props }, ref) => (
   <SliderPrimitive.Root
@@ -11,10 +12,12 @@ const Slider = React.forwardRef(({ className, ...props }, ref) => (
     )}
     {...props}
   >
-    <SliderPrimitive.Track className="relative h-2 w-full grow overflow-hidden rounded-full bg-secondary">
+    <SliderPrimitive.Track className="relative h-2 w-full grow overflow-hidden rounded bg-base-medium">
       <SliderPrimitive.Range className="absolute h-full bg-primary" />
     </SliderPrimitive.Track>
-    <SliderPrimitive.Thumb className="block h-5 w-5 rounded-full border-2 border-primary bg-background ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50" />
+    <SliderPrimitive.Thumb className="flex flex-col items-center justify-center h-6 w-6 rounded-[6px] border border-foreground/20 bg-base-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50">
+      <FontAwesomeIcon icon={['fas', 'grip-lines-vertical']} className='w-4 h-4 text-textLow'/>
+    </SliderPrimitive.Thumb>
   </SliderPrimitive.Root>
 ))
 Slider.displayName = SliderPrimitive.Root.displayName

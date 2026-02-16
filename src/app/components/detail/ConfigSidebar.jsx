@@ -1,12 +1,15 @@
 import React from 'react'
+import { useNavigate } from 'react-router-dom'
 import { Label } from '../ui/label.jsx'
 import { Switch } from '../ui/switch.jsx'
 import { Slider } from '../ui/slider.jsx'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../ui/select.jsx'
 import { Input } from '../ui/input.jsx'
 import { Badge } from '../ui/badge.jsx'
-import { ColorPicker } from '../ui/color-picker.jsx'
+import { ColorControl } from '../ui/color-control.jsx'
 import { Info, HelpCircle } from 'lucide-react'
+import { Button } from '../ui/button.jsx'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 /* ═══════════════════════════════════════════════════════
    Helpers
@@ -25,6 +28,24 @@ const getInputType = (attr) => attr.inputType || 'text'
 const getDropdownOptions = (attr) => attr.options || [attr.default]
 const getSliderConfig = (attr) => attr.sliderConfig || { min: 0, max: 100, step: 1 }
 
+/** Parse installationNotes: style HTML tag references as inline code */
+const renderInstallationNotes = (text) => {
+  const parts = text.split(/(<[a-zA-Z][a-zA-Z0-9]*>)/g)
+  return parts.map((part, index) => {
+    if (/^<[a-zA-Z][a-zA-Z0-9]*>$/.test(part)) {
+      return (
+        <code
+          key={index}
+          className="px-1 py-0.5 rounded bg-base-high text-foreground mono-med-12"
+        >
+          {part}
+        </code>
+      )
+    }
+    return part
+  })
+}
+
 /* ═══════════════════════════════════════════════════════
    ConfigSidebar Component
    ═══════════════════════════════════════════════════════ */
@@ -37,6 +58,17 @@ const ConfigSidebar = ({
   onChangeValue,
 }) => {
   if (!component) return null
+
+  const componentName = component.name.toLowerCase().replace(/ /g, '-');
+  const navigate = useNavigate();
+
+  const handleBugReport = () => {
+    navigate(`/contact?tab=report&component=${componentName}`)
+  }
+
+  const handleFeatureRequest = () => {
+    navigate(`/contact?tab=feature&component=${componentName}`)
+  }
 
   /* ─── Render individual input control ─── */
   const renderInputControl = (attr) => {
@@ -66,18 +98,19 @@ const ConfigSidebar = ({
 
       case 'color':
         return (
-          <ColorPicker
+          <ColorControl
             value={currentValue.replace(/['"]/g, '')}
             onChange={handleValueChange}
             disabled={isRequired || !isActive}
             supportsAlpha={attr.supportsAlpha || false}
-            className="w-full"
+            multiple={attr.multiple || false}
           />
         )
 
       case 'slider': {
         const sliderConfig = getSliderConfig(attr)
         const sliderValue = [parseFloat(currentValue) || 0]
+        const sliderUnit = attr.unit || '';
 
         return (
           <div className="flex items-center space-x-3">
@@ -90,8 +123,8 @@ const ConfigSidebar = ({
               disabled={isRequired || !isActive}
               className="flex-1"
             />
-            <Badge variant="secondary" className="font-mono min-w-[42px] text-center text-xs">
-              {currentValue}
+            <Badge variant="secondary" className="flex flex-col items-center justify-center text-link text-foreground min-w-[93px] text-center">
+              {currentValue}{sliderUnit}
             </Badge>
           </div>
         )
@@ -105,7 +138,7 @@ const ConfigSidebar = ({
             onValueChange={handleValueChange}
             disabled={isRequired || !isActive}
           >
-            <SelectTrigger className="h-8 text-xs">
+            <SelectTrigger>
               <SelectValue />
             </SelectTrigger>
             <SelectContent>
@@ -127,7 +160,7 @@ const ConfigSidebar = ({
             value={currentValue}
             disabled={isRequired || !isActive}
             onChange={(e) => handleValueChange(e.target.value)}
-            className="h-8 text-xs"
+            className="text-link text-text-medium"
           />
         )
     }
@@ -144,7 +177,7 @@ const ConfigSidebar = ({
               Installation Notes
             </h2>
             <p className="text-xs text-muted-foreground leading-relaxed">
-              {component.installationNotes}
+              {renderInstallationNotes(component.installationNotes)}
             </p>
           </section>
         )}
@@ -152,72 +185,105 @@ const ConfigSidebar = ({
         <div className="border-b border-foreground/10" />
 
         {/* ── Attribute Editor ── */}
-        <section>
+        <section className='pb-6'>
           <h2 className="text-heading-small text-foreground flex items-center" style={{lineHeight: '240%'}}>
             Attribute Editor
           </h2>
 
-          <div className="flex flex-col gap-4">
-            {component.attributes.map((attr, index) => {
+          <div className="flex flex-col gap-2">
+            {component.attributes.map((attr, index, {length}) => {
               const isRequired = attr.required || attr.name === 'wb-component'
               const isActive = activeAttributes[attr.name] || false
+              const lastItem = length - 1 === index ? true : false;
 
               return (
-                <div
-                  key={index}
-                  className={`rounded-lg border p-3 transition-all duration-200 ${
-                    isRequired
-                      ? 'border-primary/30 bg-primary/5'
-                      : isActive
-                        ? 'border-primary/20 bg-primary/5'
-                        : 'border-border bg-background/50'
-                  }`}
-                >
-                  {/* Label row: name + badge + toggle */}
-                  <div className="flex items-center justify-between mb-2">
-                    <div className="flex items-center gap-1.5 min-w-0">
-                      <Label className="text-xs font-medium text-foreground truncate">
-                        {formatAttributeName(attr.name)}
-                      </Label>
-                      {isRequired && (
-                        <span className="shrink-0 text-white text-[10px] font-semibold rounded-sm px-1.5 py-0.5 bg-primary leading-none">
-                          Required
-                        </span>
-                      )}
-                      {/* Info tooltip via title */}
-                      {attr.description && !isRequired && (
-                        <HelpCircle
-                          className="w-3 h-3 text-muted-foreground/50 shrink-0 cursor-help"
-                          title={attr.description}
+                <>
+                  <div
+                    key={index}
+                    className='pb-2'
+                  >
+                    {/* Label row: name + badge + toggle */}
+                    <div className="flex items-center py-4 justify-between">
+                      <div className="flex items-center gap-2">
+                        <Label className="text-link font-medium text-foreground">
+                          {formatAttributeName(attr.name)}
+                        </Label>
+
+                        {isRequired && (
+                          <span className="inter-semi-12 text-foreground uppercase p-1.5 rounded bg-base-medium">
+                            Required
+                          </span>
+                        )}
+
+                        {/* Info tooltip */}
+                        {attr.description && !isRequired && (
+                          <span className="relative group">
+                            <FontAwesomeIcon icon={['fas', 'info-circle']} className='w-3 h-3 text-textLow cursor-pointer'/>
+                            <div className="absolute min-w-[200px] top-7 -left-6 transform mb-2 px-[0.625rem] py-2 text-tooltip text-background bg-foreground rounded shadow-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none z-20">
+                              {attr.description}
+                            </div>
+                          </span>
+                        )}
+                      </div>
+
+                      {!isRequired ? (
+                        <Switch
+                          checked={isActive}
+                          onCheckedChange={(checked) => onToggleAttribute(attr.name, checked)}
+                          className="shrink-0"
                         />
-                      )}
+                      ) : ''}
                     </div>
 
-                    {!isRequired && (
-                      <Switch
-                        checked={isActive}
-                        onCheckedChange={(checked) => onToggleAttribute(attr.name, checked)}
-                        className="shrink-0 ml-2"
-                      />
-                    )}
+                    {/* Control */}
+                    <div className={`transition-opacity duration-200 ${
+                      !isActive ? 'opacity-40 pointer-events-none' : ''
+                    }`}>
+                      {renderInputControl(attr)}
+                    </div>
                   </div>
 
-                  {/* Control */}
-                  <div className={`transition-opacity duration-200 ${
-                    !isActive ? 'opacity-40 pointer-events-none' : ''
-                  }`}>
-                    {renderInputControl(attr)}
-                  </div>
-                </div>
+                  {lastItem ? '' : (<div className='h-[1px] w-full bg-foreground/10' />)}
+                </>
               )
             })}
           </div>
         </section>
 
-        <div className='flex flex-col gap-4 p-6 bg-base-medium rounded'>
-          <h4 className='text-heading-small text-foreground'>Found an Issue or Have a Suggestion?</h4>
+        <div className='relative flex flex-col gap-4 p-6 bg-base-medium rounded'>
+          <h4 className='relative z-[2] text-heading-small text-foreground'>Found an Issue or Have a Suggestion?</h4>
 
-          <p className='text-paragraph text-foreground/60'>Help us improve this component by reporting bugs or requesting new features.</p>
+          <p className='relative z-[2] text-paragraph text-foreground/60'>Help us improve this component by reporting bugs or requesting new features.</p>
+
+          <div className='relative z-[2] flex flex-col gap-2 items-start justify-start'>
+            <Button 
+              onClick={handleBugReport}
+              variant="custom"
+              size="custom"
+              className="flex items-center gap-2 px-3 py-[0.625rem] rounded-lg bg-background border border-foreground/10 text-link font-medium"
+            >
+              <FontAwesomeIcon icon={['far', 'bug']} className='w-4 h-4 opacity-60'/>
+              Report Bug
+            </Button>
+
+            <Button 
+              onClick={handleFeatureRequest}
+              variant="custom"
+              size="custom"
+              className="flex items-center gap-2 px-3 py-[0.625rem] rounded-lg bg-background border border-foreground/10 text-link font-medium"
+            >
+              <FontAwesomeIcon icon={['far', 'sparkle']} className='w-4 h-4 opacity-60'/>
+              Request Feature
+            </Button>
+          </div>
+
+          <img 
+            src="/images/component-report-gradient.webp"
+            alt=""
+            aria-hidden="true"
+            className={`absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-[1440px] object-cover z-[1] pointer-events-none`}
+            loading='lazy'
+          />
         </div>
       </div>
     </aside>

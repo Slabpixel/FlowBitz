@@ -180,6 +180,21 @@ body {
 /* End Component Custom Font */
 
 /* Custom Font */
+.mono-med-12 {
+  font-family: 'DM Mono', monospace;
+  font-weight: 500;
+  line-height: 100%;
+  letter-spacing: 0.04em;
+  font-size: 0.75rem;
+}
+
+.inter-semi-12 {
+  font-family: 'InterVariable', sans-serif;
+  font-weight: 600;
+  font-size: 0.75rem;
+  line-height: 160%;
+  letter-spacing: 0.02em;
+}
 
 .inter-reg-16 {
   font-family: 'InterVariable', sans-serif;
