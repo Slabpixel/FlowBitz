@@ -226,7 +226,7 @@ body {
   font-family: 'InterVariable', sans-serif;
   font-weight: 400;
   line-height: 140%;
-  font-size: 1.125rem;
+  font-size: 1rem;
 }
 
 .inter-med-18 {
@@ -241,7 +241,7 @@ body {
   font-weight: 600;
   line-height: 100%;
   letter-spacing: -0.05em;
-  font-size: 3rem;
+  font-size: 2.5rem;
 }
 
 .inter-semi-72 {
@@ -249,10 +249,38 @@ body {
   font-weight: 600;
   line-height: 100%;
   letter-spacing: -0.02em;
-  font-size: 4.5rem;
+  font-size: 3rem;
+}
+
+/* @media screen and (min-width: 768px) {
+  .inter-reg-18 {
+    font-size: 1rem;
+  }
+
+  .inter-semi-72 {
+    font-size: 3rem;
+  }
+} */
+
+@media screen and (min-width: 1024px) {
+  .inter-reg-18 {
+    font-size: 1.125rem;
+  }
+
+  .inter-semi-48 {
+    font-size: 3rem;
+  }
+
+  .inter-semi-72 {
+    font-size: 4.5rem;
+  }
 }
 
 @layer utilities {
+  .bg-gradient-custom-mobile {
+    background: linear-gradient(1deg, rgba(217, 217, 217, 0.00) 0%, hsl(var(--background)) 80%);
+  }
+  
   .bg-gradient-custom {
     background: linear-gradient(295deg, rgba(217, 217, 217, 0.00) 0%, hsl(var(--background)) 75%);
   }

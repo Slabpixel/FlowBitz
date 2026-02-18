@@ -69,7 +69,7 @@ const ComponentCard = ({ id, name, category, isNew, exampleCode, hoverPreview, o
       onMouseLeave={handleMouseLeave}
     >
       {/* Preview Area - Live FlowBitz Component */}
-      <div className="h-[325px] bg-[#111111] flex items-center justify-center overflow-hidden">
+      <div className="h-[230px] md:h-[325px] bg-[#111111] flex items-center justify-center overflow-hidden">
         <div 
           key={reloadKey}
           className="w-full h-full flex items-center justify-center p-4 scale-75 text-center [&_*]:font-medium [&_.lg\:text-6xl]:!text-4xl [&_.lg\:text-\[160px\]]:!text-5xl [&_.text-3xl]:!text-2xl"

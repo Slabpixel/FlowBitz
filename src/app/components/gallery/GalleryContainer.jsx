@@ -84,8 +84,8 @@ const GalleryContainer = () => {
   }
 
   return (
-    <section>
-      <div className="max-w-[1200px] mx-auto">
+    <section className='px-2 lg:px-0'>
+      <div className="max-w-[1200px] gap-6 md:gap-0 mx-auto">
         {/* Filter Navigation */}
         <FilterNav 
           activeFilter={activeFilter}
@@ -129,7 +129,7 @@ const GalleryContainer = () => {
 
         {/* See More Button */}
         {filteredComponents.length > 0 && (
-          <div className="flex justify-center py-8 border-x border-b border-foreground/10">
+          <div className="flex justify-center pt-14 md:pt-6 pb-[3.75rem] md:pb-5 border-x border-foreground/10">
             <button 
               onClick={() => navigate('/components')}
               className="flex items-center gap-2 px-6 py-3 border border-foreground/10 rounded text-foreground hover:text-foreground/70 transition-colors duration-200"

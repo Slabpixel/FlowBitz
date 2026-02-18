@@ -37,7 +37,7 @@ const Navbar = ({ isScrolled }) => {
 
   return (
     <nav id='navbar' className={`w-full fixed top-0 left-0 border-b z-[70] transition-all duration-500 
-      ${isScrolled ? 'bg-background/50 backdrop-blur-md shadow-sm' : 'bg-transparent'}
+      ${ isMenuOpen ? 'bg-background' : 'bg-transparent'}
       ${ theme === 'dark' ? 'border-white/10' : 'border-black/10' }
     `}>
       {/* Navbar Desktop Container */}
@@ -128,197 +128,75 @@ const Navbar = ({ isScrolled }) => {
       {/* Mobile Menu Overlay */}
       {isMenuOpen && (
         <div 
-          className="md:hidden fixed top-16 left-0 right-0 bottom-0 bg-black/50 backdrop-blur-sm z-[55]"
+          className="md:hidden fixed top-18 left-0 right-0 bottom-0 bg-background/50 h-[calc(100svh-4.5rem)] backdrop-blur-sm z-[55]"
           onClick={() => setIsMenuOpen(false)}
         />
       )}
       
       {/* Mobile Menu */}
-      <div className={`md:hidden fixed top-16 left-0 w-80 h-[calc(100vh-4rem)] bg-background border-r border-border z-[65] transition-transform duration-300 ease-in-out ${
-        isMenuOpen ? 'translate-x-0' : '-translate-x-full'
+      <div className={`md:hidden fixed w-full top-18 left-0 h-auto bg-background border-r border-border z-[65] transition-transform duration-300 ease-in-out ${
+        isMenuOpen ? 'translate-y-0' : '-translate-y-[135%]'
       }`}>
         <div className="flex flex-col h-full">
-          {/* Main Navigation */}
-          <div className="flex-1 overflow-y-auto">
-            <div className="p-4 space-y-2">
-              {/* Primary Navigation */}
-              <div className="space-y-1">
-                <button 
-                  onClick={() => {
-                    navigate('/')
-                    setIsMenuOpen(false)
-                  }}
-                  className={`w-full py-3 px-4 rounded-lg font-medium transition-all duration-200 flex items-center gap-3 ${
-                    isActive('/') 
-                      ? 'text-foreground bg-accent' 
-                      : 'text-muted-foreground hover:text-foreground hover:bg-accent'
-                  }`}
-                >
-                  <Home className="w-5 h-5" />
-                  Home
-                </button>
-                <button 
-                  onClick={() => {
-                    navigate('/components')
-                    setIsMenuOpen(false)
-                  }}
-                  className={`w-full py-3 px-4 rounded-lg font-medium transition-all duration-200 flex items-center gap-3 ${
-                    isActive('/components') 
-                      ? 'text-foreground bg-accent' 
-                      : 'text-muted-foreground hover:text-foreground hover:bg-accent'
-                  }`}
-                >
-                  <Layers className="w-5 h-5" />
-                  Components
-                </button>
-                <button 
-                  onClick={() => {
-                    navigate('/blog')
-                    setIsMenuOpen(false)
-                  }}
-                  className={`w-full py-3 px-4 rounded-lg font-medium transition-all duration-200 flex items-center gap-3 ${
-                    isActive('/blog') 
-                      ? 'text-foreground bg-accent' 
-                      : 'text-muted-foreground hover:text-foreground hover:bg-accent'
-                  }`}
-                >
-                  <FileText className="w-5 h-5" />
-                  Blog
-                </button>
-                <button 
-                  onClick={() => {
-                    navigate('/showcase')
-                    setIsMenuOpen(false)
-                  }}
-                  className={`w-full py-3 px-4 rounded-lg font-medium transition-all duration-200 flex items-center gap-3 ${
-                    isActive('/showcase') 
-                      ? 'text-foreground bg-accent' 
-                      : 'text-muted-foreground hover:text-foreground hover:bg-accent'
-                  }`}
-                >
-                  <Sparkles className="w-5 h-5" />
-                  <span>Showcase</span>
-                  <Badge variant="secondary" className="text-xs bg-primary text-white ml-auto">Soon</Badge>
-                </button>
-              </div>
+          <div className="pb-8 px-4">
+            <button 
+              onClick={() => {
+                navigate('/components')
+                setIsMenuOpen(false)
+              }}
+              className={`w-full py-4 px-2 inter-med-16 transition-all duration-200 flex items-center gap-2 border-b border-foreground/10 ${
+                isActive('/components') 
+                  ? 'text-foreground font-semibold' 
+                  : 'text-foreground hover:text-foreground/50'
+              }`}
+            >
+              <FontAwesomeIcon icon={['far', 'code']} className='w-4 h-4 opacity-60'/>
+              Components
+            </button>
 
-              {/* Divider */}
-              <div className="my-4 border-t border-border"></div>
+            <button 
+              onClick={() => {
+                navigate('/showcase')
+                setIsMenuOpen(false)
+              }}
+              className={`w-full py-4 px-2 inter-med-16 transition-all duration-200 flex items-center gap-2 border-b border-foreground/10 ${
+                isActive('/components') 
+                  ? 'text-foreground font-semibold' 
+                  : 'text-foreground hover:text-foreground/50'
+              }`}
+            >
+              <FontAwesomeIcon icon={['far', 'sidebar']} className='w-4 h-4 opacity-60'/>
+              <span>Showcase</span>
+            </button>
 
-              {/* Support & Info */}
-              <div className="space-y-1">
-                <div className="px-4 py-2">
-                  <h3 className="text-xs font-semibold text-muted-foreground uppercase tracking-wide">Support</h3>
-                </div>
-                <button 
-                  onClick={() => {
-                    navigate('/contact')
-                    setIsMenuOpen(false)
-                  }}
-                  className={`w-full py-3 px-4 rounded-lg font-medium transition-all duration-200 flex items-center gap-3 ${
-                    isActive('/contact') 
-                      ? 'text-foreground bg-accent' 
-                      : 'text-muted-foreground hover:text-foreground hover:bg-accent'
-                  }`}
-                >
-                  <Mail className="w-5 h-5" />
-                  Contact
-                </button>
-                <button 
-                  onClick={() => {
-                    navigate('/support')
-                    setIsMenuOpen(false)
-                  }}
-                  className={`w-full py-3 px-4 rounded-lg font-medium transition-all duration-200 flex items-center gap-3 ${
-                    isActive('/support') 
-                      ? 'text-foreground bg-accent' 
-                      : 'text-muted-foreground hover:text-foreground hover:bg-accent'
-                  }`}
-                >
-                  <HelpCircle className="w-5 h-5" />
-                  Support
-                </button>
-                <button 
-                  onClick={() => {
-                    navigate('/faq')
-                    setIsMenuOpen(false)
-                  }}
-                  className={`w-full py-3 px-4 rounded-lg font-medium transition-all duration-200 flex items-center gap-3 ${
-                    isActive('/faq') 
-                      ? 'text-foreground bg-accent' 
-                      : 'text-muted-foreground hover:text-foreground hover:bg-accent'
-                  }`}
-                >
-                  <MessageSquare className="w-5 h-5" />
-                  FAQ
-                </button>
-              </div>
+            <button 
+              onClick={() => {
+                navigate('/blog')
+                setIsMenuOpen(false)
+              }}
+              className={`w-full py-4 px-2 inter-med-16 transition-all duration-200 flex items-center gap-2 border-b border-foreground/10 ${
+                isActive('/components') 
+                  ? 'text-foreground font-semibold' 
+                  : 'text-foreground hover:text-foreground/50'
+              }`}
+            >
+              <FontAwesomeIcon icon={['far', 'file']} className='w-4 h-4 opacity-60'/>
+              Blog
+            </button>
 
-              {/* Divider */}
-              <div className="my-4 border-t border-border"></div>
-
-              {/* About & Legal */}
-              <div className="space-y-1">
-                <div className="px-4 py-2">
-                  <h3 className="text-xs font-semibold text-muted-foreground uppercase tracking-wide">About</h3>
-                </div>
-                <button 
-                  onClick={() => {
-                    navigate('/about')
-                    setIsMenuOpen(false)
-                  }}
-                  className={`w-full py-3 px-4 rounded-lg font-medium transition-all duration-200 flex items-center gap-3 ${
-                    isActive('/about') 
-                      ? 'text-foreground bg-accent' 
-                      : 'text-muted-foreground hover:text-foreground hover:bg-accent'
-                  }`}
-                >
-                  <User className="w-5 h-5" />
-                  About
-                </button>
-                <button 
-                  onClick={() => {
-                    navigate('/release')
-                    setIsMenuOpen(false)
-                  }}
-                  className={`w-full py-3 px-4 rounded-lg font-medium transition-all duration-200 flex items-center gap-3 ${
-                    isActive('/release') 
-                      ? 'text-foreground bg-accent' 
-                      : 'text-muted-foreground hover:text-foreground hover:bg-accent'
-                  }`}
-                >
-                  <Tag className="w-5 h-5" />
-                  Release Notes
-                </button>
-                <button 
-                  onClick={() => {
-                    navigate('/license')
-                    setIsMenuOpen(false)
-                  }}
-                  className={`w-full py-3 px-4 rounded-lg font-medium transition-all duration-200 flex items-center gap-3 ${
-                    isActive('/license') 
-                      ? 'text-foreground bg-accent' 
-                      : 'text-muted-foreground hover:text-foreground hover:bg-accent'
-                  }`}
-                >
-                  <FileText className="w-5 h-5" />
-                  License
-                </button>
-              </div>
-            </div>
-          </div>
-
-          {/* Footer */}
-          <div className="border-t border-border p-4">
             <button 
               onClick={() => {
                 window.open('https://github.com/Slabpixel/FlowBitz', '_blank')
                 setIsMenuOpen(false)
               }}
-              className="w-full py-3 px-4 rounded-lg font-medium transition-all duration-200 text-muted-foreground hover:text-foreground hover:bg-accent flex items-center gap-3"
+              className={`w-full py-4 px-2 inter-med-16 transition-all duration-200 flex items-center gap-2 ${
+                isActive('/components') 
+                  ? 'text-foreground font-semibold' 
+                  : 'text-foreground hover:text-foreground/50'
+              }`}
             >
-              <Github className="w-5 h-5" />
-              GitHub Repository
+              <FontAwesomeIcon icon={['fab', 'github']} className='w-4 h-4 opacity-60'/>
+              GitHub
             </button>
           </div>
         </div>

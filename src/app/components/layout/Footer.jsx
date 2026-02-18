@@ -38,15 +38,15 @@ const Footer = () => {
   }
 
   return (
-    <footer className="relative w-full bg-background">
+    <footer className="relative w-full bg-background px-2 lg:px-0 overflow-hidden">
       <div className='relative z-[2] flex flex-col overflow-hidden max-w-[1200px] mx-auto border-x-[1px] border-foreground/10'>
         {/* Footer CTA */}
-        <div className='flex flex-col items-center py-16 border-b-[1px] border-foreground/10'>
-          <div className='flex flex-col items-center gap-6 max-w-[348px] w-[29%]'>
+        <div className='flex flex-col items-center pt-2 pb-12 px-2 lg:px-0 lg:py-16 border-b-[1px] border-foreground/10'>
+          <div className='flex flex-col items-center gap-6 md:max-w-[348px] w-full md:w-[29%]'>
             <div className='flex flex-col items-center gap-4 text-center'>
               <Logo className='h-10 w-auto' />
 
-              <p className='inter-reg-18 opacity-80 text-foreground'>Create stunning animations with our library of GSAP components.</p>
+              <p className='inter-reg-18 w-[294px] md:w-auto opacity-80 text-foreground'>Create stunning animations with our library of GSAP components.</p>
             </div>
 
             <div className='flex gap-2 w-fit'>
@@ -63,12 +63,12 @@ const Footer = () => {
         {/* End Footer CTA */}
 
         {/* Footer Link List */}
-        <div className='flex flex-col items-center py-[3.75rem] border-b-[1px] border-foreground/10'>
-          <div className='max-w-[548px] w-[45.67%] flex'>
-            <div className='flex flex-col items-center pr-8 border-r-[1px] border-foreground/10 gap-4 flex-grow'>
+        <div className='flex flex-col items-stretch md:items-center py-10 px-2 lg-px-0 md:py-[3.75rem] border-b-[1px] border-foreground/10'>
+          <div className='md:max-w-[548px] w-full md:w-[45.67%] px-2 md:px-0 flex flex-wrap md:flex-nowrap'>
+            <div className='flex flex-col items-start md:items-center pl-4 md:pl-0 w-1/2 md:w-auto md:pr-8 md:border-r-[1px] border-foreground/10 gap-2 md:gap-4 flex-grow'>
               <h4 className='display-semi-16 text-foreground'>Navigation</h4>
 
-              <div className='flex flex-col items-center gap-2'>
+              <div className='flex flex-col items-start md:items-center gap-2'>
                 <button onClick={() =>handleNavigation('/')} className='inter-reg-16 opacity-80 text-foreground hover:opacity-100'>
                   Home
                 </button>
@@ -87,10 +87,10 @@ const Footer = () => {
               </div>
             </div>
 
-            <div className='flex flex-col items-center px-8 border-r-[1px] border-foreground/10 gap-4 flex-grow'>
+            <div className='flex flex-col items-start md:items-center pr-4 md:px-8 w-1/2 md:w-auto md:border-r-[1px] border-foreground/10 gap-2 md:gap-4 flex-grow'>
               <h4 className='display-semi-16 text-foreground'>Support</h4>
 
-              <div className='flex flex-col items-center gap-2'>
+              <div className='flex flex-col items-start md:items-center gap-2'>
                 <button onClick={() =>handleNavigation('/faq')} className='inter-reg-16 opacity-80 text-foreground hover:opacity-100'>
                   FAQ
                 </button>
@@ -106,10 +106,10 @@ const Footer = () => {
               </div>
             </div>
 
-            <div className='flex flex-col items-center pl-8 gap-4 flex-grow'>
+            <div className='flex flex-col items-start md:items-center pt-5 md:pt-0 pl-4 md:pl-8 gap-2 md:gap-4 flex-grow'>
               <h4 className='display-semi-16 text-foreground'>Resources</h4>
 
-              <div className='flex flex-col items-center gap-2'>
+              <div className='flex flex-col items-start md:items-center gap-2'>
                 <button onClick={() =>handleNavigation('/release')} className='inter-reg-16 opacity-80 text-foreground hover:opacity-100'>
                   Release notes
                 </button>
@@ -129,7 +129,7 @@ const Footer = () => {
         {/* End Footer Link List */}
 
         {/* Footer Copyright */}
-        <div className='px-10 py-8 flex justify-between'>
+        <div className='px-10 py-6 md:py-8 flex flex-col md:flex-row items-center gap-3 md:justify-between'>
           <p className='inter-reg-16 text-foreground'>© {getYear} FlowBitz. All rights reserved.</p>
 
           <div className="flex gap-3 inter-reg-16 text-foreground">
@@ -139,7 +139,7 @@ const Footer = () => {
               <p>by <a className='underline' href="https://www.slabpixel.com/" target='_blank'>SlabPixel</a></p>
             </div>
 
-            <div className='w-[1px] h-full bg-foreground/30' />
+            <div className='border-l border-foreground/30 h-6' />
 
             <p>v{process.env.REACT_APP_VERSION || '1.0.0'}</p>
           </div>
@@ -152,7 +152,7 @@ const Footer = () => {
           src="/images/footer-gradient.webp"
           alt=""
           aria-hidden="true"
-          className="absolute bottom-0 left-2/4 -translate-x-2/4 w-full max-w-[1440px] object-cover z-[1] pointer-events-none"
+          className="absolute w-[400%] bottom-0 left-2/4 -translate-x-2/4 md:w-full max-w-[1440px] object-cover z-[1] pointer-events-none"
           loading='lazy'
         />
         {/* End Footer Gradient Bottom */}

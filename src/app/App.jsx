@@ -92,7 +92,7 @@ function App() {
   return (
     <HelmetProvider>
       <ThemeProvider>
-        <div className="app relative bg-background">
+        <div className="app relative bg-background overflow-hidden">
           <ScrollToTop />
           <Navbar isScrolled={isScrolled} />
           <ContactBubble />
@@ -105,7 +105,7 @@ function App() {
                   src="/images/BG.webp"
                   alt=""
                   aria-hidden="true"
-                  className={`absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-[1440px] object-cover z-[1] pointer-events-none`}
+                  className={`absolute top-0 left-1/2 -translate-x-1/2 w-[400%] lg:w-full max-w-[1440px] object-cover z-[1] pointer-events-none`}
                   loading='lazy'
                 />
                 {/* End Hero Gradient Top */}
