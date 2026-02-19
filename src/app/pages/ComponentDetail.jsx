@@ -299,7 +299,7 @@ const ComponentDetail = () => {
           <Sidebar showBackLink={false} />
 
           {/* ── Column 2: Center Content (header + preview) ── */}
-          <main className="flex-1 flex flex-col bg-base-medium w-full items-center lg:overflow-hidden lg:h-full">
+          <main className="flex-1 flex flex-col bg-base-medium w-full rounded border border-foreground/10 items-center lg:mt-6 lg:ml-6 lg:mb-4 lg:overflow-hidden lg:h-auto">
 
             {/* Header */}
             <div className="w-full max-w-[1440px] pt-2 px-2">

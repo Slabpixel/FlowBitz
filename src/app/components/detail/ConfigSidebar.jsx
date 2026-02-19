@@ -30,9 +30,9 @@ const getSliderConfig = (attr) => attr.sliderConfig || { min: 0, max: 100, step:
 
 /** Parse installationNotes: style HTML tag references as inline code */
 const renderInstallationNotes = (text) => {
-  const parts = text.split(/(<[a-zA-Z][a-zA-Z0-9]*>)/g)
+  const parts = text.split(/(<[a-zA-Z][a-zA-Z0-9]*(?:\s[^>]*)?>)/g)
   return parts.map((part, index) => {
-    if (/^<[a-zA-Z][a-zA-Z0-9]*>$/.test(part)) {
+    if (/^<[a-zA-Z][a-zA-Z0-9]*(?:\s[^>]*)?>$/.test(part)) {
       return (
         <code
           key={index}
@@ -167,8 +167,8 @@ const ConfigSidebar = ({
   }
 
   return (
-    <aside className="w-full lg:max-w-[330px] lg:min-w-[330px] bg-background lg:overflow-y-auto lg:h-[calc(100vh-4.5rem)] [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-thumb]:bg-transparent [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:border-2 [&::-webkit-scrollbar-thumb]:border-background hover:[&::-webkit-scrollbar-thumb]:bg-muted-foreground/30">
-      <div className="px-4 pb-4 flex flex-col gap-4">
+    <aside className="w-full lg:max-w-[330px] lg:min-w-[330px] bg-background md:mt-6 md:mr-6 md:mb-4 lg:overflow-y-auto lg:h-auto [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-thumb]:bg-transparent [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:border-2 [&::-webkit-scrollbar-thumb]:border-background hover:[&::-webkit-scrollbar-thumb]:bg-muted-foreground/30">
+      <div className="pl-4 flex flex-col gap-4">
 
         {/* ── Installation Notes ── */}
         {component.installationNotes && (
@@ -176,7 +176,7 @@ const ConfigSidebar = ({
             <h2 className="text-heading-small text-foreground flex items-center" style={{lineHeight: '240%'}}>
               Installation Notes
             </h2>
-            <p className="text-xs text-muted-foreground leading-relaxed">
+            <p className="text-paragraph text-foreground">
               {renderInstallationNotes(component.installationNotes)}
             </p>
           </section>

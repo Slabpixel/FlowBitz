@@ -19,6 +19,9 @@ import {
   faSearch as faSearchRegular,
   faRefresh as faRefreshRegular,
   faSparkle as faSparkleRegular,
+  faChevronDown as faChevronDownRegular,
+  faArrowRight as faArrowRightRegular,
+  faCube as faCubeRegular,
 } from '@fortawesome/pro-regular-svg-icons'
 
 import { 
@@ -62,6 +65,9 @@ library.add(
   faSearchRegular,
   faRefreshRegular,
   faSparkleRegular,
+  faChevronDownRegular,
+  faArrowRightRegular,
+  faCubeRegular,
   
   // Solid
   faHomeSolid,

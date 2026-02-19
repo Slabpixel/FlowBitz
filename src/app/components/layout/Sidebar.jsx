@@ -20,7 +20,7 @@ const CATEGORY_CONFIG = [
 
 /** Static (non-component) navigation pages */
 const STATIC_PAGES = [
-  { name: 'Introduction', category: 'Get Started', path: '/components',   icon: 'hand' },
+  { name: 'Components', category: 'Get Started', path: '/components',   icon: 'hand' },
   { name: 'Installation', category: 'Get Started', path: '/installation', icon: 'code' },
   { name: 'Support',      category: 'Help',        path: '/support',      icon: 'question' },
   { name: 'FAQ',          category: 'Help',        path: '/faq',          icon: 'message' },
@@ -188,10 +188,10 @@ const Sidebar = ({ showBackLink = false }) => {
       <span>{component.name}</span>
       {component.newComponent && (
         <span
-          className={`rounded-sm p-1 text-xs font-semibold uppercase transition-colors ${
+          className={`rounded p-1.5 inter-semi-12 uppercase text-foreground transition-colors ${
             isActive
-              ? 'bg-primary text-white'
-              : 'bg-white/20 text-white'
+              ? 'bg-primary'
+              : 'bg-base-medium'
           }`}
         >
           New
@@ -225,15 +225,13 @@ const Sidebar = ({ showBackLink = false }) => {
         <div className="relative z-40">
           <div className={`w-full flex items-center justify-start rounded transition-all duration-200 ${
             isSearchFocused
-              ? 'bg-foreground/15 ring-1 ring-primary/30'
+              ? 'bg-foreground/15 ring-1 ring-foreground'
               : 'bg-foreground/10'
           }`}>
             <div className="flex flex-col items-center justify-center w-11 h-11">
               <FontAwesomeIcon
                 icon={['far', 'search']}
-                className={`w-4 h-4 transition-colors duration-200 ${
-                  isSearchFocused ? 'text-primary' : 'text-textLow'
-                }`}
+                className='w-4 h-4 transition-colors text-textLow'
               />
             </div>
 
@@ -283,7 +281,7 @@ const Sidebar = ({ showBackLink = false }) => {
               }
             `}
           >
-            <div className="px-4 py-3">
+            <div className="py-4">
               {debouncedQuery.trim() === '' ? (
                 /* ── Hint state ── */
                 <div className="flex flex-col items-center justify-center py-16 text-textLow select-none">
@@ -310,12 +308,14 @@ const Sidebar = ({ showBackLink = false }) => {
                 </div>
               ) : (
                 /* ── Grouped results ── */
-                <div className="flex flex-col gap-5">
+                <div className="flex flex-col">
+                  {/* Result count footer */}
+                  <p className="text-link font-medium text-textLow mb-4">
+                    {filteredResults.length} result{filteredResults.length !== 1 ? 's' : ''} found
+                  </p>
+
                   {Object.entries(groupedResults).map(([category, items]) => (
                     <div key={category}>
-                      <h4 className="text-overline uppercase text-textLow mb-1.5 px-1">
-                        {category}
-                      </h4>
                       <ul className="list-none flex flex-col gap-0.5">
                         {items.map(item => {
                           const slug    = item.path.split('/').pop()
@@ -326,17 +326,17 @@ const Sidebar = ({ showBackLink = false }) => {
                                 to={item.path}
                                 onClick={handleResultClick}
                                 className={`
-                                  flex items-center gap-2 py-2.5 px-3 rounded-md text-sm
+                                  flex items-center gap-2 py-3.5 px-3.5 rounded text-link
                                   transition-all duration-150
                                   ${isActive
                                     ? 'bg-primary/10 text-primary font-semibold'
-                                    : 'text-foreground/70 hover:bg-foreground/5 hover:text-foreground font-medium'
+                                    : 'text-foreground font-medium hover:bg-foreground/5 hover:text-foreground hover:font-semibold'
                                   }
                                 `}
                               >
                                 <span className="truncate">{item.name}</span>
                                 {item.isNew && (
-                                  <span className="shrink-0 rounded-sm px-1.5 py-0.5 text-[10px] font-semibold uppercase bg-primary/15 text-primary">
+                                  <span className="rounded p-1.5 inter-semi-12 uppercase text-foreground bg-base-medium">
                                     New
                                   </span>
                                 )}
@@ -347,11 +347,6 @@ const Sidebar = ({ showBackLink = false }) => {
                       </ul>
                     </div>
                   ))}
-
-                  {/* Result count footer */}
-                  <p className="text-[11px] text-textLow/50 text-center pt-1 pb-2">
-                    {filteredResults.length} result{filteredResults.length !== 1 ? 's' : ''} found
-                  </p>
                 </div>
               )}
             </div>
@@ -359,51 +354,39 @@ const Sidebar = ({ showBackLink = false }) => {
 
           {/* ── Original Sidebar Content (Mobile Dropdown) ── */}
           <div className={`lg:flex lg:flex-col lg:flex-grow overflow-scroll ${isComponentsOpen ? 'block' : 'hidden'}`}>
-            <div className="sidebar-section flex flex-col mb-4 pt-4 px-4">
-              <h3 className="text-overline uppercase text-textLow">
-                Get Started
-              </h3>
+            <div className="sidebar-section flex flex-col mb-1 pt-4 px-4">
               <ul className="list-none flex flex-col">
-                <li>
-                  <Link 
-                    to="/components" 
-                    onClick={() => setIsComponentsOpen(false)}
-                    className={`flex gap-2 py-[0.875rem] items-center justify-start text-foreground ${
-                      currentLink !== '/components'
-                        ? 'text-link font-medium hover:font-semibold' 
-                        : 'text-link font-semibold'
-                    }`}>
-                    { currentLink !== '/components'
-                        ? <FontAwesomeIcon icon={['far', 'hand']} className='w-4 h-4 opacity-60'/>
-                        : <FontAwesomeIcon icon={['fas', 'hand']} className='w-4 h-4'/>
-                    }
-                    
-                    Introduction
-                  </Link>
-                </li>
                 <li>
                   <Link 
                     to="/installation" 
                     onClick={() => setIsComponentsOpen(false)}
-                    className={`flex gap-2 py-[0.875rem] items-center justify-start text-foreground ${
+                    className={`flex gap-2 py-[0.875rem] items-center justify-start ${
                       currentLink !== '/installation'
-                        ? 'text-link font-medium hover:font-semibold' 
-                        : 'text-link font-semibold'
+                        ? 'text-link font-medium text-foreground/60 hover:text-foreground' 
+                        : 'text-link font-semibold text-foreground'
                     }`}>
-                    { currentLink !== '/installation'
-                        ? <FontAwesomeIcon icon={['far', 'code']} className='w-4 h-4 opacity-60'/>
-                        : <FontAwesomeIcon icon={['fas', 'code']} className='w-4 h-4'/>
-                    }
+                    <FontAwesomeIcon icon={['far', 'code']} className='w-4 h-4'/>
                     Installation
+                  </Link>
+                </li>
+
+                <li>
+                  <Link 
+                    to="/components" 
+                    onClick={() => setIsComponentsOpen(false)}
+                    className={`flex gap-2 py-[0.875rem] items-center justify-start ${
+                      currentLink !== '/components'
+                        ? 'text-link font-medium text-foreground/60 hover:text-foreground' 
+                        : 'text-link font-semibold text-foreground'
+                    }`}>
+                    <FontAwesomeIcon icon={['far', 'cube']} className='w-4 h-4'/>
+                    Components
                   </Link>
                 </li>
               </ul>
             </div>
             
             <div id='componentList' className="sidebar-section relative z-[1] flex flex-col px-4">
-              <h3 className="text-overline uppercase text-textLow">
-                Components
-              </h3>
               <div className="flex flex-col">
                 <Accordion type="single" collapsible defaultValue='item-1'>
                   {filteredCategories.map(({ label, components, accordionValue }) => (

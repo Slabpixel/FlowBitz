@@ -89,7 +89,7 @@ const Home = () => {
         {/* End Hero Section */}
 
         {/* Component Gallery Section */}
-        <GalleryContainer />
+        <GalleryContainer showAll={false} />
 
         {/* CTA Section */}
         <section className='px-2 lg:px-0'>
