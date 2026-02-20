@@ -97,19 +97,31 @@ function App() {
           <Navbar isScrolled={isScrolled} />
           <ContactBubble />
           { isHomePage && (
-              <>
-                {/* Hero Gradient Top */}
+              // Hero Gradient Top
+              <div ref={heroGradientRef} id='hero-top-gradient' className='absolute top-0 left-1/2 -translate-x-1/2 w-[400%] lg:w-full max-w-[1440px] object-cover z-[1] pointer-events-none flex items-center justify-center'>
                 <img 
-                  ref={heroGradientRef}
-                  id='hero-top-gradient'
-                  src="/images/BG.webp"
+                  src="/images/hero-gradient.webp"
                   alt=""
                   aria-hidden="true"
-                  className={`absolute top-0 left-1/2 -translate-x-1/2 w-[400%] lg:w-full max-w-[1440px] object-cover z-[1] pointer-events-none`}
+                  className='w-full h-full z-[1]'
                   loading='lazy'
                 />
-                {/* End Hero Gradient Top */}
-              </>
+
+                {/* Noise grid 4×2: satu wrapper, 8 cell dengan background agar tetap satu asset */}
+                <div
+                  className="absolute inset-0 z-[2] grid grid-cols-4 grid-rows-2 pointer-events-none opacity-20"
+                  aria-hidden="true"
+                >
+                  {Array.from({ length: 8 }, (_, i) => (
+                    <div
+                      key={i}
+                      className="bg-cover bg-center bg-no-repeat"
+                      style={{ backgroundImage: "url('/images/noise.webp')" }}
+                    />
+                  ))}
+                </div>
+              </div>
+              // End Hero Gradient Top
             ) }
           <main id="main-content" className='relative overflow-scroll h-[calc(100dvh-4.5rem)] mt-18'>
             <Routes>

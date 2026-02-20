@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef, useMemo, useCallback } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { getComponentsByCategory } from '../../../library/data/componentsMetadata.js'
-import { ChevronDown, ChevronUp, X } from 'lucide-react'
+import { X } from 'lucide-react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from "../ui/accordion"
 
@@ -45,11 +45,11 @@ function useDebounce(value, delay) {
    Sidebar Component
    ═══════════════════════════════════════════════════════ */
 
-const Sidebar = ({ showBackLink = false }) => {
+const Sidebar = ({ showBackLink = false, variant = 'default', onNavigate }) => {
   const location = useLocation()
+  const isMobile = variant === 'mobile'
 
   /* ─── State ─── */
-  const [isComponentsOpen, setIsComponentsOpen] = useState(false)
   const [searchQuery, setSearchQuery]           = useState('')
   const [isSearchFocused, setIsSearchFocused]   = useState(false)
 
@@ -164,8 +164,8 @@ const Sidebar = ({ showBackLink = false }) => {
   const handleResultClick = useCallback(() => {
     setSearchQuery('')
     setIsSearchFocused(false)
-    setIsComponentsOpen(false)
-  }, [])
+    onNavigate?.()
+  }, [onNavigate])
 
   /* ═══════════════════════════════════════════════════════
      URL Helpers
@@ -204,22 +204,19 @@ const Sidebar = ({ showBackLink = false }) => {
      Render
      ═══════════════════════════════════════════════════════ */
 
+  const Tag = isMobile ? 'div' : 'aside'
+
   return (
-    <aside className={`w-full relative lg:max-w-[300px] lg:min-w-[300px] bg-background border-r border-foreground/10 lg:overflow-y-auto lg:sticky lg:top-18 lg:self-start h-auto lg:h-[calc(100vh-4.5rem)] [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-thumb]:bg-transparent hover:[&::-webkit-scrollbar-thumb]:bg-muted [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:border-2 [&::-webkit-scrollbar-thumb]:border-background hover:[&::-webkit-scrollbar-thumb]:bg-muted-foreground/30 ${isSearchActive ? 'search-active' : ''}`}>
-      <div className="flex flex-col flex-grow gap-4 sm:gap-6 lg:gap-0 p-4 sm:p-6 sm:pb-4 lg:h-[calc(100vh-4.5rem)]">
-        
-        {/* ── Mobile Dropdown Toggle ── */}
-        <button
-          onClick={() => setIsComponentsOpen(!isComponentsOpen)}
-          className="lg:hidden flex items-center justify-between w-full py-3 px-4 text-base font-semibold text-foreground bg-muted hover:bg-accent rounded-lg transition-all duration-200 border border-border"
-        >
-          <span>Navigations</span>
-          {isComponentsOpen ? (
-            <ChevronUp className="w-4 h-4" />
-          ) : (
-            <ChevronDown className="w-4 h-4" />
-          )}
-        </button>
+    <Tag className={
+      isMobile
+        ? `w-full relative ${isSearchActive ? 'search-active' : ''}`
+        : `hidden lg:block w-full relative lg:max-w-[300px] lg:min-w-[300px] bg-background border-r border-foreground/10 lg:overflow-y-auto lg:sticky lg:top-18 lg:self-start h-auto lg:h-[calc(100vh-4.5rem)] [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-thumb]:bg-transparent hover:[&::-webkit-scrollbar-thumb]:bg-muted [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:border-2 [&::-webkit-scrollbar-thumb]:border-background hover:[&::-webkit-scrollbar-thumb]:bg-muted-foreground/30 ${isSearchActive ? 'search-active' : ''}`
+    }>
+      <div className={
+        isMobile
+          ? "flex flex-col flex-grow gap-4 px-4 pb-4"
+          : "flex flex-col flex-grow gap-0 p-4 sm:p-6 sm:pb-4 lg:h-[calc(100vh-4.5rem)]"
+      }>
 
         {/* ── Search Bar (Enhanced) ── */}
         <div className="relative z-40">
@@ -352,14 +349,14 @@ const Sidebar = ({ showBackLink = false }) => {
             </div>
           </div>
 
-          {/* ── Original Sidebar Content (Mobile Dropdown) ── */}
-          <div className={`lg:flex lg:flex-col lg:flex-grow overflow-scroll ${isComponentsOpen ? 'block' : 'hidden'}`}>
+          {/* ── Sidebar Navigation Content ── */}
+          <div className="flex flex-col flex-grow overflow-scroll">
             <div className="sidebar-section flex flex-col mb-1 pt-4 px-4">
               <ul className="list-none flex flex-col">
                 <li>
                   <Link 
                     to="/installation" 
-                    onClick={() => setIsComponentsOpen(false)}
+                    onClick={() => onNavigate?.()}
                     className={`flex gap-2 py-[0.875rem] items-center justify-start ${
                       currentLink !== '/installation'
                         ? 'text-link font-medium text-foreground/60 hover:text-foreground' 
@@ -373,7 +370,7 @@ const Sidebar = ({ showBackLink = false }) => {
                 <li>
                   <Link 
                     to="/components" 
-                    onClick={() => setIsComponentsOpen(false)}
+                    onClick={() => onNavigate?.()}
                     className={`flex gap-2 py-[0.875rem] items-center justify-start ${
                       currentLink !== '/components'
                         ? 'text-link font-medium text-foreground/60 hover:text-foreground' 
@@ -402,7 +399,7 @@ const Sidebar = ({ showBackLink = false }) => {
                             <li key={component.key} className={`border-l pl-4 py-[0.875rem] transition-all duration-200 ${currentComponentName === component.key ? 'border-primary' : 'border-foreground/20'}`}>
                               <Link 
                                 to={`/components/${component.key}`} 
-                                onClick={() => setIsComponentsOpen(false)}
+                                onClick={() => onNavigate?.()}
                                 className={` transition-all duration-200 ${
                                   currentComponentName !== component.key 
                                     ? 'link font-medium text-textLow hover:text-foreground' 
@@ -427,7 +424,7 @@ const Sidebar = ({ showBackLink = false }) => {
                   <li>
                     <Link 
                       to="/support" 
-                      onClick={() => setIsComponentsOpen(false)}
+                      onClick={() => onNavigate?.()}
                       className={`flex gap-2 py-[0.875rem] items-center justify-start text-foreground ${
                         currentLink !== '/support'
                           ? 'text-link font-medium hover:font-semibold' 
@@ -444,7 +441,7 @@ const Sidebar = ({ showBackLink = false }) => {
                   <li>
                     <Link 
                         to="/faq" 
-                        onClick={() => setIsComponentsOpen(false)}
+                        onClick={() => onNavigate?.()}
                         className={`flex gap-2 py-[0.875rem] items-center justify-start text-foreground ${
                           currentLink !== '/faq'
                             ? 'text-link font-medium hover:font-semibold' 
@@ -464,7 +461,7 @@ const Sidebar = ({ showBackLink = false }) => {
           </div>
         </div>
       </div>
-    </aside>
+    </Tag>
   )
 }
 

@@ -9,6 +9,7 @@ import { Badge } from '../ui/badge.jsx'
 import { ColorControl } from '../ui/color-control.jsx'
 import { Info, HelpCircle } from 'lucide-react'
 import { Button } from '../ui/button.jsx'
+import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from '../ui/accordion.jsx'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 /* ═══════════════════════════════════════════════════════
@@ -167,25 +168,44 @@ const ConfigSidebar = ({
   }
 
   return (
-    <aside className="w-full lg:max-w-[330px] lg:min-w-[330px] bg-background md:mt-6 md:mr-6 md:mb-4 lg:overflow-y-auto lg:h-auto [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-thumb]:bg-transparent [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:border-2 [&::-webkit-scrollbar-thumb]:border-background hover:[&::-webkit-scrollbar-thumb]:bg-muted-foreground/30">
-      <div className="pl-4 flex flex-col gap-4">
+    <aside className="lg:w-full mx-0 my-0 max-w-none w-auto lg:max-w-[330px] lg:min-w-[330px] bg-background lg:mt-6 lg:mr-6 lg:mb-4 lg:overflow-y-auto lg:h-auto [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-thumb]:bg-transparent [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:border-2 [&::-webkit-scrollbar-thumb]:border-background hover:[&::-webkit-scrollbar-thumb]:bg-muted-foreground/30">
+      <div className="px-2 pt-4 pb-6 md:pt-0 md:pb-0 md:px-4 lg:pl-4 flex flex-col gap-4">
 
         {/* ── Installation Notes ── */}
         {component.installationNotes && (
-          <section>
-            <h2 className="text-heading-small text-foreground flex items-center" style={{lineHeight: '240%'}}>
-              Installation Notes
-            </h2>
-            <p className="text-paragraph text-foreground">
-              {renderInstallationNotes(component.installationNotes)}
-            </p>
-          </section>
+          <>
+            {/* Desktop */}
+            <section className="hidden md:block">
+              <h2 className="text-heading-small text-foreground flex items-center" style={{lineHeight: '240%'}}>
+                Installation Notes
+              </h2>
+              <p className="text-paragraph text-foreground">
+                {renderInstallationNotes(component.installationNotes)}
+              </p>
+            </section>
+
+            {/* Mobile / Tablet */}
+            <Accordion type="single" collapsible className="md:hidden">
+              <AccordionItem value="installation-notes" className="px-2">
+                <AccordionTrigger className='py-3'>
+                  <h2 className="text-heading-small text-foreground">
+                    Installation Notes
+                  </h2>
+                </AccordionTrigger>
+                <AccordionContent className="px-0">
+                  <p className="text-paragraph text-foreground">
+                    {renderInstallationNotes(component.installationNotes)}
+                  </p>
+                </AccordionContent>
+              </AccordionItem>
+            </Accordion>
+          </>
         )}
 
         <div className="border-b border-foreground/10" />
 
         {/* ── Attribute Editor ── */}
-        <section className='pb-6'>
+        <section className='pb-6 px-2 md:px-0'>
           <h2 className="text-heading-small text-foreground flex items-center" style={{lineHeight: '240%'}}>
             Attribute Editor
           </h2>
@@ -210,7 +230,7 @@ const ConfigSidebar = ({
                         </Label>
 
                         {isRequired && (
-                          <span className="inter-semi-12 text-foreground uppercase p-1.5 rounded bg-base-medium">
+                          <span className="inter-semi-12 text-foreground uppercase px-[0.3125rem] flex items-center justify-center h-[1.125rem] rounded bg-base-medium">
                             Required
                           </span>
                         )}
@@ -250,12 +270,12 @@ const ConfigSidebar = ({
           </div>
         </section>
 
-        <div className='relative flex flex-col gap-4 p-6 bg-base-medium rounded'>
+        <div className='relative flex flex-col gap-4 px-4 py-6 md:p-6 bg-base-medium rounded overflow-hidden'>
           <h4 className='relative z-[2] text-heading-small text-foreground'>Found an Issue or Have a Suggestion?</h4>
 
           <p className='relative z-[2] text-paragraph text-foreground/60'>Help us improve this component by reporting bugs or requesting new features.</p>
 
-          <div className='relative z-[2] flex flex-col gap-2 items-start justify-start'>
+          <div className='relative z-[2] flex md:flex-col gap-2 items-start justify-start'>
             <Button 
               onClick={handleBugReport}
               variant="custom"

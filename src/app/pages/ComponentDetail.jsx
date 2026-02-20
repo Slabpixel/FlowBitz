@@ -190,11 +190,11 @@ const ComponentDetail = () => {
     const wbAttributes = extractWbAttributes(currentCode)
 
     return (
-      <div className="relative p-4 sm:p-8 lg:p-12 overflow-hidden min-h-[300px] sm:min-h-[400px] lg:min-h-[470px] h-full flex items-center justify-center">
+      <div className="relative px-2 md:p-4 sm:p-8 lg:p-12 overflow-hidden min-h-[300px] sm:min-h-[400px] lg:min-h-[470px] h-full flex items-center justify-center">
 
         {/* Attributes Pills - Bottom Left */}
         {wbAttributes.length > 0 && (
-          <div className="absolute bottom-0 left-0 flex flex-wrap gap-1 sm:gap-2 p-2 sm:p-4  z-10 max-w-[calc(100%-4rem)] sm:max-w-none">
+          <div className="absolute bottom-0 left-0 flex flex-wrap gap-2 p-2 sm:p-4  z-10 max-w-none">
             {wbAttributes.map((attr, attrIndex) => (
               <div
                 key={attrIndex}
@@ -292,24 +292,24 @@ const ComponentDetail = () => {
         url={`https://www.flowbitz.dev/components/${componentName}`}
         structuredData={structuredData}
       />
-      <div className="bg-background text-foreground h-full overflow-hidden">
-        <div className="flex flex-col lg:flex-row lg:h-[calc(100vh-4.5rem)]">
+      <div className="bg-background text-foreground h-full overflow-x-hidden overflow-y-scroll">
+        <div className="flex flex-col lg:flex-row h-auto lg:h-[calc(100vh-4.5rem)]">
 
           {/* ── Column 1: Left Navigation Sidebar (shared) ── */}
           <Sidebar showBackLink={false} />
 
           {/* ── Column 2: Center Content (header + preview) ── */}
-          <main className="flex-1 flex flex-col bg-base-medium w-full rounded border border-foreground/10 items-center lg:mt-6 lg:ml-6 lg:mb-4 lg:overflow-hidden lg:h-auto">
+          <main className="flex-1 flex flex-col bg-base-medium w-auto lg:w-full rounded border border-foreground/10 items-center mx-2 my-4 lg:mt-6 lg:ml-6 lg:mb-4 lg:overflow-hidden lg:h-auto">
 
             {/* Header */}
-            <div className="w-full max-w-[1440px] pt-2 px-2">
-              <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3 sm:gap-4">
-                <div className="flex flex-col gap-2 p-2 min-w-0">
+            <div className="w-full max-w-[1440px] pt-2 pb-6 md:pt-2 md:px-2">
+              <div className="flex items-center md:items-start justify-between gap-3 sm:gap-4">
+                <div className="flex flex-col max-w-[278px] md:max-w-none md:gap-2 px-4 py-2 md:p-2 min-w-0">
                   <h1 className="text-heading-small text-foreground">{component.name}</h1>
-                  <p className="text-text-medium text-paragraph">{component.description}</p>
+                  <p className="text-text-medium text-paragraph truncate">{component.description}</p>
                 </div>
 
-                <div className="flex items-center gap-2 shrink-0">
+                <div className="flex items-center gap-2 px-2 md:px-0 shrink-0">
                   <Button
                     onClick={() => navigate('/installation')}
                     variant="custom"
@@ -317,7 +317,7 @@ const ComponentDetail = () => {
                     className="py-[0.625rem] text-link font-medium text-foreground hover:text-primary-blue"
                   >
                     <FontAwesomeIcon icon={['far', 'code']} className='w-4 h-4 opacity-60'/>
-                    Installation guide
+                    <p className='hidden md:block'>Installation guide</p>
                   </Button>
 
                   <Button
@@ -342,6 +342,7 @@ const ComponentDetail = () => {
 
           {/* ── Column 3: Right Config Sidebar (page-specific) ── */}
           <ConfigSidebar
+            isMobile={false}
             component={component}
             activeAttributes={activeAttributes}
             attributeValues={attributeValues}

@@ -6,6 +6,7 @@ import { Badge } from '../ui/badge.jsx'
 import { Home, Layers, BookOpen, Github, Sparkles, HelpCircle, User, MessageSquare, Tag, Mail, FileText } from 'lucide-react'
 import { useTheme } from '../../contexts/ThemeContext'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import Sidebar from './Sidebar'
 
 const Navbar = ({ isScrolled }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
@@ -13,15 +14,14 @@ const Navbar = ({ isScrolled }) => {
   const location = useLocation()
   const navigate = useNavigate()
   const { theme } = useTheme();
-  const SIDEBAR_PATHS = ['/components', '/installation', '/support', '/faq']
+  const SIDEBAR_PATHS = ['/components', '/installation', '/support', '/faq', '/about']
 
   useEffect(() => {
-    const hasSidebar = SIDEBAR_PATHS.some(path => 
+    const hasSidebar = SIDEBAR_PATHS.some(path =>
       location.pathname === path || location.pathname.startsWith(`${path}/`)
     )
     setFullNav(hasSidebar)
-    console.log(`Has Sidebar: ${hasSidebar}`);
-    console.log(`State full nav: ${fullNav}`);
+    setIsMenuOpen(false)
   }, [location.pathname])
 
   const toggleMenu = () => {
@@ -42,11 +42,11 @@ const Navbar = ({ isScrolled }) => {
     `}>
       {/* Navbar Desktop Container */}
       <div className={`
-        mx-auto px-4 py-4 sm:px-6 flex items-center justify-between sm:justify-normal transition-all duration-500 
+        mx-auto px-4 py-4 sm:px-6 flex items-center justify-between lg:justify-normal transition-all duration-500 
         ${ fullNav ? 'lg:px-0' : 'lg:px-0 lg:max-w-[1200px] sm:gap-8' }
       `}>
         {/* Navbar Logo */}
-        <div className={`nav-logo transition-all duration-200  ${fullNav ? 'px-6 w-full lg:max-w-[300px] lg:min-w-[300px] flex gap-2 items-end justify-start' : ''}`}>
+        <div className={`nav-logo transition-all duration-200  ${fullNav ? 'lg:px-6 lg:w-full lg:max-w-[300px] lg:min-w-[300px] flex gap-2 items-end justify-start' : ''}`}>
           <button 
             onClick={() => navigate('/')}
             className="flex items-center gap-2 transition-opacity duration-200 hover:opacity-80"
@@ -61,9 +61,9 @@ const Navbar = ({ isScrolled }) => {
         {/* End Navbar Logo */}
 
         {/* Navbar Menu Wrapper */}
-        <div className={`flex sm:w-full items-center justify-between transition-all duration-500  ${fullNav ? 'pr-12' : ''}`}>
+        <div className={`flex lg:w-full items-center justify-between transition-all duration-500  ${fullNav ? 'lg:pr-12' : ''}`}>
           {/* Navbar Menu List */}
-          <div className={`nav-menu ${isMenuOpen ? 'active' : ''} hidden md:flex items-center`} id="nav-menu">
+          <div className={`nav-menu ${isMenuOpen ? 'active' : ''} hidden lg:flex items-center`} id="nav-menu">
             <button 
               onClick={() => navigate('/components')}
               className={`px-3 lg:px-8 py-[10px] border-x text-foreground inter-med-16 transition-all duration-200 flex items-center gap-3 hover:text-foreground/50
@@ -103,14 +103,14 @@ const Navbar = ({ isScrolled }) => {
               href="https://github.com/Slabpixel/FlowBitz"
               target="_blank"
               rel="noopener noreferrer"
-              className={`py-[10px] hidden sm:flex inter-med-16 text-foreground transition-all duration-200 items-center gap-2 hover:text-foreground/50`}
+              className={`py-[10px] hidden lg:flex inter-med-16 text-foreground transition-all duration-200 items-center gap-2 hover:text-foreground/50`}
             >
               <FontAwesomeIcon icon={['fab', 'github']} className='w-4 h-4'/>
               <span className="hidden lg:inline">Github</span>
             </a>
 
             <div 
-              className="md:hidden flex flex-col gap-1 p-2 rounded-md transition-colors duration-200 hover:bg-accent cursor-pointer" 
+              className="lg:hidden flex flex-col gap-1 p-2 rounded-md transition-colors duration-200 hover:bg-accent cursor-pointer" 
               id="nav-toggle" 
               onClick={toggleMenu}
             >
@@ -128,17 +128,23 @@ const Navbar = ({ isScrolled }) => {
       {/* Mobile Menu Overlay */}
       {isMenuOpen && (
         <div 
-          className="md:hidden fixed top-18 left-0 right-0 bottom-0 bg-background/50 h-[calc(100svh-4.5rem)] backdrop-blur-sm z-[55]"
+          className="lg:hidden fixed top-18 left-0 right-0 bottom-0 bg-background/50 h-[calc(100svh-4.5rem)] backdrop-blur-sm z-[55]"
           onClick={() => setIsMenuOpen(false)}
         />
       )}
       
       {/* Mobile Menu */}
-      <div className={`md:hidden fixed w-full top-18 left-0 h-auto bg-background border-r border-border z-[65] transition-transform duration-300 ease-in-out ${
+      <div className={`lg:hidden fixed w-full top-18 left-0 max-h-[calc(100svh-4.5rem)] overflow-y-auto bg-background border-r border-border z-[65] transition-transform duration-300 ease-in-out ${
         isMenuOpen ? 'translate-y-0' : '-translate-y-[135%]'
       }`}>
         <div className="flex flex-col h-full">
-          <div className="pb-8 px-4">
+          {fullNav && (
+            <div className="border-t border-foreground/10 pt-6">
+              <Sidebar variant="mobile" onNavigate={() => setIsMenuOpen(false)} />
+            </div>
+          )}
+
+          <div className="px-4">
             <button 
               onClick={() => {
                 navigate('/components')
@@ -160,7 +166,7 @@ const Navbar = ({ isScrolled }) => {
                 setIsMenuOpen(false)
               }}
               className={`w-full py-4 px-2 inter-med-16 transition-all duration-200 flex items-center gap-2 border-b border-foreground/10 ${
-                isActive('/components') 
+                isActive('/showcase') 
                   ? 'text-foreground font-semibold' 
                   : 'text-foreground hover:text-foreground/50'
               }`}
@@ -175,7 +181,7 @@ const Navbar = ({ isScrolled }) => {
                 setIsMenuOpen(false)
               }}
               className={`w-full py-4 px-2 inter-med-16 transition-all duration-200 flex items-center gap-2 border-b border-foreground/10 ${
-                isActive('/components') 
+                isActive('/blog') 
                   ? 'text-foreground font-semibold' 
                   : 'text-foreground hover:text-foreground/50'
               }`}
@@ -189,11 +195,7 @@ const Navbar = ({ isScrolled }) => {
                 window.open('https://github.com/Slabpixel/FlowBitz', '_blank')
                 setIsMenuOpen(false)
               }}
-              className={`w-full py-4 px-2 inter-med-16 transition-all duration-200 flex items-center gap-2 ${
-                isActive('/components') 
-                  ? 'text-foreground font-semibold' 
-                  : 'text-foreground hover:text-foreground/50'
-              }`}
+              className="w-full py-4 px-2 inter-med-16 transition-all duration-200 flex items-center gap-2 text-foreground hover:text-foreground/50"
             >
               <FontAwesomeIcon icon={['fab', 'github']} className='w-4 h-4 opacity-60'/>
               GitHub
