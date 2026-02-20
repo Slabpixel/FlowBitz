@@ -188,11 +188,7 @@ const Sidebar = ({ showBackLink = false, variant = 'default', onNavigate }) => {
       <span>{component.name}</span>
       {component.newComponent && (
         <span
-          className={`rounded p-1.5 inter-semi-12 uppercase text-foreground transition-colors ${
-            isActive
-              ? 'bg-primary'
-              : 'bg-base-medium'
-          }`}
+          className={`rounded px-[0.3125rem] h-[1.125rem] inter-semi-12 uppercase text-foreground flex items-center justify-center bg-base-medium`}
         >
           New
         </span>
@@ -333,7 +329,7 @@ const Sidebar = ({ showBackLink = false, variant = 'default', onNavigate }) => {
                               >
                                 <span className="truncate">{item.name}</span>
                                 {item.isNew && (
-                                  <span className="rounded p-1.5 inter-semi-12 uppercase text-foreground bg-base-medium">
+                                  <span className="rounded px-[0.3125rem] h-[1.125rem] inter-semi-12 uppercase text-foreground bg-base-medium">
                                     New
                                   </span>
                                 )}
