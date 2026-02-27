@@ -1,12 +1,16 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { Sparkles, ExternalLink, Upload, Globe } from 'lucide-react'
+import { ExternalLink, Upload, Globe } from 'lucide-react'
 import SEO from '../components/SEO.jsx'
-import Footer from '../components/layout/Footer.jsx'
+import Logo from '../components/Logo.jsx'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Button } from '../components/ui/button.jsx'
+
+const ITEMS_PER_PAGE = 9
 
 const Showcase = () => {
   const navigate = useNavigate()
+  const [visibleCount, setVisibleCount] = useState(ITEMS_PER_PAGE)
 
   const handleSubmitShowcase = () => {
     navigate('/showcase/submit')
@@ -17,67 +21,78 @@ const Showcase = () => {
       name: 'SlabPixel',
       url: 'https://slabpixel.com',
       image: 'https://slabpixel.dev/images/slabpixel.webp',
-      description: 'Creative Digital Studio'
+      description: 'Creative Digital Studio',
+      components: ['Split Text', 'Smart Animate']
     },
     {
       name: 'Neuera',
       url: 'https://neuera.webflow.io',
       image: 'https://slabpixel.dev/images/neuera.webp',
-      description: 'AI-powered Solutions'
+      description: 'AI-powered Solutions',
+      components: ['Split Text', 'Smart Animate']
     },
     {
       name: 'Whispr',
       url: 'https://whisprrr.webflow.io',
       image: 'https://slabpixel.dev/images/whispr.webp',
-      description: 'Communication Platform'
+      description: 'Communication Platform',
+      components: ['Split Text', 'Smart Animate']
     },
     {
       name: 'Quantra AI',
       url: 'https://quantra-ai.webflow.io',
       image: 'https://slabpixel.dev/images/quantra.webp',
-      description: 'Quantum AI Technology'
+      description: 'Quantum AI Technology',
+      components: ['Split Text', 'Smart Animate']
     },
     {
       name: 'Mavence',
       url: 'https://mavencee.webflow.io',
       image: 'https://slabpixel.dev/images/mavence.webp',
-      description: 'Business Solutions'
+      description: 'Business Solutions',
+      components: ['Split Text', 'Smart Animate']
     },
     {
       name: 'Formahaus',
       url: 'https://formahaus.webflow.io',
       image: 'https://slabpixel.dev/images/formahaus.webp',
-      description: 'Design & Architecture'
+      description: 'Design & Architecture',
+      components: ['Split Text', 'Smart Animate']
     },
     {
       name: 'Vexum',
       url: 'https://vexum.webflow.io',
       image: 'https://slabpixel.dev/images/vexum.webp',
-      description: 'WEB3 & Finance'
+      description: 'WEB3 & Finance',
+      components: ['Split Text', 'Smart Animate']
     },
     {
       name: 'Langford',
       url: 'https://llangford.webflow.io',
       image: 'https://slabpixel.dev/images/langford.webp',
-      description: 'Fashion & Lifestyle'
+      description: 'Fashion & Lifestyle',
+      components: ['Split Text', 'Smart Animate']
     },
     {
       name: 'Stagetimer',
       url: 'https://stagetimer.webflow.io',
       image: 'https://slabpixel.dev/images/stagetimer.webp',
-      description: 'Tools & Management'
+      description: 'Tools & Management',
+      components: ['Split Text', 'Smart Animate']
     },
     {
       name: 'Art-Doc',
       url: 'https://art-doc.webflow.io',
       image: 'https://slabpixel.dev/images/artdoc.webp',
-      description: 'Art & Culture'
+      description: 'Art & Culture',
+      components: ['Split Text', 'Smart Animate']
     },
     {
       name: 'Swiftmate',
       url: 'https://swftmate.webflow.io',
       image: 'https://slabpixel.dev/images/swiftmate.webp',
-      description: 'Finance Application'
+      description: 'Finance Application',
+      components: ['Split Text', 'Smart Animate']
     }
   ]
 
@@ -104,54 +119,46 @@ const Showcase = () => {
         url="https://www.flowbitz.dev/showcase"
         structuredData={structuredData}
       />
-      <div className="bg-background text-foreground pt-[64px] min-h-screen relative overflow-hidden">
-        {/* Half Radial Gradient Background */}
-        <div wb-component="smart-animate" wb-start-delay="0.4" className="absolute top-0 left-1/2 -translate-x-1/2 w-[1200px] h-[400px] pointer-events-none">
-          <div className="w-full h-full blur-3xl" 
-               style={{
-                 background: 'radial-gradient(circle at center top, hsl(var(--primary) / 0.2) 0%, hsl(var(--primary) / 0.15) 30%, hsl(var(--primary) / 0.05) 60%, transparent 100%)'
-               }}>
-          </div>
-        </div>
-
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 lg:py-20 relative z-10">
+      <section className="bg-background text-foreground min-h-screen relative overflow-hidden pb-16 md:pb-10">
+        <div className="max-w-[1200px] mx-auto relative z-[2] border-x border-foreground/10">
           {/* Hero Section */}
-          <div wb-component="smart-animate" className="text-center mb-16">
-            <div className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-primary/20 to-muted-foreground/10 dark:from-primary/20 dark:to-white/10 rounded-full text-sm font-medium text-black dark:text-white mb-6">
-              <Sparkles className="w-4 h-4" />
-              <span>{showcaseProjects.length} Projects Featured</span>
+          <div wb-component="smart-animate" className="flex flex-col items-center max-w-[550px] md:mx-auto text-center pt-6 md:py-14 gap-5 md:gap-4">
+            <div className="bg-foreground/10 h-[30px] w-fit px-4 flex items-center justify-center gap-1">
+              <span className='text-tooltip text-foreground'>Made with</span>
+              <Logo className='h-4 w-auto' />
             </div>
             
-          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-foreground mb-6">
-            Website <span wb-component="gradient-text">Showcase</span>
-          </h1>
-          <p className="text-lg sm:text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed mb-8">
-            Discover real-world examples and creative implementations of FlowBitz components. 
-            See how our components can transform your Webflow projects.
-          </p>
-          
-          {/* Submit Project Button */}
-          <div className="flex justify-center">
-            <Button
-              onClick={handleSubmitShowcase}
-              variant="animated"
-              size="lg"
-            >
-              <Upload className="w-5 h-5" />
-              Submit Your Project
-            </Button>
+            <h1 className="inter-med-56 text-foreground">
+              Website Showcase
+            </h1>
+
+            <p className="text-lg sm:text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed mb-8">
+              Explore examples and uses of FlowBitz components. See how they enhance your Webflow websites.
+            </p>
+            
+            {/* Submit Project Button */}
+            <div className="flex justify-center">
+              <Button
+                onClick={handleSubmitShowcase}
+                variant="custom"
+                size="custom"
+                className="h-10 flex items-center px-4 bg-foreground rounded text-tooltip text-background"
+              >
+                Submit Your Project
+              </Button>
+            </div>
           </div>
-        </div>
+        {/* End Hero Section */}
 
           {/* Showcase Gallery */}
-          <div wb-component="smart-animate" className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
-            {showcaseProjects.map((project, index) => (
+          <div wb-component="smart-animate" className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {showcaseProjects.slice(0, visibleCount).map((project, index) => (
               <a
                 key={index}
                 href={project.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group relative overflow-hidden rounded-md bg-card border border-border hover:border-primary/50 transition-all duration-300 hover:shadow-2xl hover:shadow-primary/20 hover:-translate-y-1"
+                className="group relative overflow-hidden transition-all duration-300"
               >
                 {/* Image Container */}
                 <div className="relative aspect-video overflow-hidden bg-muted">
@@ -162,68 +169,49 @@ const Showcase = () => {
                     loading="lazy"
                   />
                   {/* Overlay on hover */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                    <div className="absolute bottom-2 right-2 flex items-center gap-2 text-white">
-                      <span className="text-sm font-medium">Visit Site</span>
-                      <ExternalLink className="w-4 h-4" />
+                  <div className="absolute flex items-end h-full bottom-0 w-full bg-gradient-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                    <div className="flex w-full items-center p-2 gap-4 text-white">
+                      <div className='w-full flex flex-wrap gap-2'>
+                        {project.components.map((component, index) => (
+                          <div key={index} className="text-attribute text-foreground rounded px-2.5 py-1.5 bg-base-low/50">
+                            {component}
+                          </div>
+                        ))}
+                      </div>
+
+                      <FontAwesomeIcon icon={['far', 'arrow-right']} className='w-5 h-5 -rotate-45'/>
                     </div>
                   </div>
                 </div>
 
                 {/* Content */}
-                <div className="p-4">
-                  <h3 className="text-md font-bold text-foreground mb-1 group-hover:text-primary transition-colors">
-                    {project.name}
+                <div className="py-4">
+                  <h3 className="text-link font-medium text-foreground">
+                    {project.name} - {project.description}
                   </h3>
-                  <p className="text-sm text-muted-foreground mb-1">
-                    {project.description}
-                  </p>
-                  <div className="flex items-center gap-1 text-sm text-muted-foreground">
-                    <Globe className="w-4 h-4" />
-                    <span className="truncate">{project.url.replace('https://', '')}</span>
-                  </div>
                 </div>
 
                 {/* Decorative corner gradient */}
                 <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-br from-primary/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 blur-2xl"></div>
               </a>
             ))}
-
-            {/* CTA Card */}
-            <button
-              onClick={handleSubmitShowcase}
-              className="group relative overflow-hidden rounded-md bg-gradient-to-br from-primary/10 via-primary/5 to-background border-2 border-dashed border-primary/30 hover:border-primary/60 transition-all duration-300 hover:shadow-2xl hover:shadow-primary/20 hover:-translate-y-1 p-5 flex flex-col items-center justify-center"
-            >
-              {/* Background Pattern */}
-              <div className="absolute inset-0 opacity-5">
-                <div className="absolute top-10 left-10 w-32 h-32 bg-primary rounded-full blur-3xl"></div>
-                <div className="absolute bottom-10 right-10 w-32 h-32 bg-primary rounded-full blur-3xl"></div>
-              </div>
-
-              <div className="relative z-10 text-center">
-                <div className="w-12 h-12 bg-gradient-to-br from-primary to-primary/70 rounded-md mx-auto flex items-center justify-center shadow-lg shadow-primary/25 mb-6 group-hover:scale-110 transition-transform duration-300">
-                  <Upload className="w-6 h-6 text-white" />
-                </div>
-                
-                <h3 className="text-md font-bold text-foreground mb-3">
-                  Submit Your Project
-                </h3>
-                <p className="text-sm text-muted-foreground mb-2 max-w-xs">
-                  Built something amazing with FlowBitz? Share it with the community!
-                </p>
-                
-                <div className="inline-flex items-center gap-2 text-primary font-medium group-hover:gap-3 transition-all">
-                  <span>Get Featured</span>
-                  <ExternalLink className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                </div>
-              </div>
-            </button>
           </div>
+
+          {/* Load More */}
+          {visibleCount < showcaseProjects.length && (
+            <div className="flex justify-center pt-12 md:pt-8">
+              <button 
+                onClick={() => setVisibleCount(prev => prev + ITEMS_PER_PAGE)}
+                className="flex items-center gap-2 px-6 py-3 border border-foreground/10 rounded text-foreground hover:text-foreground/70 transition-colors duration-200"
+              >
+                <span className="text-sm font-medium">Load More</span>
+                <FontAwesomeIcon icon={['far', 'chevron-down']} className='w-4 h-4 opacity-60'/>
+              </button>
+            </div>
+          )}
         </div>
-      </div>
-    
-    {/* Footer */}
-    <Footer />
+      </section>
+  
     </>
   )
 }

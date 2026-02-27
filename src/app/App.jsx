@@ -28,7 +28,7 @@ function App() {
   const location = useLocation()
   const [isScrolled, setIsScrolled] = useState(false);
   const heroGradientRef = useRef(null);
-  const isHomePage = location.pathname === '/'
+  const isMainPage = location.pathname === '/' || location.pathname === '/showcase' || location.pathname === '/blog';
 
   useEffect(() => {
     const handleScroll = () => {
@@ -58,7 +58,7 @@ function App() {
 
   // Top Gradient Parallax
   useEffect(() => {
-    if (!isHomePage || !heroGradientRef) return;
+    if (!isMainPage || !heroGradientRef) return;
 
     const gsap = window.gsap
     if (!gsap || !window.ScrollTrigger) return
@@ -87,7 +87,7 @@ function App() {
       heroGradTween.kill();
       gsap.set(heroGrad, { clearProps: 'all' })
     }
-  }, [isHomePage]);
+  }, [isMainPage]);
 
   return (
     <HelmetProvider>
@@ -96,7 +96,7 @@ function App() {
           <ScrollToTop />
           <Navbar isScrolled={isScrolled} />
           <ContactBubble />
-          { isHomePage && (
+          { isMainPage && (
               // Hero Gradient Top
               <div ref={heroGradientRef} id='hero-top-gradient' className='absolute top-0 left-1/2 -translate-x-1/2 w-[400%] lg:w-full max-w-[1440px] object-cover z-[1] pointer-events-none flex items-center justify-center'>
                 <img 
@@ -141,7 +141,7 @@ function App() {
               <Route path="/license" element={<License />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
-            {isHomePage && <Footer />}
+            {isMainPage && <Footer />}
           </main>
         </div>
       </ThemeProvider>

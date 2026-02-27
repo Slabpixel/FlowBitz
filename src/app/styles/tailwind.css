@@ -17,9 +17,10 @@
     --background: 0 0% 100%;
     --foreground: 0 0% 0%;
     --not-background: 240, 10%, 4%;
-    --base-medium: #18181B;
-    --base-high: #27272A;
-    --text-medium: #D4D4D8;
+    --base-high: 39 39 42;
+    --base-medium: 24 24 27;
+    --base-low: 9 9 11;
+    --text-medium: 212 212 216;
     --card: 0 0% 100%;
     --card-foreground: 222.2 84% 4.9%;
     --popover: 0 0% 100%;
@@ -68,9 +69,10 @@
     --background: 240, 10%, 4%;
     --foreground: 0 0% 100%;
     --not-background: 0 0% 100%;
-    --base-high: #27272A;
-    --base-medium: #18181B;
-    --text-medium: #D4D4D8;
+    --base-high: 39 39 42;
+    --base-medium: 24 24 27;
+    --base-low: 9 9 11;
+    --text-medium: 212 212 216;
     --card: 222.2 84% 4.9%;
     --card-foreground: 210 40% 98%;
     --popover: 222.2 84% 4.9%;
@@ -244,6 +246,14 @@ body {
   font-size: 2.5rem;
 }
 
+.inter-med-56 {
+  font-family: 'InterVariable', sans-serif;
+  font-weight: 500;
+  line-height: 100%;
+  letter-spacing: -0.02em;
+  font-size: 3rem;
+}
+
 .inter-semi-72 {
   font-family: 'InterVariable', sans-serif;
   font-weight: 600;
@@ -269,6 +279,10 @@ body {
 
   .inter-semi-48 {
     font-size: 3rem;
+  }
+
+  .inter-med-56 {
+    font-size: 3.5rem;
   }
 
   .inter-semi-72 {
