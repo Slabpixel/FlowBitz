@@ -66,7 +66,7 @@
   }
 
   .dark {
-    --background: 240, 10%, 4%;
+    --background: 240 10% 4%;
     --foreground: 0 0% 100%;
     --not-background: 0 0% 100%;
     --base-high: 39 39 42;
@@ -238,6 +238,22 @@ body {
   font-size: 1.125rem;
 }
 
+.inter-semi-24 {
+  font-family: 'InterVariable', sans-serif;
+  font-weight: 600;
+  line-height: 120%;
+  letter-spacing: normal;
+  font-size: 1.25rem;
+}
+
+.inter-med-40 {
+  font-family: 'InterVariable', sans-serif;
+  font-weight: 500;
+  line-height: 100%;
+  letter-spacing: -0.02em;
+  font-size: 2.5rem;
+}
+
 .inter-semi-48 {
   font-family: 'InterVariable', sans-serif;
   font-weight: 600;
@@ -275,6 +291,10 @@ body {
 @media screen and (min-width: 1024px) {
   .inter-reg-18 {
     font-size: 1.125rem;
+  }
+
+  .inter-semi-24 {
+    font-size: 1.5rem;
   }
 
   .inter-semi-48 {
