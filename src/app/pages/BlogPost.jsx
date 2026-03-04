@@ -5,6 +5,8 @@ import SEO from '../components/SEO.jsx'
 import { getAdjacentPosts, getPostContent } from '../data/blogPosts.js'
 import { cn } from '../../shared/lib/utils.js'
 import { buttonVariants } from '../components/ui/button.jsx'
+import Footer from '../components/layout/Footer.jsx'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 const formatDate = (value) => {
   try {
@@ -63,66 +65,55 @@ const BlogPost = () => {
         publishedTime={post.publishedAt}
         structuredData={structuredData}
       />
-      <article className="bg-background text-foreground pt-24 pb-16">
-        <div className="mx-auto flex w-full max-w-3xl flex-col gap-10 px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center gap-2">
-            <Link
-              to="/blog"
-              className={cn(
-                buttonVariants({ variant: 'ghost', size: 'sm' }),
-                'gap-2 px-2 text-sm text-muted-foreground hover:text-foreground'
-              )}
-            >
-              <ArrowLeft className="h-4 w-4" />
-              Back to blog
-            </Link>
+      <article className="relative z-[2] md:pt-14 pt-10 pb-12 bg-transparent text-foreground max-w-[1200px] mx-auto border-x border-foreground/10">
+        <div className="mx-auto flex w-full lg:max-w-[800px] flex-col gap-8 px-4 lg:px-0">
+          <header className="flex flex-col items-center justify-center gap-2">
+            <div className='flex gap-2'>
+              <Link
+                to="/blog"
+                className={cn(
+                  buttonVariants({ variant: 'custom', size: 'custom' }),
+                  'gap-2 w-fit flex justify-center items-center'
+                )}
+              >
+                <p className='text-link font-medium text-text-medium hover:text-foreground'>Blog/</p>
+              </Link>
+
+              <p className='text-link font-medium text-foreground'>Creative</p>
+            </div>
+
+            <h1 className="inter-semi-32 text-foreground text-center">
+                {post.title}
+            </h1>
+          </header>
+
+          {post.heroImage && (
+            <img
+              src={post.heroImage}
+              alt={post.title}
+              className="w-full rounded-3xl border border-border"
+              loading="lazy"
+            />
+          )}
+
+          <div className="inline-flex items-center gap-2 text-link font-medium text-text-medium">
+            <div className='flex gap-1.5 items-center'>
+              <div className='w-5 h-5 flex items-center justify-center'>
+                <FontAwesomeIcon icon={['far', 'calendar']} className='w-4 h-4'/>
+              </div>
+              <span>{formatDate(post.publishedAt)}</span>
+            </div>
+
+            <span className='block' aria-hidden="true">•</span>
+
+            <span>{post.readingMinutes} min read</span>
           </div>
 
-          <header className="space-y-6">
-            <div className="space-y-4">
-              <p className="inline-flex items-center gap-2 text-sm text-muted-foreground">
-                <span className="inline-flex items-center gap-2">
-                  <Calendar className="h-4 w-4" />
-                  {formatDate(post.publishedAt)}
-                </span>
-                <span aria-hidden="true">•</span>
-                <span className="inline-flex items-center gap-2">
-                  <Clock className="h-4 w-4" />
-                  {post.readingMinutes} min read
-                </span>
-              </p>
-              <h1 className="text-3xl font-bold tracking-tight sm:text-4xl">
-                {post.title}
-              </h1>
-              <p className="text-base text-muted-foreground sm:text-lg">
-                {post.description}
-              </p>
-              {post.tags?.length > 0 && (
-                <div className="flex flex-wrap gap-2">
-                  {post.tags.map((tag) => (
-                    <span
-                      key={tag}
-                      className="rounded-full border border-border px-3 py-1 text-xs font-medium text-muted-foreground"
-                    >
-                      #{tag}
-                    </span>
-                  ))}
-                </div>
-              )}
-            </div>
-            {post.heroImage && (
-              <img
-                src={post.heroImage}
-                alt={post.title}
-                className="w-full rounded-3xl border border-border"
-                loading="lazy"
-              />
-            )}
-          </header>
+          <div className='h-[1px] w-full bg-foreground/10' />
 
           {post.body ? (
             <div
-              className="blog-article space-y-6 text-muted-foreground"
+              className="blog-article text-muted-foreground"
               dangerouslySetInnerHTML={{ __html: post.body }}
             />
           ) : (

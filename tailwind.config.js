@@ -3,7 +3,7 @@ export default {
   darkMode: ["class"],
   content: [
     "./index.html",
-    "./src/**/*.{js,ts,jsx,tsx}",
+    "./src/**/*.{js,ts,jsx,tsx,html}",
   ],
   theme: {
     extend: {
@@ -11,7 +11,8 @@ export default {
         inter: ["InterVariable", "Inter", "sans-serif"],
       },
       spacing: {
-        '18': '4.5rem'
+        '18': '4.5rem',
+        '6.5': '1.625rem'
       },
       borderRadius: {
         lg: "var(--radius)",

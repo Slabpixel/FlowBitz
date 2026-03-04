@@ -125,6 +125,15 @@ body {
   -webkit-overflow-scrolling: touch;
 }
 
+.hide-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
 .app {
   min-height: 100vh;
   overflow-y: auto;
@@ -145,6 +154,14 @@ body {
   font-weight: 400;
   font-size: 0.875rem;
   line-height: 150%;
+  letter-spacing: -0.01em;
+}
+
+.text-paragraph-blog {
+  font-family: 'InterVariable', sans-serif;
+  font-weight: 400;
+  font-size: 1rem;
+  line-height: 160%;
   letter-spacing: -0.01em;
 }
 
@@ -180,6 +197,12 @@ body {
   transition: all 0.1s linear;
 }
 /* End Component Custom Font */
+
+/* Blog Custom Font */
+@media screen and (min-width: 1024px) {
+
+}
+/* End Blog Custom Font */
 
 /* Custom Font */
 .mono-med-12 {
@@ -246,6 +269,14 @@ body {
   font-size: 1.25rem;
 }
 
+.inter-semi-32 {
+  font-family: 'InterVariable', sans-serif;
+  font-weight: 600;
+  line-height: 120%;
+  letter-spacing: normal;
+  font-size: 1.5rem;
+}
+
 .inter-med-40 {
   font-family: 'InterVariable', sans-serif;
   font-weight: 500;
@@ -268,6 +299,10 @@ body {
   line-height: 100%;
   letter-spacing: -0.02em;
   font-size: 3rem;
+}
+
+.inter-med-56.blog {
+  font-size: 2rem;
 }
 
 .inter-semi-72 {
@@ -297,11 +332,15 @@ body {
     font-size: 1.5rem;
   }
 
+  .inter-semi-32 {
+    font-size: 2rem;
+  }
+
   .inter-semi-48 {
     font-size: 3rem;
   }
 
-  .inter-med-56 {
+  .inter-med-56, .inter-med-56.blog {
     font-size: 3.5rem;
   }
 
@@ -399,6 +438,6 @@ pre code .value {
   }
 
   .blog-article li {
-    @apply marker:text-primary;
+    @apply marker:text-foreground;
   }
 }

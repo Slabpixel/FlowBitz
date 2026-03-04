@@ -361,11 +361,11 @@ const Showcase = () => {
                     loading="lazy"
                   />
                   {/* Overlay on hover */}
-                  <div className="absolute flex items-end h-full bottom-0 w-full bg-gradient-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                  <div className="absolute flex items-end h-full bottom-0 w-full bg-gradient-to-t from-black/70 to-transparent opacity-100 lg:opacity-0 lg:group-hover:opacity-100 transition-opacity duration-300">
                     <div className="flex w-full items-center p-2 gap-4 text-white">
-                      <div className='w-full flex flex-wrap gap-2'>
+                      <div className='w-[90%] hide-scrollbar overflow-x-scroll flex flex-nowrap lg:flex-wrap gap-2'>
                         {project.components.map((component, index) => (
-                          <div key={index} className="text-attribute text-foreground rounded px-2.5 py-1.5 bg-base-low/50">
+                          <div key={index} className="text-attribute text-foreground rounded px-2.5 py-1.5 bg-base-low/50 text-nowrap">
                             {component}
                           </div>
                         ))}
