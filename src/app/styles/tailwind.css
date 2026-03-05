@@ -237,6 +237,14 @@ body {
   font-size: 1rem;
 }
 
+.inter-med-16.blog {
+  font-family: 'InterVariable', sans-serif;
+  font-weight: 500;
+  line-height: 120%;
+  letter-spacing: -0.01em;
+  font-size: 1rem;
+}
+
 .display-semi-16 {
   font-family: 'InterVariable', sans-serif;
   font-weight: 600;

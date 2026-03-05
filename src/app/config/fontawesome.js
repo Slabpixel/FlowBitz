@@ -25,6 +25,8 @@ import {
   faCalendar as faCalendarRegular,
   faXmark as faXmarkRegular,
   faArrowLeft as faArrowLeftRegular,
+  faPaperPlaneTop as faPaperPlaneTopRegular,
+  faEnvelope as faEnvelopeRegular,
 } from '@fortawesome/pro-regular-svg-icons'
 
 import { 
@@ -74,6 +76,8 @@ library.add(
   faCalendarRegular,
   faXmarkRegular,
   faArrowLeftRegular,
+  faPaperPlaneTopRegular,
+  faEnvelopeRegular,
   
   // Solid
   faHomeSolid,

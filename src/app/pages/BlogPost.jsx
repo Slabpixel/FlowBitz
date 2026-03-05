@@ -123,32 +123,71 @@ const BlogPost = () => {
           )}
 
           <footer className="border-t border-border pt-8">
-            <div className="flex flex-col gap-3 text-sm text-muted-foreground">
-              <span>Published {formatDate(post.publishedAt)}</span>
-            </div>
-            <div className="mt-6 flex flex-wrap gap-3">
+            <div className="mt-6 flex flex-col md:flex-row w-full gap-10 md:gap-6">
               {previous && (
                 <Link
                   to={`/blog/${previous.slug}`}
-                  className={cn(
-                    buttonVariants({ variant: 'outline', size: 'sm' }),
-                    'gap-2'
-                  )}
+                  className="w-full  md:w-1/2 flex flex-col"
                 >
-                  <ArrowLeft className="h-4 w-4" />
-                  Previous
+                  <div className='overflow-hidden rounded w-full aspect-[388/230]'>
+                    <img 
+                      src={previous.heroImage}
+                      alt={previous.title}
+                      className='w-full h-full object-cover transition-transform duration-300 hover:scale-105'
+                    />
+                  </div>
+                  
+                  <div className='flex flex-col gap-2 py-4'>
+                    <div className="inline-flex items-center gap-2 text-link font-medium text-text-medium">
+                      <div className='flex gap-1.5 items-center'>
+                        <div className='w-5 h-5 flex items-center justify-center'>
+                          <FontAwesomeIcon icon={['far', 'calendar']} className='w-4 h-4'/>
+                        </div>
+                        <span>{formatDate(previous.publishedAt)}</span>
+                      </div>
+
+                      <span className='block' aria-hidden="true">•</span>
+
+                      <span>{previous.readingMinutes} min read</span>
+                    </div>
+
+                    <p className='inter-med-16 blog text-foreground'>{previous.title}</p>
+
+                    <p className='md:hidden line-clamp-2 text-paragraph text-text-medium'>{previous.description}</p>
+                  </div>
                 </Link>
               )}
               {next && (
                 <Link
                   to={`/blog/${next.slug}`}
-                  className={cn(
-                    buttonVariants({ variant: 'outline', size: 'sm' }),
-                    'gap-2'
-                  )}
+                  className="w-full  md:w-1/2 flex flex-col"
                 >
-                  Next
-                  <ArrowRight className="h-4 w-4" />
+                  <div className='overflow-hidden rounded w-full aspect-[388/230]'>
+                    <img 
+                      src={next.heroImage}
+                      alt={next.title}
+                      className='w-full h-full object-cover transition-transform duration-300 hover:scale-105'
+                    />
+                  </div>
+
+                  <div className='flex flex-col gap-2 py-4'>
+                    <div className="inline-flex items-center gap-2 text-link font-medium text-text-medium">
+                      <div className='flex gap-1.5 items-center'>
+                        <div className='w-5 h-5 flex items-center justify-center'>
+                          <FontAwesomeIcon icon={['far', 'calendar']} className='w-4 h-4'/>
+                        </div>
+                        <span>{formatDate(next.publishedAt)}</span>
+                      </div>
+
+                      <span className='block' aria-hidden="true">•</span>
+
+                      <span>{next.readingMinutes} min read</span>
+                    </div>
+
+                    <p className='inter-med-16 blog text-foreground'>{next.title}</p>
+
+                    <p className='md:hidden line-clamp-2 text-paragraph text-text-medium'>{next.description}</p>
+                  </div>
                 </Link>
               )}
             </div>

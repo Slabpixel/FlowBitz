@@ -28,7 +28,7 @@ function App() {
   const location = useLocation()
   const [isScrolled, setIsScrolled] = useState(false);
   const heroGradientRef = useRef(null);
-  const isMainPage = location.pathname === '/' || location.pathname === '/showcase' || location.pathname.startsWith('/blog');
+  const isMainPage = location.pathname === '/' || location.pathname === '/showcase' || location.pathname.startsWith('/blog') || location.pathname.startsWith('/contact');
 
   useEffect(() => {
     const handleScroll = () => {
