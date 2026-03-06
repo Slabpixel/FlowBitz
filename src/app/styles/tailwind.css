@@ -157,6 +157,17 @@ body {
   letter-spacing: -0.01em;
 }
 
+.text-paragraph.large {
+  font-size: 1rem;
+  line-height: 160%;
+}
+
+.text-paragraph.large.semi {
+  font-size: 1rem;
+  line-height: 160%;
+  font-weight: 600;
+}
+
 .text-paragraph-blog {
   font-family: 'InterVariable', sans-serif;
   font-weight: 400;
@@ -283,6 +294,10 @@ body {
   line-height: 120%;
   letter-spacing: normal;
   font-size: 1.5rem;
+}
+
+.inter-semi-32.installation {
+  font-size: 2rem;
 }
 
 .inter-med-40 {

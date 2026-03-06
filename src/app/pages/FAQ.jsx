@@ -205,25 +205,25 @@ const FAQ = () => {
 
           <div className="w-full max-w-[970px]">
              {/* Search */}
-             <div className="mb-8">
-               <div className="mx-auto mb-6">
-                 <div className="relative">
-                   <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground w-4 h-4" />
-                   <input
-                     type="text"
-                     placeholder="Search FAQs..."
-                     value={searchQuery}
-                     onChange={(e) => setSearchQuery(e.target.value)}
-                     className="w-full pl-10 pr-4 py-3 border border-border rounded-lg bg-background text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary"
-                   />
-                 </div>
-               </div>
-             </div>
+              <div className="mb-8">
+                <div className="mx-auto mb-6">
+                  <div className="relative">
+                    <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground w-4 h-4" />
+                    <input
+                      type="text"
+                      placeholder="Search FAQs..."
+                      value={searchQuery}
+                      onChange={(e) => setSearchQuery(e.target.value)}
+                      className="w-full pl-10 pr-4 py-3 border border-border rounded-lg bg-background text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary"
+                    />
+                  </div>
+                </div>
+              </div>
 
             {/* FAQ Items */}
             <div className="mx-auto space-y-8 mb-12">
               {groupedItems.length === 0 ? (
-                <div className="bg-card bg-muted rounded-xl p-4 sm:p-6 hover:bg-accent transition-all duration-300 text-center py-12">
+                <div className="bg-card rounded-xl p-4 sm:p-6 hover:bg-accent transition-all duration-300 text-center py-12">
                   <HelpCircle className="w-16 h-16 text-muted-foreground mx-auto mb-4" />
                   <h3 className="text-xl font-semibold text-foreground mb-2">No questions found</h3>
                   <p className="text-muted-foreground mb-4">
@@ -250,7 +250,7 @@ const FAQ = () => {
                       {category.items.map((item, index) => {
                         const globalIndex = faqItems.findIndex(faqItem => faqItem === item)
                         return (
-                          <div key={globalIndex} className="bg-card bg-muted rounded-xl p-4 sm:p-6 hover:bg-accent transition-all duration-300">
+                          <div key={globalIndex} className="bg-card rounded-xl p-4 sm:p-6 hover:bg-accent transition-all duration-300">
                             <div 
                               className="cursor-pointer"
                               onClick={() => toggleItem(globalIndex)}

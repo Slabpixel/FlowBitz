@@ -38,6 +38,8 @@ import {
   faMessage as faMessageSolid,
   faGripLinesVertical as faGripLinesVerticalSolid,
   faInfoCircle as faInfoCircleSolid,
+  faPlay as faPlaySolid,
+  faPause as faPauseSolid,
 } from '@fortawesome/pro-solid-svg-icons'
 
 import { 
@@ -88,6 +90,8 @@ library.add(
   faMessageSolid,
   faGripLinesVerticalSolid,
   faInfoCircleSolid,
+  faPlaySolid,
+  faPauseSolid,
   
   // Duotone
   faHomeDuotone,
