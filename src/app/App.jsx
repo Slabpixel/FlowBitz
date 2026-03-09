@@ -32,13 +32,13 @@ function App() {
 
   useEffect(() => {
     const handleScroll = () => {
-      const scrollElement = document.getElementById('root')
+      const scrollElement = document.getElementById('main-content')
       const scrollTop = scrollElement?.scrollTop || 0
       
       setIsScrolled(scrollTop > 100)
     }
 
-    const scrollElement = document.getElementById('root')
+    const scrollElement = document.getElementById('main-content')
     scrollElement?.addEventListener('scroll', handleScroll)
     
     handleScroll()
@@ -48,9 +48,8 @@ function App() {
     }
   }, [])
 
-  // Reset scroll position on route change (optional)
   useEffect(() => {
-    const scrollElement = document.getElementById('root')
+    const scrollElement = document.getElementById('main-content')
     if (scrollElement) {
       scrollElement.scrollTop = 0
     }

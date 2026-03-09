@@ -5,18 +5,10 @@ const ScrollToTop = () => {
   const { pathname } = useLocation()
 
   useEffect(() => {
-    // Scroll to top when pathname changes
-    // Use requestAnimationFrame to ensure DOM is ready
     requestAnimationFrame(() => {
-      const rootElement = document.getElementById('root')
-      if (rootElement) {
-        rootElement.scrollTop = 0
-      } else {
-        window.scrollTo({
-          top: 0,
-          left: 0,
-          behavior: 'smooth'
-        })
+      const mainContent = document.getElementById('main-content')
+      if (mainContent) {
+        mainContent.scrollTop = 0
       }
     })
   }, [pathname])
