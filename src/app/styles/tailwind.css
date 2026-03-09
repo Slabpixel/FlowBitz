@@ -1,7 +1,7 @@
-@import url('https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&display=swap");
 
 @font-face {
-  font-family: 'InterVariable';
+  font-family: "InterVariable";
   font-style: normal;
   font-weight: 100 900;
   font-display: swap;
@@ -45,9 +45,9 @@
     --chart-4: 43 74% 66%;
     --chart-5: 27 87% 67%;
     --radius: 0.5rem;
-    
+
     /* Custom variables for existing design */
-    --primary-color: #0B64FF;
+    --primary-color: #0b64ff;
     --secondary-color: #764ba2;
     --accent-color: #f0932b;
     --text-primary: #ffffff;
@@ -59,7 +59,11 @@
     --border-color: #333333;
     --shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
     --shadow-lg: 0 8px 40px rgba(0, 0, 0, 0.4);
-    --gradient-primary: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    --gradient-primary: linear-gradient(
+      135deg,
+      var(--primary-color),
+      var(--secondary-color)
+    );
     --gradient-accent: linear-gradient(135deg, var(--accent-color), #ff6b6b);
     --border-radius: 12px;
     --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -100,14 +104,15 @@
 }
 
 /* Base styles */
-html, body {
+html,
+body {
   height: 100%;
   margin: 0;
   padding: 0;
 }
 
 body {
-  font-family: 'InterVariable', 'Inter', sans-serif;
+  font-family: "InterVariable", "Inter", sans-serif;
   font-optical-sizing: auto;
   line-height: 1.6;
   color: var(--text-primary);
@@ -142,7 +147,7 @@ body {
 
 /* Component Custom Font */
 .text-heading-small {
-  font-family: 'InterVariable', sans-serif;
+  font-family: "InterVariable", sans-serif;
   font-weight: 600;
   font-size: 1.25rem;
   line-height: 120%;
@@ -150,7 +155,7 @@ body {
 }
 
 .text-paragraph {
-  font-family: 'InterVariable', sans-serif;
+  font-family: "InterVariable", sans-serif;
   font-weight: 400;
   font-size: 0.875rem;
   line-height: 150%;
@@ -162,6 +167,12 @@ body {
   line-height: 160%;
 }
 
+.text-paragraph.highlight {
+  font-size: 1rem;
+  line-height: 160%;
+  font-weight: 600;
+}
+
 .text-paragraph.large.semi {
   font-size: 1rem;
   line-height: 160%;
@@ -169,7 +180,7 @@ body {
 }
 
 .text-paragraph-blog {
-  font-family: 'InterVariable', sans-serif;
+  font-family: "InterVariable", sans-serif;
   font-weight: 400;
   font-size: 1rem;
   line-height: 160%;
@@ -177,7 +188,7 @@ body {
 }
 
 .text-attribute {
-  font-family: 'DM Mono', monospace;
+  font-family: "DM Mono", monospace;
   font-weight: 500;
   line-height: 100%;
   letter-spacing: -0.02em;
@@ -185,7 +196,7 @@ body {
 }
 
 .text-tooltip {
-  font-family: 'InterVariable', sans-serif;
+  font-family: "InterVariable", sans-serif;
   font-weight: 500;
   font-size: 0.75rem;
   line-height: 100%;
@@ -193,7 +204,7 @@ body {
 }
 
 .text-overline {
-  font-family: 'DM Mono', monospace;
+  font-family: "DM Mono", monospace;
   font-weight: 500;
   line-height: 200%;
   letter-spacing: 0.05em;
@@ -201,7 +212,7 @@ body {
 }
 
 .text-link {
-  font-family: 'InterVariable', sans-serif;
+  font-family: "InterVariable", sans-serif;
   font-size: 0.875rem;
   line-height: 100%;
   letter-spacing: -0.01em;
@@ -211,13 +222,12 @@ body {
 
 /* Blog Custom Font */
 @media screen and (min-width: 1024px) {
-
 }
 /* End Blog Custom Font */
 
 /* Custom Font */
 .mono-med-12 {
-  font-family: 'DM Mono', monospace;
+  font-family: "DM Mono", monospace;
   font-weight: 500;
   line-height: 100%;
   letter-spacing: 0.04em;
@@ -225,7 +235,7 @@ body {
 }
 
 .inter-semi-12 {
-  font-family: 'InterVariable', sans-serif;
+  font-family: "InterVariable", sans-serif;
   font-weight: 600;
   font-size: 0.75rem;
   line-height: 90%;
@@ -233,7 +243,7 @@ body {
 }
 
 .inter-reg-16 {
-  font-family: 'InterVariable', sans-serif;
+  font-family: "InterVariable", sans-serif;
   font-weight: 400;
   line-height: 160%;
   letter-spacing: normal;
@@ -241,7 +251,7 @@ body {
 }
 
 .inter-med-16 {
-  font-family: 'InterVariable', sans-serif;
+  font-family: "InterVariable", sans-serif;
   font-weight: 500;
   line-height: 100%;
   letter-spacing: -0.01em;
@@ -249,7 +259,7 @@ body {
 }
 
 .inter-med-16.blog {
-  font-family: 'InterVariable', sans-serif;
+  font-family: "InterVariable", sans-serif;
   font-weight: 500;
   line-height: 120%;
   letter-spacing: -0.01em;
@@ -257,7 +267,7 @@ body {
 }
 
 .display-semi-16 {
-  font-family: 'InterVariable', sans-serif;
+  font-family: "InterVariable", sans-serif;
   font-weight: 600;
   line-height: 140%;
   letter-spacing: normal;
@@ -267,21 +277,21 @@ body {
 }
 
 .inter-reg-18 {
-  font-family: 'InterVariable', sans-serif;
+  font-family: "InterVariable", sans-serif;
   font-weight: 400;
   line-height: 140%;
   font-size: 1rem;
 }
 
 .inter-med-18 {
-  font-family: 'InterVariable', sans-serif;
+  font-family: "InterVariable", sans-serif;
   font-weight: 500;
   line-height: 140%;
   font-size: 1.125rem;
 }
 
 .inter-semi-24 {
-  font-family: 'InterVariable', sans-serif;
+  font-family: "InterVariable", sans-serif;
   font-weight: 600;
   line-height: 120%;
   letter-spacing: normal;
@@ -289,7 +299,7 @@ body {
 }
 
 .inter-semi-32 {
-  font-family: 'InterVariable', sans-serif;
+  font-family: "InterVariable", sans-serif;
   font-weight: 600;
   line-height: 120%;
   letter-spacing: normal;
@@ -301,7 +311,7 @@ body {
 }
 
 .inter-med-40 {
-  font-family: 'InterVariable', sans-serif;
+  font-family: "InterVariable", sans-serif;
   font-weight: 500;
   line-height: 100%;
   letter-spacing: -0.02em;
@@ -309,7 +319,7 @@ body {
 }
 
 .inter-semi-48 {
-  font-family: 'InterVariable', sans-serif;
+  font-family: "InterVariable", sans-serif;
   font-weight: 600;
   line-height: 100%;
   letter-spacing: -0.05em;
@@ -317,7 +327,7 @@ body {
 }
 
 .inter-med-56 {
-  font-family: 'InterVariable', sans-serif;
+  font-family: "InterVariable", sans-serif;
   font-weight: 500;
   line-height: 100%;
   letter-spacing: -0.02em;
@@ -329,7 +339,7 @@ body {
 }
 
 .inter-semi-72 {
-  font-family: 'InterVariable', sans-serif;
+  font-family: "InterVariable", sans-serif;
   font-weight: 600;
   line-height: 100%;
   letter-spacing: -0.02em;
@@ -363,7 +373,8 @@ body {
     font-size: 3rem;
   }
 
-  .inter-med-56, .inter-med-56.blog {
+  .inter-med-56,
+  .inter-med-56.blog {
     font-size: 3.5rem;
   }
 
@@ -374,11 +385,19 @@ body {
 
 @layer utilities {
   .bg-gradient-custom-mobile {
-    background: linear-gradient(1deg, rgba(217, 217, 217, 0.00) 0%, hsl(var(--background)) 80%);
+    background: linear-gradient(
+      1deg,
+      rgba(217, 217, 217, 0) 0%,
+      hsl(var(--background)) 80%
+    );
   }
-  
+
   .bg-gradient-custom {
-    background: linear-gradient(295deg, rgba(217, 217, 217, 0.00) 0%, hsl(var(--background)) 75%);
+    background: linear-gradient(
+      295deg,
+      rgba(217, 217, 217, 0) 0%,
+      hsl(var(--background)) 75%
+    );
   }
 }
 
@@ -402,14 +421,15 @@ body {
     touch-action: pan-y;
     -webkit-overflow-scrolling: touch;
   }
-  
+
   .app {
     touch-action: pan-y;
     -webkit-overflow-scrolling: touch;
   }
-  
+
   /* Ensure all scrollable content allows touch scrolling */
-  main, .bg-background {
+  main,
+  .bg-background {
     touch-action: pan-y;
     -webkit-overflow-scrolling: touch;
   }

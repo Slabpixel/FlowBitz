@@ -1,10 +1,10 @@
-import { library } from '@fortawesome/fontawesome-svg-core'
+import { library } from "@fortawesome/fontawesome-svg-core";
 
 // Import dari PRO packages
-import { 
+import {
   faHome as faHomeLight,
   faBook as faBookLight,
-} from '@fortawesome/pro-light-svg-icons'
+} from "@fortawesome/pro-light-svg-icons";
 
 import {
   faCode as faCodeRegular,
@@ -27,9 +27,11 @@ import {
   faArrowLeft as faArrowLeftRegular,
   faPaperPlaneTop as faPaperPlaneTopRegular,
   faEnvelope as faEnvelopeRegular,
-} from '@fortawesome/pro-regular-svg-icons'
+  faEarth as faEarthRegular,
+  faLink as faLinkRegular,
+} from "@fortawesome/pro-regular-svg-icons";
 
-import { 
+import {
   faHome as faHomeSolid,
   faHeart as faHeartSolid,
   faHand as faHandSolid,
@@ -40,18 +42,16 @@ import {
   faInfoCircle as faInfoCircleSolid,
   faPlay as faPlaySolid,
   faPause as faPauseSolid,
-} from '@fortawesome/pro-solid-svg-icons'
+} from "@fortawesome/pro-solid-svg-icons";
 
-import { 
-  faHome as faHomeDuotone,
-} from '@fortawesome/pro-duotone-svg-icons'
+import { faHome as faHomeDuotone } from "@fortawesome/pro-duotone-svg-icons";
 
 // Brand icons (always free)
-import { 
-  faGithub, 
+import {
+  faGithub,
   faTwitter,
-  faInstagram
-} from '@fortawesome/free-brands-svg-icons'
+  faInstagram,
+} from "@fortawesome/free-brands-svg-icons";
 
 // Add to library
 library.add(
@@ -80,7 +80,9 @@ library.add(
   faArrowLeftRegular,
   faPaperPlaneTopRegular,
   faEnvelopeRegular,
-  
+  faEarthRegular,
+  faLinkRegular,
+
   // Solid
   faHomeSolid,
   faHeartSolid,
@@ -92,12 +94,12 @@ library.add(
   faInfoCircleSolid,
   faPlaySolid,
   faPauseSolid,
-  
+
   // Duotone
   faHomeDuotone,
-  
+
   // Brands
   faGithub,
   faTwitter,
-  faInstagram
-)
+  faInstagram,
+);
