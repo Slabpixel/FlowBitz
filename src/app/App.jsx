@@ -1,6 +1,7 @@
-import React, { useEffect, useState, useRef } from 'react'
+import React, { useEffect, useState, useRef, useCallback } from 'react'
 import { Routes, Route, useLocation } from 'react-router-dom'
 import { HelmetProvider } from 'react-helmet-async'
+import Preloader from './components/Preloader'
 import Navbar from './components/layout/Navbar'
 import Footer from './components/layout/Footer'
 import ScrollToTop from './components/ScrollToTop'
@@ -13,21 +14,21 @@ import About from './pages/About'
 import Support from './pages/Support'
 import Contact from './pages/Contact'
 import Showcase from './pages/Showcase'
-import ShowcaseSubmit from './pages/ShowcaseSubmit'
 import FAQ from './pages/FAQ'
 import Release from './pages/Release'
 import License from './pages/License'
 import Blog from './pages/Blog'
 import BlogPost from './pages/BlogPost'
 import NotFound from './pages/NotFound'
-import { ThemeProvider } from './contexts/ThemeContext'
 import { Analytics } from "@vercel/analytics/react"
 import { SpeedInsights } from "@vercel/speed-insights/react"
 
 function App() {
   const location = useLocation()
+  const [isLoading, setIsLoading] = useState(true)
   const [isScrolled, setIsScrolled] = useState(false);
   const heroGradientRef = useRef(null);
+  const handlePreloaderComplete = useCallback(() => setIsLoading(false), [])
   const isMainPage = location.pathname === '/' || location.pathname === '/showcase' || location.pathname.startsWith('/blog') || location.pathname.startsWith('/contact');
 
   useEffect(() => {
@@ -90,7 +91,7 @@ function App() {
 
   return (
     <HelmetProvider>
-      <ThemeProvider>
+        {isLoading && <Preloader onComplete={handlePreloaderComplete} />}
         <div className="app relative bg-background overflow-hidden">
           <ScrollToTop />
           <Navbar isScrolled={isScrolled} />
@@ -133,7 +134,6 @@ function App() {
               <Route path="/contact" element={<Contact />} />
               <Route path="/faq" element={<FAQ />} />
               <Route path="/showcase" element={<Showcase />} />
-              <Route path="/showcase/submit" element={<ShowcaseSubmit />} />
               <Route path="/blog" element={<Blog />} />
               <Route path="/blog/:slug" element={<BlogPost />} />
               <Route path="/release" element={<Release />} />
@@ -143,7 +143,6 @@ function App() {
             {isMainPage && <Footer />}
           </main>
         </div>
-      </ThemeProvider>
       <Analytics />
       <SpeedInsights />
     </HelmetProvider>

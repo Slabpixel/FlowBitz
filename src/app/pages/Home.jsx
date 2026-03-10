@@ -1,29 +1,14 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
-import { Button } from '../components/ui/button.jsx'
-import { Zap, Plus, Layers, Github, ArrowRight } from 'lucide-react'
-import Three3D from '../components/ui/three-3d.jsx'
 import SEO from '../components/SEO.jsx'
 import { getFilteredComponentKeys } from '../../library/data/componentsMetadata.js'
-import { useResponsive } from '../hooks/useResponsive.js'
 import Logo from '../components/Logo.jsx'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { useTheme } from '../contexts/ThemeContext.jsx'
 import { GalleryContainer } from '../components/gallery'
 
 const Home = () => {
   const navigate = useNavigate()
   const componentCount = getFilteredComponentKeys().length
-  const { isMobile } = useResponsive()
-  const { theme } = useTheme();
-
-  const handleGitHub = () => {
-    window.open('https://github.com/Slabpixel/FlowBitz', '_blank')
-  }
-
-  const handleGetStarted = () => {
-    navigate('/components')
-  }
 
   const structuredData = {
     "@context": "https://schema.org",
@@ -104,9 +89,7 @@ const Home = () => {
                 <div className='w-full flex flex-wrap gap-3 md:gap-0 lg:flex-nowrap'>
                   <button 
                     onClick={() => navigate('/installation')}
-                    className={`pr-0 md:pr-3 lg:pr-6 py-2 md:py-[10px] md:border-r text-foreground inter-med-16 transition-all duration-200 flex items-center gap-2 md:gap-3 hover:text-foreground/50
-                      ${ theme === 'dark' ? 'border-white/10' : 'border-black/10' }
-                    `}
+                    className="pr-0 md:pr-3 lg:pr-6 py-2 md:py-[10px] md:border-r border-white/10 text-foreground inter-med-16 transition-all duration-200 flex items-center gap-2 md:gap-3 hover:text-foreground/50"
                   >
                     <FontAwesomeIcon icon={['far', 'book-open']} className='w-4 h-4 opacity-60'/>
                     <span className="inline text-nowrap">Installation Guide</span>
@@ -114,9 +97,7 @@ const Home = () => {
 
                   <button 
                     onClick={() => navigate('/contact?tab=report')}
-                    className={`px-0 md:px-3 lg:px-6 py-2 md:py-[10px] md:border-r text-foreground inter-med-16 transition-all duration-200 flex items-center gap-2 md:gap-3 hover:text-foreground/50
-                      ${ theme === 'dark' ? 'border-white/10' : 'border-black/10' }
-                    `}
+                    className="px-0 md:px-3 lg:px-6 py-2 md:py-[10px] md:border-r border-white/10 text-foreground inter-med-16 transition-all duration-200 flex items-center gap-2 md:gap-3 hover:text-foreground/50"
                   >
                     <FontAwesomeIcon icon={['far', 'bug']} className='w-4 h-4 opacity-60'/>
                     <span className="inline text-nowrap">Report Bug</span>

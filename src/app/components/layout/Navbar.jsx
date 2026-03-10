@@ -1,10 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate, useLocation } from 'react-router-dom'
-import ThemeToggle from '../ThemeToggle'
 import Logo from '../Logo'
-import { Badge } from '../ui/badge.jsx'
-import { Home, Layers, BookOpen, Github, Sparkles, HelpCircle, User, MessageSquare, Tag, Mail, FileText } from 'lucide-react'
-import { useTheme } from '../../contexts/ThemeContext'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Sidebar from './Sidebar'
 
@@ -13,7 +9,6 @@ const Navbar = ({ isScrolled }) => {
   const [fullNav, setFullNav] = useState(false)
   const location = useLocation()
   const navigate = useNavigate()
-  const { theme } = useTheme();
   const SIDEBAR_PATHS = ['/components', '/installation', '/support', '/faq', '/about']
 
   useEffect(() => {
@@ -38,7 +33,7 @@ const Navbar = ({ isScrolled }) => {
   return (
     <nav id='navbar' className={`w-full fixed top-0 left-0 border-b z-[70] transition-all duration-500 
       ${ isMenuOpen ? 'bg-background' : 'bg-transparent'}
-      ${ theme === 'dark' ? 'border-white/10' : 'border-black/10' }
+      border-white/10
     `}>
       {/* Navbar Desktop Container */}
       <div className={`
@@ -66,9 +61,7 @@ const Navbar = ({ isScrolled }) => {
           <div className={`nav-menu ${isMenuOpen ? 'active' : ''} hidden lg:flex items-center`} id="nav-menu">
             <button 
               onClick={() => navigate('/components')}
-              className={`px-3 lg:px-8 py-[10px] border-x text-foreground inter-med-16 transition-all duration-200 flex items-center gap-3 hover:text-foreground/50
-                ${ theme === 'dark' ? 'border-white/10' : 'border-black/10' }
-              `}
+              className="px-3 lg:px-8 py-[10px] border-x border-white/10 text-foreground inter-med-16 transition-all duration-200 flex items-center gap-3 hover:text-foreground/50"
             >
               <FontAwesomeIcon icon={['far', 'code']} className='w-4 h-4 opacity-60'/>
               <span className="hidden lg:inline">Components</span>
@@ -76,9 +69,7 @@ const Navbar = ({ isScrolled }) => {
 
             <button 
               onClick={() => navigate('/showcase')}
-              className={`px-3 lg:px-8 py-[10px] border-r inter-med-16 text-foreground transition-all duration-200 flex items-center gap-3 hover:text-foreground/50
-                ${ theme === 'dark' ? 'border-white/10' : 'border-black/10' }
-              `}
+              className="px-3 lg:px-8 py-[10px] border-r border-white/10 inter-med-16 text-foreground transition-all duration-200 flex items-center gap-3 hover:text-foreground/50"
             >
               <FontAwesomeIcon icon={['far', 'sidebar']} className='w-4 h-4 opacity-60'/>
               <span className="hidden lg:inline">Showcase</span>
@@ -86,9 +77,7 @@ const Navbar = ({ isScrolled }) => {
 
             <button 
               onClick={() => navigate('/blog')}
-              className={`px-3 lg:px-8 py-[10px] border-r inter-med-16 text-foreground transition-all duration-200 flex items-center gap-3 hover:text-foreground/50
-                ${ theme === 'dark' ? 'border-white/10' : 'border-black/10' }
-              `}
+              className="px-3 lg:px-8 py-[10px] border-r border-white/10 inter-med-16 text-foreground transition-all duration-200 flex items-center gap-3 hover:text-foreground/50"
             >
               <FontAwesomeIcon icon={['far', 'file']} className='w-4 h-4 opacity-60'/>
               <span className="hidden lg:inline">Blog</span>
@@ -96,9 +85,7 @@ const Navbar = ({ isScrolled }) => {
           </div>
           {/* End Navbar Menu List */}
 
-          {/* Navbar Theme Toggle and Github Btn */}
           <div className="flex items-center gap-2 lg:gap-6">
-            <ThemeToggle />
             <a 
               href="https://github.com/Slabpixel/FlowBitz"
               target="_blank"
@@ -119,7 +106,6 @@ const Navbar = ({ isScrolled }) => {
             <span className={`w-5 h-0.5 bg-foreground transition-all duration-200 rounded-sm ${isMenuOpen ? '-rotate-45 -translate-y-1.5' : ''}`}></span>
             </div>
           </div>
-          {/* End Navbar Theme Toggle and Github Btn */}
         </div>
         {/* End Navbar Menu Wrapper */}
       </div>

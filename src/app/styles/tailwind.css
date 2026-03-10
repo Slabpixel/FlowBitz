@@ -220,11 +220,6 @@ body {
 }
 /* End Component Custom Font */
 
-/* Blog Custom Font */
-@media screen and (min-width: 1024px) {
-}
-/* End Blog Custom Font */
-
 /* Custom Font */
 .mono-med-12 {
   font-family: "DM Mono", monospace;
@@ -345,16 +340,6 @@ body {
   letter-spacing: -0.02em;
   font-size: 3rem;
 }
-
-/* @media screen and (min-width: 768px) {
-  .inter-reg-18 {
-    font-size: 1rem;
-  }
-
-  .inter-semi-72 {
-    font-size: 3rem;
-  }
-} */
 
 @media screen and (min-width: 1024px) {
   .inter-reg-18 {

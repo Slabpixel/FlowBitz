@@ -93,7 +93,7 @@ const GalleryContainer = ({ showAll = false }) => {
   }
 
   return (
-    <section className='px-2 lg:px-0'>
+    <section className='w-full px-2 lg:px-0'>
       <div className="max-w-[1200px] gap-6 md:gap-0 mx-auto">
         {/* Filter Navigation */}
         <FilterNav 
