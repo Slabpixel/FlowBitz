@@ -21,14 +21,19 @@ import Logo from "../Logo";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Button } from "../ui/button.jsx";
 
-const Footer = () => {
+const Footer = ({ onScrollToTop }) => {
   const componentCount = getFilteredComponentKeys().length;
   const navigate = useNavigate();
   const location = useLocation();
   const getYear = new Date().getFullYear();
 
   const scrollToTop = () => {
-    document.getElementById("root").scrollTop = 0;
+    if (typeof onScrollToTop === "function") {
+      onScrollToTop();
+    } else {
+      const main = document.getElementById("main-content");
+      if (main) main.scrollTop = 0;
+    }
   };
 
   const handleNavigation = (path) => {

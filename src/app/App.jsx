@@ -1,70 +1,119 @@
-import React, { useEffect, useState, useRef, useCallback } from 'react'
-import { Routes, Route, useLocation } from 'react-router-dom'
-import { HelmetProvider } from 'react-helmet-async'
-import Preloader from './components/Preloader'
-import Navbar from './components/layout/Navbar'
-import Footer from './components/layout/Footer'
-import ScrollToTop from './components/ScrollToTop'
-import ContactBubble from './components/ContactBubble'
-import Home from './pages/Home'
-import Components from './pages/Components'
-import ComponentDetail from './pages/ComponentDetail'
-import Installation from './pages/Installation'
-import About from './pages/About'
-import Support from './pages/Support'
-import Contact from './pages/Contact'
-import Showcase from './pages/Showcase'
-import FAQ from './pages/FAQ'
-import Release from './pages/Release'
-import License from './pages/License'
-import Blog from './pages/Blog'
-import BlogPost from './pages/BlogPost'
-import NotFound from './pages/NotFound'
-import { Analytics } from "@vercel/analytics/react"
-import { SpeedInsights } from "@vercel/speed-insights/react"
+import React, { useEffect, useState, useRef, useCallback } from "react";
+import { Routes, Route, useLocation } from "react-router-dom";
+import { HelmetProvider } from "react-helmet-async";
+import Lenis from "lenis";
+import Preloader from "./components/Preloader";
+import Navbar from "./components/layout/Navbar";
+import Footer from "./components/layout/Footer";
+import ScrollToTop from "./components/ScrollToTop";
+import ContactBubble from "./components/ContactBubble";
+import Home from "./pages/Home";
+import Components from "./pages/Components";
+import ComponentDetail from "./pages/ComponentDetail";
+import Installation from "./pages/Installation";
+import About from "./pages/About";
+import Support from "./pages/Support";
+import Contact from "./pages/Contact";
+import Showcase from "./pages/Showcase";
+import FAQ from "./pages/FAQ";
+import Release from "./pages/Release";
+import License from "./pages/License";
+import Blog from "./pages/Blog";
+import BlogPost from "./pages/BlogPost";
+import NotFound from "./pages/NotFound";
+import { Analytics } from "@vercel/analytics/react";
+import { SpeedInsights } from "@vercel/speed-insights/react";
+
+const SIDEBAR_PATHS = ["/components", "/installation", "/support", "/faq", "/about"];
+
+function isSidebarRoute(pathname) {
+  return SIDEBAR_PATHS.some(
+    (path) => pathname === path || pathname.startsWith(`${path}/`)
+  );
+}
 
 function App() {
-  const location = useLocation()
-  const [isLoading, setIsLoading] = useState(true)
+  const location = useLocation();
+  const [isLoading, setIsLoading] = useState(true);
   const [isScrolled, setIsScrolled] = useState(false);
   const heroGradientRef = useRef(null);
-  const handlePreloaderComplete = useCallback(() => setIsLoading(false), [])
-  const isMainPage = location.pathname === '/' || location.pathname === '/showcase' || location.pathname.startsWith('/blog') || location.pathname.startsWith('/contact');
+  const mainRef = useRef(null);
+  const mainContentRef = useRef(null);
+  const lenisRef = useRef(null);
+  const handlePreloaderComplete = useCallback(() => setIsLoading(false), []);
+  const handleScrollToTop = useCallback(() => {
+    if (lenisRef.current) {
+      lenisRef.current.scrollTo(0, { immediate: true });
+    } else {
+      const el = document.getElementById("main-content");
+      if (el) el.scrollTop = 0;
+    }
+  }, []);
+  const isMainPage =
+    location.pathname === "/" ||
+    location.pathname === "/showcase" ||
+    location.pathname.startsWith("/blog") ||
+    location.pathname.startsWith("/contact");
 
+  const sidebarRoute = isSidebarRoute(location.pathname);
+
+  // Lenis on #main-content only when NOT on a Sidebar page
   useEffect(() => {
-    const handleScroll = () => {
-      const scrollElement = document.getElementById('main-content')
-      const scrollTop = scrollElement?.scrollTop || 0
-      
-      setIsScrolled(scrollTop > 100)
+    if (sidebarRoute) {
+      lenisRef.current?.destroy();
+      lenisRef.current = null;
+      return;
     }
 
-    const scrollElement = document.getElementById('main-content')
-    scrollElement?.addEventListener('scroll', handleScroll)
-    
-    handleScroll()
+    const wrapper = mainRef.current;
+    const content = mainContentRef.current;
+    if (!wrapper || !content) return;
+
+    const lenis = new Lenis({
+      wrapper,
+      content,
+      duration: 1.2,
+      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      smoothWheel: true,
+    });
+    lenisRef.current = lenis;
+
+    const scrollHandler = ({ scroll }) => setIsScrolled(scroll > 100);
+    lenis.on("scroll", scrollHandler);
+    scrollHandler({ scroll: lenis.scroll });
+
+    let rafId;
+    const raf = (time) => {
+      lenis.raf(time);
+      rafId = requestAnimationFrame(raf);
+    };
+    rafId = requestAnimationFrame(raf);
 
     return () => {
-      scrollElement?.removeEventListener('scroll', handleScroll)
-    }
-  }, [])
+      cancelAnimationFrame(rafId);
+      lenis.off("scroll", scrollHandler);
+      lenis.destroy();
+      lenisRef.current = null;
+    };
+  }, [sidebarRoute]);
 
   useEffect(() => {
-    const scrollElement = document.getElementById('main-content')
-    if (scrollElement) {
-      scrollElement.scrollTop = 0
+    if (sidebarRoute) {
+      setIsScrolled(false);
+    } else {
+      lenisRef.current?.scrollTo(0, { immediate: true });
     }
-  }, [location.pathname])
+  }, [location.pathname, sidebarRoute]);
 
   // Top Gradient Parallax
   useEffect(() => {
-    if (!isMainPage || !heroGradientRef) return;
+    if (!isMainPage || !heroGradientRef.current) return;
 
-    const gsap = window.gsap
-    if (!gsap || !window.ScrollTrigger) return
+    const gsap = window.gsap;
+    if (!gsap || !window.ScrollTrigger) return;
 
     const heroGrad = heroGradientRef.current;
-    const scroller = document.getElementById('main-content');
+    const scroller = document.getElementById("main-content");
 
     if (!scroller) return;
 
@@ -72,42 +121,44 @@ function App() {
 
     const heroGradTween = gsap.to(heroGrad, {
       y: -500,
-      ease: 'none',
+      ease: "none",
       scrollTrigger: {
-        scroller: scroller,
+        scroller,
         trigger: scroller,
-        start: 'top top',
-        end: '600px top',
+        start: "top top",
+        end: "600px top",
         scrub: true,
-      }
+      },
     });
 
     return () => {
       heroGradTween.scrollTrigger?.kill();
       heroGradTween.kill();
-      gsap.set(heroGrad, { clearProps: 'all' })
-    }
+      gsap.set(heroGrad, { clearProps: "all" });
+    };
   }, [isMainPage]);
 
   return (
     <HelmetProvider>
-        {isLoading && <Preloader onComplete={handlePreloaderComplete} />}
+      {isLoading && <Preloader onComplete={handlePreloaderComplete} />}
         <div className="app relative bg-background overflow-hidden">
           <ScrollToTop />
           <Navbar isScrolled={isScrolled} />
           <ContactBubble />
-          { isMainPage && (
-              // Hero Gradient Top
-              <div ref={heroGradientRef} id='hero-top-gradient' className='absolute top-0 left-1/2 -translate-x-1/2 w-[400%] lg:w-full max-w-[1440px] object-cover z-[1] pointer-events-none flex items-center justify-center'>
-                <img 
+          {isMainPage && (
+            <>
+              <div
+                ref={heroGradientRef}
+                id="hero-top-gradient"
+                className="absolute top-0 left-1/2 -translate-x-1/2 w-[400%] lg:w-full max-w-[1440px] object-cover z-[1] pointer-events-none flex items-center justify-center"
+              >
+                <img
                   src="/images/hero-gradient.webp"
                   alt=""
                   aria-hidden="true"
-                  className='w-full h-full z-[1]'
-                  loading='lazy'
+                  className="w-full h-full z-[1]"
+                  loading="lazy"
                 />
-
-                {/* Noise grid 4×2: satu wrapper, 8 cell dengan background agar tetap satu asset */}
                 <div
                   className="absolute inset-0 z-[2] grid grid-cols-4 grid-rows-2 pointer-events-none opacity-20"
                   aria-hidden="true"
@@ -121,32 +172,61 @@ function App() {
                   ))}
                 </div>
               </div>
-              // End Hero Gradient Top
-            ) }
-          <main id="main-content" className='relative overflow-scroll h-[calc(100dvh-4.5rem)] mt-18'>
-            <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/components" element={<Components />} />
-              <Route path="/components/:componentName" element={<ComponentDetail />} />
-              <Route path="/installation" element={<Installation />} />
-              <Route path="/about" element={<About />} />
-              <Route path="/support" element={<Support />} />
-              <Route path="/contact" element={<Contact />} />
-              <Route path="/faq" element={<FAQ />} />
-              <Route path="/showcase" element={<Showcase />} />
-              <Route path="/blog" element={<Blog />} />
-              <Route path="/blog/:slug" element={<BlogPost />} />
-              <Route path="/release" element={<Release />} />
-              <Route path="/license" element={<License />} />
-              <Route path="*" element={<NotFound />} />
-            </Routes>
-            {isMainPage && <Footer />}
+            </>
+          )}
+          <main
+            ref={mainRef}
+            id="main-content"
+            className={`relative h-[calc(100dvh-4.5rem)] mt-18 overflow-hidden ${
+              sidebarRoute ? "" : "[&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-thumb]:bg-transparent hover:[&::-webkit-scrollbar-thumb]:bg-muted [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:border-2 [&::-webkit-scrollbar-thumb]:border-background"
+            }`}
+          >
+            {sidebarRoute ? (
+              <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/components" element={<Components />} />
+                <Route path="/components/:componentName" element={<ComponentDetail />} />
+                <Route path="/installation" element={<Installation />} />
+                <Route path="/about" element={<About />} />
+                <Route path="/support" element={<Support />} />
+                <Route path="/contact" element={<Contact />} />
+                <Route path="/faq" element={<FAQ />} />
+                <Route path="/showcase" element={<Showcase />} />
+                <Route path="/blog" element={<Blog />} />
+                <Route path="/blog/:slug" element={<BlogPost />} />
+                <Route path="/release" element={<Release />} />
+                <Route path="/license" element={<License />} />
+                <Route path="*" element={<NotFound />} />
+              </Routes>
+            ) : (
+              <>
+                <div ref={mainContentRef} className="min-h-full">
+                  <Routes>
+                    <Route path="/" element={<Home />} />
+                    <Route path="/components" element={<Components />} />
+                    <Route path="/components/:componentName" element={<ComponentDetail />} />
+                    <Route path="/installation" element={<Installation />} />
+                    <Route path="/about" element={<About />} />
+                    <Route path="/support" element={<Support />} />
+                    <Route path="/contact" element={<Contact />} />
+                    <Route path="/faq" element={<FAQ />} />
+                    <Route path="/showcase" element={<Showcase />} />
+                    <Route path="/blog" element={<Blog />} />
+                    <Route path="/blog/:slug" element={<BlogPost />} />
+                    <Route path="/release" element={<Release />} />
+                    <Route path="/license" element={<License />} />
+                    <Route path="*" element={<NotFound />} />
+                  </Routes>
+                  {isMainPage && <Footer onScrollToTop={handleScrollToTop} />}
+                </div>
+              </>
+            )}
           </main>
         </div>
       <Analytics />
       <SpeedInsights />
     </HelmetProvider>
-  )
+  );
 }
 
-export default App
+export default App;

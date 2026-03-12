@@ -63,7 +63,7 @@ const Blog = () => {
                   >
                     <Link
                       to={`/blog/${post.slug}`}
-                      className="relative w-full aspect-[179/80] md:aspect-auto md:w-40 rounded border border-foreground/5 sm:self-stretch sm:flex-shrink-0 overflow-hidden bg-muted"
+                      className="relative w-full aspect-[179/80] md:aspect-video md:w-80  rounded border border-foreground/5 sm:self-stretch sm:flex-shrink-0 overflow-hidden bg-muted"
                     >
                       <img
                         src={post.heroImage}

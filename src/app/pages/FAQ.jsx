@@ -271,7 +271,7 @@ const FAQ = () => {
                           return (
                             <div
                               key={globalIndex}
-                              className="bg-muted rounded p-4 hover:bg-accent transition-all duration-300"
+                              className="bg-base-medium rounded p-4 hover:bg-base-high transition-all duration-300"
                             >
                               <div
                                 className="cursor-pointer"

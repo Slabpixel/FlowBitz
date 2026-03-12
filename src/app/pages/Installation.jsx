@@ -143,7 +143,7 @@ const Installation = () => {
 
             {/* Installation Steps */}
             <div className="w-full max-w-[800px] flex flex-col gap-10 md:py-6">
-              <div className="flex flex-col gap-2">
+              <div className="flex flex-col gap-2 p-4 border border-foreground/10 rounded-lg">
                 <h2 className="text-heading-small text-foreground my-1">
                   1. &nbsp; Adding FlowBitz Script
                 </h2>
@@ -161,17 +161,31 @@ const Installation = () => {
                     paste the script there.
                   </p>
 
-                  <div className="pl-3 w-full flex gap-1.5">
-                    <div className="flex items-center justify-start px-2.5 text-attribute py-1.5 bg-base-high border border-foreground/10 rounded overflow-x-scroll text-nowrap hide-scrollbar">
+                  <div className="relative">
+                    <SyntaxHighlighter
+                      language="html"
+                      style={tomorrow}
+                      customStyle={{
+                        margin: 0,
+                        padding: "0.875rem",
+                        fontSize: "0.75rem",
+                        borderRadius: "0.5rem",
+                        backgroundColor: "#181b27",
+                      }}
+                      codeTagProps={{
+                        style: {
+                          fontFamily: 'Monaco, Menlo, "Ubuntu Mono", monospace',
+                        },
+                      }}
+                    >
                       {
                         '<script src="https://cdn.jsdelivr.net/npm/flowbitz@latest/dist/flowbitz.umd.js"></script>'
                       }
-                    </div>
-
+                    </SyntaxHighlighter>
                     <Button
-                      variant="custom"
-                      size="custom"
-                      className="px-2.5 text-link font-medium text-foreground py-1.5 bg-base-high border border-foreground/10 rounded"
+                      variant="ghost"
+                      size="sm"
+                      className="absolute right-2 top-2 h-8 w-8 p-0 hover:bg-gray-700"
                       onClick={() =>
                         copyToClipboard(
                           '<script src="https://cdn.jsdelivr.net/npm/flowbitz@latest/dist/flowbitz.umd.js"></script>',
@@ -179,7 +193,11 @@ const Installation = () => {
                         )
                       }
                     >
-                      {copyStates.scriptTag ? <p>Copied</p> : <p>Copy</p>}
+                      {copyStates.scriptTag ? (
+                        <CheckCircle className="w-4 h-4 text-green-500" />
+                      ) : (
+                        <Copy className="w-4 h-4 text-white" />
+                      )}
                     </Button>
                   </div>
 
@@ -190,7 +208,7 @@ const Installation = () => {
                 </div>
               </div>
 
-              <div className="flex flex-col gap-2 pb-4">
+              <div className="flex flex-col gap-2 p-4 border border-foreground/10 rounded-lg">
                 <h2 className="text-heading-small text-foreground my-1">
                   2. &nbsp; Adding FlowBitz Component
                 </h2>
@@ -209,64 +227,76 @@ const Installation = () => {
                     adding the attribute name and value.
                   </p>
 
-                  <div className="flex flex-col md:flex-row gap-2 md:gap-10">
-                    <div className="flex flex-col gap-1.5 py-2">
-                      <p className="text-paragraph large text-text-medium">
-                        Attribute Name
-                      </p>
-
-                      <div className="flex items-stretch gap-1.5">
-                        <div className="px-2.5 flex items-center justify-center text-attribute py-1.5 bg-base-high border border-foreground/10 rounded">
-                          wb-component
+                  <div className="space-y-4">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      <div className="flex flex-col gap-2">
+                        <label className="text-paragraph large text-text-medium">
+                          Attribute Name
+                        </label>
+                        <div className="relative">
+                          <input
+                            type="text"
+                            value="wb-component"
+                            readOnly
+                            className="w-full p-2.5 flex items-center justify-center text-attribute bg-base-high border border-foreground/10 rounded"
+                          />
+                          <Button
+                            variant="ghost"
+                            size="sm"
+                            className="absolute right-1 top-1/2 -translate-y-1/2 h-8 w-8 p-0 hover:bg-accent"
+                            onClick={() =>
+                              copyToClipboard("wb-component", "attributeName")
+                            }
+                          >
+                            {copyStates.attributeName ? (
+                              <CheckCircle className="w-4 h-4 text-green-500" />
+                            ) : (
+                              <Copy className="w-4 h-4" />
+                            )}
+                          </Button>
                         </div>
-
-                        <Button
-                          variant="custom"
-                          size="custom"
-                          className="px-2.5 text-link font-medium text-foreground py-1.5 bg-base-high border border-foreground/10 rounded"
-                          onClick={() =>
-                            copyToClipboard("wb-component", "attrName")
-                          }
-                        >
-                          {copyStates.attrName ? <p>Copied</p> : <p>Copy</p>}
-                        </Button>
                       </div>
-                    </div>
 
-                    <div className="flex flex-col gap-1.5 py-2">
-                      <p className="text-paragraph large text-text-medium">
-                        Example Value
-                      </p>
-
-                      <div className="flex items-stretch gap-1.5">
-                        <div className="px-2.5 flex items-center justify-center text-attribute py-1.5 bg-base-high border border-foreground/10 rounded">
-                          text-type
+                      <div className="flex flex-col gap-2">
+                        <label className="text-paragraph large text-text-medium">
+                          Example Value
+                        </label>
+                        <div className="relative">
+                          <input
+                            type="text"
+                            value="text-type"
+                            readOnly
+                            className="w-full p-2.5 flex items-center justify-center text-attribute bg-base-high border border-foreground/10 rounded"
+                          />
+                          <Button
+                            variant="ghost"
+                            size="sm"
+                            className="absolute right-1 top-1/2 -translate-y-1/2 h-8 w-8 p-0 hover:bg-accent"
+                            onClick={() =>
+                              copyToClipboard("text-type", "attributeValue")
+                            }
+                          >
+                            {copyStates.attributeValue ? (
+                              <CheckCircle className="w-4 h-4 text-green-500" />
+                            ) : (
+                              <Copy className="w-4 h-4" />
+                            )}
+                          </Button>
                         </div>
-
-                        <Button
-                          variant="custom"
-                          size="custom"
-                          className="px-2.5 text-link font-medium text-foreground py-1.5 bg-base-high border border-foreground/10 rounded"
-                          onClick={() =>
-                            copyToClipboard("text-type", "attrValue")
-                          }
-                        >
-                          {copyStates.attrValue ? <p>Copied</p> : <p>Copy</p>}
-                        </Button>
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
 
-              <div className="flex flex-col gap-2">
+              <div className="flex flex-col gap-2 p-4 border border-foreground/10 rounded-lg">
                 <h2 className="text-heading-small text-foreground my-1">
                   3. &nbsp; Customize with Attributes
                 </h2>
 
                 <div className="relative w-full ml-8">
                   <video
-                    className="w-[68%] rounded-lg border border-border shadow-lg"
+                    className="rounded-lg border border-border shadow-lg"
                     autoPlay
                     loop
                     muted
@@ -297,7 +327,7 @@ const Installation = () => {
                 </p>
               </div>
 
-              <div className="flex flex-col gap-2 pb-4">
+              <div className="flex flex-col gap-2 p-4 border border-foreground/10 rounded-lg">
                 <h2 className="text-heading-small text-foreground my-1">
                   4. &nbsp; Publish Your Site
                 </h2>
@@ -327,7 +357,7 @@ const Installation = () => {
                 {installationFAQItems.map((item, index) => (
                   <div
                     key={index}
-                    className="bg-muted rounded p-4 hover:bg-accent transition-all duration-300"
+                    className="bg-base-medium rounded p-4 hover:bg-base-high transition-all duration-300"
                   >
                     <div
                       className="cursor-pointer"

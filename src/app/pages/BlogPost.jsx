@@ -67,7 +67,11 @@ const BlogPost = () => {
         structuredData={structuredData}
       />
       <article className="relative z-[2] md:pt-14 pt-10 pb-12 bg-transparent text-foreground max-w-[1200px] mx-auto border-x border-foreground/10">
-        <div className="mx-auto flex w-full lg:max-w-[800px] flex-col gap-8 px-4 lg:px-0">
+        <div
+          key={slug}
+          wb-component="smart-animate"
+          className="mx-auto flex w-full lg:max-w-[800px] flex-col gap-8 px-4 lg:px-0"
+        >
           <Link
             to="/blog"
             className={cn(
@@ -78,6 +82,7 @@ const BlogPost = () => {
             <FontAwesomeIcon icon={["far", "arrow-left"]} className="w-3 h-3" />
             Back
           </Link>
+
           <header className="flex flex-col items-center justify-center gap-2">
             <div className="flex gap-2">
               <Link

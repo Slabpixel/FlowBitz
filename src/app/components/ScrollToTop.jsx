@@ -1,19 +1,19 @@
-import React, { useEffect } from 'react'
-import { useLocation } from 'react-router-dom'
+import React, { useEffect } from "react";
+import { useLocation } from "react-router-dom";
 
 const ScrollToTop = () => {
-  const { pathname } = useLocation()
+  const { pathname } = useLocation();
 
   useEffect(() => {
     requestAnimationFrame(() => {
-      const mainContent = document.getElementById('main-content')
+      const mainContent = document.getElementById("main-content");
       if (mainContent) {
-        mainContent.scrollTop = 0
+        mainContent.scrollTop = 0;
       }
-    })
-  }, [pathname])
+    });
+  }, [pathname]);
 
-  return null
-}
+  return null;
+};
 
-export default ScrollToTop
+export default ScrollToTop;
