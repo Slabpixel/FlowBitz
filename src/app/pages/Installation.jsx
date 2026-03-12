@@ -294,7 +294,7 @@ const Installation = () => {
                   3. &nbsp; Customize with Attributes
                 </h2>
 
-                <div className="relative w-full ml-8">
+                <div className="relative w-full pl-8">
                   <video
                     className="rounded-lg border border-border shadow-lg"
                     autoPlay
