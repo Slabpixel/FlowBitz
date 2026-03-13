@@ -5,13 +5,15 @@ import FilterNav from './FilterNav'
 import ComponentCard from './ComponentCard'
 import { componentsMetadata, getFilteredComponentKeys } from '../../../library/data/componentsMetadata'
 import { useWebflowBits } from '../../hooks/useWebflowBits'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
-const MAX_ITEMS = 9
+const ITEMS_PER_PAGE = 9
 
-const GalleryContainer = () => {
+const GalleryContainer = ({ showAll = false }) => {
   const navigate = useNavigate()
-  const [activeFilter, setActiveFilter] = useState('text')
+  const [activeFilter, setActiveFilter] = useState(showAll ? 'all' : 'text')
   const [searchQuery, setSearchQuery] = useState('')
+  const [visibleCount, setVisibleCount] = useState(ITEMS_PER_PAGE)
   const { reinitializeComponents } = useWebflowBits()
 
   // Get all filtered component keys and map to full data
@@ -45,10 +47,17 @@ const GalleryContainer = () => {
     return result
   }, [allComponents, activeFilter, searchQuery])
 
-  // Limit to MAX_ITEMS
+  // Reset visible count when filter/search changes
+  useEffect(() => {
+    setVisibleCount(ITEMS_PER_PAGE)
+  }, [activeFilter, searchQuery])
+
   const displayedComponents = useMemo(() => {
-    return filteredComponents.slice(0, MAX_ITEMS)
-  }, [filteredComponents])
+    const limit = showAll ? visibleCount : ITEMS_PER_PAGE
+    return filteredComponents.slice(0, limit)
+  }, [filteredComponents, showAll, visibleCount])
+
+  const hasMore = showAll && displayedComponents.length < filteredComponents.length
 
   // Reinitialize FlowBitz components after render or filter change
   useEffect(() => {
@@ -84,14 +93,16 @@ const GalleryContainer = () => {
   }
 
   return (
-    <section>
-      <div className="max-w-[1200px] mx-auto">
+    <section className='w-full px-2 lg:px-0'>
+      <div className="max-w-[1200px] gap-6 md:gap-0 mx-auto">
         {/* Filter Navigation */}
         <FilterNav 
           activeFilter={activeFilter}
           onFilterChange={handleFilterChange}
           searchQuery={searchQuery}
           onSearchChange={handleSearchChange}
+          showAll={showAll}
+          className={`${showAll ? 'md:py-8' : 'border-x border-foreground/10 md:p-8'}`}
         />
 
         {/* Components Grid */}
@@ -127,16 +138,28 @@ const GalleryContainer = () => {
           </div>
         )}
 
-        {/* See More Button */}
+        {/* Load More (showAll) or See More (!showAll) */}
         {filteredComponents.length > 0 && (
-          <div className="flex justify-center py-8 border-x border-b border-foreground/10">
-            <button 
-              onClick={() => navigate('/components')}
-              className="flex items-center gap-2 px-6 py-3 border border-foreground/10 rounded text-foreground hover:text-foreground/70 transition-colors duration-200"
-            >
-              <span className="text-sm font-medium">See More</span>
-              <ArrowRight className="w-4 h-4" />
-            </button>
+          <div className={`flex justify-center pt-14 md:pt-6 pb-[3.75rem] md:pb-5 ${showAll ? '' : 'border-x border-foreground/10'}`}>
+            {showAll ? (
+              hasMore && (
+                <button 
+                  onClick={() => setVisibleCount(prev => prev + ITEMS_PER_PAGE)}
+                  className="flex items-center gap-2 px-6 py-3 border border-foreground/10 rounded text-foreground hover:text-foreground/70 transition-colors duration-200"
+                >
+                  <span className="text-sm font-medium">Load More</span>
+                  <FontAwesomeIcon icon={['far', 'chevron-down']} className='w-4 h-4 opacity-60'/>
+                </button>
+              )
+            ) : (
+              <button 
+                onClick={() => navigate('/components')}
+                className="flex items-center gap-2 px-6 py-3 border border-foreground/10 rounded text-foreground hover:text-foreground/70 transition-colors duration-200"
+              >
+                <span className="text-sm font-medium">See More</span>
+                <FontAwesomeIcon icon={['far', 'arrow-right']} className='w-4 h-4 opacity-60'/>
+              </button>
+            )}
           </div>
         )}
       </div>

@@ -1,56 +1,59 @@
-import React, { useMemo } from 'react'
-import { Link, Navigate, useParams } from 'react-router-dom'
-import { ArrowLeft, ArrowRight, Calendar, Clock } from 'lucide-react'
-import SEO from '../components/SEO.jsx'
-import { getAdjacentPosts, getPostContent } from '../data/blogPosts.js'
-import { cn } from '../../shared/lib/utils.js'
-import { buttonVariants } from '../components/ui/button.jsx'
+import React, { useMemo, useState } from "react";
+import { Link, Navigate, useParams } from "react-router-dom";
+import { ArrowLeft, ArrowRight, Calendar, Clock } from "lucide-react";
+import SEO from "../components/SEO.jsx";
+import { getAdjacentPosts, getPostContent } from "../data/blogPosts.js";
+import { cn } from "../../shared/lib/utils.js";
+import { buttonVariants } from "../components/ui/button.jsx";
+import Footer from "../components/layout/Footer.jsx";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const formatDate = (value) => {
   try {
-    return new Intl.DateTimeFormat('en-US', {
-      month: 'long',
-      day: 'numeric',
-      year: 'numeric'
-    }).format(new Date(value))
+    return new Intl.DateTimeFormat("en-US", {
+      month: "long",
+      day: "numeric",
+      year: "numeric",
+    }).format(new Date(value));
   } catch (error) {
-    console.warn('Unable to format date', value, error)
-    return value
+    console.warn("Unable to format date", value, error);
+    return value;
   }
-}
+};
 
 const BlogPost = () => {
-  const { slug } = useParams()
-  const post = useMemo(() => getPostContent(slug), [slug])
+  const { slug } = useParams();
+  const [copied, setCopied] = useState(false);
+  const post = useMemo(() => getPostContent(slug), [slug]);
 
-  const { previous, next } = useMemo(() => getAdjacentPosts(slug), [slug])
+  const { previous, next } = useMemo(() => getAdjacentPosts(slug), [slug]);
 
   if (!post) {
-    return <Navigate to="/blog" replace />
+    return <Navigate to="/blog" replace />;
   }
 
   const structuredData = {
     "@context": "https://schema.org",
     "@type": "BlogPosting",
-    "headline": post.title,
-    "datePublished": post.publishedAt,
-    "dateModified": post.publishedAt,
-    "description": post.description,
-    "articleBody": post.excerpt,
-    "wordCount": post.words,
-    "timeRequired": `PT${Math.max(1, post.readingMinutes)}M`,
-    "url": `https://www.flowbitz.dev/blog/${post.slug}`,
-    "author": {
+    headline: post.title,
+    datePublished: post.publishedAt,
+    dateModified: post.publishedAt,
+    description: post.description,
+    articleBody: post.excerpt,
+    wordCount: post.words,
+    timeRequired: `PT${Math.max(1, post.readingMinutes)}M`,
+    url: `https://www.flowbitz.dev/blog/${post.slug}`,
+    author: {
       "@type": "Organization",
-      "name": "SlabPixel Studio",
-      "url": "https://slabpixel.com"
+      name: "SlabPixel Studio",
+      url: "https://slabpixel.com",
     },
-    "publisher": {
+    publisher: {
       "@type": "Organization",
-      "name": "SlabPixel Studio",
-      "url": "https://slabpixel.com"
-    }
-  }
+      name: "SlabPixel Studio",
+      url: "https://slabpixel.com",
+    },
+  };
 
   return (
     <>
@@ -63,66 +66,91 @@ const BlogPost = () => {
         publishedTime={post.publishedAt}
         structuredData={structuredData}
       />
-      <article className="bg-background text-foreground pt-24 pb-16">
-        <div className="mx-auto flex w-full max-w-3xl flex-col gap-10 px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center gap-2">
-            <Link
-              to="/blog"
-              className={cn(
-                buttonVariants({ variant: 'ghost', size: 'sm' }),
-                'gap-2 px-2 text-sm text-muted-foreground hover:text-foreground'
-              )}
+      <article className="relative z-[2] md:pt-14 pt-10 pb-12 bg-transparent text-foreground max-w-[1200px] mx-auto border-x border-foreground/10">
+        <div
+          key={slug}
+          wb-component="smart-animate"
+          className="mx-auto flex w-full lg:max-w-[800px] flex-col gap-8 px-4 lg:px-0"
+        >
+          <Link
+            to="/blog"
+            className={cn(
+              buttonVariants({ variant: "custom", size: "custom" }),
+              "gap-2 w-fit h-10 flex justify-center items-center me-auto",
+            )}
+          >
+            <FontAwesomeIcon icon={["far", "arrow-left"]} className="w-3 h-3" />
+            Back
+          </Link>
+
+          <header className="flex flex-col items-center justify-center gap-2">
+            <div className="flex gap-2">
+              <Link
+                to="/blog"
+                className={cn(
+                  buttonVariants({ variant: "custom", size: "custom" }),
+                  "gap-2 w-fit flex justify-center items-center",
+                )}
+              >
+                <p className="text-link font-medium text-text-medium hover:text-foreground">
+                  Blog/
+                </p>
+              </Link>
+
+              <p className="text-link font-medium text-foreground">Creative</p>
+            </div>
+
+            <h1 className="inter-semi-32 text-foreground text-center">
+              {post.title}
+            </h1>
+          </header>
+
+          {post.heroImage && (
+            <img
+              src={post.heroImage}
+              alt={post.title}
+              className="w-full rounded-3xl border border-border"
+              loading="lazy"
+            />
+          )}
+
+          <div className="flex items-center justify-between">
+            <div className="inline-flex items-center gap-2 text-link font-medium text-text-medium">
+              <div className="flex gap-1.5 items-center">
+                <div className="w-5 h-5 flex items-center justify-center">
+                  <FontAwesomeIcon
+                    icon={["far", "calendar"]}
+                    className="w-4 h-4"
+                  />
+                </div>
+                <span>{formatDate(post.publishedAt)}</span>
+              </div>
+
+              <span className="block" aria-hidden="true">
+                •
+              </span>
+
+              <span>{post.readingMinutes} min read</span>
+            </div>
+
+            <button
+              onClick={() => {
+                navigator.clipboard.writeText(window.location.href);
+                setCopied(true);
+                setTimeout(() => setCopied(false), 2000);
+              }}
+              className="flex items-center gap-2 text-link font-medium text-foreground hover:text-foreground/50 transition-colors duration-200"
             >
-              <ArrowLeft className="h-4 w-4" />
-              Back to blog
-            </Link>
+              <FontAwesomeIcon icon={["far", "link"]} className="w-4 h-4" />
+              {copied ? "Copied!" : "Share"}
+            </button>
           </div>
 
-          <header className="space-y-6">
-            <div className="space-y-4">
-              <p className="inline-flex items-center gap-2 text-sm text-muted-foreground">
-                <span className="inline-flex items-center gap-2">
-                  <Calendar className="h-4 w-4" />
-                  {formatDate(post.publishedAt)}
-                </span>
-                <span aria-hidden="true">•</span>
-                <span className="inline-flex items-center gap-2">
-                  <Clock className="h-4 w-4" />
-                  {post.readingMinutes} min read
-                </span>
-              </p>
-              <h1 className="text-3xl font-bold tracking-tight sm:text-4xl">
-                {post.title}
-              </h1>
-              <p className="text-base text-muted-foreground sm:text-lg">
-                {post.description}
-              </p>
-              {post.tags?.length > 0 && (
-                <div className="flex flex-wrap gap-2">
-                  {post.tags.map((tag) => (
-                    <span
-                      key={tag}
-                      className="rounded-full border border-border px-3 py-1 text-xs font-medium text-muted-foreground"
-                    >
-                      #{tag}
-                    </span>
-                  ))}
-                </div>
-              )}
-            </div>
-            {post.heroImage && (
-              <img
-                src={post.heroImage}
-                alt={post.title}
-                className="w-full rounded-3xl border border-border"
-                loading="lazy"
-              />
-            )}
-          </header>
+          <div className="h-[1px] w-full bg-foreground/10" />
 
           {post.body ? (
             <div
-              className="blog-article space-y-6 text-muted-foreground"
+              className="blog-article text-muted-foreground"
               dangerouslySetInnerHTML={{ __html: post.body }}
             />
           ) : (
@@ -132,32 +160,89 @@ const BlogPost = () => {
           )}
 
           <footer className="border-t border-border pt-8">
-            <div className="flex flex-col gap-3 text-sm text-muted-foreground">
-              <span>Published {formatDate(post.publishedAt)}</span>
-            </div>
-            <div className="mt-6 flex flex-wrap gap-3">
+            <div className="mt-6 flex flex-col md:flex-row w-full gap-10 md:gap-6">
               {previous && (
                 <Link
                   to={`/blog/${previous.slug}`}
-                  className={cn(
-                    buttonVariants({ variant: 'outline', size: 'sm' }),
-                    'gap-2'
-                  )}
+                  className="w-full  md:w-1/2 flex flex-col"
                 >
-                  <ArrowLeft className="h-4 w-4" />
-                  Previous
+                  <div className="overflow-hidden rounded w-full aspect-[388/230]">
+                    <img
+                      src={previous.heroImage}
+                      alt={previous.title}
+                      className="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
+                    />
+                  </div>
+
+                  <div className="flex flex-col gap-2 py-4">
+                    <div className="inline-flex items-center gap-2 text-link font-medium text-text-medium">
+                      <div className="flex gap-1.5 items-center">
+                        <div className="w-5 h-5 flex items-center justify-center">
+                          <FontAwesomeIcon
+                            icon={["far", "calendar"]}
+                            className="w-4 h-4"
+                          />
+                        </div>
+                        <span>{formatDate(previous.publishedAt)}</span>
+                      </div>
+
+                      <span className="block" aria-hidden="true">
+                        •
+                      </span>
+
+                      <span>{previous.readingMinutes} min read</span>
+                    </div>
+
+                    <p className="inter-med-16 blog text-foreground">
+                      {previous.title}
+                    </p>
+
+                    <p className="md:hidden line-clamp-2 text-paragraph text-text-medium">
+                      {previous.description}
+                    </p>
+                  </div>
                 </Link>
               )}
               {next && (
                 <Link
                   to={`/blog/${next.slug}`}
-                  className={cn(
-                    buttonVariants({ variant: 'outline', size: 'sm' }),
-                    'gap-2'
-                  )}
+                  className="w-full  md:w-1/2 flex flex-col"
                 >
-                  Next
-                  <ArrowRight className="h-4 w-4" />
+                  <div className="overflow-hidden rounded w-full aspect-[388/230]">
+                    <img
+                      src={next.heroImage}
+                      alt={next.title}
+                      className="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
+                    />
+                  </div>
+
+                  <div className="flex flex-col gap-2 py-4">
+                    <div className="inline-flex items-center gap-2 text-link font-medium text-text-medium">
+                      <div className="flex gap-1.5 items-center">
+                        <div className="w-5 h-5 flex items-center justify-center">
+                          <FontAwesomeIcon
+                            icon={["far", "calendar"]}
+                            className="w-4 h-4"
+                          />
+                        </div>
+                        <span>{formatDate(next.publishedAt)}</span>
+                      </div>
+
+                      <span className="block" aria-hidden="true">
+                        •
+                      </span>
+
+                      <span>{next.readingMinutes} min read</span>
+                    </div>
+
+                    <p className="inter-med-16 blog text-foreground">
+                      {next.title}
+                    </p>
+
+                    <p className="md:hidden line-clamp-2 text-paragraph text-text-medium">
+                      {next.description}
+                    </p>
+                  </div>
                 </Link>
               )}
             </div>
@@ -165,9 +250,7 @@ const BlogPost = () => {
         </div>
       </article>
     </>
-  )
-}
+  );
+};
 
-export default BlogPost
-
-
+export default BlogPost;
