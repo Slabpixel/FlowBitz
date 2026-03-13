@@ -118,16 +118,15 @@ body {
   color: var(--text-primary);
   background-color: var(--bg-primary);
   overflow-x: hidden;
-  overflow-y: auto;
-  -webkit-overflow-scrolling: touch;
+  /* Let Lenis / app container control vertical scrolling */
+  overflow-y: hidden;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 #root {
   height: 100%;
-  overflow-y: auto;
-  -webkit-overflow-scrolling: touch;
+  overflow: hidden;
 }
 
 .hide-scrollbar {
@@ -141,8 +140,8 @@ body {
 
 .app {
   min-height: 100vh;
-  overflow-y: auto;
-  -webkit-overflow-scrolling: touch;
+  /* Vertical scroll is handled by #main-content / Lenis */
+  overflow: hidden;
 }
 
 /* Component Custom Font */

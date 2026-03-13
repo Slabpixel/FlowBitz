@@ -322,7 +322,7 @@ const Showcase = () => {
         url="https://www.flowbitz.dev/showcase"
         structuredData={structuredData}
       />
-      <section className="bg-background text-foreground min-h-screen relative overflow-hidden pb-16 md:pb-10">
+      <section className="bg-transparent text-foreground min-h-screen relative overflow-hidden pb-16 md:pb-10">
         <div className="max-w-[1200px] lg:mx-auto mx-2 relative z-[2] border-x border-foreground/10">
           {/* Hero Section */}
           <div
