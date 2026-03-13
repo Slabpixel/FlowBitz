@@ -36,6 +36,9 @@ function App() {
   const location = useLocation();
   const [isLoading, setIsLoading] = useState(true);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isDesktop, setIsDesktop] = useState(
+    typeof window !== "undefined" ? window.innerWidth >= 1024 : true
+  );
   const heroGradientRef = useRef(null);
   const mainRef = useRef(null);
   const mainContentRef = useRef(null);
@@ -57,9 +60,28 @@ function App() {
 
   const sidebarRoute = isSidebarRoute(location.pathname);
 
-  // Lenis on #main-content only when NOT on a Sidebar page
+  // Track desktop vs mobile breakpoint (tailwind lg ≈ 1024px)
   useEffect(() => {
-    if (sidebarRoute) {
+    if (typeof window === "undefined") return;
+
+    const mq = window.matchMedia("(min-width: 1024px)");
+
+    const handleChange = (e) => {
+      setIsDesktop(e.matches);
+    };
+
+    // Initial sync
+    setIsDesktop(mq.matches);
+
+    mq.addEventListener("change", handleChange);
+    return () => mq.removeEventListener("change", handleChange);
+  }, []);
+
+  // Lenis on #main-content only when:
+  // - Bukan halaman Sidebar, dan
+  // - Breakpoint desktop (isDesktop === true)
+  useEffect(() => {
+    if (sidebarRoute || !isDesktop) {
       lenisRef.current?.destroy();
       lenisRef.current = null;
       return;
@@ -95,7 +117,7 @@ function App() {
       lenis.destroy();
       lenisRef.current = null;
     };
-  }, [sidebarRoute]);
+  }, [sidebarRoute, isDesktop]);
 
   useEffect(() => {
     if (sidebarRoute) {
@@ -177,7 +199,7 @@ function App() {
           <main
             ref={mainRef}
             id="main-content"
-            className={`relative h-[calc(100dvh-4.5rem)] mt-18 overflow-hidden ${
+            className={`relative h-[calc(100dvh-4.5rem)] mt-18 overflow-y-auto overflow-x-hidden ${
               sidebarRoute ? "" : "[&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-thumb]:bg-transparent hover:[&::-webkit-scrollbar-thumb]:bg-muted [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:border-2 [&::-webkit-scrollbar-thumb]:border-background"
             }`}
           >
