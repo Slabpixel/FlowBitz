@@ -24,11 +24,17 @@ import NotFound from "./pages/NotFound";
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/react";
 
-const SIDEBAR_PATHS = ["/components", "/installation", "/support", "/faq", "/about"];
+const SIDEBAR_PATHS = [
+  "/components",
+  "/installation",
+  "/support",
+  "/faq",
+  "/about",
+];
 
 function isSidebarRoute(pathname) {
   return SIDEBAR_PATHS.some(
-    (path) => pathname === path || pathname.startsWith(`${path}/`)
+    (path) => pathname === path || pathname.startsWith(`${path}/`),
   );
 }
 
@@ -37,7 +43,7 @@ function App() {
   const [isLoading, setIsLoading] = useState(true);
   const [isScrolled, setIsScrolled] = useState(false);
   const [isDesktop, setIsDesktop] = useState(
-    typeof window !== "undefined" ? window.innerWidth >= 1024 : true
+    typeof window !== "undefined" ? window.innerWidth >= 1024 : true,
   );
   const heroGradientRef = useRef(null);
   const mainRef = useRef(null);
@@ -163,88 +169,96 @@ function App() {
   return (
     <HelmetProvider>
       {isLoading && <Preloader onComplete={handlePreloaderComplete} />}
-        <div className="app relative bg-background overflow-hidden">
-          <ScrollToTop />
-          <Navbar isScrolled={isScrolled} />
-          <ContactBubble />
-          {isMainPage && (
-            <>
+      <div className="app relative bg-background overflow-hidden">
+        <ScrollToTop />
+        <Navbar isScrolled={isScrolled} />
+        <ContactBubble />
+        {isMainPage && (
+          <>
+            <div
+              ref={heroGradientRef}
+              id="hero-top-gradient"
+              className="absolute top-0 left-1/2 -translate-x-1/2 w-[400%] lg:w-full max-w-[1440px] object-cover z-[1] pointer-events-none flex items-center justify-center"
+            >
+              <img
+                src="/images/hero-gradient.webp"
+                alt=""
+                aria-hidden="true"
+                className="w-full h-full z-[1]"
+                loading="lazy"
+              />
               <div
-                ref={heroGradientRef}
-                id="hero-top-gradient"
-                className="absolute top-0 left-1/2 -translate-x-1/2 w-[400%] lg:w-full max-w-[1440px] object-cover z-[1] pointer-events-none flex items-center justify-center"
+                className="absolute inset-0 z-[2] grid grid-cols-4 grid-rows-2 pointer-events-none opacity-20"
+                aria-hidden="true"
               >
-                <img
-                  src="/images/hero-gradient.webp"
-                  alt=""
-                  aria-hidden="true"
-                  className="w-full h-full z-[1]"
-                  loading="lazy"
-                />
-                <div
-                  className="absolute inset-0 z-[2] grid grid-cols-4 grid-rows-2 pointer-events-none opacity-20"
-                  aria-hidden="true"
-                >
-                  {Array.from({ length: 8 }, (_, i) => (
-                    <div
-                      key={i}
-                      className="bg-cover bg-center bg-no-repeat"
-                      style={{ backgroundImage: "url('/images/noise.webp')" }}
-                    />
-                  ))}
-                </div>
+                {Array.from({ length: 8 }, (_, i) => (
+                  <div
+                    key={i}
+                    className="bg-cover bg-center bg-no-repeat"
+                    style={{ backgroundImage: "url('/images/noise.webp')" }}
+                  />
+                ))}
+              </div>
+            </div>
+          </>
+        )}
+        <main
+          ref={mainRef}
+          id="main-content"
+          className={`relative z-[2] h-[calc(100dvh-4.5rem)] mt-18 overflow-y-auto overflow-x-hidden ${
+            sidebarRoute
+              ? ""
+              : "[&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-thumb]:bg-transparent hover:[&::-webkit-scrollbar-thumb]:bg-muted [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:border-2 [&::-webkit-scrollbar-thumb]:border-background"
+          }`}
+        >
+          {sidebarRoute ? (
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/components" element={<Components />} />
+              <Route
+                path="/components/:componentName"
+                element={<ComponentDetail />}
+              />
+              <Route path="/installation" element={<Installation />} />
+              <Route path="/about" element={<About />} />
+              <Route path="/support" element={<Support />} />
+              <Route path="/contact" element={<Contact />} />
+              <Route path="/faq" element={<FAQ />} />
+              <Route path="/showcase" element={<Showcase />} />
+              <Route path="/blog" element={<Blog />} />
+              <Route path="/blog/:slug" element={<BlogPost />} />
+              <Route path="/release" element={<Release />} />
+              <Route path="/license" element={<License />} />
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+          ) : (
+            <>
+              <div ref={mainContentRef} className="min-h-full">
+                <Routes>
+                  <Route path="/" element={<Home />} />
+                  <Route path="/components" element={<Components />} />
+                  <Route
+                    path="/components/:componentName"
+                    element={<ComponentDetail />}
+                  />
+                  <Route path="/installation" element={<Installation />} />
+                  <Route path="/about" element={<About />} />
+                  <Route path="/support" element={<Support />} />
+                  <Route path="/contact" element={<Contact />} />
+                  <Route path="/faq" element={<FAQ />} />
+                  <Route path="/showcase" element={<Showcase />} />
+                  <Route path="/blog" element={<Blog />} />
+                  <Route path="/blog/:slug" element={<BlogPost />} />
+                  <Route path="/release" element={<Release />} />
+                  <Route path="/license" element={<License />} />
+                  <Route path="*" element={<NotFound />} />
+                </Routes>
+                {isMainPage && <Footer onScrollToTop={handleScrollToTop} />}
               </div>
             </>
           )}
-          <main
-            ref={mainRef}
-            id="main-content"
-            className={`relative h-[calc(100dvh-4.5rem)] mt-18 overflow-y-auto overflow-x-hidden ${
-              sidebarRoute ? "" : "[&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-thumb]:bg-transparent hover:[&::-webkit-scrollbar-thumb]:bg-muted [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:border-2 [&::-webkit-scrollbar-thumb]:border-background"
-            }`}
-          >
-            {sidebarRoute ? (
-              <Routes>
-                <Route path="/" element={<Home />} />
-                <Route path="/components" element={<Components />} />
-                <Route path="/components/:componentName" element={<ComponentDetail />} />
-                <Route path="/installation" element={<Installation />} />
-                <Route path="/about" element={<About />} />
-                <Route path="/support" element={<Support />} />
-                <Route path="/contact" element={<Contact />} />
-                <Route path="/faq" element={<FAQ />} />
-                <Route path="/showcase" element={<Showcase />} />
-                <Route path="/blog" element={<Blog />} />
-                <Route path="/blog/:slug" element={<BlogPost />} />
-                <Route path="/release" element={<Release />} />
-                <Route path="/license" element={<License />} />
-                <Route path="*" element={<NotFound />} />
-              </Routes>
-            ) : (
-              <>
-                <div ref={mainContentRef} className="min-h-full">
-                  <Routes>
-                    <Route path="/" element={<Home />} />
-                    <Route path="/components" element={<Components />} />
-                    <Route path="/components/:componentName" element={<ComponentDetail />} />
-                    <Route path="/installation" element={<Installation />} />
-                    <Route path="/about" element={<About />} />
-                    <Route path="/support" element={<Support />} />
-                    <Route path="/contact" element={<Contact />} />
-                    <Route path="/faq" element={<FAQ />} />
-                    <Route path="/showcase" element={<Showcase />} />
-                    <Route path="/blog" element={<Blog />} />
-                    <Route path="/blog/:slug" element={<BlogPost />} />
-                    <Route path="/release" element={<Release />} />
-                    <Route path="/license" element={<License />} />
-                    <Route path="*" element={<NotFound />} />
-                  </Routes>
-                  {isMainPage && <Footer onScrollToTop={handleScrollToTop} />}
-                </div>
-              </>
-            )}
-          </main>
-        </div>
+        </main>
+      </div>
       <Analytics />
       <SpeedInsights />
     </HelmetProvider>
