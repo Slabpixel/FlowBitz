@@ -27,6 +27,20 @@ const Contact = () => {
     useCase: ''
   })
 
+  const structuredData = {
+    '@context': 'https://schema.org',
+    '@type': 'ContactPage',
+    name: 'Contact FlowBitz',
+    description:
+      "Contact the FlowBitz team for support, bug reports, or feature requests. Get help with your Webflow animations and provide feedback.",
+    url: 'https://www.flowbitz.dev/contact',
+    publisher: {
+      '@type': 'Organization',
+      name: 'SlabPixel Studio',
+      url: 'https://slabpixel.com',
+    },
+  }
+
   // Handle URL parameters for tab switching
   useEffect(() => {
     const tab = searchParams.get('tab')
@@ -154,6 +168,9 @@ const Contact = () => {
         title="Contact FlowBitz - Get Support & Submit Feedback"
         description="Contact the FlowBitz team for support, bug reports, or feature requests. Get help with your Webflow animations and provide feedback."
         keywords="contact flowbitz, webflow support, bug report, feature request, animation help"
+        image="https://www.slabpixel.dev/images/FlowBitz-OpenGraph.webp"
+        url="https://www.flowbitz.dev/contact"
+        structuredData={structuredData}
       />
       
       <div className="bg-transparent text-foreground relative z-[2]">
