@@ -344,7 +344,7 @@ const MultiColorControl = ({ value, onChange, disabled }) => {
     <div className="flex flex-col">
       {/* Gradient Preview */}
       <div
-        className="w-full my-2 rounded-[8px] h-[18px]"
+        className="w-full my-2 rounded-md h-6"
         style={{
           background: `linear-gradient(to right, ${colors.join(", ")})`,
         }}
