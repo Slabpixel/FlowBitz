@@ -6,16 +6,11 @@ import Sidebar from './Sidebar'
 
 const Navbar = ({ isScrolled }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
-  const [fullNav, setFullNav] = useState(false)
   const location = useLocation()
   const navigate = useNavigate()
   const SIDEBAR_PATHS = ['/components', '/installation', '/support', '/faq', '/about']
 
   useEffect(() => {
-    const hasSidebar = SIDEBAR_PATHS.some(path =>
-      location.pathname === path || location.pathname.startsWith(`${path}/`)
-    )
-    setFullNav(hasSidebar)
     setIsMenuOpen(false)
   }, [location.pathname])
 
@@ -36,32 +31,24 @@ const Navbar = ({ isScrolled }) => {
       border-white/10
     `}>
       {/* Navbar Desktop Container */}
-      <div className={`
-        mx-auto px-4 py-4 sm:px-6 flex items-center justify-between lg:justify-normal transition-all duration-500 
-        ${ fullNav ? 'lg:px-0' : 'lg:px-0 lg:max-w-[1200px] sm:gap-8' }
-      `}>
+      <div className="w-full mx-auto px-4 py-4 sm:px-6 flex items-center justify-between lg:grid lg:grid-cols-3 lg:gap-4 transition-all duration-500">
         {/* Navbar Logo */}
-        <div className={`nav-logo transition-all duration-200  ${fullNav ? 'lg:px-6 lg:w-full lg:max-w-[300px] lg:min-w-[300px] flex gap-2 items-end justify-start' : ''}`}>
+        <div className="nav-logo flex gap-2 items-end justify-start">
           <button 
             onClick={() => navigate('/')}
             className="flex items-center gap-2 transition-opacity duration-200 hover:opacity-80"
           >
-            <Logo className="h-10 w-auto" />
+            <Logo className="h-8 w-auto" />
           </button>
-
-          { fullNav && (
-            <p className='text-paragraph text-text-medium'>v{process.env.REACT_APP_VERSION || '1.0.0'}</p>
-          ) }
+          <p className="text-paragraph text-text-medium">v{process.env.REACT_APP_VERSION || '1.0.0'}</p>
         </div>
         {/* End Navbar Logo */}
 
-        {/* Navbar Menu Wrapper */}
-        <div className={`flex lg:w-full items-center justify-between transition-all duration-500  ${fullNav ? 'lg:pr-12' : ''}`}>
-          {/* Navbar Menu List */}
-          <div className={`nav-menu ${isMenuOpen ? 'active' : ''} hidden lg:flex items-center`} id="nav-menu">
+        {/* Navbar Menu - Centered */}
+        <div className={`nav-menu ${isMenuOpen ? 'active' : ''} hidden lg:flex items-center justify-center`} id="nav-menu">
             <button 
               onClick={() => navigate('/components')}
-              className="px-3 lg:px-8 py-[10px] border-x border-white/10 text-foreground inter-med-16 transition-all duration-200 flex items-center gap-3 hover:text-foreground/50"
+              className="px-3 lg:px-8 py-[10px] text-foreground inter-med-16 transition-all duration-200 flex items-center gap-3 hover:text-foreground/50"
             >
               <FontAwesomeIcon icon={['far', 'code']} className='w-4 h-4 opacity-60'/>
               <span className="hidden lg:inline">Components</span>
@@ -69,7 +56,7 @@ const Navbar = ({ isScrolled }) => {
 
             <button 
               onClick={() => navigate('/showcase')}
-              className="px-3 lg:px-8 py-[10px] border-r border-white/10 inter-med-16 text-foreground transition-all duration-200 flex items-center gap-3 hover:text-foreground/50"
+              className="px-3 lg:px-8 py-[10px] inter-med-16 text-foreground transition-all duration-200 flex items-center gap-3 hover:text-foreground/50"
             >
               <FontAwesomeIcon icon={['far', 'sidebar']} className='w-4 h-4 opacity-60'/>
               <span className="hidden lg:inline">Showcase</span>
@@ -77,7 +64,7 @@ const Navbar = ({ isScrolled }) => {
 
             <button 
               onClick={() => navigate('/blog')}
-              className="px-3 lg:px-8 py-[10px] border-r border-white/10 inter-med-16 text-foreground transition-all duration-200 flex items-center gap-3 hover:text-foreground/50"
+              className="px-3 lg:px-8 py-[10px] inter-med-16 text-foreground transition-all duration-200 flex items-center gap-3 hover:text-foreground/50"
             >
               <FontAwesomeIcon icon={['far', 'file']} className='w-4 h-4 opacity-60'/>
               <span className="hidden lg:inline">Blog</span>
@@ -85,7 +72,8 @@ const Navbar = ({ isScrolled }) => {
           </div>
           {/* End Navbar Menu List */}
 
-          <div className="flex items-center gap-2 lg:gap-6">
+        {/* Navbar Right - Github + Mobile Toggle */}
+        <div className="flex items-center gap-2 lg:gap-6 justify-end">
             <a 
               href="https://github.com/Slabpixel/FlowBitz"
               target="_blank"
@@ -105,9 +93,7 @@ const Navbar = ({ isScrolled }) => {
             <span className={`w-5 h-0.5 bg-foreground transition-all duration-200 rounded-sm ${isMenuOpen ? 'opacity-0' : ''}`}></span>
             <span className={`w-5 h-0.5 bg-foreground transition-all duration-200 rounded-sm ${isMenuOpen ? '-rotate-45 -translate-y-1.5' : ''}`}></span>
             </div>
-          </div>
         </div>
-        {/* End Navbar Menu Wrapper */}
       </div>
       {/* End Navbar Desktop Container */}
       
@@ -124,7 +110,9 @@ const Navbar = ({ isScrolled }) => {
         isMenuOpen ? 'translate-y-0' : '-translate-y-[135%]'
       }`}>
         <div className="flex flex-col h-full">
-          {fullNav && (
+          {SIDEBAR_PATHS.some(path =>
+            location.pathname === path || location.pathname.startsWith(`${path}/`)
+          ) && (
             <div className="border-t border-foreground/10 pt-6">
               <Sidebar variant="mobile" onNavigate={() => setIsMenuOpen(false)} />
             </div>

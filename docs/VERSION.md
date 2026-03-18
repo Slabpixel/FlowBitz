@@ -332,5 +332,5 @@ When adding a new release entry, use this template:
 
 ---
 
-**Last Updated:** Based on FlowBitz v2.4.0
+**Last Updated:** Based on FlowBitz v2.4.4
 

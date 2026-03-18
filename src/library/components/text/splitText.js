@@ -77,6 +77,16 @@ const componentCSS = `
   will-change: auto;
   backface-visibility: visible;
 }
+
+/* CRITICAL FIX: Force visibility for completed animations */
+/* This ensures elements stay visible even when GSAP resets inline styles */
+.wb-split-completed .wb-split-line,
+.wb-split-completed .wb-split-word,
+.wb-split-completed .wb-split-char {
+  visibility: visible !important;
+  opacity: 1 !important;
+  transform: translate3d(0, 0, 0) !important;
+}
 `;
 
 class SplitTextAnimator {
@@ -97,6 +107,57 @@ class SplitTextAnimator {
       from: { autoAlpha: 0, y: 40 },
       to: { autoAlpha: 1, y: 0 },
     };
+    
+    // Setup page visibility listener to restore completed states
+    this.setupVisibilityListener();
+  }
+
+  /**
+   * Setup page visibility API listener to restore completed states
+   * when tab regains focus
+   */
+  setupVisibilityListener() {
+    if (typeof document === 'undefined') return;
+    
+    document.addEventListener('visibilitychange', () => {
+      if (!document.hidden) {
+        // Tab regained focus - restore all completed animations
+        // Use requestAnimationFrame to ensure DOM is ready
+        requestAnimationFrame(() => {
+          this.restoreAllCompletedStates();
+        });
+      }
+    });
+  }
+
+  /**
+   * Restore all completed animation states
+   * Called when page regains visibility
+   */
+  restoreAllCompletedStates() {
+    this.instances.forEach((instance, element) => {
+      if (instance.animationCompleted && instance.splitter) {
+        // Get targets based on split type
+        let targets;
+        switch (instance.config.splitType) {
+          case "lines":
+            targets = instance.splitter.lines;
+            break;
+          case "words":
+            targets = instance.splitter.words;
+            break;
+          case "chars":
+            targets = instance.splitter.chars;
+            break;
+          default:
+            targets = instance.splitter.chars;
+        }
+        
+        if (targets && targets.length > 0) {
+          this.restoreCompletedState(instance, targets);
+        }
+      }
+    });
   }
 
   /**
@@ -315,7 +376,15 @@ class SplitTextAnimator {
         markers: false,
       },
       (self) => {
-        if (!self.isActive) return;
+        if (!self.isActive) {
+          // When ScrollTrigger becomes inactive, ensure completed states stay visible
+          if (instance.animationCompleted) {
+            requestAnimationFrame(() => {
+              this.restoreCompletedState(instance, targets);
+            });
+          }
+          return;
+        }
 
         // Only trigger once when element enters viewport
         if (!instance.animationCompleted) {
@@ -331,9 +400,22 @@ class SplitTextAnimator {
         }
 
         // If animation already completed restore final state after a refresh
-        this.restoreCompletedState(instance, targets);
+        // Use requestAnimationFrame to ensure this runs after any GSAP style resets
+        requestAnimationFrame(() => {
+          this.restoreCompletedState(instance, targets);
+        });
       }
     );
+
+    // Add onRefresh callback to restore state if animation is completed
+    // This handles cases where ScrollTrigger refreshes (e.g., on tab focus change)
+    triggerConfig.onRefresh = (self) => {
+      if (instance.animationCompleted) {
+        requestAnimationFrame(() => {
+          this.restoreCompletedState(instance, targets);
+        });
+      }
+    };
 
     // Create ScrollTrigger instance
     instance.scrollTrigger = ScrollTrigger.create(triggerConfig);
@@ -399,13 +481,31 @@ class SplitTextAnimator {
     // Ensure performance styles are cleaned up
     PerformanceOptimizer.cleanupAfterAnimation(targets);
 
+    // Force set the final state with immediate render and clear any conflicting props
     gsap.set(targets, {
       visibility: 'visible',
-      ...instance.config.to,
+      opacity: 1,
+      y: 0,
+      autoAlpha: 1,
       force3D: true,
       clearProps: 'willChange',
-      immediateRender: true
+      immediateRender: true,
+      overwrite: true, // Overwrite any existing animations
     });
+
+    // Also set inline styles directly as backup (CSS will handle it, but this ensures it)
+    // This is critical for cases where GSAP resets styles during ScrollTrigger refresh
+    if (targets && targets.length > 0) {
+      targets.forEach(target => {
+        if (target && target.style) {
+          target.style.setProperty('visibility', 'visible', 'important');
+          target.style.setProperty('opacity', '1', 'important');
+          // Ensure transform is set to final state
+          const finalTransform = 'translate3d(0, 0, 0)';
+          target.style.setProperty('transform', finalTransform, 'important');
+        }
+      });
+    }
 
     AnimationStateManager.setCompletedState(instance.element, 'wb-split');
   }
@@ -468,6 +568,11 @@ class SplitTextAnimator {
    */
   refresh() {
     ScrollTrigger.refresh();
+    
+    // After refresh, restore all completed states to ensure they stay visible
+    requestAnimationFrame(() => {
+      this.restoreAllCompletedStates();
+    });
   }
 
   /**
