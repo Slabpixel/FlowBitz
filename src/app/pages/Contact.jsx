@@ -6,7 +6,7 @@ import { Textarea } from '../components/ui/textarea.jsx'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../components/ui/select.jsx'
 import { CheckCircle, AlertCircle } from 'lucide-react'
 import SEO from '../components/SEO.jsx'
-import Footer from '../components/layout/Footer.jsx'
+import Footer from '../components/layout/footer.jsx'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 const Contact = () => {

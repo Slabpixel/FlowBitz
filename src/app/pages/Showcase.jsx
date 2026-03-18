@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect, useCallback } from "react";
 import { Send, CheckCircle, AlertCircle } from "lucide-react";
 import SEO from "../components/SEO.jsx";
-import Logo from "../components/Logo.jsx";
+import Logo from "../components/logo.jsx";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Button } from "../components/ui/button.jsx";
 import { Input } from "../components/ui/input.jsx";

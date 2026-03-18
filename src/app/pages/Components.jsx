@@ -5,7 +5,7 @@ import { Zap, Gift, Settings, Copy, Palette, Heart } from "lucide-react";
 import Sidebar from "../components/layout/leftSidebar.jsx";
 import SEO from "../components/SEO.jsx";
 import { getFilteredComponentKeys } from "../../library/data/componentsMetadata.js";
-import GalleryContainer from "../components/gallery/GalleryContainer.jsx";
+import GalleryContainer from "../components/gallery/galleryContainer.jsx";
 
 const Components = () => {
   const navigate = useNavigate();

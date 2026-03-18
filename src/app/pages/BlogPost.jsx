@@ -5,7 +5,7 @@ import SEO from "../components/SEO.jsx";
 import { getAdjacentPosts, getPostContent } from "../data/blogPosts.js";
 import { cn } from "../../shared/lib/utils.js";
 import { buttonVariants } from "../components/ui/button.jsx";
-import Footer from "../components/layout/Footer.jsx";
+import Footer from "../components/layout/footer.jsx";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const formatDate = (value) => {
