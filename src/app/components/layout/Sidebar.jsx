@@ -209,7 +209,7 @@ const Sidebar = ({ showBackLink = false, variant = "default", onNavigate }) => {
       <span>{component.name}</span>
       {component.newComponent && (
         <span
-          className={`rounded px-[0.3125rem] h-[1.125rem] inter-semi-12 uppercase text-foreground flex items-center justify-center bg-base-medium`}
+          className={`rounded px-[0.3125rem] py-0 text-[9px] font-bold uppercase text-foreground flex items-center justify-center bg-primary`}
         >
           New
         </span>
@@ -395,7 +395,7 @@ const Sidebar = ({ showBackLink = false, variant = "default", onNavigate }) => {
                   <Link
                     to="/installation"
                     onClick={() => onNavigate?.()}
-                    className={`flex gap-2 py-[0.875rem] items-center justify-start ${
+                    className={`flex gap-2 py-3 items-center justify-start ${
                       currentLink !== "/installation"
                         ? "text-link font-medium text-foreground/60 hover:text-foreground"
                         : "text-link font-semibold text-foreground"
@@ -413,7 +413,7 @@ const Sidebar = ({ showBackLink = false, variant = "default", onNavigate }) => {
                   <Link
                     to="/components"
                     onClick={() => onNavigate?.()}
-                    className={`flex gap-2 py-[0.875rem] items-center justify-start ${
+                    className={`flex gap-2 py-3 items-center justify-start ${
                       currentLink !== "/components"
                         ? "text-link font-medium text-foreground/60 hover:text-foreground"
                         : "text-link font-semibold text-foreground"
@@ -442,10 +442,9 @@ const Sidebar = ({ showBackLink = false, variant = "default", onNavigate }) => {
                         value={accordionValue}
                       >
                         <AccordionTrigger>
-                          <p className="text-link font-medium text-foreground">
+                          <p className="text-xs uppercase tracking-tight text-textLow font-medium">
                             {label}{" "}
-                            <span className="text-textLow">
-                              {" "}
+                            <span className="opacity-80">
                               • {components.length}
                             </span>
                           </p>
@@ -455,7 +454,7 @@ const Sidebar = ({ showBackLink = false, variant = "default", onNavigate }) => {
                             {components.map((component) => (
                               <li
                                 key={component.key}
-                                className={`border-l pl-3 py-3 transition-all duration-200 ${currentComponentName === component.key ? "border-primary" : "border-foreground/20"}`}
+                                className={`border-l pl-3 py-2 transition-all duration-200 ${currentComponentName === component.key ? "border-primary" : "border-foreground/20"}`}
                               >
                                 <Link
                                   to={`/components/${component.key}`}
@@ -483,29 +482,22 @@ const Sidebar = ({ showBackLink = false, variant = "default", onNavigate }) => {
             </div>
 
             <div className="sticky bottom-0 z-[2]">
-              <div className="sidebar-section px-4 pt-4 bg-background">
+              <div className="sidebar-section px-4 bg-background">
                 <ul className="list-none">
                   <li>
                     <Link
                       to="/support"
                       onClick={() => onNavigate?.()}
-                      className={`flex gap-2 py-[0.875rem] items-center justify-start text-foreground ${
+                      className={`flex gap-2 py-3 items-center justify-start ${
                         currentLink !== "/support"
-                          ? "text-link font-medium hover:font-semibold"
-                          : "text-link font-semibold"
+                          ? "text-link font-medium text-foreground/60 hover:text-foreground"
+                          : "text-link font-semibold text-foreground"
                       }`}
                     >
-                      {currentLink !== "/support" ? (
-                        <FontAwesomeIcon
-                          icon={["far", "question"]}
-                          className="w-4 h-4 opacity-60"
-                        />
-                      ) : (
-                        <FontAwesomeIcon
-                          icon={["fas", "question"]}
-                          className="w-4 h-4"
-                        />
-                      )}
+                      <FontAwesomeIcon
+                        icon={["far", "question"]}
+                        className="w-4 h-4"
+                      />
                       Support
                     </Link>
                   </li>
@@ -513,23 +505,16 @@ const Sidebar = ({ showBackLink = false, variant = "default", onNavigate }) => {
                     <Link
                       to="/faq"
                       onClick={() => onNavigate?.()}
-                      className={`flex gap-2 py-[0.875rem] items-center justify-start text-foreground ${
+                      className={`flex gap-2 py-3 items-center justify-start ${
                         currentLink !== "/faq"
-                          ? "text-link font-medium hover:font-semibold"
-                          : "text-link font-semibold"
+                          ? "text-link font-medium text-foreground/60 hover:text-foreground"
+                          : "text-link font-semibold text-foreground"
                       }`}
                     >
-                      {currentLink !== "/faq" ? (
-                        <FontAwesomeIcon
-                          icon={["far", "message"]}
-                          className="w-4 h-4 opacity-60"
-                        />
-                      ) : (
-                        <FontAwesomeIcon
-                          icon={["fas", "message"]}
-                          className="w-4 h-4"
-                        />
-                      )}
+                      <FontAwesomeIcon
+                        icon={["far", "message"]}
+                        className="w-4 h-4"
+                      />
                       FAQ
                     </Link>
                   </li>
