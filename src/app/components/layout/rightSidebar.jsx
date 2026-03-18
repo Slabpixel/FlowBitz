@@ -167,8 +167,8 @@ const ConfigSidebar = ({
   }
 
   return (
-    <aside className="lg:w-full mx-0 my-0 max-w-none w-auto lg:max-w-[330px] lg:min-w-[330px] bg-background lg:mt-6 lg:mr-6 lg:mb-4 lg:overflow-y-auto lg:h-auto [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-thumb]:bg-transparent [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:border-2 [&::-webkit-scrollbar-thumb]:border-background hover:[&::-webkit-scrollbar-thumb]:bg-muted-foreground/30">
-      <div className="px-2 pt-4 pb-6 md:pt-0 md:pb-0 md:px-4 lg:pl-4 flex flex-col gap-4">
+    <aside className="lg:w-full mx-4 my-4 px-0 py-0 max-w-none w-auto lg:max-w-[300px] lg:min-w-[300px] bg-background lg:overflow-y-auto lg:h-auto [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-thumb]:bg-transparent [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:border-2 [&::-webkit-scrollbar-thumb]:border-background hover:[&::-webkit-scrollbar-thumb]:bg-muted-foreground/30">
+      <div className="flex flex-col gap-4 px-0 py-0">
 
         {/* ── Installation Notes ── */}
         {component.installationNotes && (
@@ -222,7 +222,7 @@ const ConfigSidebar = ({
                     className='pb-2'
                   >
                     {/* Label row: switch (left) + name + badge + info tooltip */}
-                    <div className="flex items-center py-4 gap-2">
+                    <div className="flex items-center py-3 gap-2">
                       {!isRequired ? (
                         <Switch
                           checked={isActive}

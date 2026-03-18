@@ -228,14 +228,14 @@ const Sidebar = ({ showBackLink = false, variant = "default", onNavigate }) => {
       className={
         isMobile
           ? `w-full relative ${isSearchActive ? "search-active" : ""}`
-          : `hidden lg:block w-full relative lg:max-w-[300px] lg:min-w-[300px] bg-background border-r border-foreground/10 lg:overflow-y-auto lg:sticky lg:top-18 lg:self-start h-auto lg:h-[calc(100vh-4.5rem)] [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-thumb]:bg-transparent hover:[&::-webkit-scrollbar-thumb]:bg-muted [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:border-2 [&::-webkit-scrollbar-thumb]:border-background hover:[&::-webkit-scrollbar-thumb]:bg-muted-foreground/30 ${isSearchActive ? "search-active" : ""}`
+          : `hidden lg:block w-full relative lg:max-w-[300px] lg:min-w-[300px] bg-background lg:overflow-y-auto lg:sticky lg:top-18 lg:self-start h-auto lg:h-[calc(100vh-4.5rem)] [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-thumb]:bg-transparent hover:[&::-webkit-scrollbar-thumb]:bg-muted [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:border-2 [&::-webkit-scrollbar-thumb]:border-background hover:[&::-webkit-scrollbar-thumb]:bg-muted-foreground/30 ${isSearchActive ? "search-active" : ""}`
       }
     >
       <div
         className={
           isMobile
-            ? "flex flex-col flex-grow gap-4 px-4 pb-4"
-            : "flex flex-col flex-grow gap-0 p-4 sm:p-6 sm:pb-4 lg:h-[calc(100vh-4.5rem)]"
+            ? "flex flex-col flex-grow gap-4 p-4"
+            : "flex flex-col flex-grow gap-0 p-4 lg:h-[calc(100vh-4.5rem)]"
         }
       >
         {/* ── Search Bar (Enhanced) ── */}
@@ -389,7 +389,7 @@ const Sidebar = ({ showBackLink = false, variant = "default", onNavigate }) => {
 
           {/* ── Sidebar Navigation Content ── */}
           <div className="flex flex-col flex-grow overflow-scroll">
-            <div className="sidebar-section flex flex-col mb-1 pt-4 px-4">
+            <div className="sidebar-section flex flex-col mb-1 pt-4">
               <ul className="list-none flex flex-col">
                 <li>
                   <Link
@@ -431,7 +431,7 @@ const Sidebar = ({ showBackLink = false, variant = "default", onNavigate }) => {
 
             <div
               id="componentList"
-              className="sidebar-section relative z-[1] flex flex-col px-4"
+              className="sidebar-section relative z-[1] flex flex-col pl-6"
             >
               <div className="flex flex-col">
                 <Accordion type="single" collapsible defaultValue="item-1">
@@ -482,7 +482,7 @@ const Sidebar = ({ showBackLink = false, variant = "default", onNavigate }) => {
             </div>
 
             <div className="sticky bottom-0 z-[2]">
-              <div className="sidebar-section px-4 bg-background">
+              <div className="sidebar-section bg-background">
                 <ul className="list-none">
                   <li>
                     <Link
