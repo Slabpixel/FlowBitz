@@ -2,7 +2,7 @@ import React, { useEffect, useState, useRef, useCallback } from "react";
 import { Routes, Route, useLocation } from "react-router-dom";
 import { HelmetProvider } from "react-helmet-async";
 import Lenis from "lenis";
-import Preloader from "./components/preloader";
+import Preloader from "./components/Preloader";
 import Navbar from "./components/layout/navbar";
 import Footer from "./components/layout/footer";
 import ScrollToTop from "./components/scrollToTop";
