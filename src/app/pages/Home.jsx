@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import SEO from "../components/SEO.jsx";
 import { getFilteredComponentKeys } from "../../library/data/componentsMetadata.js";
 import Logo from "../components/logo.jsx";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { BookOpen, Bug, Lightbulb } from "lucide-react";
 import { GalleryContainer } from "../components/gallery";
 
 const Home = () => {
@@ -101,8 +101,7 @@ const Home = () => {
                     onClick={() => navigate("/installation")}
                     className="pr-0 md:pr-3 lg:pr-6 py-2 md:py-[10px] md:border-r border-white/10 text-foreground inter-med-16 transition-all duration-200 flex items-center gap-2 md:gap-3 hover:text-foreground/50"
                   >
-                    <FontAwesomeIcon
-                      icon={["far", "book-open"]}
+                    <BookOpen
                       className="w-4 h-4 opacity-60"
                     />
                     <span className="inline text-nowrap">
@@ -114,8 +113,7 @@ const Home = () => {
                     onClick={() => navigate("/contact?tab=report")}
                     className="px-0 md:px-3 lg:px-6 py-2 md:py-[10px] md:border-r border-white/10 text-foreground inter-med-16 transition-all duration-200 flex items-center gap-2 md:gap-3 hover:text-foreground/50"
                   >
-                    <FontAwesomeIcon
-                      icon={["far", "bug"]}
+                    <Bug
                       className="w-4 h-4 opacity-60"
                     />
                     <span className="inline text-nowrap">Report Bug</span>
@@ -126,8 +124,7 @@ const Home = () => {
                     className={`px-0 md:px-3 lg:px-6 py-2 md:py-[10px] text-foreground inter-med-16 transition-all duration-200 flex items-center gap-3 hover:text-foreground/50
                     `}
                   >
-                    <FontAwesomeIcon
-                      icon={["far", "lightbulb"]}
+                    <Lightbulb
                       className="w-4 h-4 opacity-60"
                     />
                     <span className="inline text-nowrap">

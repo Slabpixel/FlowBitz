@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate, useLocation } from 'react-router-dom'
+import { Code, PanelLeft, BookHeart, Info, FileText } from 'lucide-react'
 import Logo from '../logo'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Sidebar from './leftSidebar'
@@ -48,26 +49,34 @@ const Navbar = ({ isScrolled }) => {
         <div className={`nav-menu ${isMenuOpen ? 'active' : ''} hidden lg:flex items-center justify-center`} id="nav-menu">
             <button 
               onClick={() => navigate('/components')}
-              className="px-3 lg:px-8 py-[10px] text-foreground inter-med-16 transition-all duration-200 flex items-center gap-3 hover:text-foreground/50"
+              className="px-3 lg:px-6 py-[10px] text-foreground inter-med-16 transition-all duration-200 flex items-center gap-2 hover:text-foreground/50"
             >
-              <FontAwesomeIcon icon={['far', 'code']} className='w-4 h-4 opacity-60'/>
+              <Code className='w-4 h-4 opacity-60'/>
               <span className="hidden lg:inline">Components</span>
             </button>
 
             <button 
               onClick={() => navigate('/showcase')}
-              className="px-3 lg:px-8 py-[10px] inter-med-16 text-foreground transition-all duration-200 flex items-center gap-3 hover:text-foreground/50"
+              className="px-3 lg:px-6 py-[10px] inter-med-16 text-foreground transition-all duration-200 flex items-center gap-2 hover:text-foreground/50"
             >
-              <FontAwesomeIcon icon={['far', 'sidebar']} className='w-4 h-4 opacity-60'/>
+              <PanelLeft className='w-4 h-4 opacity-60'/>
               <span className="hidden lg:inline">Showcase</span>
             </button>
 
             <button 
               onClick={() => navigate('/blog')}
-              className="px-3 lg:px-8 py-[10px] inter-med-16 text-foreground transition-all duration-200 flex items-center gap-3 hover:text-foreground/50"
+              className="px-3 lg:px-6 py-[10px] inter-med-16 text-foreground transition-all duration-200 flex items-center gap-2 hover:text-foreground/50"
             >
-              <FontAwesomeIcon icon={['far', 'file']} className='w-4 h-4 opacity-60'/>
+              <BookHeart className='w-4 h-4 opacity-60'/>
               <span className="hidden lg:inline">Blog</span>
+            </button>
+
+            <button 
+              onClick={() => navigate('/about')}
+              className="px-3 lg:px-6 py-[10px] inter-med-16 text-foreground transition-all duration-200 flex items-center gap-2 hover:text-foreground/50"
+            >
+              <Info className='w-4 h-4 opacity-60'/>
+              <span className="hidden lg:inline">About</span>
             </button>
           </div>
           {/* End Navbar Menu List */}
@@ -130,7 +139,7 @@ const Navbar = ({ isScrolled }) => {
                   : 'text-foreground hover:text-foreground/50'
               }`}
             >
-              <FontAwesomeIcon icon={['far', 'code']} className='w-4 h-4 opacity-60'/>
+              <Code className='w-4 h-4 opacity-60'/>
               Components
             </button>
 
@@ -145,7 +154,7 @@ const Navbar = ({ isScrolled }) => {
                   : 'text-foreground hover:text-foreground/50'
               }`}
             >
-              <FontAwesomeIcon icon={['far', 'sidebar']} className='w-4 h-4 opacity-60'/>
+              <PanelLeft className='w-4 h-4 opacity-60'/>
               <span>Showcase</span>
             </button>
 
@@ -160,7 +169,7 @@ const Navbar = ({ isScrolled }) => {
                   : 'text-foreground hover:text-foreground/50'
               }`}
             >
-              <FontAwesomeIcon icon={['far', 'file']} className='w-4 h-4 opacity-60'/>
+              <FileText className='w-4 h-4 opacity-60'/>
               Blog
             </button>
 

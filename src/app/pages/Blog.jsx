@@ -1,10 +1,9 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { Book, Calendar, FileText } from "lucide-react";
+import { Book, Calendar, FileText, ChevronDown } from "lucide-react";
 import SEO from "../components/SEO.jsx";
 import { getAllPosts } from "../data/blogPosts.js";
 import Footer from "../components/layout/footer.jsx";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const posts = getAllPosts();
 const POSTS_PER_PAGE = 10;
@@ -78,8 +77,7 @@ const Blog = () => {
                         <div className="inline-flex items-center gap-2 text-link font-medium text-text-medium">
                           <div className="flex lg:hidden gap-1.5 items-center">
                             <div className="w-5 h-5 flex items-center justify-center">
-                              <FontAwesomeIcon
-                                icon={["far", "calendar"]}
+                              <Calendar
                                 className="w-4 h-4"
                               />
                             </div>
@@ -117,8 +115,7 @@ const Blog = () => {
                       <div className="hidden lg:block h-full pt-4">
                         <div className="flex gap-1.5 items-center text-text-medium">
                           <div className="w-5 h-5 flex items-center justify-center">
-                            <FontAwesomeIcon
-                              icon={["far", "calendar"]}
+                            <Calendar
                               className="w-4 h-4"
                             />
                           </div>
@@ -147,10 +144,9 @@ const Blog = () => {
                     className="flex items-center gap-2 px-6 py-3 border border-foreground/10 rounded text-foreground hover:text-foreground/70 transition-colors duration-200"
                   >
                     <span className="text-sm font-medium">Load More</span>
-                    <FontAwesomeIcon
-                      icon={["far", "chevron-down"]}
-                      className="w-4 h-4 opacity-60"
-                    />
+<ChevronDown
+                    className="w-4 h-4 opacity-60"
+                  />
                   </button>
                 </div>
               )}

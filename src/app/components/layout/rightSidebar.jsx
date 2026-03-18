@@ -9,7 +9,7 @@ import { Badge } from '../ui/badge.jsx'
 import { ColorControl } from '../ui/colorControl.jsx'
 import { Button } from '../ui/button.jsx'
 import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from '../ui/accordion.jsx'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { Info, Bug, Sparkles } from 'lucide-react'
 
 /* ═══════════════════════════════════════════════════════
    Helpers
@@ -241,7 +241,7 @@ const ConfigSidebar = ({
                         )}
                         {attr.description && !isRequired && (
                           <span className="relative group">
-                            <FontAwesomeIcon icon={['fas', 'info-circle']} className="w-3 h-3 text-textLow cursor-pointer" />
+                            <Info className="w-3 h-3 text-textLow cursor-pointer" />
                             <div className="absolute min-w-[200px] top-7 -left-6 transform mb-2 px-[0.625rem] py-2 text-tooltip text-background bg-foreground rounded shadow-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none z-20">
                               {attr.description}
                             </div>
@@ -277,7 +277,7 @@ const ConfigSidebar = ({
               size="custom"
               className="flex items-center gap-2 px-3 py-[0.625rem] rounded-lg bg-background border border-foreground/10 text-link font-medium"
             >
-              <FontAwesomeIcon icon={['far', 'bug']} className='w-4 h-4 opacity-60'/>
+              <Bug className='w-4 h-4 opacity-60'/>
               Report Bug
             </Button>
 
@@ -287,7 +287,7 @@ const ConfigSidebar = ({
               size="custom"
               className="flex items-center gap-2 px-3 py-[0.625rem] rounded-lg bg-background border border-foreground/10 text-link font-medium"
             >
-              <FontAwesomeIcon icon={['far', 'sparkle']} className='w-4 h-4 opacity-60'/>
+              <Sparkles className='w-4 h-4 opacity-60'/>
               Request Feature
             </Button>
           </div>

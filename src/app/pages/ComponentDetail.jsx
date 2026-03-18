@@ -5,9 +5,8 @@ import Sidebar from "../components/layout/leftSidebar.jsx";
 import ConfigSidebar from "../components/layout/rightSidebar.jsx";
 import SEO from "../components/SEO.jsx";
 import { Button } from "../components/ui/button.jsx";
-import { Copy, RotateCcw, Download } from "lucide-react";
+import { Copy, RotateCcw, Download, Code, RotateCw } from "lucide-react";
 import { useWebflowBits } from "../hooks/useWebflowBits";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const ComponentDetail = () => {
   const { componentName } = useParams();
@@ -346,8 +345,7 @@ const ComponentDetail = () => {
                     size="custom"
                     className="py-[0.625rem] text-link font-medium text-foreground hover:text-primary-blue"
                   >
-                    <FontAwesomeIcon
-                      icon={["far", "code"]}
+                    <Code
                       className="w-4 h-4 opacity-60"
                     />
                     <p className="hidden md:block">Installation guide</p>
@@ -360,8 +358,7 @@ const ComponentDetail = () => {
                     onClick={reloadPreview}
                     title="Reload animation"
                   >
-                    <FontAwesomeIcon
-                      icon={["far", "refresh"]}
+                    <RotateCw
                       className="w-4 h-4 opacity-60"
                     />
                   </Button>

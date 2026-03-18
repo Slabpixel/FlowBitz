@@ -1,5 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import { HelpCircle, Mail, Heart, Globe } from "lucide-react";
 import { Button } from "../components/ui/button.jsx";
 import Sidebar from "../components/layout/leftSidebar.jsx";
 import SEO from "../components/SEO.jsx";
@@ -87,8 +88,7 @@ const Support = () => {
                 {/* FAQ */}
                 <div className="group relative flex flex-col gap-[0.875rem] p-[0.875rem] bg-background/40 border border-foreground/10 rounded-[6px]">
                   <div className="relative z-[2] flex gap-2 items-center py-1.5">
-                    <FontAwesomeIcon
-                      icon={["far", "question"]}
+                    <HelpCircle
                       className="w-4 h-4 opacity-60"
                     />
                     <h3 className="text-paragraph highlight text-foreground">
@@ -106,8 +106,7 @@ const Support = () => {
                     size="custom"
                     className="w-full rounded-[2px] bg-background/40 border border-foreground/10 px-3 flex items-center gap-2 text-link font-medium text-foreground h-8 relative z-[2]"
                   >
-                    <FontAwesomeIcon
-                      icon={["far", "question"]}
+                    <HelpCircle
                       className="w-[0.875rem] h-[0.875rem] opacity-60"
                     />
                     Browse FAQ
@@ -125,8 +124,7 @@ const Support = () => {
                 {/* Email Support */}
                 <div className="group relative flex flex-col gap-[0.875rem] p-[0.875rem] bg-background/40 border border-foreground/10 rounded-[6px]">
                   <div className="relative z-[2] flex gap-2 items-center py-1.5">
-                    <FontAwesomeIcon
-                      icon={["far", "envelope"]}
+                    <Mail
                       className="w-4 h-4 opacity-60"
                     />
                     <h3 className="text-paragraph highlight text-foreground">
@@ -144,8 +142,7 @@ const Support = () => {
                     size="custom"
                     className="w-full rounded-[2px] bg-background/40 border border-foreground/10 px-3 flex items-center gap-2 text-link font-medium text-foreground h-8 relative z-[2]"
                   >
-                    <FontAwesomeIcon
-                      icon={["far", "envelope"]}
+                    <Mail
                       className="w-[0.875rem] h-[0.875rem] opacity-60"
                     />
                     Send Email
@@ -201,8 +198,7 @@ const Support = () => {
                 {/* Support Us */}
                 <div className="group relative flex flex-col gap-[0.875rem] p-[0.875rem] bg-background/40 border border-foreground/10 rounded-[6px]">
                   <div className="relative z-[2] flex gap-2 items-center py-1.5">
-                    <FontAwesomeIcon
-                      icon={["fas", "heart"]}
+                    <Heart
                       className="w-4 h-4 opacity-60"
                     />
                     <h3 className="text-paragraph highlight text-foreground">
@@ -220,8 +216,7 @@ const Support = () => {
                     size="custom"
                     className="w-full rounded-[2px] bg-background/40 border border-foreground/10 px-3 flex items-center gap-2 text-link font-medium text-foreground h-8 relative z-[2]"
                   >
-                    <FontAwesomeIcon
-                      icon={["fas", "heart"]}
+                    <Heart
                       className="w-[0.875rem] h-[0.875rem] opacity-60"
                     />
                     Donate via PayPal
@@ -259,8 +254,7 @@ const Support = () => {
                     size="custom"
                     className="w-full rounded-[2px] bg-background/40 border border-foreground/10 px-3 flex items-center gap-2 text-link font-medium text-foreground h-8 relative z-[2]"
                   >
-                    <FontAwesomeIcon
-                      icon={["far", "earth"]}
+                    <Globe
                       className="w-[0.875rem] h-[0.875rem] opacity-60"
                     />
                     Visit Website

@@ -4,10 +4,9 @@ import { Button } from '../components/ui/button.jsx'
 import { Input } from '../components/ui/input.jsx'
 import { Textarea } from '../components/ui/textarea.jsx'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../components/ui/select.jsx'
-import { CheckCircle, AlertCircle } from 'lucide-react'
+import { CheckCircle, AlertCircle, Send, Bug, Lightbulb, Mail } from 'lucide-react'
 import SEO from '../components/SEO.jsx'
 import Footer from '../components/layout/footer.jsx'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 const Contact = () => {
   const [searchParams, setSearchParams] = useSearchParams()
@@ -265,7 +264,7 @@ const Contact = () => {
                       ) : (
                         <>
                           Send Message
-                          <FontAwesomeIcon icon={['far', 'paper-plane-top']} className='w-[0.875rem] h-3 opacity-60'/>
+                          <Send className='w-[0.875rem] h-3 opacity-60'/>
                         </>
                       )}
                     </Button>
@@ -408,7 +407,7 @@ const Contact = () => {
                       ) : (
                         <>
                           Report Bug
-                          <FontAwesomeIcon icon={['far', 'bug']} className='w-[0.875rem] h-3 opacity-60'/>
+                          <Bug className='w-[0.875rem] h-3 opacity-60'/>
                         </>
                       )}
                     </Button>
@@ -542,7 +541,7 @@ const Contact = () => {
                       ) : (
                         <>
                           Request Feature
-                          <FontAwesomeIcon icon={['far', 'lightbulb']} className='w-[0.875rem] h-3 opacity-60'/>
+                          <Lightbulb className='w-[0.875rem] h-3 opacity-60'/>
                         </>
                       )}
                     </Button>
@@ -586,7 +585,7 @@ const Contact = () => {
                       onClick={() => handleTabChange('contact')}
                       className="border border-foreground/20 rounded-none text-link font-medium text-foreground hover:bg-foreground/5 gap-2 px-4 h-11"
                     >
-                      <FontAwesomeIcon icon={['far', 'envelope']} className='w-[0.875rem] h-[0.875rem] opacity-60'/>
+                      <Mail className='w-[0.875rem] h-[0.875rem] opacity-60'/>
                       Contact Us
                     </Button>
                   )}
@@ -597,7 +596,7 @@ const Contact = () => {
                       onClick={() => handleTabChange('bug-report')}
                       className="border border-foreground/20 rounded-none text-link font-medium text-foreground hover:bg-foreground/5 gap-2 px-4 h-11"
                     >
-                      <FontAwesomeIcon icon={['far', 'bug']} className='w-[0.875rem] h-[0.875rem] opacity-60'/>
+                      <Bug className='w-[0.875rem] h-[0.875rem] opacity-60'/>
                       Bug Report
                     </Button>
                   )}
@@ -608,7 +607,7 @@ const Contact = () => {
                       onClick={() => handleTabChange('feature-request')}
                       className="border border-foreground/20 rounded-none text-link font-medium text-foreground hover:bg-foreground/5 gap-2 px-4 h-11"
                     >
-                      <FontAwesomeIcon icon={['far', 'lightbulb']} className='w-[0.875rem] h-[0.875rem] opacity-60'/>
+                      <Lightbulb className='w-[0.875rem] h-[0.875rem] opacity-60'/>
                       Request Feature
                     </Button>
                   )}

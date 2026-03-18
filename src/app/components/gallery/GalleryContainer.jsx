@@ -1,11 +1,10 @@
 import React, { useState, useMemo, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { ArrowRight } from 'lucide-react'
+import { ArrowRight, ChevronDown } from 'lucide-react'
 import FilterNav from './filterNav'
 import ComponentCard from './componentCard'
 import { componentsMetadata, getFilteredComponentKeys } from '../../../library/data/componentsMetadata'
 import { useWebflowBits } from '../../hooks/useWebflowBits'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 const ITEMS_PER_PAGE = 9
 
@@ -148,7 +147,7 @@ const GalleryContainer = ({ showAll = false }) => {
                   className="flex items-center gap-2 px-6 py-3 border border-foreground/10 rounded text-foreground hover:text-foreground/70 transition-colors duration-200"
                 >
                   <span className="text-sm font-medium">Load More</span>
-                  <FontAwesomeIcon icon={['far', 'chevron-down']} className='w-4 h-4 opacity-60'/>
+                  <ChevronDown className='w-4 h-4 opacity-60'/>
                 </button>
               )
             ) : (
@@ -157,7 +156,7 @@ const GalleryContainer = ({ showAll = false }) => {
                 className="flex items-center gap-2 px-6 py-3 border border-foreground/10 rounded text-foreground hover:text-foreground/70 transition-colors duration-200"
               >
                 <span className="text-sm font-medium">See More</span>
-                <FontAwesomeIcon icon={['far', 'arrow-right']} className='w-4 h-4 opacity-60'/>
+                <ArrowRight className='w-4 h-4 opacity-60'/>
               </button>
             )}
           </div>

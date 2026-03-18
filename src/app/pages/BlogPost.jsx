@@ -6,7 +6,6 @@ import { getAdjacentPosts, getPostContent } from "../data/blogPosts.js";
 import { cn } from "../../shared/lib/utils.js";
 import { buttonVariants } from "../components/ui/button.jsx";
 import Footer from "../components/layout/footer.jsx";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const formatDate = (value) => {
   try {
@@ -79,7 +78,7 @@ const BlogPost = () => {
               "gap-2 w-fit h-10 flex justify-center items-center me-auto",
             )}
           >
-            <FontAwesomeIcon icon={["far", "arrow-left"]} className="w-3 h-3" />
+            <ArrowLeft className="w-3 h-3" />
             Back
           </Link>
 
@@ -118,8 +117,7 @@ const BlogPost = () => {
             <div className="inline-flex items-center gap-2 text-link font-medium text-text-medium">
               <div className="flex gap-1.5 items-center">
                 <div className="w-5 h-5 flex items-center justify-center">
-                  <FontAwesomeIcon
-                    icon={["far", "calendar"]}
+                  <Calendar
                     className="w-4 h-4"
                   />
                 </div>
@@ -141,7 +139,7 @@ const BlogPost = () => {
               }}
               className="flex items-center gap-2 text-link font-medium text-foreground hover:text-foreground/50 transition-colors duration-200"
             >
-              <FontAwesomeIcon icon={["far", "link"]} className="w-4 h-4" />
+              <Link className="w-4 h-4" />
               {copied ? "Copied!" : "Share"}
             </button>
           </div>
@@ -178,8 +176,7 @@ const BlogPost = () => {
                     <div className="inline-flex items-center gap-2 text-link font-medium text-text-medium">
                       <div className="flex gap-1.5 items-center">
                         <div className="w-5 h-5 flex items-center justify-center">
-                          <FontAwesomeIcon
-                            icon={["far", "calendar"]}
+                          <Calendar
                             className="w-4 h-4"
                           />
                         </div>
@@ -220,8 +217,7 @@ const BlogPost = () => {
                     <div className="inline-flex items-center gap-2 text-link font-medium text-text-medium">
                       <div className="flex gap-1.5 items-center">
                         <div className="w-5 h-5 flex items-center justify-center">
-                          <FontAwesomeIcon
-                            icon={["far", "calendar"]}
+                          <Calendar
                             className="w-4 h-4"
                           />
                         </div>
