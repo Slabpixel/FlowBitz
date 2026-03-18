@@ -1,11 +1,7 @@
 import React from 'react'
-import { useTheme } from '../contexts/ThemeContext'
 
 const Logo = ({ className = "w-11 h-6", variant = "full" }) => {
-  const { theme } = useTheme()
-  
-  // Determine the fill color based on theme
-  const flowFill = theme === 'dark' ? 'white' : 'black'
+  const flowFill = 'white'
   
   if (variant === "icon") {
     return (

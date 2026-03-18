@@ -1,3 +1,13 @@
+@import url("https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&display=swap");
+
+@font-face {
+  font-family: "InterVariable";
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url("/font/Inter/web/InterVariable.woff2") format("woff2");
+}
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -5,7 +15,12 @@
 @layer base {
   :root {
     --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    --foreground: 0 0% 0%;
+    --not-background: 240, 10%, 4%;
+    --base-high: 39 39 42;
+    --base-medium: 24 24 27;
+    --base-low: 9 9 11;
+    --text-medium: 212 212 216;
     --card: 0 0% 100%;
     --card-foreground: 222.2 84% 4.9%;
     --popover: 0 0% 100%;
@@ -22,6 +37,7 @@
     --destructive-foreground: 210 40% 98%;
     --border: 214.3 31.8% 91.4%;
     --input: 214.3 31.8% 91.4%;
+    --text-low: 0, 0%, 0%;
     --ring: 215 100% 52%;
     --chart-1: 12 76% 61%;
     --chart-2: 173 58% 39%;
@@ -29,9 +45,9 @@
     --chart-4: 43 74% 66%;
     --chart-5: 27 87% 67%;
     --radius: 0.5rem;
-    
+
     /* Custom variables for existing design */
-    --primary-color: #0B64FF;
+    --primary-color: #0b64ff;
     --secondary-color: #764ba2;
     --accent-color: #f0932b;
     --text-primary: #ffffff;
@@ -43,15 +59,24 @@
     --border-color: #333333;
     --shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
     --shadow-lg: 0 8px 40px rgba(0, 0, 0, 0.4);
-    --gradient-primary: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    --gradient-primary: linear-gradient(
+      135deg,
+      var(--primary-color),
+      var(--secondary-color)
+    );
     --gradient-accent: linear-gradient(135deg, var(--accent-color), #ff6b6b);
     --border-radius: 12px;
     --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
   .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
+    --background: 240 10% 4%;
+    --foreground: 0 0% 100%;
+    --not-background: 0 0% 100%;
+    --base-high: 39 39 42;
+    --base-medium: 24 24 27;
+    --base-low: 9 9 11;
+    --text-medium: 212 212 216;
     --card: 222.2 84% 4.9%;
     --card-foreground: 210 40% 98%;
     --popover: 222.2 84% 4.9%;
@@ -68,6 +93,7 @@
     --destructive-foreground: 210 40% 98%;
     --border: 217.2 32.6% 17.5%;
     --input: 217.2 32.6% 17.5%;
+    --text-low: 240, 5%, 64%;
     --ring: 224.3 76.3% 94.1%;
     --chart-1: 220 70% 50%;
     --chart-2: 160 60% 45%;
@@ -78,32 +104,299 @@
 }
 
 /* Base styles */
-html, body {
+html,
+body {
   height: 100%;
   margin: 0;
   padding: 0;
 }
 
 body {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Inter', sans-serif;
+  font-family: "InterVariable", "Inter", sans-serif;
+  font-optical-sizing: auto;
   line-height: 1.6;
   color: var(--text-primary);
   background-color: var(--bg-primary);
   overflow-x: hidden;
-  overflow-y: auto;
-  -webkit-overflow-scrolling: touch;
+  /* Let Lenis / app container control vertical scrolling */
+  overflow-y: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 #root {
   height: 100%;
-  overflow-y: auto;
-  -webkit-overflow-scrolling: touch;
+  overflow: hidden;
+}
+
+.hide-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
 }
 
 .app {
   min-height: 100vh;
-  overflow-y: auto;
-  -webkit-overflow-scrolling: touch;
+  /* Vertical scroll is handled by #main-content / Lenis */
+  overflow: hidden;
+}
+
+/* Component Custom Font */
+.text-heading-small {
+  font-family: "InterVariable", sans-serif;
+  font-weight: 600;
+  font-size: 1.25rem;
+  line-height: 120%;
+  letter-spacing: normal;
+}
+
+.text-paragraph {
+  font-family: "InterVariable", sans-serif;
+  font-weight: 400;
+  font-size: 0.875rem;
+  line-height: 150%;
+  letter-spacing: -0.01em;
+}
+
+.text-paragraph.large {
+  font-size: 1rem;
+  line-height: 160%;
+}
+
+.text-paragraph.highlight {
+  font-size: 1rem;
+  line-height: 160%;
+  font-weight: 600;
+}
+
+.text-paragraph.large.semi {
+  font-size: 1rem;
+  line-height: 160%;
+  font-weight: 600;
+}
+
+.text-paragraph-blog {
+  font-family: "InterVariable", sans-serif;
+  font-weight: 400;
+  font-size: 1rem;
+  line-height: 160%;
+  letter-spacing: -0.01em;
+}
+
+.text-attribute {
+  font-family: "DM Mono", monospace;
+  font-weight: 500;
+  line-height: 100%;
+  letter-spacing: -0.02em;
+  font-size: 0.875rem;
+}
+
+.text-tooltip {
+  font-family: "InterVariable", sans-serif;
+  font-weight: 500;
+  font-size: 0.75rem;
+  line-height: 100%;
+  letter-spacing: -0.01em;
+}
+
+.text-overline {
+  font-family: "DM Mono", monospace;
+  font-weight: 500;
+  line-height: 200%;
+  letter-spacing: 0.05em;
+  font-size: 0.875rem;
+}
+
+.text-link {
+  font-family: "InterVariable", sans-serif;
+  font-size: 0.875rem;
+  line-height: 100%;
+  letter-spacing: -0.01em;
+  transition: all 0.1s linear;
+}
+/* End Component Custom Font */
+
+/* Custom Font */
+.mono-med-12 {
+  font-family: "DM Mono", monospace;
+  font-weight: 500;
+  line-height: 100%;
+  letter-spacing: 0.04em;
+  font-size: 0.75rem;
+}
+
+.inter-semi-12 {
+  font-family: "InterVariable", sans-serif;
+  font-weight: 600;
+  font-size: 0.75rem;
+  line-height: 90%;
+  letter-spacing: 0.02em;
+}
+
+.inter-reg-16 {
+  font-family: "InterVariable", sans-serif;
+  font-weight: 400;
+  line-height: 160%;
+  letter-spacing: normal;
+  font-size: 1rem;
+}
+
+.inter-med-16 {
+  font-family: "InterVariable", sans-serif;
+  font-weight: 500;
+  line-height: 100%;
+  letter-spacing: -0.01em;
+  font-size: 1rem;
+}
+
+.inter-med-16.blog {
+  font-family: "InterVariable", sans-serif;
+  font-weight: 500;
+  line-height: 120%;
+  letter-spacing: -0.01em;
+  font-size: 1rem;
+}
+
+.display-semi-16 {
+  font-family: "InterVariable", sans-serif;
+  font-weight: 600;
+  line-height: 140%;
+  letter-spacing: normal;
+  font-optical-sizing: auto;
+  font-variation-settings: "opsz" 32;
+  font-size: 1rem;
+}
+
+.inter-reg-18 {
+  font-family: "InterVariable", sans-serif;
+  font-weight: 400;
+  line-height: 140%;
+  font-size: 1rem;
+}
+
+.inter-med-18 {
+  font-family: "InterVariable", sans-serif;
+  font-weight: 500;
+  line-height: 140%;
+  font-size: 1.125rem;
+}
+
+.inter-semi-24 {
+  font-family: "InterVariable", sans-serif;
+  font-weight: 600;
+  line-height: 120%;
+  letter-spacing: normal;
+  font-size: 1.25rem;
+}
+
+.inter-semi-32 {
+  font-family: "InterVariable", sans-serif;
+  font-weight: 600;
+  line-height: 120%;
+  letter-spacing: normal;
+  font-size: 1.5rem;
+}
+
+.inter-semi-32.installation {
+  font-size: 2rem;
+}
+
+.inter-med-40 {
+  font-family: "InterVariable", sans-serif;
+  font-weight: 500;
+  line-height: 100%;
+  letter-spacing: -0.02em;
+  font-size: 2.5rem;
+}
+
+.inter-semi-48 {
+  font-family: "InterVariable", sans-serif;
+  font-weight: 600;
+  line-height: 100%;
+  letter-spacing: -0.05em;
+  font-size: 2.5rem;
+}
+
+.inter-med-56 {
+  font-family: "InterVariable", sans-serif;
+  font-weight: 500;
+  line-height: 100%;
+  letter-spacing: -0.02em;
+  font-size: 3rem;
+}
+
+.inter-med-56.blog {
+  font-size: 2rem;
+}
+
+.inter-semi-72 {
+  font-family: "InterVariable", sans-serif;
+  font-weight: 600;
+  line-height: 100%;
+  letter-spacing: -0.02em;
+  font-size: 3rem;
+}
+
+@media screen and (min-width: 1024px) {
+  .inter-reg-18 {
+    font-size: 1.125rem;
+  }
+
+  .inter-semi-24 {
+    font-size: 1.5rem;
+  }
+
+  .inter-semi-32 {
+    font-size: 2rem;
+  }
+
+  .inter-semi-48 {
+    font-size: 3rem;
+  }
+
+  .inter-med-56,
+  .inter-med-56.blog {
+    font-size: 3.5rem;
+  }
+
+  .inter-semi-72 {
+    font-size: 4.5rem;
+  }
+}
+
+@layer utilities {
+  .bg-gradient-custom-mobile {
+    background: linear-gradient(
+      1deg,
+      rgba(217, 217, 217, 0) 0%,
+      hsl(var(--background)) 80%
+    );
+  }
+
+  .bg-gradient-custom {
+    background: linear-gradient(
+      295deg,
+      rgba(217, 217, 217, 0) 0%,
+      hsl(var(--background)) 75%
+    );
+  }
+}
+
+/* Shimmer animation for gallery previews */
+@keyframes shimmer {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+.animate-shimmer {
+  animation: shimmer 2s infinite;
 }
 
 /* Ensure proper touch scrolling on mobile */
@@ -112,14 +405,15 @@ body {
     touch-action: pan-y;
     -webkit-overflow-scrolling: touch;
   }
-  
+
   .app {
     touch-action: pan-y;
     -webkit-overflow-scrolling: touch;
   }
-  
+
   /* Ensure all scrollable content allows touch scrolling */
-  main, .bg-background {
+  main,
+  .bg-background {
     touch-action: pan-y;
     -webkit-overflow-scrolling: touch;
   }
@@ -171,6 +465,6 @@ pre code .value {
   }
 
   .blog-article li {
-    @apply marker:text-primary;
+    @apply marker:text-foreground;
   }
 }

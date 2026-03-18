@@ -141,7 +141,7 @@ export default function DarkVeil({
         uScan: { value: scanlineIntensity },
         uScanFreq: { value: scanlineFrequency },
         uWarp: { value: warpAmount },
-        uIsDarkMode: { value: document.documentElement.classList.contains('dark') ? 1.0 : 0.0 }
+        uIsDarkMode: { value: 1.0 }
       }
     });
 
@@ -167,9 +167,6 @@ export default function DarkVeil({
       program.uniforms.uScan.value = scanlineIntensity;
       program.uniforms.uScanFreq.value = scanlineFrequency;
       program.uniforms.uWarp.value = warpAmount;
-      
-      // Update theme detection
-      program.uniforms.uIsDarkMode.value = document.documentElement.classList.contains('dark') ? 1.0 : 0.0;
       
       renderer.render({ scene: mesh });
       frame = requestAnimationFrame(loop);

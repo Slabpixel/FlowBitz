@@ -27,6 +27,7 @@ export const componentsMetadata = {
     category: 'text',
     file: 'splitText.js',
     installationNotes: 'Works with any text element like <h1>, <h2>, <p>, <span>, <div>, etc. The component automatically splits the text content and wraps each part in spans for animation.',
+    hoverPreview: true,
     attributes: [
       { 
         name: 'wb-component', 
@@ -46,6 +47,7 @@ export const componentsMetadata = {
         name: 'wb-stagger-delay', 
         description: 'Delay between elements in milliseconds', 
         default: '100',
+        unit: 'ms',
         inputType: 'slider',
         sliderConfig: { min: 0, max: 1000, step: 10 }
       },
@@ -53,6 +55,7 @@ export const componentsMetadata = {
         name: 'wb-duration', 
         description: 'Animation duration in seconds', 
         default: '0.6',
+        unit: 's',
         inputType: 'slider',
         sliderConfig: { min: 0.1, max: 5, step: 0.1 }
       },
@@ -79,6 +82,7 @@ export const componentsMetadata = {
         name: 'wb-start-delay', 
         description: 'Start delay in seconds', 
         default: '0',
+        unit: 's',
         inputType: 'slider',
         sliderConfig: { min: 0, max: 2, step: 0.1 }
       }
@@ -96,6 +100,7 @@ export const componentsMetadata = {
     category: 'text',
     file: 'gradientText.js',
     installationNotes: 'Perfect for headings like <h1>, <h2>, <h3> or any text element. The gradient animation works best with larger text sizes for better visual impact.',
+    hoverPreview: false,
     attributes: [
       { 
         name: 'wb-component', 
@@ -108,12 +113,14 @@ export const componentsMetadata = {
         name: 'wb-colors', 
         description: 'Gradient colors (comma-separated or JSON array). Supports: hex (#FF5733), rgb/rgba, hsl/hsla, named colors (red, blue), CSS variables (var(--color)). Example: "#FF5733, rgb(64, 255, 170), var(--primary)"', 
         default: '#40ffaa, #4079ff, #40ffaa, #4079ff, #40ffaa',
-        inputType: 'text'
+        inputType: 'color',
+        multiple: true
       },
       { 
         name: 'wb-animation-speed', 
         description: 'Animation speed in seconds', 
         default: '8',
+        unit: 's',
         inputType: 'slider',
         sliderConfig: { min: 1, max: 20, step: 0.5 }
       }
@@ -131,6 +138,7 @@ export const componentsMetadata = {
     category: 'text',
     file: 'textType.js',
     installationNotes: 'Use with <span> elements inside headings or paragraphs. The component replaces the text content with a typewriter animation. Works best with monospace fonts.',
+    hoverPreview: false,
     attributes: [
       { 
         name: 'wb-component', 
@@ -168,6 +176,7 @@ export const componentsMetadata = {
         name: 'wb-typing-speed', 
         description: 'Typing speed in milliseconds', 
         default: '100',
+        unit: 'ms',
         inputType: 'slider',
         sliderConfig: { min: 10, max: 500, step: 10 }
       },
@@ -175,6 +184,7 @@ export const componentsMetadata = {
         name: 'wb-pause-duration', 
         description: 'Pause time between typing and deleting in milliseconds', 
         default: '2000',
+        unit: 'ms',
         inputType: 'slider',
         sliderConfig: { min: 500, max: 10000, step: 100 }
       },
@@ -182,6 +192,7 @@ export const componentsMetadata = {
         name: 'wb-deleting-speed', 
         description: 'Deleting speed in milliseconds', 
         default: '50',
+        unit: 'ms',
         inputType: 'slider',
         sliderConfig: { min: 10, max: 200, step: 5 }
       },
@@ -189,6 +200,7 @@ export const componentsMetadata = {
         name: 'wb-cursor-blink-duration', 
         description: 'Cursor blink duration in seconds', 
         default: '0.5',
+        unit: 's',
         inputType: 'slider',
         sliderConfig: { min: 0.1, max: 2, step: 0.1 }
       },
@@ -212,6 +224,7 @@ export const componentsMetadata = {
     category: 'text',
     file: 'blurText.js',
     installationNotes: 'Works with any text element like <h1>, <h2>, <p>, <span>. The blur effect is applied on scroll or hover, revealing text from blur to clear.',
+    hoverPreview: true,
     attributes: [
       { 
         name: 'wb-component', 
@@ -238,6 +251,7 @@ export const componentsMetadata = {
         name: 'wb-delay', 
         description: 'Delay between elements in milliseconds', 
         default: '200',
+        unit: 'ms',
         inputType: 'slider',
         sliderConfig: { min: 0, max: 1000, step: 50 }
       },
@@ -264,6 +278,7 @@ export const componentsMetadata = {
         name: 'wb-start-delay', 
         description: 'Start delay in seconds', 
         default: '0',
+        unit: 's',
         inputType: 'slider',
         sliderConfig: { min: 0, max: 2, step: 0.1 }
       }
@@ -281,6 +296,7 @@ export const componentsMetadata = {
     category: 'text',
     file: 'shinyText.js',
     installationNotes: 'Best used with larger headings like <h1>, <h2> or prominent text elements. The shine effect creates a moving gradient overlay across the text.',
+    hoverPreview: false,
     attributes: [
       { 
         name: 'wb-component', 
@@ -293,6 +309,7 @@ export const componentsMetadata = {
         name: 'wb-speed', 
         description: 'Animation speed in seconds', 
         default: '2',
+        unit: 's',
         inputType: 'slider',
         sliderConfig: { min: 0.5, max: 10, step: 0.5 }
       },
@@ -324,6 +341,7 @@ export const componentsMetadata = {
     category: 'text',
     file: 'countUp.js',
     installationNotes: 'Perfect for statistics, numbers, or counters. Use with <span>, <div>, or any element containing numeric values. The component animates from a starting number to a target value.',
+    hoverPreview: true,
     attributes: [
       { 
         name: 'wb-component', 
@@ -368,6 +386,7 @@ export const componentsMetadata = {
         name: 'wb-duration', 
         description: 'Animation duration in seconds', 
         default: '2',
+        unit: 's',
         inputType: 'slider',
         sliderConfig: { min: 0.5, max: 10, step: 0.1 }
       },
@@ -394,6 +413,7 @@ export const componentsMetadata = {
         name: 'wb-start-delay', 
         description: 'Start delay in seconds', 
         default: '0',
+        unit: 's',
         inputType: 'slider',
         sliderConfig: { min: 0, max: 2, step: 0.1 }
       }
@@ -411,6 +431,7 @@ export const componentsMetadata = {
     category: 'text',
     file: 'decryptedText.js',
     installationNotes: 'Great for dramatic reveals and tech-themed content. Works with any text element like <h1>, <h2>, <p>, <span>. The component scrambles characters before revealing the final text.',
+    hoverPreview: true,
     attributes: [
       { 
         name: 'wb-component', 
@@ -423,6 +444,7 @@ export const componentsMetadata = {
         name: 'wb-speed', 
         description: 'Animation speed in milliseconds', 
         default: '50',
+        unit: 'ms',
         inputType: 'slider',
         sliderConfig: { min: 10, max: 200, step: 10 }
       },
@@ -481,6 +503,7 @@ export const componentsMetadata = {
         name: 'wb-start-delay', 
         description: 'Start delay in seconds', 
         default: '0',
+        unit: 's',
         inputType: 'slider',
         sliderConfig: { min: 0, max: 2, step: 0.1 }
       }
@@ -498,6 +521,7 @@ export const componentsMetadata = {
     category: 'text',
     file: 'scrambleText.js',
     installationNotes: 'Interactive hover effect that scrambles text on mouse proximity. Works with any text element like <p>, <span>, <div>. Best with monospace fonts for consistent character spacing.',
+    hoverPreview: false,
     attributes: [
       { 
         name: 'wb-component', 
@@ -531,6 +555,7 @@ export const componentsMetadata = {
         name: 'wb-radius', 
         description: 'Radius area for scramble effect in pixels', 
         default: '100',
+        unit: 'px',
         inputType: 'slider',
         sliderConfig: { min: 50, max: 500, step: 10 }
       },
@@ -538,6 +563,7 @@ export const componentsMetadata = {
         name: 'wb-duration', 
         description: 'Animation duration in seconds', 
         default: '1.2',
+        unit: 's',
         inputType: 'slider',
         sliderConfig: { min: 0.5, max: 5, step: 0.1 }
       },
@@ -545,6 +571,7 @@ export const componentsMetadata = {
         name: 'wb-speed', 
         description: 'Scrambling speed in seconds', 
         default: '0.5',
+        unit: 's',
         inputType: 'slider',
         sliderConfig: { min: 0.1, max: 2, step: 0.1 }
       },
@@ -568,6 +595,7 @@ export const componentsMetadata = {
     category: 'text',
     file: 'variableProximity.js',
     installationNotes: 'Requires variable fonts that support weight variations. Works with any text element like <h1>, <h2>, <p>, <span>. The font weight changes based on mouse proximity.',
+    hoverPreview: false,
     attributes: [
       { 
         name: 'wb-component', 
@@ -580,6 +608,7 @@ export const componentsMetadata = {
         name: 'wb-radius', 
         description: 'Mouse proximity radius in pixels', 
         default: '50',
+        unit: 'px',
         inputType: 'slider',
         sliderConfig: { min: 20, max: 200, step: 5 }
       },
@@ -611,6 +640,7 @@ export const componentsMetadata = {
     category: 'text',
     file: 'rotatingText.js',
     installationNotes: 'Use with <span> elements inside headings or paragraphs. The component cycles through different text options with smooth transitions. Great for highlighting multiple features or benefits.',
+    hoverPreview: false,
     attributes: [
       { 
         name: 'wb-component', 
@@ -668,6 +698,7 @@ export const componentsMetadata = {
         name: 'wb-rotating-interval', 
         description: 'Time between rotations in milliseconds', 
         default: '2000',
+        unit: 'ms',
         inputType: 'slider',
         sliderConfig: { min: 500, max: 10000, step: 100 }
       },
@@ -675,6 +706,7 @@ export const componentsMetadata = {
         name: 'wb-rotating-stagger-duration', 
         description: 'Delay between characters/words in milliseconds', 
         default: '50',
+        unit: 'ms',
         inputType: 'slider',
         sliderConfig: { min: 10, max: 200, step: 10 }
       },
@@ -682,6 +714,7 @@ export const componentsMetadata = {
         name: 'wb-duration', 
         description: 'Animation duration in seconds', 
         default: '0.6',
+        unit: 's',
         inputType: 'slider',
         sliderConfig: { min: 0.1, max: 3, step: 0.1 }
       },
@@ -725,6 +758,7 @@ export const componentsMetadata = {
     category: 'text',
     file: 'textPressure.js',
     installationNotes: 'Requires variable fonts (like Compressa VF, Recursive, Roboto Flex). Works with any text element. The component dynamically changes font weight, width, and italic based on mouse proximity.',
+    hoverPreview: false,
     attributes: [
       { 
         name: 'wb-component', 
@@ -826,6 +860,7 @@ export const componentsMetadata = {
     category: 'text',
     file: 'shuffle.js',
     installationNotes: 'Works with any text element like <h1>, <h2>, <p>, <span>. The component creates sliding shuffle effects with characters moving in different directions. Best with monospace fonts.',
+    hoverPreview: false,
     attributes: [
       { 
         name: 'wb-component', 
@@ -859,6 +894,7 @@ export const componentsMetadata = {
         name: 'wb-duration', 
         description: 'Animation duration in seconds', 
         default: '0.35',
+        unit: 's',
         inputType: 'slider',
         sliderConfig: { min: 0.1, max: 2, step: 0.05 }
       },
@@ -866,6 +902,7 @@ export const componentsMetadata = {
         name: 'wb-max-delay', 
         description: 'Maximum random delay for random mode in seconds', 
         default: '0',
+        unit: 's',
         inputType: 'slider',
         sliderConfig: { min: 0, max: 1, step: 0.05 }
       },
@@ -886,6 +923,7 @@ export const componentsMetadata = {
         name: 'wb-loop-delay', 
         description: 'Delay between loops in seconds', 
         default: '0',
+        unit: 's',
         inputType: 'slider',
         sliderConfig: { min: 0, max: 5, step: 0.1 }
       },
@@ -893,6 +931,7 @@ export const componentsMetadata = {
         name: 'wb-stagger', 
         description: 'Stagger delay between characters in seconds', 
         default: '0.03',
+        unit: 'ms',
         inputType: 'slider',
         sliderConfig: { min: 0, max: 0.5, step: 0.01 }
       },
@@ -931,6 +970,7 @@ export const componentsMetadata = {
     category: 'text',
     file: 'tooltipText.js',
     installationNotes: 'Use with any text element like <span>, <a>, <strong>, <em>. The component adds a hover tooltip with customizable content, position, and styling.',
+    hoverPreview: false,
     attributes: [
       { 
         name: 'wb-component', 
@@ -956,6 +996,7 @@ export const componentsMetadata = {
         name: 'wb-tooltip-delay', 
         description: 'Delay before showing tooltip in seconds', 
         default: '0',
+        unit: 's',
         inputType: 'slider',
         sliderConfig: { min: 0, max: 2, step: 0.1 }
       },
@@ -963,6 +1004,7 @@ export const componentsMetadata = {
         name: 'wb-tooltip-duration', 
         description: 'Animation duration in seconds', 
         default: '0.3',
+        unit: 's',
         inputType: 'slider',
         sliderConfig: { min: 0.1, max: 1, step: 0.05 }
       },
@@ -997,6 +1039,7 @@ export const componentsMetadata = {
         name: 'wb-tooltip-offset', 
         description: 'Distance from element in pixels', 
         default: '10',
+        unit: 'px',
         inputType: 'slider',
         sliderConfig: { min: 0, max: 50, step: 1 }
       }
@@ -1015,6 +1058,7 @@ export const componentsMetadata = {
     category: 'text',
     file: 'rollText.js',
     installationNotes: 'Wrap your text with a <div wb-component="roll-text"> wrapper. The first child inside the wrapper must be one of: <div>, <p>, <a>, <span>, <h1>, <h2>, <h3>, <h4>, <h5> or <h6> containing the text. The wrapper becomes an inline-block overflow-hidden mask; on hover, the original line rolls up and the duplicate line replaces it.',
+    hoverPreview: false,
     attributes: [
       {
         name: 'wb-component',
@@ -1034,6 +1078,7 @@ export const componentsMetadata = {
         name: 'wb-duration',
         description: 'Hover in/out animation duration in seconds',
         default: '0.5',
+        unit: 's',
         inputType: 'slider',
         sliderConfig: { min: 0.05, max: 2, step: 0.05 }
       },
@@ -1048,6 +1093,7 @@ export const componentsMetadata = {
         name: 'wb-stagger',
         description: 'Required when using wb-split-by="chars" or wb-split-by="words", ensure the text contains at least two characters/words to display the staggered roll animation as intended.',
         default: '0.05',
+        unit: 'ms',
         inputType: 'slider',
         sliderConfig: { min: 0, max: 0.1, step: 0.01 }
       }
@@ -1077,7 +1123,8 @@ export const componentsMetadata = {
         name: 'wb-colors', 
         description: 'Gradient colors (comma-separated or JSON array). Supports: hex (#FF5733), rgb/rgba, hsl/hsla, named colors (red, blue), CSS variables (var(--color)). Example: "#FF5733, rgb(64, 255, 170), var(--primary)"', 
         default: '#40ffaa, #4079ff, #40ffaa, #4079ff, #40ffaa',
-        inputType: 'text'
+        inputType: 'color',
+        multiple: true
       },
       { 
         name: 'wb-text-color', 
@@ -1090,6 +1137,7 @@ export const componentsMetadata = {
         name: 'wb-animation-speed', 
         description: 'Animation speed in seconds', 
         default: '8',
+        unit: 's',
         inputType: 'slider',
         sliderConfig: { min: 1, max: 20, step: 0.5 }
       },
@@ -1133,6 +1181,7 @@ export const componentsMetadata = {
         name: 'wb-duration', 
         description: 'Ripple animation duration in milliseconds', 
         default: '600',
+        unit: 'ms',
         inputType: 'slider',
         sliderConfig: { min: 200, max: 2000, step: 50 }
       },
@@ -1218,6 +1267,7 @@ export const componentsMetadata = {
         name: 'wb-padding', 
         description: 'Magnetic attraction area padding in pixels', 
         default: '100',
+        unit: 'px',
         inputType: 'slider',
         sliderConfig: { min: 0, max: 500, step: 10 }
       },
@@ -1329,6 +1379,7 @@ export const componentsMetadata = {
     category: 'effect',
     file: 'smartAnimate.js',
     installationNotes: 'Use with any container element like <div>, <section>, <article>. The component animates the selected element first, then animates all direct children with customizable stagger timing. Perfect for revealing content sections.',
+    hoverPreview: true,
     attributes: [
       { 
         name: 'wb-component', 
@@ -1348,6 +1399,7 @@ export const componentsMetadata = {
         name: 'wb-interval-delay', 
         description: 'Delay between each child animation in seconds', 
         default: '0.1',
+        unit: 's',
         inputType: 'slider',
         sliderConfig: { min: 0, max: 1, step: 0.05 }
       },
@@ -1355,6 +1407,7 @@ export const componentsMetadata = {
         name: 'wb-duration', 
         description: 'Animation duration in seconds', 
         default: '0.6',
+        unit: 's',
         inputType: 'slider',
         sliderConfig: { min: 0.1, max: 3, step: 0.1 }
       },
@@ -1381,6 +1434,7 @@ export const componentsMetadata = {
         name: 'wb-start-delay',
         description: 'Delay before animation starts in seconds',
         default: '0',
+        unit: 's',
         inputType: 'slider',
         sliderConfig: { min: 0, max: 2, step: 0.1 }
       }
@@ -1401,7 +1455,7 @@ export const componentsMetadata = {
     installationNotes: 'Only suppoerted for <div> or <button> HTML elements.',
     attributes: [
       { name: 'wb-component', description: 'Enable 3D Card Hover', default: '3d-card-hover', inputType: 'text', required: true },
-      { name: 'wb-perspective', description: 'Perspective value (px)', default: '800', inputType: 'slider', sliderConfig: { min: 100, max: 2000, step: 50 } },
+      { name: 'wb-perspective', description: 'Perspective value (px)', default: '800', unit: 'px', inputType: 'slider', sliderConfig: { min: 100, max: 2000, step: 50 } },
       { name: 'wb-rotate-divisor', description: 'Rotation divisor factor (smaller = more sensitive)', default: '15', inputType: 'slider', sliderConfig: { min: 5, max: 50, step: 5 } },
       { name: 'wb-transition', description: 'Transition CSS for transform', default: 'transform 200ms linear', inputType: 'text' }
     ],
@@ -1435,6 +1489,7 @@ export const componentsMetadata = {
         name: 'wb-speed', 
         description: 'Animation speed in seconds (default: 8s)', 
         default: '8',
+        unit: 's',
         inputType: 'slider',
         sliderConfig: { min: 1, max: 20, step: 0.5 }
       },
@@ -1448,6 +1503,7 @@ export const componentsMetadata = {
         name: 'wb-hover-speed-percentage', 
         description: 'Hover speed as percentage of original (20% = 80% faster)', 
         default: '20',
+        unit: '%',
         inputType: 'slider',
         sliderConfig: { min: 5, max: 50, step: 5 }
       },
@@ -1455,12 +1511,14 @@ export const componentsMetadata = {
         name: 'wb-colors', 
         description: 'Gradient colors with stops. Supports multiple formats: "red, blue, green" or "#833AB4 0%, #FD1D1D 50%, #FCB045 100%". Colors will be evenly distributed if no percentages provided.', 
         default: '#833AB4 0%, #FD1D1D 50%, #FCB045 100%',
-        inputType: 'text'
+        inputType: 'color',
+        multiple: true
       },
       { 
         name: 'wb-border-width', 
         description: 'Border thickness in pixels', 
         default: '4',
+        unit: 'px',
         inputType: 'slider',
         sliderConfig: { min: 1, max: 10, step: 1 }
       },
@@ -1540,6 +1598,7 @@ export const componentsMetadata = {
         name: 'wb-threshold', 
         description: 'Distance threshold in pixels before showing new image', 
         default: '80',
+        unit: 'px',
         inputType: 'slider',
         sliderConfig: { min: 20, max: 200, step: 10 }
       },

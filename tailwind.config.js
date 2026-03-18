@@ -3,19 +3,44 @@ export default {
   darkMode: ["class"],
   content: [
     "./index.html",
-    "./src/**/*.{js,ts,jsx,tsx}",
+    "./src/**/*.{js,ts,jsx,tsx,html}",
   ],
   theme: {
     extend: {
+      fontFamily: {
+        inter: ["InterVariable", "Inter", "sans-serif"],
+      },
+      spacing: {
+        '18': '4.5rem',
+        '6.5': '1.625rem'
+      },
       borderRadius: {
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",
         sm: "calc(var(--radius) - 4px)"
       },
+      keyframes: {
+        "accordion-down": {
+          from: { height: "0" },
+          to: { height: "var(--radix-accordion-content-height)" },
+        },
+        "accordion-up": {
+          from: { height: "var(--radix-accordion-content-height)" },
+          to: { height: "0" },
+        },
+      },
+      animation: {
+        "accordion-down": "accordion-down 0.2s ease-out",
+        "accordion-up": "accordion-up 0.2s ease-out",
+      },
       colors: {
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
         'primary-blue': '#0B64FF',
+        'base-medium': "rgb(var(--base-medium))",
+        'base-high': "rgb(var(--base-high))",
+        'base-low': "rgb(var(--base-low))",
+        'text-medium': "rgb(var(--text-medium))",
         card: {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))"
@@ -46,6 +71,7 @@ export default {
         },
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
+        textLow: "hsl(var(--text-low))",
         ring: "hsl(var(--ring))",
         chart: {
           "1": "hsl(var(--chart-1))",
