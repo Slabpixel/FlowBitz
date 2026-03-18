@@ -1,8 +1,7 @@
 import React, { useState, useRef, useEffect, useCallback } from "react";
-import { Send, CheckCircle, AlertCircle } from "lucide-react";
+import { Send, CheckCircle, AlertCircle, ArrowRight, ChevronDown } from "lucide-react";
 import SEO from "../components/SEO.jsx";
-import Logo from "../components/logo.jsx";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import Logo from "../components/Logo.jsx";
 import { Button } from "../components/ui/button.jsx";
 import { Input } from "../components/ui/input.jsx";
 import { Modal } from "../components/ui/modal.jsx";
@@ -392,8 +391,7 @@ const Showcase = () => {
                         ))}
                       </div> */}
 
-                      <FontAwesomeIcon
-                        icon={["far", "arrow-right"]}
+                      <ArrowRight
                         className="ml-auto w-5 h-5 -rotate-45"
                       />
                     </div>
@@ -421,10 +419,9 @@ const Showcase = () => {
                 className="flex items-center gap-2 px-6 py-3 border border-foreground/10 rounded text-foreground hover:text-foreground/70 transition-colors duration-200"
               >
                 <span className="text-sm font-medium">Load More</span>
-                <FontAwesomeIcon
-                  icon={["far", "chevron-down"]}
-                  className="w-4 h-4 opacity-60"
-                />
+<ChevronDown
+                className="w-4 h-4 opacity-60"
+              />
               </button>
             </div>
           )}
@@ -556,10 +553,9 @@ const Showcase = () => {
                 ) : (
                   <>
                     Submit
-                    <FontAwesomeIcon
-                      icon={["far", "arrow-right"]}
-                      className="w-3 h-3 opacity-60"
-                    />
+<ArrowRight
+                    className="w-3 h-3 opacity-60"
+                  />
                   </>
                 )}
               </Button>

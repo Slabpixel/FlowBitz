@@ -1,5 +1,5 @@
 import React, { useState, useRef } from "react";
-import Sidebar from "../components/layout/leftSidebar.jsx";
+import Sidebar from "../components/layout/LeftSidebar.jsx";
 import SEO from "../components/SEO.jsx";
 import { Button } from "../components/ui/button.jsx";
 import {
@@ -24,7 +24,6 @@ import {
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { tomorrow } from "react-syntax-highlighter/dist/esm/styles/prism";
 import { useNavigate } from "react-router-dom";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const Installation = () => {
   const [copyStates, setCopyStates] = useState({});

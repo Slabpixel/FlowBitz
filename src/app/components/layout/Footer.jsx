@@ -17,7 +17,7 @@ import {
   FileText,
 } from "lucide-react";
 import { getFilteredComponentKeys } from "../../../library/data/componentsMetadata.js";
-import Logo from "../logo.jsx";
+import Logo from "../Logo.jsx";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Button } from "../ui/button.jsx";
 
@@ -211,7 +211,7 @@ const Footer = ({ onScrollToTop }) => {
           <div className="flex gap-3 inter-reg-16 text-foreground">
             <div className="flex gap-1 items-baseline">
               <p>Made with</p>
-              <FontAwesomeIcon icon={["fas", "heart"]} className="w-4 h-4" />
+              <Heart className="w-4 h-4" />
               <p>
                 by{" "}
                 <a

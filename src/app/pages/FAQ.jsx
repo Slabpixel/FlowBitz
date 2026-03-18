@@ -13,11 +13,12 @@ import {
   Palette,
   Settings,
   HelpCircle as GeneralHelp,
+  Mail,
+  Sparkles,
 } from "lucide-react";
-import Sidebar from "../components/layout/leftSidebar.jsx";
+import Sidebar from "../components/layout/LeftSidebar.jsx";
 import SEO from "../components/SEO.jsx";
 import { useNavigate } from "react-router-dom";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const FAQ = () => {
   const [openItems, setOpenItems] = useState({});
@@ -324,8 +325,7 @@ const FAQ = () => {
                   size="custom"
                   className="flex items-center gap-2 px-3 py-[0.625rem] rounded-lg bg-background border border-foreground/10 text-link font-medium"
                 >
-                  <FontAwesomeIcon
-                    icon={["far", "envelope"]}
+                  <Mail
                     className="w-4 h-4 opacity-60"
                   />
                   Contact Support
@@ -337,8 +337,7 @@ const FAQ = () => {
                   size="custom"
                   className="flex items-center gap-2 px-3 py-[0.625rem] rounded-lg bg-background border border-foreground/10 text-link font-medium"
                 >
-                  <FontAwesomeIcon
-                    icon={["far", "bug"]}
+                  <Bug
                     className="w-4 h-4 opacity-60"
                   />
                   Report Bug
@@ -350,8 +349,7 @@ const FAQ = () => {
                   size="custom"
                   className="flex items-center gap-2 px-3 py-[0.625rem] rounded-lg bg-background border border-foreground/10 text-link font-medium"
                 >
-                  <FontAwesomeIcon
-                    icon={["far", "sparkle"]}
+                  <Sparkles
                     className="w-4 h-4 opacity-60"
                   />
                   Request Feature

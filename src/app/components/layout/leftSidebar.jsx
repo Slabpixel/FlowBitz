@@ -7,8 +7,7 @@ import React, {
 } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { getComponentsByCategory } from "../../../library/data/componentsMetadata.js";
-import { X } from "lucide-react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { X, Search, Code, Box, Info, MessageCircle } from "lucide-react";
 import {
   Accordion,
   AccordionItem,
@@ -248,8 +247,7 @@ const Sidebar = ({ showBackLink = false, variant = "default", onNavigate }) => {
             }`}
           >
             <div className="flex flex-col items-center justify-center w-11 h-11">
-              <FontAwesomeIcon
-                icon={["far", "search"]}
+              <Search
                 className="w-4 h-4 transition-colors text-textLow"
               />
             </div>
@@ -306,8 +304,7 @@ const Sidebar = ({ showBackLink = false, variant = "default", onNavigate }) => {
               {debouncedQuery.trim() === "" ? (
                 /* ── Hint state ── */
                 <div className="flex flex-col items-center justify-center py-16 text-textLow select-none">
-                  <FontAwesomeIcon
-                    icon={["far", "search"]}
+                  <Search
                     className="w-6 h-6 mb-3 opacity-20"
                   />
                   <p className="text-sm opacity-60">
@@ -325,8 +322,7 @@ const Sidebar = ({ showBackLink = false, variant = "default", onNavigate }) => {
                 /* ── Empty state ── */
                 <div className="flex flex-col items-center justify-center py-16 text-textLow select-none">
                   <div className="w-10 h-10 rounded-full bg-foreground/5 flex items-center justify-center mb-3">
-                    <FontAwesomeIcon
-                      icon={["far", "search"]}
+                    <Search
                       className="w-4 h-4 opacity-40"
                     />
                   </div>
@@ -401,8 +397,7 @@ const Sidebar = ({ showBackLink = false, variant = "default", onNavigate }) => {
                         : "text-link font-semibold text-foreground"
                     }`}
                   >
-                    <FontAwesomeIcon
-                      icon={["far", "code"]}
+                    <Code
                       className="w-4 h-4"
                     />
                     Installation
@@ -419,8 +414,7 @@ const Sidebar = ({ showBackLink = false, variant = "default", onNavigate }) => {
                         : "text-link font-semibold text-foreground"
                     }`}
                   >
-                    <FontAwesomeIcon
-                      icon={["far", "cube"]}
+                    <Box
                       className="w-4 h-4"
                     />
                     Components
@@ -494,8 +488,7 @@ const Sidebar = ({ showBackLink = false, variant = "default", onNavigate }) => {
                           : "text-link font-semibold text-foreground"
                       }`}
                     >
-                      <FontAwesomeIcon
-                        icon={["far", "question"]}
+                      <Info
                         className="w-4 h-4"
                       />
                       Support
@@ -511,8 +504,7 @@ const Sidebar = ({ showBackLink = false, variant = "default", onNavigate }) => {
                           : "text-link font-semibold text-foreground"
                       }`}
                     >
-                      <FontAwesomeIcon
-                        icon={["far", "message"]}
+                      <MessageCircle
                         className="w-4 h-4"
                       />
                       FAQ

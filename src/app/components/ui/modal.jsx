@@ -1,8 +1,7 @@
 import * as React from "react"
 import { useEffect, useCallback } from "react"
-import { X } from "lucide-react"
+import { X, ArrowLeft } from "lucide-react"
 import { cn } from "../../../shared/lib/utils"
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 const Modal = ({ open, onClose, children, className }) => {
   const handleKeyDown = useCallback((e) => {
@@ -45,7 +44,7 @@ const Modal = ({ open, onClose, children, className }) => {
           className="absolute hidden md:block top-6 right-6 rounded-sm p-1 text-foreground hover:text-foreground transition-colors"
           aria-label="Close"
         >
-          <FontAwesomeIcon icon={['far', 'xmark']} className='w-4 h-4'/>
+          <X className='w-4 h-4'/>
         </button>
 
         <button
@@ -53,7 +52,7 @@ const Modal = ({ open, onClose, children, className }) => {
           className="flex md:hidden h-10 gap-2 items-center mb-6"
           aria-label="Close"
         >
-          <FontAwesomeIcon icon={['far', 'arrow-left']} className='w-3 h-3 opacity-60'/>
+          <ArrowLeft className='w-3 h-3 opacity-60'/>
           Back
         </button>
 
