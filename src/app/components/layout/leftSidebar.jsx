@@ -14,7 +14,7 @@ import {
   AccordionItem,
   AccordionTrigger,
   AccordionContent,
-} from "../ui/accordion";
+} from "../ui/accordion.jsx";
 
 /* ═══════════════════════════════════════════════════════
    Constants

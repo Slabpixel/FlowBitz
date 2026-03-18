@@ -14,7 +14,7 @@ import {
   Settings,
   HelpCircle as GeneralHelp,
 } from "lucide-react";
-import Sidebar from "../components/layout/Sidebar.jsx";
+import Sidebar from "../components/layout/leftSidebar.jsx";
 import SEO from "../components/SEO.jsx";
 import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";

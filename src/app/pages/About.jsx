@@ -22,7 +22,7 @@ import {
   Smartphone,
   Rocket,
 } from "lucide-react";
-import Sidebar from "../components/layout/Sidebar.jsx";
+import Sidebar from "../components/layout/leftSidebar.jsx";
 import SEO from "../components/SEO.jsx";
 import { getFilteredComponentKeys } from "../../library/data/componentsMetadata.js";
 import { useNavigate } from "react-router-dom";

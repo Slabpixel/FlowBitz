@@ -7,7 +7,6 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '.
 import { Input } from '../ui/input.jsx'
 import { Badge } from '../ui/badge.jsx'
 import { ColorControl } from '../ui/color-control.jsx'
-import { Info, HelpCircle } from 'lucide-react'
 import { Button } from '../ui/button.jsx'
 import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from '../ui/accordion.jsx'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -222,37 +221,33 @@ const ConfigSidebar = ({
                     key={index}
                     className='pb-2'
                   >
-                    {/* Label row: name + badge + toggle */}
-                    <div className="flex items-center py-4 justify-between">
-                      <div className="flex items-center gap-2">
-                        <Label className="text-link font-medium text-foreground">
-                          {formatAttributeName(attr.name)}
-                        </Label>
-
-                        {isRequired && (
-                          <span className="inter-semi-12 text-foreground uppercase px-[0.3125rem] flex items-center justify-center h-[1.125rem] rounded bg-base-medium">
-                            Required
-                          </span>
-                        )}
-
-                        {/* Info tooltip */}
-                        {attr.description && !isRequired && (
-                          <span className="relative group">
-                            <FontAwesomeIcon icon={['fas', 'info-circle']} className='w-3 h-3 text-textLow cursor-pointer'/>
-                            <div className="absolute min-w-[200px] top-7 -left-6 transform mb-2 px-[0.625rem] py-2 text-tooltip text-background bg-foreground rounded shadow-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none z-20">
-                              {attr.description}
-                            </div>
-                          </span>
-                        )}
-                      </div>
-
+                    {/* Label row: switch (left) + name + badge + info tooltip */}
+                    <div className="flex items-center py-4 gap-2">
                       {!isRequired ? (
                         <Switch
                           checked={isActive}
                           onCheckedChange={(checked) => onToggleAttribute(attr.name, checked)}
                           className="shrink-0"
                         />
-                      ) : ''}
+                      ) : null}
+                      <div className="flex items-center gap-2 flex-1 min-w-0">
+                        <Label className="text-link font-medium text-foreground">
+                          {formatAttributeName(attr.name)}
+                        </Label>
+                        {isRequired && (
+                          <span className="inter-semi-12 text-foreground uppercase px-[0.3125rem] flex items-center justify-center h-[1.125rem] rounded bg-base-medium">
+                            Required
+                          </span>
+                        )}
+                        {attr.description && !isRequired && (
+                          <span className="relative group">
+                            <FontAwesomeIcon icon={['fas', 'info-circle']} className="w-3 h-3 text-textLow cursor-pointer" />
+                            <div className="absolute min-w-[200px] top-7 -left-6 transform mb-2 px-[0.625rem] py-2 text-tooltip text-background bg-foreground rounded shadow-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none z-20">
+                              {attr.description}
+                            </div>
+                          </span>
+                        )}
+                      </div>
                     </div>
 
                     {/* Control */}
