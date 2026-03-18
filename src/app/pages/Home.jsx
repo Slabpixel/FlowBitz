@@ -4,7 +4,7 @@ import SEO from "../components/SEO.jsx";
 import { getFilteredComponentKeys } from "../../library/data/componentsMetadata.js";
 import Logo from "../components/Logo.jsx";
 import { BookOpen, Bug, Lightbulb } from "lucide-react";
-import { GalleryContainer } from "../components/gallery/Index.js";
+import { GalleryContainer } from "../components/gallery";
 
 const Home = () => {
   const navigate = useNavigate();
