@@ -235,7 +235,7 @@ const ConfigSidebar = ({
                           {formatAttributeName(attr.name)}
                         </Label>
                         {isRequired && (
-                          <span className="inter-semi-12 text-foreground uppercase px-[0.3125rem] flex items-center justify-center h-[1.125rem] rounded bg-base-medium">
+                          <span className="rounded px-[0.3125rem] py-[0.225rem] text-[9px] font-bold uppercase text-foreground flex items-center justify-center bg-primary">
                             Required
                           </span>
                         )}
