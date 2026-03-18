@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { Book, Calendar, FileText } from "lucide-react";
 import SEO from "../components/SEO.jsx";
 import { getAllPosts } from "../data/blogPosts.js";
-import Footer from "../components/layout/Footer.jsx";
+import Footer from "../components/layout/footer.jsx";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const posts = getAllPosts();

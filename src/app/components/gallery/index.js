@@ -1,4 +1,4 @@
-export { default as GalleryContainer } from './GalleryContainer'
-export { default as FilterNav } from './FilterNav'
-export { default as ComponentCard } from './ComponentCard'
-export { default as PreviewRenderer } from './PreviewRenderer'
+export { default as GalleryContainer } from './galleryContainer'
+export { default as FilterNav } from './filterNav'
+export { default as ComponentCard } from './componentCard'
+export { default as PreviewRenderer } from './previewRenderer'

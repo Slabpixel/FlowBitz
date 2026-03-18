@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate, useLocation } from 'react-router-dom'
-import Logo from '../Logo'
+import Logo from '../logo'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Sidebar from './leftSidebar'
 

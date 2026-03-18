@@ -8,7 +8,7 @@ import {
   SelectValue,
 } from "./select.jsx";
 import { Popover, PopoverContent, PopoverTrigger } from "./popover.jsx";
-import { ColorPicker } from "./color-picker.jsx";
+import { ColorPicker } from "./colorPicker.jsx";
 
 /* ─── Named color fallback map ─── */
 const NAMED_COLORS = {

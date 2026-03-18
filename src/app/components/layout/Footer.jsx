@@ -17,7 +17,7 @@ import {
   FileText,
 } from "lucide-react";
 import { getFilteredComponentKeys } from "../../../library/data/componentsMetadata.js";
-import Logo from "../Logo";
+import Logo from "../logo.jsx";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Button } from "../ui/button.jsx";
 

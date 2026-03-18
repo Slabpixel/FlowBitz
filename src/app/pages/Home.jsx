@@ -2,7 +2,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import SEO from "../components/SEO.jsx";
 import { getFilteredComponentKeys } from "../../library/data/componentsMetadata.js";
-import Logo from "../components/Logo.jsx";
+import Logo from "../components/logo.jsx";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { GalleryContainer } from "../components/gallery";
 

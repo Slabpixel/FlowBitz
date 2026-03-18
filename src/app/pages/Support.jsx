@@ -83,7 +83,7 @@ const Support = () => {
 
             <div className="w-full max-w-[800px]">
               {/* Support Options */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 auto-rows-fr gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 auto-rows-fr gap-4">
                 {/* FAQ */}
                 <div className="group relative flex flex-col gap-[0.875rem] p-[0.875rem] bg-background/40 border border-foreground/10 rounded-[6px]">
                   <div className="relative z-[2] flex gap-2 items-center py-1.5">
