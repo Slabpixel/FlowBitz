@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate, useLocation } from 'react-router-dom'
 import { Code, PanelLeft, BookHeart, Info, FileText } from 'lucide-react'
-import Logo from '../logo'
+import Logo from '../Logo'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import Sidebar from './leftSidebar'
+import Sidebar from './LeftSidebar'
 
 const Navbar = ({ isScrolled }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false)

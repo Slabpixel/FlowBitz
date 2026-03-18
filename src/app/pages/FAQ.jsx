@@ -16,7 +16,7 @@ import {
   Mail,
   Sparkles,
 } from "lucide-react";
-import Sidebar from "../components/layout/leftSidebar.jsx";
+import Sidebar from "../components/layout/LeftSidebar.jsx";
 import SEO from "../components/SEO.jsx";
 import { useNavigate } from "react-router-dom";
 

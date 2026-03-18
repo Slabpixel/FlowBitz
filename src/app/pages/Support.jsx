@@ -2,7 +2,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import { HelpCircle, Mail, Heart, Globe } from "lucide-react";
 import { Button } from "../components/ui/button.jsx";
-import Sidebar from "../components/layout/leftSidebar.jsx";
+import Sidebar from "../components/layout/LeftSidebar.jsx";
 import SEO from "../components/SEO.jsx";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 

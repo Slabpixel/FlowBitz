@@ -6,7 +6,7 @@ import { Textarea } from '../components/ui/textarea.jsx'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../components/ui/select.jsx'
 import { CheckCircle, AlertCircle, Send, Bug, Lightbulb, Mail } from 'lucide-react'
 import SEO from '../components/SEO.jsx'
-import Footer from '../components/layout/footer.jsx'
+import Footer from '../components/layout/Footer.jsx'
 
 const Contact = () => {
   const [searchParams, setSearchParams] = useSearchParams()

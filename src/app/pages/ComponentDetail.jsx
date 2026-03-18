@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { getComponent } from "../../library/data/componentsMetadata.js";
-import Sidebar from "../components/layout/leftSidebar.jsx";
+import Sidebar from "../components/layout/LeftSidebar.jsx";
 import ConfigSidebar from "../components/layout/rightSidebar.jsx";
 import SEO from "../components/SEO.jsx";
 import { Button } from "../components/ui/button.jsx";

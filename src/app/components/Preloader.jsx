@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from "react";
-import Logo from "./logo";
+import Logo from "./Logo";
 
 const Preloader = ({ onComplete }) => {
   const [isReady, setIsReady] = useState(false);

@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect, useCallback } from "react";
 import { Send, CheckCircle, AlertCircle, ArrowRight, ChevronDown } from "lucide-react";
 import SEO from "../components/SEO.jsx";
-import Logo from "../components/logo.jsx";
+import Logo from "../components/Logo.jsx";
 import { Button } from "../components/ui/button.jsx";
 import { Input } from "../components/ui/input.jsx";
 import { Modal } from "../components/ui/modal.jsx";

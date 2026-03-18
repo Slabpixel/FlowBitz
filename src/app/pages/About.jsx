@@ -12,7 +12,7 @@ import {
   Rocket,
   Globe,
 } from "lucide-react";
-import Sidebar from "../components/layout/leftSidebar.jsx";
+import Sidebar from "../components/layout/LeftSidebar.jsx";
 import SEO from "../components/SEO.jsx";
 import { getFilteredComponentKeys } from "../../library/data/componentsMetadata.js";
 import { useNavigate } from "react-router-dom";

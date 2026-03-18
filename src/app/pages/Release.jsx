@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '../components/ui/tabs';
 import { CheckCircle, Download, Star, Zap, Bug, Plus, ArrowRight, Heart } from 'lucide-react';
-import Footer from '../components/layout/footer';
+import Footer from '../components/layout/Footer';
 import SEO from '../components/SEO';
 
 const Release = () => {
