@@ -192,14 +192,14 @@ const ColorRow = ({
     : value || "#000000";
 
   return (
-    <div className="flex items-center gap-2 py-[0.375rem]">
+    <div className="flex items-center gap-1 py-[0.375rem]">
       {/* Color Swatch — opens popover picker */}
       <Popover>
         <PopoverTrigger asChild>
           <button
             type="button"
             disabled={disabled}
-            className="w-9 h-9 rounded-lg shrink-0 cursor-pointer disabled:cursor-not-allowed disabled:opacity-50 overflow-hidden"
+            className="w-6 h-6 rounded-md shrink-0 cursor-pointer disabled:cursor-not-allowed disabled:opacity-50 overflow-hidden"
             style={{ backgroundColor: swatchColor }}
           />
         </PopoverTrigger>
@@ -220,7 +220,7 @@ const ColorRow = ({
 
       {/* Format selector (RGB / HSL / HEX) */}
       <Select value={format} onValueChange={setFormat}>
-        <SelectTrigger className="w-[72px] shrink-0 h-10 px-2 py-3 gap-1 text-[0.875rem] leading-[100%] -tracking-[0.01em] font-medium text-foreground bg-transparent">
+        <SelectTrigger className="w-[72px] shrink-0 h-10 px-2 py-3 gap-1 text-[0.875rem] leading-[100%] -tracking-[0.01em] font-medium text-foreground bg-transparent focus:outline-none focus:ring-0 focus:ring-offset-0">
           <SelectValue />
         </SelectTrigger>
         <SelectContent>

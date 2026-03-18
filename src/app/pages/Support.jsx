@@ -1,7 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "../components/ui/button.jsx";
-import Sidebar from "../components/layout/Sidebar.jsx";
+import Sidebar from "../components/layout/leftSidebar.jsx";
 import SEO from "../components/SEO.jsx";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
