@@ -1,8 +1,8 @@
 import React, { useState, useMemo, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { ArrowRight, ChevronDown } from 'lucide-react'
-import FilterNav from './filterNav'
-import ComponentCard from './componentCard'
+import FilterNav from './FilterNav'
+import ComponentCard from './ComponentCard'
 import { componentsMetadata, getFilteredComponentKeys } from '../../../library/data/componentsMetadata'
 import { useWebflowBits } from '../../hooks/useWebflowBits'
 
