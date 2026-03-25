@@ -42,9 +42,9 @@ const Home = () => {
   return (
     <>
       <SEO
-        title="FlowBitz - Free GSAP Animation Components for Webflow | No Coding Required"
-        description={`Transform your Webflow projects with ${componentCount}+ professional animation components. Zero JavaScript knowledge needed - just add HTML attributes. GSAP-powered, mobile-responsive, and completely free.`}
-        keywords="webflow animations, webflow components, gsap webflow, webflow text effects, webflow animation library, free webflow components, webflow split text, webflow gradient text, webflow typewriter effect, webflow interactive components, webflow animation plugins, webflow gsap integration, webflow animation tools, webflow effects library, webflow animation components, webflow text animations, webflow hover effects, webflow scroll animations, webflow animation code, webflow animation examples"
+        title="FlowBitz | Free GSAP Animation Components for Webflow (No Coding Required)"
+        description={`Transform your Webflow projects with ${componentCount}+ FlowBitz components. Use simple HTML attributes to activate GSAP-powered motion—free, mobile-friendly, and performance optimized.`}
+        keywords="FlowBitz, webflow animations, GSAP for Webflow, webflow HTML attributes, interactive components, free webflow components, motion effects, hover animations, scroll animations"
         image="https://www.slabpixel.dev/images/FlowBitz-OpenGraph.webp"
         url="https://www.flowbitz.dev"
         structuredData={structuredData}

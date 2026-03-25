@@ -116,9 +116,9 @@ const Installation = () => {
   return (
     <>
       <SEO
-        title="Installation Guide - FlowBitz"
-        description="Complete guide to installing and using FlowBitz animations in your Webflow projects. Easy integration with custom attributes and script installation."
-        keywords="webflow, installation, flowbitz, animations, custom code, webflow script, webflow components, webflow library"
+        title="Installation Guide - FlowBitz | Add GSAP Animations to Webflow"
+        description="Complete guide to installing FlowBitz in your Webflow projects. Add the script and configure GSAP-powered animations with simple HTML attributes—step-by-step, no coding required."
+        keywords="FlowBitz installation, webflow installation guide, webflow custom code, FlowBitz script, webflow HTML attributes, webflow GSAP animations"
         image="https://www.slabpixel.dev/images/FlowBitz-OpenGraph.webp"
         url="https://www.flowbitz.dev/installation"
         structuredData={structuredData}

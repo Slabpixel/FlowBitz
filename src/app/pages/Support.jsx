@@ -58,9 +58,9 @@ const Support = () => {
   return (
     <>
       <SEO
-        title="Support - FlowBitz Components"
-        description="Get help and support for FlowBitz - the free interactive components library for Webflow. Find documentation, report bugs, and request features."
-        keywords="flowbitz support, webflow components help, webflow components support, flowbitz documentation, webflow components bug report"
+        title="Support - FlowBitz Components | Docs, Bug Reports & Feature Requests"
+        description="Get help with FlowBitz. Find documentation, report bugs, and request features for Webflow animation components."
+        keywords="FlowBitz support, webflow components help, FlowBitz documentation, bug report, feature request, webflow animation support"
         image="https://www.slabpixel.dev/images/FlowBitz-OpenGraph.webp"
         url="https://www.flowbitz.dev/support"
         structuredData={structuredData}

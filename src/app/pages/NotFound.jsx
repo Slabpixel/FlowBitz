@@ -11,8 +11,8 @@ const NotFound = () => {
     <>
       <SEO 
         title="404 - Page Not Found | FlowBitz"
-        description="The page you're looking for doesn't exist. Explore our collection of interactive Webflow components or return to the homepage."
-        keywords="404, page not found, flowbitz, webflow components"
+        description="The page you’re looking for doesn’t exist. Explore FlowBitz free GSAP components for Webflow or return to the homepage."
+        keywords="404, page not found, FlowBitz, webflow components, free GSAP components"
         image="https://www.slabpixel.dev/images/FlowBitz-OpenGraph.webp"
         url="https://www.flowbitz.dev/404"
       />
