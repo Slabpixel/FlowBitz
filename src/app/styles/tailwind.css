@@ -467,4 +467,98 @@ pre code .value {
   .blog-article li {
     @apply marker:text-foreground;
   }
+
+  /* Code embeds: panel + Prism token colors (see BlogPost Prism.highlightElement) */
+  .blog-article pre.blog-post-code {
+    @apply my-3;
+    overflow-x: auto;
+    border-radius: 0.75rem;
+    border: 1px solid hsl(var(--border) / 0.85);
+    border-left: 3px solid hsl(var(--primary));
+    background: linear-gradient(
+      165deg,
+      rgb(var(--base-low) / 0.98) 0%,
+      rgb(var(--base-medium) / 0.42) 55%,
+      rgb(var(--base-low) / 0.92) 100%
+    );
+    box-shadow:
+      inset 0 1px 0 0 rgb(255 255 255 / 0.05),
+      0 14px 36px -14px rgb(0 0 0 / 0.55);
+    padding: 1rem 1.125rem;
+    font-family: "DM Mono", ui-monospace, monospace;
+    font-size: 0.8125rem;
+    line-height: 1.65;
+    white-space: pre-wrap;
+    word-break: break-word;
+  }
+
+  .blog-article pre.blog-post-code code {
+    display: block;
+    width: 100%;
+    background: transparent;
+    font-family: inherit;
+    font-size: inherit;
+    line-height: inherit;
+    color: hsl(var(--muted-foreground));
+  }
+
+  /* HTML / markup */
+  .blog-article .token.comment,
+  .blog-article .token.prolog,
+  .blog-article .token.doctype {
+    color: hsl(var(--muted-foreground) / 0.85);
+    font-style: italic;
+  }
+
+  .blog-article .token.tag {
+    color: hsl(var(--primary));
+  }
+
+  .blog-article .token.tag .token.tag {
+    color: inherit;
+  }
+
+  .blog-article .token.punctuation {
+    color: hsl(215 16% 58%);
+  }
+
+  .blog-article .token.attr-name {
+    color: #fbbf24;
+  }
+
+  .blog-article .token.attr-value {
+    color: #6ee7b7;
+  }
+
+  .blog-article .token.entity,
+  .blog-article .token.cdata {
+    color: #c4b5fd;
+  }
+
+  /* JavaScript */
+  .blog-article .token.keyword {
+    color: #f472b6;
+  }
+
+  .blog-article .token.string {
+    color: #6ee7b7;
+  }
+
+  .blog-article .token.function {
+    color: #93c5fd;
+  }
+
+  .blog-article .token.number {
+    color: #fdba74;
+  }
+
+  .blog-article .token.operator,
+  .blog-article .token.boolean {
+    color: #fbbf24;
+  }
+
+  /* Bash */
+  .blog-article .language-bash .token.function {
+    color: hsl(var(--primary));
+  }
 }

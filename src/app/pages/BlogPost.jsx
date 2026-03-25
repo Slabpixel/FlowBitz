@@ -1,6 +1,11 @@
-import React, { useMemo, useState } from "react";
+import React, { useLayoutEffect, useMemo, useRef, useState } from "react";
 import { Link, Navigate, useParams } from "react-router-dom";
-import { ArrowLeft, ArrowRight, Calendar, Clock } from "lucide-react";
+import { ArrowLeft, Calendar, Link2 } from "lucide-react";
+import Prism from "prismjs";
+import "prismjs/components/prism-markup";
+import "prismjs/components/prism-clike";
+import "prismjs/components/prism-javascript";
+import "prismjs/components/prism-bash";
 import SEO from "../components/SEO.jsx";
 import { getAdjacentPosts, getPostContent } from "../data/blogPosts.js";
 import { cn } from "../../shared/lib/utils.js";
@@ -23,9 +28,18 @@ const formatDate = (value) => {
 const BlogPost = () => {
   const { slug } = useParams();
   const [copied, setCopied] = useState(false);
+  const articleBodyRef = useRef(null);
   const post = useMemo(() => getPostContent(slug), [slug]);
 
   const { previous, next } = useMemo(() => getAdjacentPosts(slug), [slug]);
+
+  useLayoutEffect(() => {
+    const root = articleBodyRef.current;
+    if (!root) return;
+    root.querySelectorAll('pre code[class*="language-"]').forEach((el) => {
+      Prism.highlightElement(el);
+    });
+  }, [post?.body]);
 
   if (!post) {
     return <Navigate to="/blog" replace />;
@@ -83,21 +97,21 @@ const BlogPost = () => {
           </Link>
 
           <header className="flex flex-col items-center justify-center gap-2">
-            <div className="flex gap-2">
+            <nav
+              aria-label="Breadcrumb"
+              className="inline-flex items-center gap-1.5 text-link font-medium"
+            >
               <Link
                 to="/blog"
-                className={cn(
-                  buttonVariants({ variant: "custom", size: "custom" }),
-                  "gap-2 w-fit flex justify-center items-center",
-                )}
+                className="text-text-medium hover:text-foreground transition-colors"
               >
-                <p className="text-link font-medium text-text-medium hover:text-foreground">
-                  Blog/
-                </p>
+                Blog
               </Link>
-
-              <p className="text-link font-medium text-foreground">Creative</p>
-            </div>
+              <span className="text-text-medium" aria-hidden="true">
+                /
+              </span>
+              <span className="text-foreground">Creative</span>
+            </nav>
 
             <h1 className="inter-semi-32 text-foreground text-center">
               {post.title}
@@ -139,7 +153,7 @@ const BlogPost = () => {
               }}
               className="flex items-center gap-2 text-link font-medium text-foreground hover:text-foreground/50 transition-colors duration-200"
             >
-              <Link className="w-4 h-4" />
+              <Link2 className="w-4 h-4" />
               {copied ? "Copied!" : "Share"}
             </button>
           </div>
@@ -148,6 +162,7 @@ const BlogPost = () => {
 
           {post.body ? (
             <div
+              ref={articleBodyRef}
               className="blog-article text-muted-foreground"
               dangerouslySetInnerHTML={{ __html: post.body }}
             />
