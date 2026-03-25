@@ -1,5 +1,12 @@
 import React, { useState, useRef, useEffect, useCallback } from "react";
-import { Send, CheckCircle, AlertCircle, ArrowRight, ChevronDown } from "lucide-react";
+import {
+  Send,
+  CheckCircle,
+  AlertCircle,
+  ArrowRight,
+  ChevronDown,
+  Plus,
+} from "lucide-react";
 import SEO from "../components/SEO.jsx";
 import Logo from "../components/Logo.jsx";
 import { Button } from "../components/ui/button.jsx";
@@ -321,12 +328,12 @@ const Showcase = () => {
         url="https://www.flowbitz.dev/showcase"
         structuredData={structuredData}
       />
-      <section className="bg-transparent text-foreground min-h-screen relative overflow-hidden pb-16 md:pb-10">
+      <section className="bg-transparent text-foreground min-h-screen relative overflow-hidden">
         <div className="max-w-[1200px] lg:mx-auto mx-2 relative z-[2] border-x border-foreground/10">
           {/* Hero Section */}
-          <div
+          <header
             wb-component="smart-animate"
-            className="flex flex-col items-center mx-auto max-w-[99%] md:max-w-[475px] px-2 md:px-0 md:mx-auto text-center pt-6 md:py-14 gap-5 md:gap-4"
+            className="w-full flex flex-col items-center gap-5 md:gap-[1.625rem] py-6 md:py-14 border-b border-foreground/10"
           >
             <div className="bg-foreground/10 h-[30px] w-fit px-4 flex items-center justify-center gap-1">
               <span className="text-link font-medium text-foreground">
@@ -335,31 +342,22 @@ const Showcase = () => {
               <Logo className="h-4 w-auto" />
             </div>
 
-            <h1 className="inter-med-56 text-foreground">Website Showcase</h1>
+            <h1 className="inter-semi-48 w-2/3 md:w-full text-center text-foreground">
+              Website Showcase
+            </h1>
 
-            <p className="inter-reg-18 text-text-medium px-4 md:px-0">
-              Explore examples and uses of FlowBitz components. See how they
-              enhance your Webflow websites.
+            <p className="inter-reg-18 text-text-medium text-center px-4 md:px-0 max-w-[99%] md:max-w-[770px]">
+              Explore real-world Webflow builds powered by FlowBitz—see
+              how teams turn ideas into polished motion with our
+              components.
             </p>
-
-            {/* Submit Project Button */}
-            <div className="flex justify-center">
-              <Button
-                onClick={openModal}
-                variant="custom"
-                size="custom"
-                className="h-10 flex items-center px-4 bg-foreground rounded text-tooltip text-background"
-              >
-                Add your site
-              </Button>
-            </div>
-          </div>
+          </header>
           {/* End Hero Section */}
 
           {/* Showcase Gallery */}
           <div
             wb-component="smart-animate"
-            className="grid grid-cols-1 mt-12 md:mt-0 mx-2 md:grid-cols-2 lg:grid-cols-3 gap-6"
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-0 border-t border-l border-foreground/10"
           >
             {showcaseProjects.slice(0, visibleCount).map((project, index) => (
               <a
@@ -367,7 +365,7 @@ const Showcase = () => {
                 href={project.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group relative overflow-hidden transition-all duration-300"
+                className="group relative p-4 overflow-hidden transition-all duration-300 border-r border-b border-foreground/10"
               >
                 {/* Image Container */}
                 <div className="relative aspect-video overflow-hidden bg-muted">
@@ -399,7 +397,7 @@ const Showcase = () => {
                 </div>
 
                 {/* Content */}
-                <div className="py-4">
+                <div className="pt-4">
                   <h3 className="text-link font-medium text-foreground">
                     {project.name} - {project.description}
                   </h3>
@@ -409,6 +407,24 @@ const Showcase = () => {
                 <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-br from-primary/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 blur-2xl"></div>
               </a>
             ))}
+
+            <button
+              type="button"
+              onClick={openModal}
+              className="group relative flex flex-col overflow-hidden text-left transition-all duration-300 border-r border-b border-foreground/10 focus:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+            >
+              <div className="relative h-full aspect-video overflow-hidden bg-muted">
+                <div className="absolute inset-0 flex flex-col items-center justify-center gap-3 bg-base-medium/90 p-6 transition-colors duration-300 group-hover:bg-base-medium">
+                  <span className="flex h-12 w-12 items-center justify-center rounded-full bg-foreground/10 text-foreground transition-transform duration-300 group-hover:scale-105">
+                    <Plus className="h-6 w-6" strokeWidth={2} />
+                  </span>
+                  <span className="inter-semi-24 text-foreground">Add your site</span>
+                  <span className="inter-reg-18 text-text-medium text-center max-w-[240px]">
+                    Submit your project to appear in the showcase
+                  </span>
+                </div>
+              </div>
+            </button>
           </div>
 
           {/* Load More */}

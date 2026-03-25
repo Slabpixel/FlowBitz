@@ -122,7 +122,7 @@ const BlogPost = () => {
             <img
               src={post.heroImage}
               alt={post.title}
-              className="w-full rounded-3xl border border-border"
+              className="w-full"
               loading="lazy"
             />
           )}

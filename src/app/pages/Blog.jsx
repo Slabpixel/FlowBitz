@@ -46,26 +46,32 @@ const Blog = () => {
             <Logo className="h-4 w-auto" />
           </div>
 
-            <h1 className="inter-med-56 blog w-2/3 md:w-full text-4xl font-medium text-center">
+            <h1 className="inter-semi-48 w-2/3 md:w-full text-center text-foreground">
               Insights and Release News
             </h1>
+
+            <p className="inter-reg-18 text-text-medium text-center px-4 md:px-0 max-w-[99%] md:max-w-[770px]">
+              Tutorials, release notes, and motion workflows—learn how to ship
+              FlowBitz-powered GSAP-style effects in Webflow with less
+              friction.
+            </p>
           </header>
 
           <section
             wb-component="smart-animate"
             wb-start-delay="0.2"
-            className="flex flex-col px-2 pt-2 md:px-14 md:pt-14"
+            className="flex flex-col"
           >
-            <div className="flex flex-col gap-5 md:gap-8">
+            <div className="flex flex-col">
               {posts.slice(0, visibleCount).map((post, index) => (
                 <>
                   <article
                     key={post.slug}
-                    className={`group flex flex-col gap-4 md:gap-8 sm:flex-row overflow-hidden shadow-sm transition-all duration-300 hover:shadow-xl ${index === posts.length - 1 ? "pb-32 md:pb-0" : ""}`}
-                  >
+                    className={`group flex flex-col gap-4 md:gap-8 sm:flex-row overflow-hidden shadow-sm transition-all duration-300 hover:shadow-xl border-b border-foreground/10 p-4
+                  `}>
                     <Link
                       to={`/blog/${post.slug}`}
-                      className="relative w-full aspect-[179/80] md:aspect-video md:w-80  rounded border border-foreground/5 sm:self-stretch sm:flex-shrink-0 overflow-hidden bg-muted"
+                      className="relative w-full aspect-[179/80] md:aspect-video md:w-[470px] sm:self-stretch sm:flex-shrink-0 overflow-hidden bg-muted"
                     >
                       <img
                         src={post.heroImage}
@@ -135,8 +141,6 @@ const Blog = () => {
                   )}
                 </>
               ))}
-
-              <div className="hidden md:block h-[1px] w-full bg-foreground/10" />
 
               {visibleCount < posts.length && (
                 <div className="flex justify-center pt-[7.5rem] mb-7 md:pt-12 md:pb-18">

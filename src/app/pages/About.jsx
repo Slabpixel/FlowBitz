@@ -74,7 +74,7 @@ const About = () => {
             <Logo className="h-4 w-auto" />
           </div>
 
-          <h1 className="inter-med-56 blog w-2/3 md:w-full text-4xl font-medium text-center text-foreground">
+          <h1 className="inter-semi-48 w-2/3 md:w-full text-center text-foreground">
             Solving Webflow&apos;s Animation Problem
           </h1>
 
@@ -85,22 +85,22 @@ const About = () => {
 
         <div
           wb-component="smart-animate"
-          className="flex flex-col px-2 pt-2 md:px-14 md:pt-14"
+          className="flex flex-col"
         >
-          <div className="mx-auto w-full max-w-[800px] flex flex-col gap-10">
+          <div className="mx-auto w-full flex flex-col">
             <img
               src={ABOUT_HERO_IMAGE}
               alt="FlowBitz — free GSAP components for Webflow"
-              className="w-full rounded-2xl"
+              className="w-full border-b border-foreground/10"
               loading="lazy"
             />
 
-            <div className="flex flex-col gap-12">
-            <section className="flex flex-col gap-6">
-              <h2 className="text-heading-small text-foreground">
+            <div className="flex flex-col">
+            <section className="grid grid-cols-1 md:grid-cols-3 gap-12 p-4 border-b border-foreground/10">
+              <h2 className="inter-semi-24 col-span-1 text-foreground">
                 Our Mission
               </h2>
-              <p className="text-paragraph large text-text-medium">
+              <p className="text-paragraph large text-text-medium col-span-2">
                 To democratize professional web animations by making advanced
                 GSAP effects accessible to Webflow users without requiring
                 coding knowledge. We believe every designer deserves access to
@@ -109,11 +109,11 @@ const About = () => {
               </p>
             </section>
 
-            <section className="flex flex-col gap-6">
-              <h2 className="text-heading-small text-foreground">
+            <section className="grid grid-cols-1 md:grid-cols-3 gap-12 p-4 border-b border-foreground/10">
+              <h2 className="inter-semi-24 col-span-1 text-foreground">
                 Our Vision
               </h2>
-              <p className="text-paragraph large text-text-medium">
+              <p className="text-paragraph large text-text-medium col-span-2">
                 A world where advanced web animations are accessible to
                 everyone, regardless of technical skill level. We envision a
                 future where designers can create stunning, professional
@@ -122,11 +122,11 @@ const About = () => {
               </p>
             </section>
 
-            <section className="flex flex-col gap-6">
-              <h2 className="text-heading-small text-foreground">
+            <section className="grid grid-cols-1 md:grid-cols-3 gap-12 p-4 border-b border-foreground/10">
+              <h2 className="inter-semi-24 col-span-1 text-foreground">
                 The Problem We&apos;re Solving
               </h2>
-              <ul className="flex flex-col gap-6 list-none p-0 m-0">
+              <ul className="flex flex-col gap-6 list-none p-0 m-0 col-span-2">
                 <li className="flex gap-3 items-start">
                   <span className="mt-0.5 shrink-0 inline-flex text-foreground/70">
                     <AlertCircle className="w-5 h-5" aria-hidden />
@@ -182,11 +182,11 @@ const About = () => {
               </ul>
             </section>
 
-            <section className="flex flex-col gap-8">
-              <h2 className="text-heading-small text-foreground">
+            <section className="grid grid-cols-1 md:grid-cols-3 gap-12 p-4 border-b border-foreground/10">
+              <h2 className="inter-semi-24 col-span-1 text-foreground">
                 Why FlowBitz is Different
               </h2>
-              <ul className="flex flex-col gap-8 list-none p-0 m-0">
+              <ul className="flex flex-col gap-8 list-none p-0 m-0 col-span-2">
                 <li className="flex gap-3 items-start">
                   <span className="mt-0.5 shrink-0 inline-flex text-foreground/70">
                     <Gift className="w-5 h-5" aria-hidden />
@@ -281,12 +281,9 @@ const About = () => {
               </ul>
             </section>
 
-            <section className="flex flex-col gap-6">
-              <h2 className="text-heading-small text-foreground">
-                By the numbers
-              </h2>
-              <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 list-none p-0 m-0">
-                <li className="rounded-xl border border-foreground/10 bg-background/40 p-5 sm:p-6 flex flex-col items-center text-center gap-3 min-h-0">
+            <section className="flex flex-col border-b border-foreground/10">
+              <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 list-none p-0 m-0">
+                <li className="border-r border-foreground/10 bg-background/40 p-5 sm:p-6 flex flex-col items-center text-center gap-3 min-h-0">
                   <span className="inline-flex items-center justify-center w-11 h-11 rounded-lg bg-foreground/5 text-foreground/80">
                     <Layers className="w-5 h-5" aria-hidden />
                   </span>
@@ -297,7 +294,7 @@ const About = () => {
                     Components
                   </span>
                 </li>
-                <li className="rounded-xl border border-foreground/10 bg-background/40 p-5 sm:p-6 flex flex-col items-center text-center gap-3 min-h-0">
+                <li className="border-r border-foreground/10 bg-background/40 p-5 sm:p-6 flex flex-col items-center text-center gap-3 min-h-0">
                   <span className="inline-flex items-center justify-center w-11 h-11 rounded-lg bg-foreground/5 text-foreground/80">
                     <Gift className="w-5 h-5" aria-hidden />
                   </span>
@@ -306,7 +303,7 @@ const About = () => {
                   </span>
                   <span className="text-paragraph large text-textLow">Free</span>
                 </li>
-                <li className="rounded-xl border border-foreground/10 bg-background/40 p-5 sm:p-6 flex flex-col items-center text-center gap-3 min-h-0">
+                <li className="border-r border-foreground/10 bg-background/40 p-5 sm:p-6 flex flex-col items-center text-center gap-3 min-h-0">
                   <span className="inline-flex items-center justify-center w-11 h-11 rounded-lg bg-foreground/5 text-foreground/80">
                     <LayoutGrid className="w-5 h-5" aria-hidden />
                   </span>
@@ -317,7 +314,7 @@ const About = () => {
                     Categories
                   </span>
                 </li>
-                <li className="rounded-xl border border-foreground/10 bg-background/40 p-5 sm:p-6 flex flex-col items-center text-center gap-3 min-h-0">
+                <li className="bg-background/40 p-5 sm:p-6 flex flex-col items-center text-center gap-3 min-h-0">
                   <span className="inline-flex items-center justify-center w-11 h-11 rounded-lg bg-foreground/5 text-foreground/80">
                     <InfinityIcon className="w-5 h-5" aria-hidden />
                   </span>
@@ -329,7 +326,7 @@ const About = () => {
               </ul>
             </section>
 
-            <div className="relative flex flex-col gap-4 px-4 py-8 md:p-10 bg-base-medium rounded-2xl w-full text-center items-center">
+            <div className="relative flex flex-col gap-4 px-4 py-16 bg-base-medium w-full text-center items-center">
               <h2 className="relative z-[2] text-heading-small text-foreground max-w-xl">
                 Ready to solve your Webflow animation problems?
               </h2>
@@ -374,7 +371,7 @@ const About = () => {
                 src="/images/group.svg"
                 alt=""
                 aria-hidden="true"
-                className="absolute inset-0 w-full h-full object-cover z-[1] pointer-events-none rounded-2xl"
+                className="absolute inset-0 w-full h-full object-cover z-[1] pointer-events-none"
                 loading="lazy"
               />
             </div>
