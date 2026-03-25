@@ -164,9 +164,9 @@ const Contact = () => {
   return (
     <>
       <SEO 
-        title="Contact FlowBitz - Get Support & Submit Feedback"
-        description="Contact the FlowBitz team for support, bug reports, or feature requests. Get help with your Webflow animations and provide feedback."
-        keywords="contact flowbitz, webflow support, bug report, feature request, animation help"
+        title="Contact FlowBitz | Support, Bug Reports & Feature Requests"
+        description="Contact the FlowBitz team for support, bug reports, or feature requests. Get help with your Webflow animations."
+        keywords="FlowBitz contact, webflow support, bug report, feature request, animation help, FlowBitz team"
         image="https://www.slabpixel.dev/images/FlowBitz-OpenGraph.webp"
         url="https://www.flowbitz.dev/contact"
         structuredData={structuredData}

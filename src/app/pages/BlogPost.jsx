@@ -77,6 +77,14 @@ const BlogPost = () => {
         image={post.heroImage}
         type="article"
         publishedTime={post.publishedAt}
+        keywords={[
+          "FlowBitz blog",
+          "Webflow animations",
+          "GSAP for Webflow",
+          Array.isArray(post.tags) && post.tags.length ? post.tags.join(", ") : "",
+        ]
+          .filter(Boolean)
+          .join(", ")}
         structuredData={structuredData}
       />
       <article className="relative z-[2] md:pt-14 pt-10 pb-12 bg-transparent text-foreground max-w-[1200px] mx-auto border-x border-foreground/10">

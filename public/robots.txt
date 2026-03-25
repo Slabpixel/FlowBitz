@@ -9,6 +9,7 @@ Sitemap: https://www.flowbitz.dev/sitemap.xml
 # Disallow: /private/
 
 # Allow all components and pages
+Allow: /components
 Allow: /components/
 Allow: /about
 Allow: /support

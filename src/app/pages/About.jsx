@@ -55,9 +55,9 @@ const About = () => {
   return (
     <>
       <SEO
-        title="About FlowBitz - Solving Webflow Animation Problems | Free GSAP Components"
-        description="Discover how FlowBitz bridges the gap between Webflow's basic animations and professional GSAP effects. Learn about our mission to democratize advanced web animations for everyone."
-        keywords="about flowbitz, webflow animation problems, webflow gsap integration, webflow animation limitations, webflow components library, free webflow animations, webflow animation solutions, webflow animation tools, webflow animation alternatives, webflow animation library, webflow animation components, webflow animation examples, webflow animation tutorials, webflow animation code, webflow animation plugins, webflow animation effects, webflow animation library, webflow animation tools, webflow animation solutions, webflow animation alternatives"
+        title="About FlowBitz | Free GSAP Components for Webflow"
+        description="Learn how FlowBitz bridges Webflow's limited native animations with professional GSAP effects using simple HTML attributes—free for everyone, built by SlabPixel Studio."
+        keywords="FlowBitz about, free GSAP components for Webflow, Webflow animations, GSAP effects for Webflow, webflow HTML attributes, motion component library, SlabPixel Studio"
         image="https://www.slabpixel.dev/images/FlowBitz-OpenGraph.webp"
         url="https://www.flowbitz.dev/about"
         structuredData={structuredData}

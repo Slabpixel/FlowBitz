@@ -312,9 +312,9 @@ const ComponentDetail = () => {
   return (
     <>
       <SEO
-        title={`${component.name} - FlowBitz Component`}
-        description={`${component.description} - Free Webflow component with easy integration and customization options.`}
-        keywords={`webflow, ${component.name.toLowerCase()}, ${component.category}, interactive components, webflow library, ${componentName}, webflow effects`}
+        title={`${component.name} - FlowBitz Component for Webflow | Free GSAP Animation`}
+        description={`${component.description} Build with FlowBitz using simple HTML attributes. Get GSAP-powered motion for Webflow—free and easy to customize.`}
+        keywords={`FlowBitz, webflow, ${component.name.toLowerCase()}, ${component.category}, GSAP for Webflow, webflow HTML attributes, interactive components, webflow animation library, ${componentName}`}
         image="https://www.slabpixel.dev/images/FlowBitz-OpenGraph.webp"
         url={`https://www.flowbitz.dev/components/${componentName}`}
         structuredData={structuredData}

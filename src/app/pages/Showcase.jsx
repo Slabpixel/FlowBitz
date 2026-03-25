@@ -321,9 +321,9 @@ const Showcase = () => {
   return (
     <>
       <SEO
-        title="Showcase - FlowBitz Components"
-        description="Explore real-world examples and showcases of FlowBitz components in action. See how developers are using our interactive components in their Webflow projects."
-        keywords="flowbitz showcase, webflow components examples, webflow components showcase, flowbitz projects, webflow components in action"
+        title="Showcase - FlowBitz Components for Webflow | Real Projects"
+        description="Explore real-world Webflow projects built with FlowBitz components. See how teams ship polished motion using GSAP-style effects powered by simple HTML attributes."
+        keywords="FlowBitz showcase, Webflow component examples, Webflow motion, GSAP effects in Webflow, FlowBitz projects, interactive webflow components"
         image="https://www.slabpixel.dev/images/FlowBitz-OpenGraph.webp"
         url="https://www.flowbitz.dev/showcase"
         structuredData={structuredData}

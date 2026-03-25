@@ -146,8 +146,8 @@ const Release = () => {
         <>
             <SEO
                 title="Release Notes - FlowBitz | Version History & Roadmap"
-                description="FlowBitz release notes and version history. Track the evolution of our animation components library for Webflow."
-                keywords="flowbitz release notes, webflow components version history, animation library roadmap, flowbitz changelog"
+                description="Track FlowBitz release notes, version history, and roadmap updates. See what's new in free GSAP-powered Webflow animation components."
+                keywords="FlowBitz release notes, FlowBitz changelog, webflow components version history, animation roadmap, GSAP components for Webflow"
                 image="https://www.slabpixel.dev/images/FlowBitz-OpenGraph.webp"
                 url="https://www.flowbitz.dev/release"
                 structuredData={structuredData}

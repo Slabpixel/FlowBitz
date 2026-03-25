@@ -146,9 +146,9 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
   return (
     <>
       <SEO 
-        title="License - FlowBitz | MIT License & Usage Guidelines"
-        description="FlowBitz is licensed under the MIT License. Learn about usage rights, commercial use, modification permissions, and third-party dependencies."
-        keywords="flowbitz license, MIT license, open source, commercial use, webflow components"
+        title="MIT License - FlowBitz | Usage Rights & Guidelines"
+        description="Read FlowBitz MIT license details including usage rights, commercial use, modification permissions, and third-party dependency considerations."
+        keywords="FlowBitz license, MIT license, open source, commercial use, webflow components, terms of use"
         image="https://www.slabpixel.dev/images/FlowBitz-OpenGraph.webp"
         url="https://www.flowbitz.dev/license"
         structuredData={structuredData}

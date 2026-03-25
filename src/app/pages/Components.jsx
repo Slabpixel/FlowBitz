@@ -29,9 +29,9 @@ const Components = () => {
   return (
     <>
       <SEO
-        title={`Free Webflow Animation Components Library | ${componentCount}+ GSAP Components - FlowBitz`}
-        description={`Browse ${componentCount}+ professional animation components for Webflow. Text effects, hover animations, scroll triggers - all powered by GSAP. Zero coding required, completely free.`}
-        keywords="webflow components library, webflow animation components, webflow text effects, webflow hover effects, webflow scroll animations, webflow gsap components, free webflow components, webflow split text, webflow gradient text, webflow typewriter effect, webflow interactive components, webflow animation library, webflow effects library, webflow animation tools, webflow animation examples, webflow animation code, webflow animation tutorials, webflow animation solutions, webflow animation alternatives, webflow animation problems, webflow animation limitations"
+        title={`FlowBitz Components Library | Free Webflow Animation Components (${componentCount}+ )`}
+        description={`Browse ${componentCount}+ free, GSAP-powered animation components for Webflow. Build text, hover, and scroll effects using simple HTML attributes—no coding required.`}
+        keywords="FlowBitz components library, webflow animation components, webflow text effects, webflow hover effects, webflow scroll animations, GSAP for Webflow, webflow HTML attributes, free webflow components"
         image="https://www.slabpixel.dev/images/FlowBitz-OpenGraph.webp"
         url="https://www.flowbitz.dev/components"
         structuredData={structuredData}

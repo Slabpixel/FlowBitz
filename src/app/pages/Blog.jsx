@@ -28,10 +28,10 @@ const Blog = () => {
   return (
     <>
       <SEO
-        title="FlowBitz Blog — Tutorials, Release Notes, and Motion Workflows"
-        description="Read about FlowBitz releases, Webflow animation tips, and GSAP-powered workflows to ship premium motion without writing custom JavaScript."
+        title="FlowBitz Blog | Webflow Animation Tutorials, Release Notes & Motion Workflows"
+        description="Read FlowBitz tutorials, release notes, and Webflow motion workflows. Learn how to create GSAP-powered animations with simple HTML attributes—no custom JavaScript required."
         url="https://www.flowbitz.dev/blog"
-        keywords="flowbitz blog, webflow animation blog, gsap webflow tutorial, flowbitz release notes"
+        keywords="FlowBitz blog, Webflow animation tutorials, FlowBitz release notes, GSAP for Webflow, webflow motion workflows, HTML attributes animations, interactive components"
       />
       <div className="relative z-[2] text-foreground">
         <div className="max-w-[1200px] mx-2 md:mx-4 lg:mx-auto flex justify-center items-center flex-col border-x border-foreground/10">

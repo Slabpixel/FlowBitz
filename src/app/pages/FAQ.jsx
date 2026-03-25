@@ -222,9 +222,9 @@ const FAQ = () => {
   return (
     <>
       <SEO
-        title="FAQ - FlowBitz Components"
-        description="Frequently asked questions about FlowBitz - the free interactive components library for Webflow. Get help with installation, usage, and troubleshooting."
-        keywords="flowbitz faq, webflow components help, webflow components installation, webflow components troubleshooting, flowbitz support"
+        title="FAQ - FlowBitz Components | Webflow Animation Help"
+        description="Find answers to common questions about FlowBitz installation, usage, and Webflow animation troubleshooting. Get support and best practices for GSAP-powered components."
+        keywords="FlowBitz FAQ, webflow animation troubleshooting, FlowBitz installation help, webflow GSAP components, interactive components support, FlowBitz support"
         image="https://www.slabpixel.dev/images/FlowBitz-OpenGraph.webp"
         url="https://www.flowbitz.dev/faq"
         structuredData={structuredData}
