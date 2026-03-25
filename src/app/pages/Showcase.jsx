@@ -301,6 +301,55 @@ const Showcase = () => {
       description: "Finance Application",
       components: ["Split Text", "Smart Animate"],
     },
+    {
+      name: "Lunet",
+      url: "https://lunets.webflow.io/",
+      image: "/showcase/lunet.webp",
+      description: "Fashion & Lifestyle",
+      components: ["Split Text", "Smart Animate"],
+    },
+    {
+      name: "Alexandria AI",
+      url: "https://alexandria-ai.webflow.io/",
+      image: "/showcase/alexandria.webp",
+      description: "AI Agentic Platform",
+      components: ["Split Text", "Smart Animate"],
+    },
+    {
+      name: "Asgard",
+      url: "https://asgard-slabpixel.webflow.io/",
+      image: "/showcase/asgard.webp",
+      description: "Construction Management",
+      components: ["Split Text", "Smart Animate"],
+    },
+    {
+      name: "Soun AI",
+      url: "https://soun-ai.webflow.io/",
+      image: "/showcase/soun.webp",
+      description: "Personal AI Assistant",
+      components: ["Split Text", "Smart Animate"],
+    },
+    {
+      name: "Finguard",
+      url: "https://finguard-e89d5c.webflow.io/",
+      image: "/showcase/finguard.webp",
+      description: "Finance Application",
+      components: ["Split Text", "Smart Animate"],
+    },
+    {
+      name: "LOUD Fest",
+      url: "https://loud-fest.webflow.io/",
+      image: "/showcase/loud.webp",
+      description: "Music and Art Festival",
+      components: ["Split Text", "Smart Animate"],
+    },
+    {
+      name: "Vallen Angel",
+      url: "https://vallenangel.webflow.io/",
+      image: "/showcase/vallen.webp",
+      description: "Fashion & Lifestyle",
+      components: ["Split Text", "Smart Animate"],
+    },
   ];
 
   const structuredData = {
@@ -389,9 +438,7 @@ const Showcase = () => {
                         ))}
                       </div> */}
 
-                      <ArrowRight
-                        className="ml-auto w-5 h-5 -rotate-45"
-                      />
+                      <ArrowRight className="ml-auto w-5 h-5 -rotate-45" />
                     </div>
                   </div>
                 </div>
@@ -435,9 +482,7 @@ const Showcase = () => {
                 className="flex items-center gap-2 px-6 py-3 border border-foreground/10 rounded text-foreground hover:text-foreground/70 transition-colors duration-200"
               >
                 <span className="text-sm font-medium">Load More</span>
-<ChevronDown
-                className="w-4 h-4 opacity-60"
-              />
+                <ChevronDown className="w-4 h-4 opacity-60" />
               </button>
             </div>
           )}
@@ -569,9 +614,7 @@ const Showcase = () => {
                 ) : (
                   <>
                     Submit
-<ArrowRight
-                    className="w-3 h-3 opacity-60"
-                  />
+                    <ArrowRight className="w-3 h-3 opacity-60" />
                   </>
                 )}
               </Button>
