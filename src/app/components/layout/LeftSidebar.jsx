@@ -242,8 +242,8 @@ const Sidebar = ({ showBackLink = false, variant = "default", onNavigate }) => {
           <div
             className={`w-full flex items-center justify-start rounded transition-all duration-200 ${
               isSearchFocused
-                ? "bg-foreground/15 ring-1 ring-foreground"
-                : "bg-foreground/10"
+                ? "bg-base-medium ring-1 ring-foreground"
+                : "bg-base-medium"
             }`}
           >
             <div className="flex flex-col items-center justify-center w-11 h-11">

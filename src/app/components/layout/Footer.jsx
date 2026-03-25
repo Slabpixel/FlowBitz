@@ -98,105 +98,103 @@ const Footer = ({ onScrollToTop }) => {
         {/* End Footer CTA */}
 
         {/* Footer Link List */}
-        <div className="flex flex-col items-stretch md:items-center py-10 px-2 lg-px-0 md:py-[3.75rem] border-b-[1px] border-foreground/10">
-          <div className="md:max-w-[548px] w-full md:w-[45.67%] px-2 md:px-0 flex flex-wrap md:flex-nowrap">
-            <div className="flex flex-col items-start md:items-center pl-4 md:pl-0 w-1/2 md:w-auto md:pr-8 md:border-r-[1px] border-foreground/10 gap-2 md:gap-4 flex-grow">
-              <h4 className="display-semi-16 text-foreground">Navigation</h4>
+        <div className="grid grid-cols-1 md:grid-cols-3 border-b border-foreground/10">
+          <div className="flex flex-col items-center py-16 md:border-r border-foreground/10 gap-2 md:gap-4">
+            <h4 className="display-semi-16 text-foreground">Navigation</h4>
 
-              <div className="flex flex-col items-start md:items-center gap-2">
-                <button
-                  onClick={() => handleNavigation("/")}
-                  className="inter-reg-16 opacity-80 text-foreground hover:opacity-100"
-                >
-                  Home
-                </button>
-                <button
-                  onClick={() => handleNavigation("/components")}
-                  className="inter-reg-16 opacity-80 text-foreground hover:opacity-100"
-                >
-                  Components
-                </button>
-                <button
-                  onClick={() => handleNavigation("/blog")}
-                  className="inter-reg-16 opacity-80 text-foreground hover:opacity-100"
-                >
-                  Blog
-                </button>
-                <button
-                  onClick={() => handleNavigation("/showcase")}
-                  className="inter-reg-16 opacity-80 text-foreground hover:opacity-100"
-                >
-                  Showcase
-                </button>
-                <button
-                  onClick={() => handleNavigation("/about")}
-                  className="inter-reg-16 opacity-80 text-foreground hover:opacity-100"
-                >
-                  About us
-                </button>
-              </div>
+            <div className="flex flex-col items-start md:items-center gap-2">
+              <button
+                onClick={() => handleNavigation("/")}
+                className="inter-reg-16 opacity-80 text-foreground hover:opacity-100"
+              >
+                Home
+              </button>
+              <button
+                onClick={() => handleNavigation("/components")}
+                className="inter-reg-16 opacity-80 text-foreground hover:opacity-100"
+              >
+                Components
+              </button>
+              <button
+                onClick={() => handleNavigation("/blog")}
+                className="inter-reg-16 opacity-80 text-foreground hover:opacity-100"
+              >
+                Blog
+              </button>
+              <button
+                onClick={() => handleNavigation("/showcase")}
+                className="inter-reg-16 opacity-80 text-foreground hover:opacity-100"
+              >
+                Showcase
+              </button>
+              <button
+                onClick={() => handleNavigation("/about")}
+                className="inter-reg-16 opacity-80 text-foreground hover:opacity-100"
+              >
+                About us
+              </button>
             </div>
+          </div>
 
-            <div className="flex flex-col items-start md:items-center pr-4 md:px-8 w-1/2 md:w-auto md:border-r-[1px] border-foreground/10 gap-2 md:gap-4 flex-grow">
-              <h4 className="display-semi-16 text-foreground">Support</h4>
+          <div className="flex flex-col items-center py-16 md:border-r border-foreground/10 gap-2 md:gap-4">
+            <h4 className="display-semi-16 text-foreground">Support</h4>
 
-              <div className="flex flex-col items-start md:items-center gap-2">
-                <button
-                  onClick={() => handleNavigation("/faq")}
-                  className="inter-reg-16 opacity-80 text-foreground hover:opacity-100"
-                >
-                  FAQ
-                </button>
-                <button
-                  onClick={() => handleNavigation("/contact?tab=contact")}
-                  className="inter-reg-16 opacity-80 text-foreground hover:opacity-100"
-                >
-                  Contact
-                </button>
-                <button
-                  onClick={() => handleNavigation("/support")}
-                  className="inter-reg-16 opacity-80 text-foreground hover:opacity-100"
-                >
-                  Support
-                </button>
-                <button
-                  onClick={handleGitHub}
-                  className="inter-reg-16 opacity-80 text-foreground hover:opacity-100"
-                >
-                  Github
-                </button>
-              </div>
+            <div className="flex flex-col items-start md:items-center gap-2">
+              <button
+                onClick={() => handleNavigation("/faq")}
+                className="inter-reg-16 opacity-80 text-foreground hover:opacity-100"
+              >
+                FAQ
+              </button>
+              <button
+                onClick={() => handleNavigation("/contact?tab=contact")}
+                className="inter-reg-16 opacity-80 text-foreground hover:opacity-100"
+              >
+                Contact
+              </button>
+              <button
+                onClick={() => handleNavigation("/support")}
+                className="inter-reg-16 opacity-80 text-foreground hover:opacity-100"
+              >
+                Support
+              </button>
+              <button
+                onClick={handleGitHub}
+                className="inter-reg-16 opacity-80 text-foreground hover:opacity-100"
+              >
+                Github
+              </button>
             </div>
+          </div>
 
-            <div className="flex flex-col items-start md:items-center pt-5 md:pt-0 pl-4 md:pl-8 gap-2 md:gap-4 flex-grow">
-              <h4 className="display-semi-16 text-foreground">Resources</h4>
+          <div className="flex flex-col items-center py-16 gap-2 md:gap-4">
+            <h4 className="display-semi-16 text-foreground">Resources</h4>
 
-              <div className="flex flex-col items-start md:items-center gap-2">
-                <button
-                  onClick={() => handleNavigation("/release")}
-                  className="inter-reg-16 opacity-80 text-foreground hover:opacity-100"
-                >
-                  Release notes
-                </button>
-                <button
-                  onClick={() => handleNavigation("/contact?tab=report")}
-                  className="inter-reg-16 opacity-80 text-foreground hover:opacity-100"
-                >
-                  Report bug
-                </button>
-                <button
-                  onClick={() => handleNavigation("/contact?tab=feature")}
-                  className="inter-reg-16 opacity-80 text-foreground hover:opacity-100"
-                >
-                  Feature request
-                </button>
-                <button
-                  onClick={() => handleNavigation("/license")}
-                  className="inter-reg-16 opacity-80 text-foreground hover:opacity-100"
-                >
-                  License
-                </button>
-              </div>
+            <div className="flex flex-col items-start md:items-center gap-2">
+              <button
+                onClick={() => handleNavigation("/release")}
+                className="inter-reg-16 opacity-80 text-foreground hover:opacity-100"
+              >
+                Release notes
+              </button>
+              <button
+                onClick={() => handleNavigation("/contact?tab=report")}
+                className="inter-reg-16 opacity-80 text-foreground hover:opacity-100"
+              >
+                Report bug
+              </button>
+              <button
+                onClick={() => handleNavigation("/contact?tab=feature")}
+                className="inter-reg-16 opacity-80 text-foreground hover:opacity-100"
+              >
+                Feature request
+              </button>
+              <button
+                onClick={() => handleNavigation("/license")}
+                className="inter-reg-16 opacity-80 text-foreground hover:opacity-100"
+              >
+                License
+              </button>
             </div>
           </div>
         </div>

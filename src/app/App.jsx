@@ -60,6 +60,8 @@ function App() {
   const isMainPage =
     location.pathname === "/" ||
     location.pathname === "/about" ||
+    location.pathname === "/release" ||
+    location.pathname === "/license" ||
     location.pathname === "/showcase" ||
     location.pathname.startsWith("/blog") ||
     location.pathname.startsWith("/contact");

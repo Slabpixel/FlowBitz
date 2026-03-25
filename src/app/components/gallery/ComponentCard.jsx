@@ -57,10 +57,7 @@ const ComponentCard = ({ id, name, category, isNew, exampleCode, hoverPreview, o
 
   return (
     <div 
-      className={`
-        group transition-all duration-300 hover:z-10
-        border border-foreground/10 hover:border-foreground/30
-      `}
+      className={`group transition-all duration-300 hover:z-10 border border-foreground/10 hover:border-foreground/30 p-4`}
       style={{
         // Stagger animation delay based on index
         animationDelay: `${index * 50}ms`
@@ -69,7 +66,7 @@ const ComponentCard = ({ id, name, category, isNew, exampleCode, hoverPreview, o
       onMouseLeave={handleMouseLeave}
     >
       {/* Preview Area - Live FlowBitz Component */}
-      <div className="h-[230px] md:h-[325px] bg-[#111111] flex items-center justify-center overflow-hidden">
+      <div className="h-[230px] md:h-[270px] bg-base-medium flex items-center justify-center overflow-hidden">
         <div 
           key={reloadKey}
           className="w-full h-full flex items-center justify-center p-4 scale-75 text-center [&_*]:font-medium [&_.lg\:text-6xl]:!text-4xl [&_.lg\:text-\[160px\]]:!text-5xl [&_.text-3xl]:!text-2xl"
@@ -78,16 +75,16 @@ const ComponentCard = ({ id, name, category, isNew, exampleCode, hoverPreview, o
       </div>
 
       {/* Metadata Area */}
-      <div onClick={onClick} className="bg-transparent cursor-pointer px-4 py-4 border-t border-foreground/10">
+      <div onClick={onClick} className="bg-transparent cursor-pointer pt-4">
         <div className="flex items-center gap-2">
-          <h3 className="text-foreground display-semi-16">{name}</h3>
+          <h3 className="text-foreground display-semi-20">{name}</h3>
           {isNew && (
             <span className="px-2 py-0.5 text-[10px] font-semibold uppercase bg-primary text-white rounded-full">
               NEW
             </span>
           )}
         </div>
-        <p className="text-foreground/70 inter-reg-16 mt-1">{category}</p>
+        <p className="text-foreground/70 text-xs mt-1">{category}</p>
       </div>
     </div>
   )
