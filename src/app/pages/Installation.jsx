@@ -141,146 +141,163 @@ const Installation = () => {
             </div>
 
             {/* Installation Steps */}
-            <div className="w-full max-w-[800px] flex flex-col gap-10 md:py-6">
-              <div className="flex flex-col gap-2 p-4 border border-foreground/10 rounded-lg">
-                <h2 className="text-heading-small text-foreground my-1">
-                  1. &nbsp; Adding FlowBitz Script
-                </h2>
-
-                {/* Step 1: Add Script */}
-                <div className="ml-6 flex flex-col gap-2">
-                  <p className="text-paragraph large text-text-medium">
-                    • Add the FlowBitz script to your Webflow project's custom
-                    code section to enable all animations.
-                  </p>
-
-                  <p className="text-paragraph large text-text-medium">
-                    • Go to your Webflow Project{" "}
-                    <strong>Settings → Custom Code → Footer Code</strong>, and
-                    paste the script there.
-                  </p>
-
-                  <div className="relative">
-                    <SyntaxHighlighter
-                      language="html"
-                      style={tomorrow}
-                      customStyle={{
-                        margin: 0,
-                        padding: "0.875rem",
-                        fontSize: "0.75rem",
-                        borderRadius: "0.5rem",
-                        backgroundColor: "#181b27",
-                      }}
-                      codeTagProps={{
-                        style: {
-                          fontFamily: 'Monaco, Menlo, "Ubuntu Mono", monospace',
-                        },
-                      }}
-                    >
-                      {
-                        '<script src="https://cdn.jsdelivr.net/npm/flowbitz@latest/dist/flowbitz.umd.js"></script>'
-                      }
-                    </SyntaxHighlighter>
-                    <Button
-                      variant="ghost"
-                      size="sm"
-                      className="absolute right-2 top-2 h-8 w-8 p-0 hover:bg-gray-700"
-                      onClick={() =>
-                        copyToClipboard(
-                          '<script src="https://cdn.jsdelivr.net/npm/flowbitz@latest/dist/flowbitz.umd.js"></script>',
-                          "scriptTag",
-                        )
-                      }
-                    >
-                      {copyStates.scriptTag ? (
-                        <CheckCircle className="w-4 h-4 text-green-500" />
-                      ) : (
-                        <Copy className="w-4 h-4 text-white" />
-                      )}
-                    </Button>
+            <div className="w-full max-w-[800px] flex flex-col gap-4 md:py-6">
+              {/* Step 1 */}
+              <div className="flex gap-4 items-stretch">
+                <div className="flex flex-col items-center w-10">
+                  <div className="h-9 w-9 bg-muted-foreground/10 rounded-lg flex items-center justify-center text-foreground font-semibold">
+                    1
                   </div>
+                  <div className="flex-1 w-px bg-foreground/20 mt-4" />
+                </div>
+                <div className="flex-1 p-4 border border-foreground/10 rounded-lg flex flex-col gap-2">
+                  <h2 className="text-heading-small text-foreground my-1">
+                    Adding FlowBitz Script
+                  </h2>
 
-                  <p className="text-paragraph large text-text-medium">
-                    Thats it! 🎉 You can now use FlowBitz animations in your
-                    Webflow project.
-                  </p>
+                  <div className="flex flex-col gap-2">
+                    <p className="text-paragraph large text-text-medium">
+                      • Add the FlowBitz script to your Webflow project's custom
+                      code section to enable all animations.
+                    </p>
+
+                    <p className="text-paragraph large text-text-medium">
+                      • Go to your Webflow Project{" "}
+                      <strong>Settings → Custom Code → Footer Code</strong>, and
+                      paste the script there.
+                    </p>
+
+                    <div className="relative">
+                      <SyntaxHighlighter
+                        language="html"
+                        style={tomorrow}
+                        customStyle={{
+                          margin: 0,
+                          padding: "0.875rem",
+                          fontSize: "0.75rem",
+                          borderRadius: "0.5rem",
+                          backgroundColor: "#181b27",
+                        }}
+                        codeTagProps={{
+                          style: {
+                            fontFamily:
+                              'Monaco, Menlo, "Ubuntu Mono", monospace',
+                          },
+                        }}
+                      >
+                        {
+                          '<script src="https://cdn.jsdelivr.net/npm/flowbitz@latest/dist/flowbitz.umd.js"></script>'
+                        }
+                      </SyntaxHighlighter>
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        className="absolute right-2 top-2 h-8 w-8 p-0 hover:bg-gray-700"
+                        onClick={() =>
+                          copyToClipboard(
+                            '<script src="https://cdn.jsdelivr.net/npm/flowbitz@latest/dist/flowbitz.umd.js"></script>',
+                            "scriptTag",
+                          )
+                        }
+                      >
+                        {copyStates.scriptTag ? (
+                          <CheckCircle className="w-4 h-4 text-green-500" />
+                        ) : (
+                          <Copy className="w-4 h-4 text-white" />
+                        )}
+                      </Button>
+                    </div>
+
+                    <p className="text-paragraph large text-text-medium">
+                      Thats it! 🎉 You can now use FlowBitz animations in your
+                      Webflow project.
+                    </p>
+                  </div>
                 </div>
               </div>
 
-              <div className="flex flex-col gap-2 p-4 border border-foreground/10 rounded-lg">
-                <h2 className="text-heading-small text-foreground my-1">
-                  2. &nbsp; Adding FlowBitz Component
-                </h2>
+              {/* Step 2 */}
+              <div className="flex gap-4 items-stretch">
+                <div className="flex flex-col items-center w-10">
+                  <div className="h-9 w-9 bg-muted-foreground/10 rounded-lg flex items-center justify-center text-foreground font-semibold">
+                    2
+                  </div>
+                  <div className="flex-1 w-px bg-foreground/20 mt-4" />
+                </div>
+                <div className="flex-1 p-4 border border-foreground/10 rounded-lg flex flex-col gap-2">
+                  <h2 className="text-heading-small text-foreground my-1">
+                    Adding FlowBitz Component
+                  </h2>
 
-                {/* Step 2: Add Component */}
-                <div className="ml-8 flex flex-col gap-2">
-                  <p className="text-paragraph large semi text-foreground">
-                    Add Component Attributes
-                  </p>
+                  <div className="flex flex-col gap-2">
+                    <p className="text-paragraph large semi text-foreground">
+                      Add Component Attributes
+                    </p>
 
-                  <p className="text-paragraph large text-text-medium">
-                    Add the wb-component attribute to any element in your
-                    Webflow project to enable animations. In Webflow, you can
-                    add custom attributes by selecting your element, going to{" "}
-                    <strong>Element Settings → Custom Attributes</strong>, and
-                    adding the attribute name and value.
-                  </p>
+                    <p className="text-paragraph large text-text-medium">
+                      Add the wb-component attribute to any element in your
+                      Webflow project to enable animations. In Webflow, you can
+                      add custom attributes by selecting your element, going to{" "}
+                      <strong>Element Settings → Custom Attributes</strong>, and
+                      adding the attribute name and value.
+                    </p>
 
-                  <div className="space-y-4">
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                      <div className="flex flex-col gap-2">
-                        <label className="text-paragraph large text-text-medium">
-                          Attribute Name
-                        </label>
-                        <div className="relative">
-                          <input
-                            type="text"
-                            value="wb-component"
-                            readOnly
-                            className="w-full p-2.5 flex items-center justify-center text-attribute bg-base-high border border-foreground/10 rounded"
-                          />
-                          <Button
-                            variant="ghost"
-                            size="sm"
-                            className="absolute right-1 top-1/2 -translate-y-1/2 h-8 w-8 p-0 hover:bg-accent"
-                            onClick={() =>
-                              copyToClipboard("wb-component", "attributeName")
-                            }
-                          >
-                            {copyStates.attributeName ? (
-                              <CheckCircle className="w-4 h-4 text-green-500" />
-                            ) : (
-                              <Copy className="w-4 h-4" />
-                            )}
-                          </Button>
+                    <div className="space-y-4">
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div className="flex flex-col gap-2">
+                          <label className="text-paragraph large text-text-medium">
+                            Attribute Name
+                          </label>
+                          <div className="relative">
+                            <input
+                              type="text"
+                              value="wb-component"
+                              readOnly
+                              className="w-full p-2.5 flex items-center justify-center text-attribute bg-base-high border border-foreground/10 rounded"
+                            />
+                            <Button
+                              variant="ghost"
+                              size="sm"
+                              className="absolute right-1 top-1/2 -translate-y-1/2 h-8 w-8 p-0 hover:bg-accent"
+                              onClick={() =>
+                                copyToClipboard("wb-component", "attributeName")
+                              }
+                            >
+                              {copyStates.attributeName ? (
+                                <CheckCircle className="w-4 h-4 text-green-500" />
+                              ) : (
+                                <Copy className="w-4 h-4" />
+                              )}
+                            </Button>
+                          </div>
                         </div>
-                      </div>
 
-                      <div className="flex flex-col gap-2">
-                        <label className="text-paragraph large text-text-medium">
-                          Example Value
-                        </label>
-                        <div className="relative">
-                          <input
-                            type="text"
-                            value="text-type"
-                            readOnly
-                            className="w-full p-2.5 flex items-center justify-center text-attribute bg-base-high border border-foreground/10 rounded"
-                          />
-                          <Button
-                            variant="ghost"
-                            size="sm"
-                            className="absolute right-1 top-1/2 -translate-y-1/2 h-8 w-8 p-0 hover:bg-accent"
-                            onClick={() =>
-                              copyToClipboard("text-type", "attributeValue")
-                            }
-                          >
-                            {copyStates.attributeValue ? (
-                              <CheckCircle className="w-4 h-4 text-green-500" />
-                            ) : (
-                              <Copy className="w-4 h-4" />
-                            )}
-                          </Button>
+                        <div className="flex flex-col gap-2">
+                          <label className="text-paragraph large text-text-medium">
+                            Example Value
+                          </label>
+                          <div className="relative">
+                            <input
+                              type="text"
+                              value="text-type"
+                              readOnly
+                              className="w-full p-2.5 flex items-center justify-center text-attribute bg-base-high border border-foreground/10 rounded"
+                            />
+                            <Button
+                              variant="ghost"
+                              size="sm"
+                              className="absolute right-1 top-1/2 -translate-y-1/2 h-8 w-8 p-0 hover:bg-accent"
+                              onClick={() =>
+                                copyToClipboard("text-type", "attributeValue")
+                              }
+                            >
+                              {copyStates.attributeValue ? (
+                                <CheckCircle className="w-4 h-4 text-green-500" />
+                              ) : (
+                                <Copy className="w-4 h-4" />
+                              )}
+                            </Button>
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -288,60 +305,77 @@ const Installation = () => {
                 </div>
               </div>
 
-              <div className="flex flex-col gap-2 p-4 border border-foreground/10 rounded-lg">
-                <h2 className="text-heading-small text-foreground my-1">
-                  3. &nbsp; Customize with Attributes
-                </h2>
-
-                <div className="relative w-full pl-8">
-                  <video
-                    className="rounded-lg border border-border shadow-lg"
-                    autoPlay
-                    loop
-                    muted
-                    playsInline
-                    preload="metadata"
-                  >
-                    <source
-                      src="https://www.slabpixel.dev/videos/flowbitz-tutorial.mp4"
-                      type="video/mp4"
-                    />
-                    Your browser does not support the video tag.
-                  </video>
+              {/* Step 3 */}
+              <div className="flex gap-4 items-stretch">
+                <div className="flex flex-col items-center w-10">
+                  <div className="h-9 w-9 bg-muted-foreground/10 rounded-lg flex items-center justify-center text-foreground font-semibold">
+                    3
+                  </div>
+                  <div className="flex-1 w-px bg-foreground/20 mt-4" />
                 </div>
+                <div className="flex-1 p-4 border border-foreground/10 rounded-lg flex flex-col gap-2">
+                  <h2 className="text-heading-small text-foreground my-1">
+                    Customize with Attributes
+                  </h2>
 
-                <p className=" ml-8 text-paragraph large text-text-medium">
-                  Use additional attributes to customize animation behavior,
-                  timing, and appearance.{" "}
-                  <strong>
-                    {" "}
-                    Each FlowBitz component supports various attributes like
-                    wb-duration for timing control, wb-delay for staggered
-                    effects, wb-easing for smooth motion curves, wb-color for
-                    visual customization, and wb-trigger to control when
-                    animations start.{" "}
-                  </strong>
-                  These attributes work together to create unique, professional
-                  animations tailored to your design needs.
-                </p>
-              </div>
-
-              <div className="flex flex-col gap-2 p-4 border border-foreground/10 rounded-lg">
-                <h2 className="text-heading-small text-foreground my-1">
-                  4. &nbsp; Publish Your Site
-                </h2>
-
-                {/* Step 3: Publish */}
-                <div className="ml-8 flex flex-col gap-2">
-                  <p className="text-paragraph large semi text-foreground">
-                    Publish your Webflow site to see the animations in action!
-                  </p>
+                  <div className="relative w-full">
+                    <video
+                      className="rounded-lg border border-border shadow-lg"
+                      autoPlay
+                      loop
+                      muted
+                      playsInline
+                      preload="metadata"
+                    >
+                      <source
+                        src="https://www.slabpixel.dev/videos/flowbitz-tutorial.mp4"
+                        type="video/mp4"
+                      />
+                      Your browser does not support the video tag.
+                    </video>
+                  </div>
 
                   <p className="text-paragraph large text-text-medium">
-                    Once published, your animations will work automatically. The
-                    script loads asynchronously and initializes all components
-                    on page load.
+                    Use additional attributes to customize animation behavior,
+                    timing, and appearance.{" "}
+                    <strong>
+                      {" "}
+                      Each FlowBitz component supports various attributes like
+                      wb-duration for timing control, wb-delay for staggered
+                      effects, wb-easing for smooth motion curves, wb-color for
+                      visual customization, and wb-trigger to control when
+                      animations start.{" "}
+                    </strong>
+                    These attributes work together to create unique, professional
+                    animations tailored to your design needs.
                   </p>
+                </div>
+              </div>
+
+              {/* Step 4 */}
+              <div className="flex gap-4 items-stretch">
+                <div className="flex flex-col items-center w-10">
+                  <div className="h-9 w-9 bg-muted-foreground/10 rounded-lg flex items-center justify-center text-foreground font-semibold">
+                    4
+                  </div>
+                </div>
+                <div className="flex-1 p-4 border border-foreground/10 rounded-lg flex flex-col gap-2">
+                  <h2 className="text-heading-small text-foreground my-1">
+                    Publish Your Site
+                  </h2>
+
+                  {/* Step 3: Publish */}
+                  <div className="flex flex-col gap-2">
+                    <p className="text-paragraph large semi text-foreground">
+                      Publish your Webflow site to see the animations in action!
+                    </p>
+
+                    <p className="text-paragraph large text-text-medium">
+                      Once published, your animations will work automatically. The
+                      script loads asynchronously and initializes all components
+                      on page load.
+                    </p>
+                  </div>
                 </div>
               </div>
             </div>
