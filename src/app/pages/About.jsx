@@ -1,9 +1,9 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import { Button } from "../components/ui/button.jsx";
+import Logo from "../components/Logo.jsx";
 import {
-  Heart,
   Lightbulb,
-  Target,
   Gift,
   Zap,
   Settings,
@@ -11,12 +11,19 @@ import {
   Smartphone,
   Rocket,
   Globe,
+  AlertCircle,
+  TrendingUp,
+  Heart,
+  Infinity as InfinityIcon,
+  Layers,
+  LayoutGrid,
 } from "lucide-react";
-import Sidebar from "../components/layout/LeftSidebar.jsx";
 import SEO from "../components/SEO.jsx";
 import { getFilteredComponentKeys } from "../../library/data/componentsMetadata.js";
-import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
+const ABOUT_HERO_IMAGE =
+  "https://www.slabpixel.dev/images/FlowBitz-OpenGraph.webp";
 
 const About = () => {
   const componentCount = getFilteredComponentKeys().length;
@@ -55,300 +62,326 @@ const About = () => {
         url="https://www.flowbitz.dev/about"
         structuredData={structuredData}
       />
-      <div className="bg-background text-foreground h-full overflow-scroll lg:overflow-hidden">
-        <div className="flex flex-col lg:flex-row lg:h-[calc(100vh-4.5rem)]">
-          {/* Shared Sidebar */}
-          <Sidebar showBackLink={false} />
+      <article className="relative z-[2] text-foreground max-w-[1200px] mx-2 md:mx-4 lg:mx-auto border-x border-foreground/10 pb-12 md:pb-16">
+        <header
+          wb-component="smart-animate"
+          className="w-full flex flex-col items-center gap-5 md:gap-[1.625rem] py-6 md:py-14 border-b border-foreground/10"
+        >
+          <div className="bg-foreground/10 h-[30px] w-fit px-4 flex items-center justify-center gap-1">
+            <span className="text-link font-medium text-foreground">
+              About
+            </span>
+            <Logo className="h-4 w-auto" />
+          </div>
 
-          {/* Main Content */}
-          <main className="flex flex-col px-2 py-8 gap-8 md:p-6 w-full items-center lg:overflow-y-auto lg:h-full">
-            <div className="w-full max-w-[800px] flex flex-col gap-2">
-              <h1 className="inter-semi-32 installation text-foreground md:pt-4">
-                Solving Webflow's Animation Problem
-              </h1>
+          <h1 className="inter-med-56 blog w-2/3 md:w-full text-4xl font-medium text-center text-foreground">
+            Solving Webflow&apos;s Animation Problem
+          </h1>
+
+          <p className="inter-reg-18 text-text-medium text-center px-4 md:px-0 max-w-[99%] md:max-w-[770px]">
+            FlowBitz bridges the gap between Webflow&apos;s limited native animations and professional GSAP effects — making advanced animations accessible to everyone.
+          </p>
+        </header>
+
+        <div
+          wb-component="smart-animate"
+          className="flex flex-col px-2 pt-2 md:px-14 md:pt-14"
+        >
+          <div className="mx-auto w-full max-w-[800px] flex flex-col gap-10">
+            <img
+              src={ABOUT_HERO_IMAGE}
+              alt="FlowBitz — free GSAP components for Webflow"
+              className="w-full rounded-2xl"
+              loading="lazy"
+            />
+
+            <div className="flex flex-col gap-12">
+            <section className="flex flex-col gap-6">
+              <h2 className="text-heading-small text-foreground">
+                Our Mission
+              </h2>
               <p className="text-paragraph large text-text-medium">
-                FlowBitz bridges the gap between Webflow's limited native
-                animations and professional GSAP effects - making advanced
-                animations accessible to everyone.
+                To democratize professional web animations by making advanced
+                GSAP effects accessible to Webflow users without requiring
+                coding knowledge. We believe every designer deserves access to
+                the same powerful animation tools used by top agencies and
+                developers.
               </p>
-            </div>
+            </section>
 
-            <div className="w-full max-w-[800px] flex flex-col gap-10">
-              {/* Mission & Vision */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div className="group relative flex flex-col gap-[0.875rem] p-[0.875rem] bg-background/40 border border-foreground/10 rounded-[6px]">
-                  <div className="relative z-[2] flex gap-2 items-center py-1.5">
-                    <Target className="w-4 h-4 opacity-60" />
-                    <h3 className="text-paragraph highlight text-foreground">
-                      Our Mission
-                    </h3>
-                  </div>
-                  <p className="relative z-[2] text-paragraph large text-textLow flex-1">
-                    To democratize professional web animations by making
-                    advanced GSAP effects accessible to Webflow users without
-                    requiring coding knowledge. We believe every designer
-                    deserves access to the same powerful animation tools used
-                    by top agencies and developers.
-                  </p>
-                </div>
+            <section className="flex flex-col gap-6">
+              <h2 className="text-heading-small text-foreground">
+                Our Vision
+              </h2>
+              <p className="text-paragraph large text-text-medium">
+                A world where advanced web animations are accessible to
+                everyone, regardless of technical skill level. We envision a
+                future where designers can create stunning, professional
+                animations without barriers, leveling the playing field between
+                agencies and independent creators.
+              </p>
+            </section>
 
-                <div className="group relative flex flex-col gap-[0.875rem] p-[0.875rem] bg-background/40 border border-foreground/10 rounded-[6px]">
-                  <div className="relative z-[2] flex gap-2 items-center py-1.5">
-                    <Lightbulb className="w-4 h-4 opacity-60" />
-                    <h3 className="text-paragraph highlight text-foreground">
-                      Our Vision
-                    </h3>
-                  </div>
-                  <p className="relative z-[2] text-paragraph large text-textLow flex-1">
-                    A world where advanced web animations are accessible to
-                    everyone, regardless of technical skill level. We envision
-                    a future where designers can create stunning, professional
-                    animations without barriers, leveling the playing field
-                    between agencies and independent creators.
-                  </p>
-                </div>
-              </div>
-
-              {/* FlowBitz Story */}
-              <div className="flex flex-col gap-4">
-                <h2 className="text-heading-small text-foreground">
-                  The Problem We're Solving
-                </h2>
-                <div className="flex flex-col gap-4 p-4 border border-foreground/10 rounded-lg">
-                  <p className="text-paragraph large text-text-medium">
+            <section className="flex flex-col gap-6">
+              <h2 className="text-heading-small text-foreground">
+                The Problem We&apos;re Solving
+              </h2>
+              <ul className="flex flex-col gap-6 list-none p-0 m-0">
+                <li className="flex gap-3 items-start">
+                  <span className="mt-0.5 shrink-0 inline-flex text-foreground/70">
+                    <AlertCircle className="w-5 h-5" aria-hidden />
+                  </span>
+                  <p className="text-paragraph large text-text-medium min-w-0">
                     <strong className="text-foreground">The Challenge:</strong>{" "}
-                    Webflow's native animations are limited. While perfect for
-                    basic interactions, creating professional-grade animations
-                    requires manual GSAP coding - a barrier that excludes most
-                    designers and requires expensive developer resources.
+                    Webflow&apos;s native animations are limited. While perfect
+                    for basic interactions, creating professional-grade
+                    animations requires manual GSAP coding — a barrier that
+                    excludes most designers and requires expensive developer
+                    resources.
                   </p>
-                  <p className="text-paragraph large text-text-medium">
+                </li>
+                <li className="flex gap-3 items-start">
+                  <span className="mt-0.5 shrink-0 inline-flex text-foreground/70">
+                    <Lightbulb className="w-5 h-5" aria-hidden />
+                  </span>
+                  <p className="text-paragraph large text-text-medium min-w-0">
                     <strong className="text-foreground">Our Solution:</strong>{" "}
                     FlowBitz bridges this gap with {componentCount} pre-built,
                     GSAP-powered components that work through simple HTML
-                    attributes. No JavaScript knowledge required - just add
+                    attributes. No JavaScript knowledge required — just add
                     attributes to any Webflow element and get professional
                     animations instantly.
                   </p>
-                  <p className="text-paragraph large text-text-medium">
-                    <strong className="text-foreground">The Impact:</strong> We've
-                    democratized advanced web animations, making them
+                </li>
+                <li className="flex gap-3 items-start">
+                  <span className="mt-0.5 shrink-0 inline-flex text-foreground/70">
+                    <TrendingUp className="w-5 h-5" aria-hidden />
+                  </span>
+                  <p className="text-paragraph large text-text-medium min-w-0">
+                    <strong className="text-foreground">The Impact:</strong>{" "}
+                    We&apos;ve democratized advanced web animations, making them
                     accessible to designers, agencies, and independent creators
-                    worldwide. FlowBitz levels the playing field, allowing
-                    anyone to create stunning animations that previously
-                    required expensive development resources.
+                    worldwide. FlowBitz levels the playing field, allowing anyone
+                    to create stunning animations that previously required
+                    expensive development resources.
                   </p>
-                  <p className="text-paragraph large text-text-medium">
+                </li>
+                <li className="flex gap-3 items-start">
+                  <span className="mt-0.5 shrink-0 inline-flex text-foreground/70">
+                    <Heart className="w-5 h-5" aria-hidden />
+                  </span>
+                  <p className="text-paragraph large text-text-medium min-w-0">
                     <strong className="text-foreground">Our Commitment:</strong>{" "}
                     FlowBitz remains completely free and open-source because we
-                    believe professional web animations shouldn't be a luxury.
-                    Every designer deserves access to the same powerful tools
-                    used by top agencies, regardless of budget or technical
-                    expertise.
+                    believe professional web animations shouldn&apos;t be a
+                    luxury. Every designer deserves access to the same powerful
+                    tools used by top agencies, regardless of budget or
+                    technical expertise.
                   </p>
-                </div>
-              </div>
+                </li>
+              </ul>
+            </section>
 
-              {/* Key Features */}
-              <div className="flex flex-col gap-6">
-                <h2 className="text-heading-small text-foreground">
-                  Why FlowBitz is Different
-                </h2>
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                  <div className="group relative flex flex-col gap-[0.875rem] p-[0.875rem] bg-background/40 border border-foreground/10 rounded-[6px]">
-                    <div className="relative z-[2] flex gap-2 items-center py-1.5">
-                      <Gift className="w-4 h-4 opacity-60" />
-                      <h4 className="text-paragraph highlight text-foreground">
-                        100% Free Forever
-                      </h4>
-                    </div>
-                    <p className="relative z-[2] text-paragraph large text-textLow flex-1">
+            <section className="flex flex-col gap-8">
+              <h2 className="text-heading-small text-foreground">
+                Why FlowBitz is Different
+              </h2>
+              <ul className="flex flex-col gap-8 list-none p-0 m-0">
+                <li className="flex gap-3 items-start">
+                  <span className="mt-0.5 shrink-0 inline-flex text-foreground/70">
+                    <Gift className="w-5 h-5" aria-hidden />
+                  </span>
+                  <div className="min-w-0">
+                    <h3 className="text-paragraph highlight text-foreground mb-2">
+                      100% Free Forever
+                    </h3>
+                    <p className="text-paragraph large text-text-medium">
                       Unlike expensive animation libraries, FlowBitz is
                       completely free with no premium tiers, hidden costs, or
-                      usage limits. Professional animations shouldn't be a
+                      usage limits. Professional animations shouldn&apos;t be a
                       luxury.
                     </p>
                   </div>
-
-                  <div className="group relative flex flex-col gap-[0.875rem] p-[0.875rem] bg-background/40 border border-foreground/10 rounded-[6px]">
-                    <div className="relative z-[2] flex gap-2 items-center py-1.5">
-                      <Zap className="w-4 h-4 opacity-60" />
-                      <h4 className="text-paragraph highlight text-foreground">
-                        Industry-Standard GSAP
-                      </h4>
-                    </div>
-                    <p className="relative z-[2] text-paragraph large text-textLow flex-1">
+                </li>
+                <li className="flex gap-3 items-start">
+                  <span className="mt-0.5 shrink-0 inline-flex text-foreground/70">
+                    <Zap className="w-5 h-5" aria-hidden />
+                  </span>
+                  <div className="min-w-0">
+                    <h3 className="text-paragraph highlight text-foreground mb-2">
+                      Industry-Standard GSAP
+                    </h3>
+                    <p className="text-paragraph large text-text-medium">
                       Built on the same GSAP engine used by top agencies and
                       Fortune 500 companies. Get professional-grade performance
                       without the complexity.
                     </p>
                   </div>
-
-                  <div className="group relative flex flex-col gap-[0.875rem] p-[0.875rem] bg-background/40 border border-foreground/10 rounded-[6px]">
-                    <div className="relative z-[2] flex gap-2 items-center py-1.5">
-                      <Settings className="w-4 h-4 opacity-60" />
-                      <h4 className="text-paragraph highlight text-foreground">
-                        No Coding Required
-                      </h4>
-                    </div>
-                    <p className="relative z-[2] text-paragraph large text-textLow flex-1">
+                </li>
+                <li className="flex gap-3 items-start">
+                  <span className="mt-0.5 shrink-0 inline-flex text-foreground/70">
+                    <Settings className="w-5 h-5" aria-hidden />
+                  </span>
+                  <div className="min-w-0">
+                    <h3 className="text-paragraph highlight text-foreground mb-2">
+                      No Coding Required
+                    </h3>
+                    <p className="text-paragraph large text-text-medium">
                       Unlike manual GSAP coding, FlowBitz works through simple
                       HTML attributes. Perfect for designers who want
                       professional animations without learning JavaScript.
                     </p>
                   </div>
-
-                  <div className="group relative flex flex-col gap-[0.875rem] p-[0.875rem] bg-background/40 border border-foreground/10 rounded-[6px]">
-                    <div className="relative z-[2] flex gap-2 items-center py-1.5">
-                      <Smartphone className="w-4 h-4 opacity-60" />
-                      <h4 className="text-paragraph highlight text-foreground">
-                        Mobile-First Design
-                      </h4>
-                    </div>
-                    <p className="relative z-[2] text-paragraph large text-textLow flex-1">
+                </li>
+                <li className="flex gap-3 items-start">
+                  <span className="mt-0.5 shrink-0 inline-flex text-foreground/70">
+                    <Smartphone className="w-5 h-5" aria-hidden />
+                  </span>
+                  <div className="min-w-0">
+                    <h3 className="text-paragraph highlight text-foreground mb-2">
+                      Mobile-First Design
+                    </h3>
+                    <p className="text-paragraph large text-text-medium">
                       Every component is optimized for mobile devices and
                       responsive design. No more worrying about animations
                       breaking on different screen sizes.
                     </p>
                   </div>
-
-                  <div className="group relative flex flex-col gap-[0.875rem] p-[0.875rem] bg-background/40 border border-foreground/10 rounded-[6px]">
-                    <div className="relative z-[2] flex gap-2 items-center py-1.5">
-                      <Palette className="w-4 h-4 opacity-60" />
-                      <h4 className="text-paragraph highlight text-foreground">
-                        Highly Customizable
-                      </h4>
-                    </div>
-                    <p className="relative z-[2] text-paragraph large text-textLow flex-1">
-                      Extensive customization through HTML attributes - control
+                </li>
+                <li className="flex gap-3 items-start">
+                  <span className="mt-0.5 shrink-0 inline-flex text-foreground/70">
+                    <Palette className="w-5 h-5" aria-hidden />
+                  </span>
+                  <div className="min-w-0">
+                    <h3 className="text-paragraph highlight text-foreground mb-2">
+                      Highly Customizable
+                    </h3>
+                    <p className="text-paragraph large text-text-medium">
+                      Extensive customization through HTML attributes — control
                       timing, easing, colors, and behavior without touching a
                       single line of JavaScript code.
                     </p>
                   </div>
-
-                  <div className="group relative flex flex-col gap-[0.875rem] p-[0.875rem] bg-background/40 border border-foreground/10 rounded-[6px]">
-                    <div className="relative z-[2] flex gap-2 items-center py-1.5">
-                      <Rocket className="w-4 h-4 opacity-60" />
-                      <h4 className="text-paragraph highlight text-foreground">
-                        Performance Optimized
-                      </h4>
-                    </div>
-                    <p className="relative z-[2] text-paragraph large text-textLow flex-1">
+                </li>
+                <li className="flex gap-3 items-start">
+                  <span className="mt-0.5 shrink-0 inline-flex text-foreground/70">
+                    <Rocket className="w-5 h-5" aria-hidden />
+                  </span>
+                  <div className="min-w-0">
+                    <h3 className="text-paragraph highlight text-foreground mb-2">
+                      Performance Optimized
+                    </h3>
+                    <p className="text-paragraph large text-text-medium">
                       Lightweight and optimized for Core Web Vitals. Minimal
                       impact on page load times while delivering smooth 60fps
                       animations across all devices.
                     </p>
                   </div>
-                </div>
-              </div>
+                </li>
+              </ul>
+            </section>
 
-              {/* Stats */}
-              <div className="grid grid-cols-2 sm:grid-cols-4 gap-6 p-4 border border-foreground/10 rounded-lg">
-                <div className="text-center">
-                  <div className="inter-semi-32 text-foreground mb-1">
+            <section className="flex flex-col gap-6">
+              <h2 className="text-heading-small text-foreground">
+                By the numbers
+              </h2>
+              <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 list-none p-0 m-0">
+                <li className="rounded-xl border border-foreground/10 bg-background/40 p-5 sm:p-6 flex flex-col items-center text-center gap-3 min-h-0">
+                  <span className="inline-flex items-center justify-center w-11 h-11 rounded-lg bg-foreground/5 text-foreground/80">
+                    <Layers className="w-5 h-5" aria-hidden />
+                  </span>
+                  <span className="inter-semi-32 text-foreground tabular-nums">
                     {componentCount}
-                  </div>
-                  <div className="text-paragraph large text-textLow">
+                  </span>
+                  <span className="text-paragraph large text-textLow">
                     Components
-                  </div>
-                </div>
-                <div className="text-center">
-                  <div className="inter-semi-32 text-foreground mb-1">
+                  </span>
+                </li>
+                <li className="rounded-xl border border-foreground/10 bg-background/40 p-5 sm:p-6 flex flex-col items-center text-center gap-3 min-h-0">
+                  <span className="inline-flex items-center justify-center w-11 h-11 rounded-lg bg-foreground/5 text-foreground/80">
+                    <Gift className="w-5 h-5" aria-hidden />
+                  </span>
+                  <span className="inter-semi-32 text-foreground tabular-nums">
                     100%
-                  </div>
-                  <div className="text-paragraph large text-textLow">Free</div>
-                </div>
-                <div className="text-center">
-                  <div className="inter-semi-32 text-foreground mb-1">
-                    2
-                  </div>
-                  <div className="text-paragraph large text-textLow">
+                  </span>
+                  <span className="text-paragraph large text-textLow">Free</span>
+                </li>
+                <li className="rounded-xl border border-foreground/10 bg-background/40 p-5 sm:p-6 flex flex-col items-center text-center gap-3 min-h-0">
+                  <span className="inline-flex items-center justify-center w-11 h-11 rounded-lg bg-foreground/5 text-foreground/80">
+                    <LayoutGrid className="w-5 h-5" aria-hidden />
+                  </span>
+                  <span className="inter-semi-32 text-foreground tabular-nums">
+                    3
+                  </span>
+                  <span className="text-paragraph large text-textLow">
                     Categories
-                  </div>
-                </div>
-                <div className="text-center">
-                  <div className="inter-semi-32 text-foreground mb-1">
-                    ∞
-                  </div>
-                  <div className="text-paragraph large text-textLow">
+                  </span>
+                </li>
+                <li className="rounded-xl border border-foreground/10 bg-background/40 p-5 sm:p-6 flex flex-col items-center text-center gap-3 min-h-0">
+                  <span className="inline-flex items-center justify-center w-11 h-11 rounded-lg bg-foreground/5 text-foreground/80">
+                    <InfinityIcon className="w-5 h-5" aria-hidden />
+                  </span>
+                  <span className="inter-semi-32 text-foreground">∞</span>
+                  <span className="text-paragraph large text-textLow">
                     Possibilities
-                  </div>
-                </div>
-              </div>
+                  </span>
+                </li>
+              </ul>
+            </section>
 
-              {/* CTA Section */}
-              <div className="relative flex flex-col gap-4 px-4 py-6 md:p-6 bg-base-medium rounded w-full max-w-[800px]">
-                <h4 className="relative z-[2] text-heading-small text-foreground">
-                  Ready to solve your Webflow animation problems?
-                </h4>
-                <p className="relative z-[2] text-paragraph text-foreground/60">
-                  Stop struggling with Webflow's limited animations. See how easy
-                  it is to add professional GSAP effects with just HTML
-                  attributes - no coding required.
-                </p>
-                <div className="relative z-[2] flex flex-wrap gap-2 items-start justify-start">
-                  <Button
-                    variant="custom"
-                    size="custom"
-                    className="flex items-center gap-2 px-3 py-[0.625rem] rounded-lg bg-background border border-foreground/10 text-link font-medium"
-                    onClick={() => navigate("/components/split-text")}
-                  >
-                    <Zap className="w-4 h-4 opacity-60" />
-                    Explore Component
-                  </Button>
-                  <Button
-                    variant="custom"
-                    size="custom"
-                    className="flex items-center gap-2 px-3 py-[0.625rem] rounded-lg bg-background border border-foreground/10 text-link font-medium"
-                    onClick={handleGitHub}
-                  >
-                    <FontAwesomeIcon
-                      icon={["fab", "github"]}
-                      className="w-4 h-4 opacity-60"
-                    />
-                    View on GitHub
-                  </Button>
-                  <Button
-                    variant="custom"
-                    size="custom"
-                    className="flex items-center gap-2 px-3 py-[0.625rem] rounded-lg bg-background border border-foreground/10 text-link font-medium"
-                    onClick={handleSlabPixel}
-                  >
-                    <Globe
-                      className="w-4 h-4 opacity-60"
-                    />
-                    Visit SlabPixel
-                  </Button>
-                </div>
-                <img
-                  src="/images/group.svg"
-                  alt=""
-                  aria-hidden="true"
-                  className="absolute inset-0 w-full h-full object-cover z-[1] pointer-events-none"
-                  loading="lazy"
-                />
+            <div className="relative flex flex-col gap-4 px-4 py-8 md:p-10 bg-base-medium rounded-2xl w-full text-center items-center">
+              <h2 className="relative z-[2] text-heading-small text-foreground max-w-xl">
+                Ready to solve your Webflow animation problems?
+              </h2>
+              <p className="relative z-[2] text-paragraph text-foreground/60 max-w-xl">
+                Stop struggling with Webflow&apos;s limited animations. See how
+                easy it is to add professional GSAP effects with just HTML
+                attributes — no coding required.
+              </p>
+              <div className="relative z-[2] flex flex-wrap gap-2 justify-center">
+                <Button
+                  variant="custom"
+                  size="custom"
+                  className="flex items-center gap-2 px-3 py-[0.625rem] rounded-lg bg-background border border-foreground/10 text-link font-medium"
+                  onClick={() => navigate("/components/split-text")}
+                >
+                  <Zap className="w-4 h-4 opacity-60" />
+                  Explore Component
+                </Button>
+                <Button
+                  variant="custom"
+                  size="custom"
+                  className="flex items-center gap-2 px-3 py-[0.625rem] rounded-lg bg-background border border-foreground/10 text-link font-medium"
+                  onClick={handleGitHub}
+                >
+                  <FontAwesomeIcon
+                    icon={["fab", "github"]}
+                    className="w-4 h-4 opacity-60"
+                  />
+                  View on GitHub
+                </Button>
+                <Button
+                  variant="custom"
+                  size="custom"
+                  className="flex items-center gap-2 px-3 py-[0.625rem] rounded-lg bg-background border border-foreground/10 text-link font-medium"
+                  onClick={handleSlabPixel}
+                >
+                  <Globe className="w-4 h-4 opacity-60" />
+                  Visit SlabPixel
+                </Button>
               </div>
-
-              {/* Footer */}
-              <div className="w-full flex flex-col items-center justify-center pt-6">
-                <div className="text-center flex items-center gap-2 text-paragraph text-textLow">
-                  <span>Made with</span>
-                  <Heart className="w-4 h-4 text-red-500" />
-                  <span>by</span>
-                  <button
-                    onClick={() =>
-                      window.open("https://slabpixel.com", "_blank")
-                    }
-                    className="text-link font-medium hover:underline transition-colors duration-200"
-                  >
-                    SlabPixel
-                  </button>
-                </div>
-              </div>
+              <img
+                src="/images/group.svg"
+                alt=""
+                aria-hidden="true"
+                className="absolute inset-0 w-full h-full object-cover z-[1] pointer-events-none rounded-2xl"
+                loading="lazy"
+              />
             </div>
-          </main>
+          </div>
+          </div>
         </div>
-      </div>
+      </article>
     </>
   );
 };

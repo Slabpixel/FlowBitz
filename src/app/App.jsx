@@ -29,7 +29,6 @@ const SIDEBAR_PATHS = [
   "/installation",
   "/support",
   "/faq",
-  "/about",
 ];
 
 function isSidebarRoute(pathname) {
@@ -60,6 +59,7 @@ function App() {
   }, []);
   const isMainPage =
     location.pathname === "/" ||
+    location.pathname === "/about" ||
     location.pathname === "/showcase" ||
     location.pathname.startsWith("/blog") ||
     location.pathname.startsWith("/contact");

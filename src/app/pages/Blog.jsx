@@ -4,6 +4,7 @@ import { Book, Calendar, FileText, ChevronDown } from "lucide-react";
 import SEO from "../components/SEO.jsx";
 import { getAllPosts } from "../data/blogPosts.js";
 import Footer from "../components/layout/Footer.jsx";
+import Logo from "../components/Logo.jsx";
 
 const posts = getAllPosts();
 const POSTS_PER_PAGE = 10;
@@ -38,10 +39,12 @@ const Blog = () => {
             wb-component="smart-animate"
             className="w-full flex flex-col items-center gap-5 md:gap-[1.625rem] py-6 md:py-14 border-b border-foreground/10"
           >
-            <div className="w-fit h-[30px] bg-foreground/10 pl-3 pr-4 gap-[0.875rem] flex items-center text-link font-medium text-foreground rounded-[2px]">
-              <div className="w-2 h-2 bg-[#51A2FF]"> </div>
-              Blog
-            </div>
+          <div className="bg-foreground/10 h-[30px] w-fit px-4 flex items-center justify-center gap-1">
+            <span className="text-link font-medium text-foreground">
+              Blog by
+            </span>
+            <Logo className="h-4 w-auto" />
+          </div>
 
             <h1 className="inter-med-56 blog w-2/3 md:w-full text-4xl font-medium text-center">
               Insights and Release News
