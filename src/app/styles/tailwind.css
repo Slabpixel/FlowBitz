@@ -270,6 +270,16 @@ body {
   font-size: 1rem;
 }
 
+.display-semi-20 {
+  font-family: "InterVariable", sans-serif;
+  font-weight: 600;
+  line-height: 140%;
+  letter-spacing: normal;
+  font-optical-sizing: auto;
+  font-variation-settings: "opsz" 32;
+  font-size: 1.25rem;
+}
+
 .inter-reg-18 {
   font-family: "InterVariable", sans-serif;
   font-weight: 400;

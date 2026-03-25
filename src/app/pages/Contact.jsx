@@ -4,6 +4,7 @@ import { Button } from '../components/ui/button.jsx'
 import { Input } from '../components/ui/input.jsx'
 import { Textarea } from '../components/ui/textarea.jsx'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../components/ui/select.jsx'
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '../components/ui/tabs.jsx'
 import { CheckCircle, AlertCircle, Send, Bug, Lightbulb, Mail } from 'lucide-react'
 import SEO from '../components/SEO.jsx'
 import Footer from '../components/layout/Footer.jsx'
@@ -172,382 +173,413 @@ const Contact = () => {
         structuredData={structuredData}
       />
       
-      <div className="bg-transparent text-foreground relative z-[2]">
+      <section className="bg-transparent text-foreground relative z-[2] overflow-hidden">
         <div className="mx-2 lg:mx-auto max-w-[1200px] border-x border-foreground/10">
-          <div className="flex flex-col items-center w-full mx-auto">
+          <div className="flex flex-col items-center w-full mx-auto border-b border-foreground/10">
             {/* Header */}
-            <div className="text-center my-10">
-              <h1 className="inter-med-40 text-foreground mb-2">
+            <header
+              wb-component="smart-animate"
+              className="w-full flex flex-col items-center gap-5 md:gap-[1.625rem] py-6 md:py-14 border-b border-foreground/10"
+            >
+              <h1 className="inter-semi-48 text-foreground text-center">
                 {getFormTitle()}
               </h1>
-              <p className="inter-reg-18 mx-auto text-text-medium opacity-80">
+              <p className="inter-reg-18 text-text-medium text-center px-4 md:px-0 max-w-[99%] md:max-w-[770px]">
                 {getFormDescription()}
               </p>
-            </div>
+            </header>
 
             {/* Form Area */}
-            <div className="flex flex-col gap-10 items-center w-full max-w-3xl px-4 pb-16">
+            <div className="flex flex-col gap-10 items-center w-full max-w-3xl px-4 py-16">
 
-              {/* Contact Form */}
-              {activeTab === 'contact' && (
-                <div className="w-full p-6 rounded bg-base-low border border-foreground/10">
-                  <form onSubmit={handleSubmit}>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                      <div>
-                        <label htmlFor="name" className="block text-sm font-medium mb-2 text-foreground">
-                          Name *
-                        </label>
-                        <Input
-                          id="name"
-                          type="text"
-                          value={formData.name}
-                          onChange={(e) => handleInputChange('name', e.target.value)}
-                          required
-                          placeholder="Your full name"
-                        />
-                      </div>
-                      <div>
-                        <label htmlFor="email" className="block text-sm font-medium mb-2 text-foreground">
-                          Your Email
-                        </label>
-                        <Input
-                          id="email"
-                          type="email"
-                          value={formData.email}
-                          onChange={(e) => handleInputChange('email', e.target.value)}
-                          required
-                          placeholder="your@email.com"
-                        />
-                      </div>
-                    </div>
-
-                    <div className='mt-3'>
-                      <label htmlFor="subject" className="block text-sm font-medium mb-2 text-foreground">
-                        Subject
-                      </label>
-                      <Input
-                        id="subject"
-                        type="text"
-                        value={formData.subject}
-                        onChange={(e) => handleInputChange('subject', e.target.value)}
-                        placeholder="What's this about?"
-                      />
-                    </div>
-
-                    <div className='mt-3'>
-                      <label htmlFor="message" className="block text-sm font-medium mb-2 text-foreground">
-                        Messages *
-                      </label>
-                      <Textarea
-                        id="message"
-                        value={formData.message}
-                        onChange={(e) => handleInputChange('message', e.target.value)}
-                        required
-                        placeholder="What's this about?"
-                        rows={6}
-                        className="bg-base-medium border-base-high resize-none"
-                      />
-                    </div>
-
-                    <Button
-                      type="submit"
-                      variant="custom"
-                      size="custom"
-                      disabled={isSubmitting}
-                      className="mt-6 w-full bg-foreground text-background hover:bg-text-medium font-semibold h-10 rounded-lg text-base inline-flex items-center justify-center gap-4 transition-colors disabled:pointer-events-none disabled:opacity-50"
+              <Tabs value={activeTab} onValueChange={handleTabChange} className="w-full">
+                <div className="flex justify-center mb-6">
+                  <TabsList className="grid w-full max-w-md grid-cols-3 bg-transparent p-1 rounded-none border border-foreground/20">
+                    <TabsTrigger
+                      value="contact"
+                      className="w-full rounded-none data-[state=active]:bg-foreground data-[state=active]:text-background"
                     >
-                      {isSubmitting ? (
-                        <>
-                          <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-black"></div>
-                          Sending...
-                        </>
-                      ) : (
-                        <>
-                          Send Message
-                          <Send className='w-[0.875rem] h-3 opacity-60'/>
-                        </>
-                      )}
-                    </Button>
-                  </form>
-                </div>
-              )}
-
-              {/* Bug Report Form */}
-              {activeTab === 'bug-report' && (
-                <div className="w-full p-6 rounded bg-base-low border border-foreground/10">
-                  <form onSubmit={handleSubmit}>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                      <div>
-                        <label htmlFor="name" className="block text-sm font-medium mb-2 text-foreground">
-                          Name *
-                        </label>
-                        <Input
-                          id="name"
-                          type="text"
-                          value={formData.name}
-                          onChange={(e) => handleInputChange('name', e.target.value)}
-                          required
-                          placeholder="Your full name"
-                        />
-                      </div>
-                      <div>
-                        <label htmlFor="email" className="block text-sm font-medium mb-2 text-foreground">
-                          Email *
-                        </label>
-                        <Input
-                          id="email"
-                          type="email"
-                          value={formData.email}
-                          onChange={(e) => handleInputChange('email', e.target.value)}
-                          required
-                          placeholder="your@email.com"
-                        />
-                      </div>
-                    </div>
-
-                    <div className="mt-3">
-                      <label htmlFor="subject" className="block text-sm font-medium mb-2 text-foreground">
-                        Bug Title *
-                      </label>
-                      <Input
-                        id="subject"
-                        type="text"
-                        value={formData.subject}
-                        onChange={(e) => handleInputChange('subject', e.target.value)}
-                        required
-                        placeholder="Brief description of the bug"
-                      />
-                    </div>
-
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-3">
-                      <div>
-                        <label htmlFor="priority" className="block text-sm font-medium mb-2 text-foreground">
-                          Priority
-                        </label>
-                        <Select value={formData.priority} onValueChange={(value) => handleInputChange('priority', value)}>
-                          <SelectTrigger>
-                            <SelectValue placeholder="Select priority" />
-                          </SelectTrigger>
-                          <SelectContent>
-                            <SelectItem value="low">Low</SelectItem>
-                            <SelectItem value="normal">Normal</SelectItem>
-                            <SelectItem value="high">High</SelectItem>
-                            <SelectItem value="urgent">Urgent</SelectItem>
-                          </SelectContent>
-                        </Select>
-                      </div>
-                      <div>
-                        <label htmlFor="browser" className="block text-sm font-medium mb-2 text-foreground">
-                          Browser
-                        </label>
-                        <Input
-                          id="browser"
-                          type="text"
-                          value={formData.browser}
-                          onChange={(e) => handleInputChange('browser', e.target.value)}
-                          placeholder="e.g., Chrome 120, Firefox 121"
-                        />
-                      </div>
-                    </div>
-
-                    <div className="mt-3">
-                      <label htmlFor="url" className="block text-sm font-medium mb-2 text-foreground">
-                        URL where bug occurred
-                      </label>
-                      <Input
-                        id="url"
-                        type="url"
-                        value={formData.url}
-                        onChange={(e) => handleInputChange('url', e.target.value)}
-                        placeholder="https://example.com/page"
-                      />
-                    </div>
-
-                    <div className="mt-3">
-                      <label htmlFor="steps" className="block text-sm font-medium mb-2 text-foreground">
-                        Steps to reproduce
-                      </label>
-                      <Textarea
-                        id="steps"
-                        value={formData.steps}
-                        onChange={(e) => handleInputChange('steps', e.target.value)}
-                        placeholder="1. Go to... 2. Click... 3. See error..."
-                        rows={4}
-                        className="bg-base-medium border-base-high resize-none"
-                      />
-                    </div>
-
-                    <div className="mt-3">
-                      <label htmlFor="message" className="block text-sm font-medium mb-2 text-foreground">
-                        Bug Description *
-                      </label>
-                      <Textarea
-                        id="message"
-                        value={formData.message}
-                        onChange={(e) => handleInputChange('message', e.target.value)}
-                        required
-                        placeholder="Describe the bug in detail..."
-                        rows={6}
-                        className="bg-base-medium border-base-high resize-none"
-                      />
-                    </div>
-
-                    <Button
-                      type="submit"
-                      variant="custom"
-                      size="custom"
-                      disabled={isSubmitting}
-                      className="mt-6 w-full bg-foreground text-background hover:bg-text-medium font-semibold h-10 rounded-lg text-base inline-flex items-center justify-center gap-4 transition-colors disabled:pointer-events-none disabled:opacity-50"
+                      <Mail className="w-[0.875rem] h-[0.875rem] opacity-60" />
+                      <span className="ml-2 text-xs sm:text-sm font-medium">Contact</span>
+                    </TabsTrigger>
+                    <TabsTrigger
+                      value="bug-report"
+                      className="w-full rounded-none data-[state=active]:bg-foreground data-[state=active]:text-background"
                     >
-                      {isSubmitting ? (
-                        <>
-                          <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-black"></div>
-                          Submitting...
-                        </>
-                      ) : (
-                        <>
-                          Report Bug
-                          <Bug className='w-[0.875rem] h-3 opacity-60'/>
-                        </>
-                      )}
-                    </Button>
-                  </form>
-                </div>
-              )}
-
-              {/* Feature Request Form */}
-              {activeTab === 'feature-request' && (
-                <div className="w-full p-6 rounded bg-base-low border border-foreground/10">
-                  <form onSubmit={handleSubmit}>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                      <div>
-                        <label htmlFor="name" className="block text-sm font-medium mb-2 text-foreground">
-                          Name *
-                        </label>
-                        <Input
-                          id="name"
-                          type="text"
-                          value={formData.name}
-                          onChange={(e) => handleInputChange('name', e.target.value)}
-                          required
-                          placeholder="Your full name"
-                        />
-                      </div>
-                      <div>
-                        <label htmlFor="email" className="block text-sm font-medium mb-2 text-foreground">
-                          Email *
-                        </label>
-                        <Input
-                          id="email"
-                          type="email"
-                          value={formData.email}
-                          onChange={(e) => handleInputChange('email', e.target.value)}
-                          required
-                          placeholder="your@email.com"
-                        />
-                      </div>
-                    </div>
-
-                    <div className="mt-3">
-                      <label htmlFor="subject" className="block text-sm font-medium mb-2 text-foreground">
-                        Feature Title *
-                      </label>
-                      <Input
-                        id="subject"
-                        type="text"
-                        value={formData.subject}
-                        onChange={(e) => handleInputChange('subject', e.target.value)}
-                        required
-                        placeholder="Brief title for your feature request"
-                      />
-                    </div>
-
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-3">
-                      <div>
-                        <label htmlFor="category" className="block text-sm font-medium mb-2 text-foreground">
-                          Category
-                        </label>
-                        <Select value={formData.category} onValueChange={(value) => handleInputChange('category', value)}>
-                          <SelectTrigger>
-                            <SelectValue placeholder="Select category" />
-                          </SelectTrigger>
-                          <SelectContent>
-                            <SelectItem value="components">Components</SelectItem>
-                            <SelectItem value="animations">Animations</SelectItem>
-                            <SelectItem value="performance">Performance</SelectItem>
-                            <SelectItem value="accessibility">Accessibility</SelectItem>
-                            <SelectItem value="other">Other</SelectItem>
-                          </SelectContent>
-                        </Select>
-                      </div>
-                      <div>
-                        <label htmlFor="priority" className="block text-sm font-medium mb-2 text-foreground">
-                          Priority
-                        </label>
-                        <Select value={formData.priority} onValueChange={(value) => handleInputChange('priority', value)}>
-                          <SelectTrigger>
-                            <SelectValue placeholder="Select priority" />
-                          </SelectTrigger>
-                          <SelectContent>
-                            <SelectItem value="low">Low</SelectItem>
-                            <SelectItem value="normal">Normal</SelectItem>
-                            <SelectItem value="high">High</SelectItem>
-                          </SelectContent>
-                        </Select>
-                      </div>
-                    </div>
-
-                    <div className="mt-3">
-                      <label htmlFor="useCase" className="block text-sm font-medium mb-2 text-foreground">
-                        Use Case
-                      </label>
-                      <Textarea
-                        id="useCase"
-                        value={formData.useCase}
-                        onChange={(e) => handleInputChange('useCase', e.target.value)}
-                        placeholder="Describe how you would use this feature..."
-                        rows={4}
-                        className="bg-base-medium border-base-high resize-none"
-                      />
-                    </div>
-
-                    <div className="mt-3">
-                      <label htmlFor="message" className="block text-sm font-medium mb-2 text-foreground">
-                        Feature Description *
-                      </label>
-                      <Textarea
-                        id="message"
-                        value={formData.message}
-                        onChange={(e) => handleInputChange('message', e.target.value)}
-                        required
-                        placeholder="Describe the feature in detail..."
-                        rows={6}
-                        className="bg-base-medium border-base-high resize-none"
-                      />
-                    </div>
-
-                    <Button
-                      type="submit"
-                      variant="custom"
-                      size="custom"
-                      disabled={isSubmitting}
-                      className="mt-6 w-full bg-foreground text-background hover:bg-text-medium font-semibold h-10 rounded-lg text-base inline-flex items-center justify-center gap-4 transition-colors disabled:pointer-events-none disabled:opacity-50"
+                      <Bug className="w-[0.875rem] h-[0.875rem] opacity-60" />
+                      <span className="ml-2 text-xs sm:text-sm font-medium">Bug</span>
+                    </TabsTrigger>
+                    <TabsTrigger
+                      value="feature-request"
+                      className="w-full rounded-none data-[state=active]:bg-foreground data-[state=active]:text-background"
                     >
-                      {isSubmitting ? (
-                        <>
-                          <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-black"></div>
-                          Submitting...
-                        </>
-                      ) : (
-                        <>
-                          Request Feature
-                          <Lightbulb className='w-[0.875rem] h-3 opacity-60'/>
-                        </>
-                      )}
-                    </Button>
-                  </form>
+                      <Lightbulb className="w-[0.875rem] h-[0.875rem] opacity-60" />
+                      <span className="ml-2 text-xs sm:text-sm font-medium">Feature</span>
+                    </TabsTrigger>
+                  </TabsList>
                 </div>
-              )}
+
+                {/* Contact Form */}
+                <TabsContent value="contact" className="mt-0">
+                  <div className="w-full p-6 rounded bg-base-low border border-foreground/10">
+                    <form onSubmit={handleSubmit}>
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                          <label htmlFor="contact-name" className="block text-sm font-medium mb-2 text-foreground">
+                            Name *
+                          </label>
+                          <Input
+                            id="contact-name"
+                            type="text"
+                            value={formData.name}
+                            onChange={(e) => handleInputChange('name', e.target.value)}
+                            required
+                            placeholder="Your full name"
+                          />
+                        </div>
+                        <div>
+                          <label htmlFor="contact-email" className="block text-sm font-medium mb-2 text-foreground">
+                            Your Email
+                          </label>
+                          <Input
+                            id="contact-email"
+                            type="email"
+                            value={formData.email}
+                            onChange={(e) => handleInputChange('email', e.target.value)}
+                            required
+                            placeholder="your@email.com"
+                          />
+                        </div>
+                      </div>
+
+                      <div className='mt-3'>
+                        <label htmlFor="contact-subject" className="block text-sm font-medium mb-2 text-foreground">
+                          Subject
+                        </label>
+                        <Input
+                          id="contact-subject"
+                          type="text"
+                          value={formData.subject}
+                          onChange={(e) => handleInputChange('subject', e.target.value)}
+                          placeholder="What's this about?"
+                        />
+                      </div>
+
+                      <div className='mt-3'>
+                        <label htmlFor="contact-message" className="block text-sm font-medium mb-2 text-foreground">
+                          Messages *
+                        </label>
+                        <Textarea
+                          id="contact-message"
+                          value={formData.message}
+                          onChange={(e) => handleInputChange('message', e.target.value)}
+                          required
+                          placeholder="What's this about?"
+                          rows={6}
+                          className="bg-base-medium border-base-high resize-none"
+                        />
+                      </div>
+
+                      <Button
+                        type="submit"
+                        variant="custom"
+                        size="custom"
+                        disabled={isSubmitting}
+                        className="mt-6 w-full bg-foreground text-background hover:bg-text-medium font-semibold h-10 rounded-lg text-base inline-flex items-center justify-center gap-4 transition-colors disabled:pointer-events-none disabled:opacity-50"
+                      >
+                        {isSubmitting ? (
+                          <>
+                            <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-black"></div>
+                            Sending...
+                          </>
+                        ) : (
+                          <>
+                            Send Message
+                            <Send className='w-[0.875rem] h-3 opacity-60'/>
+                          </>
+                        )}
+                      </Button>
+                    </form>
+                  </div>
+                </TabsContent>
+
+                {/* Bug Report Form */}
+                <TabsContent value="bug-report" className="mt-0">
+                  <div className="w-full p-6 rounded bg-base-low border border-foreground/10">
+                    <form onSubmit={handleSubmit}>
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                          <label htmlFor="bug-name" className="block text-sm font-medium mb-2 text-foreground">
+                            Name *
+                          </label>
+                          <Input
+                            id="bug-name"
+                            type="text"
+                            value={formData.name}
+                            onChange={(e) => handleInputChange('name', e.target.value)}
+                            required
+                            placeholder="Your full name"
+                          />
+                        </div>
+                        <div>
+                          <label htmlFor="bug-email" className="block text-sm font-medium mb-2 text-foreground">
+                            Email *
+                          </label>
+                          <Input
+                            id="bug-email"
+                            type="email"
+                            value={formData.email}
+                            onChange={(e) => handleInputChange('email', e.target.value)}
+                            required
+                            placeholder="your@email.com"
+                          />
+                        </div>
+                      </div>
+
+                      <div className="mt-3">
+                        <label htmlFor="bug-subject" className="block text-sm font-medium mb-2 text-foreground">
+                          Bug Title *
+                        </label>
+                        <Input
+                          id="bug-subject"
+                          type="text"
+                          value={formData.subject}
+                          onChange={(e) => handleInputChange('subject', e.target.value)}
+                          required
+                          placeholder="Brief description of the bug"
+                        />
+                      </div>
+
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-3">
+                        <div>
+                          <label htmlFor="bug-priority" className="block text-sm font-medium mb-2 text-foreground">
+                            Priority
+                          </label>
+                          <Select value={formData.priority} onValueChange={(value) => handleInputChange('priority', value)}>
+                            <SelectTrigger id="bug-priority">
+                              <SelectValue placeholder="Select priority" />
+                            </SelectTrigger>
+                            <SelectContent>
+                              <SelectItem value="low">Low</SelectItem>
+                              <SelectItem value="normal">Normal</SelectItem>
+                              <SelectItem value="high">High</SelectItem>
+                              <SelectItem value="urgent">Urgent</SelectItem>
+                            </SelectContent>
+                          </Select>
+                        </div>
+                        <div>
+                          <label htmlFor="bug-browser" className="block text-sm font-medium mb-2 text-foreground">
+                            Browser
+                          </label>
+                          <Input
+                            id="bug-browser"
+                            type="text"
+                            value={formData.browser}
+                            onChange={(e) => handleInputChange('browser', e.target.value)}
+                            placeholder="e.g., Chrome 120, Firefox 121"
+                          />
+                        </div>
+                      </div>
+
+                      <div className="mt-3">
+                        <label htmlFor="bug-url" className="block text-sm font-medium mb-2 text-foreground">
+                          URL where bug occurred
+                        </label>
+                        <Input
+                          id="bug-url"
+                          type="url"
+                          value={formData.url}
+                          onChange={(e) => handleInputChange('url', e.target.value)}
+                          placeholder="https://example.com/page"
+                        />
+                      </div>
+
+                      <div className="mt-3">
+                        <label htmlFor="bug-steps" className="block text-sm font-medium mb-2 text-foreground">
+                          Steps to reproduce
+                        </label>
+                        <Textarea
+                          id="bug-steps"
+                          value={formData.steps}
+                          onChange={(e) => handleInputChange('steps', e.target.value)}
+                          placeholder="1. Go to... 2. Click... 3. See error..."
+                          rows={4}
+                          className="bg-base-medium border-base-high resize-none"
+                        />
+                      </div>
+
+                      <div className="mt-3">
+                        <label htmlFor="bug-message" className="block text-sm font-medium mb-2 text-foreground">
+                          Bug Description *
+                        </label>
+                        <Textarea
+                          id="bug-message"
+                          value={formData.message}
+                          onChange={(e) => handleInputChange('message', e.target.value)}
+                          required
+                          placeholder="Describe the bug in detail..."
+                          rows={6}
+                          className="bg-base-medium border-base-high resize-none"
+                        />
+                      </div>
+
+                      <Button
+                        type="submit"
+                        variant="custom"
+                        size="custom"
+                        disabled={isSubmitting}
+                        className="mt-6 w-full bg-foreground text-background hover:bg-text-medium font-semibold h-10 rounded-lg text-base inline-flex items-center justify-center gap-4 transition-colors disabled:pointer-events-none disabled:opacity-50"
+                      >
+                        {isSubmitting ? (
+                          <>
+                            <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-black"></div>
+                            Submitting...
+                          </>
+                        ) : (
+                          <>
+                            Report Bug
+                            <Bug className='w-[0.875rem] h-3 opacity-60'/>
+                          </>
+                        )}
+                      </Button>
+                    </form>
+                  </div>
+                </TabsContent>
+
+                {/* Feature Request Form */}
+                <TabsContent value="feature-request" className="mt-0">
+                  <div className="w-full p-6 rounded bg-base-low border border-foreground/10">
+                    <form onSubmit={handleSubmit}>
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                          <label htmlFor="feature-name" className="block text-sm font-medium mb-2 text-foreground">
+                            Name *
+                          </label>
+                          <Input
+                            id="feature-name"
+                            type="text"
+                            value={formData.name}
+                            onChange={(e) => handleInputChange('name', e.target.value)}
+                            required
+                            placeholder="Your full name"
+                          />
+                        </div>
+                        <div>
+                          <label htmlFor="feature-email" className="block text-sm font-medium mb-2 text-foreground">
+                            Email *
+                          </label>
+                          <Input
+                            id="feature-email"
+                            type="email"
+                            value={formData.email}
+                            onChange={(e) => handleInputChange('email', e.target.value)}
+                            required
+                            placeholder="your@email.com"
+                          />
+                        </div>
+                      </div>
+
+                      <div className="mt-3">
+                        <label htmlFor="feature-subject" className="block text-sm font-medium mb-2 text-foreground">
+                          Feature Title *
+                        </label>
+                        <Input
+                          id="feature-subject"
+                          type="text"
+                          value={formData.subject}
+                          onChange={(e) => handleInputChange('subject', e.target.value)}
+                          required
+                          placeholder="Brief title for your feature request"
+                        />
+                      </div>
+
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-3">
+                        <div>
+                          <label htmlFor="feature-category" className="block text-sm font-medium mb-2 text-foreground">
+                            Category
+                          </label>
+                          <Select value={formData.category} onValueChange={(value) => handleInputChange('category', value)}>
+                            <SelectTrigger id="feature-category">
+                              <SelectValue placeholder="Select category" />
+                            </SelectTrigger>
+                            <SelectContent>
+                              <SelectItem value="components">Components</SelectItem>
+                              <SelectItem value="animations">Animations</SelectItem>
+                              <SelectItem value="performance">Performance</SelectItem>
+                              <SelectItem value="accessibility">Accessibility</SelectItem>
+                              <SelectItem value="other">Other</SelectItem>
+                            </SelectContent>
+                          </Select>
+                        </div>
+                        <div>
+                          <label htmlFor="feature-priority" className="block text-sm font-medium mb-2 text-foreground">
+                            Priority
+                          </label>
+                          <Select value={formData.priority} onValueChange={(value) => handleInputChange('priority', value)}>
+                            <SelectTrigger id="feature-priority">
+                              <SelectValue placeholder="Select priority" />
+                            </SelectTrigger>
+                            <SelectContent>
+                              <SelectItem value="low">Low</SelectItem>
+                              <SelectItem value="normal">Normal</SelectItem>
+                              <SelectItem value="high">High</SelectItem>
+                            </SelectContent>
+                          </Select>
+                        </div>
+                      </div>
+
+                      <div className="mt-3">
+                        <label htmlFor="feature-useCase" className="block text-sm font-medium mb-2 text-foreground">
+                          Use Case
+                        </label>
+                        <Textarea
+                          id="feature-useCase"
+                          value={formData.useCase}
+                          onChange={(e) => handleInputChange('useCase', e.target.value)}
+                          placeholder="Describe how you would use this feature..."
+                          rows={4}
+                          className="bg-base-medium border-base-high resize-none"
+                        />
+                      </div>
+
+                      <div className="mt-3">
+                        <label htmlFor="feature-message" className="block text-sm font-medium mb-2 text-foreground">
+                          Feature Description *
+                        </label>
+                        <Textarea
+                          id="feature-message"
+                          value={formData.message}
+                          onChange={(e) => handleInputChange('message', e.target.value)}
+                          required
+                          placeholder="Describe the feature in detail..."
+                          rows={6}
+                          className="bg-base-medium border-base-high resize-none"
+                        />
+                      </div>
+
+                      <Button
+                        type="submit"
+                        variant="custom"
+                        size="custom"
+                        disabled={isSubmitting}
+                        className="mt-6 w-full bg-foreground text-background hover:bg-text-medium font-semibold h-10 rounded-lg text-base inline-flex items-center justify-center gap-4 transition-colors disabled:pointer-events-none disabled:opacity-50"
+                      >
+                        {isSubmitting ? (
+                          <>
+                            <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-black"></div>
+                            Submitting...
+                          </>
+                        ) : (
+                          <>
+                            Request Feature
+                            <Lightbulb className='w-[0.875rem] h-3 opacity-60'/>
+                          </>
+                        )}
+                      </Button>
+                    </form>
+                  </div>
+                </TabsContent>
+              </Tabs>
 
               {/* Status Messages */}
               {submitStatus === 'success' && (
@@ -573,51 +605,10 @@ const Contact = () => {
                   </div>
                 </div>
               )}
-
-              {/* Other Topics Navigation */}
-              <div className="w-full flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 px-6">
-                <h2 className="inter-semi-24 text-foreground">Other topics?</h2>
-                <div className="flex gap-3">
-                  {activeTab !== 'contact' && (
-                    <Button
-                      variant="custom"
-                      size="custom"
-                      onClick={() => handleTabChange('contact')}
-                      className="border border-foreground/20 rounded-none text-link font-medium text-foreground hover:bg-foreground/5 gap-2 px-4 h-11"
-                    >
-                      <Mail className='w-[0.875rem] h-[0.875rem] opacity-60'/>
-                      Contact Us
-                    </Button>
-                  )}
-                  {activeTab !== 'bug-report' && (
-                    <Button
-                      variant="custom"
-                      size="custom"
-                      onClick={() => handleTabChange('bug-report')}
-                      className="border border-foreground/20 rounded-none text-link font-medium text-foreground hover:bg-foreground/5 gap-2 px-4 h-11"
-                    >
-                      <Bug className='w-[0.875rem] h-[0.875rem] opacity-60'/>
-                      Bug Report
-                    </Button>
-                  )}
-                  {activeTab !== 'feature-request' && (
-                    <Button
-                      variant="custom"
-                      size="custom"
-                      onClick={() => handleTabChange('feature-request')}
-                      className="border border-foreground/20 rounded-none text-link font-medium text-foreground hover:bg-foreground/5 gap-2 px-4 h-11"
-                    >
-                      <Lightbulb className='w-[0.875rem] h-[0.875rem] opacity-60'/>
-                      Request Feature
-                    </Button>
-                  )}
-                </div>
-              </div>
-
             </div>
           </div>
         </div>
-      </div>
+      </section>
     </>
   )
 }

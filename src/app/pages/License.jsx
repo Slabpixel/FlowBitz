@@ -1,15 +1,10 @@
-import React from 'react';
-import { Helmet } from 'react-helmet-async';
-import { Badge } from '../components/ui/badge';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../components/ui/card';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '../components/ui/tabs';
-import { Shield, CheckCircle, XCircle, Info, FileText, Copy, ExternalLink, Heart } from 'lucide-react';
-import Footer from '../components/layout/Footer';
-import SEO from '../components/SEO';
-import { useNavigate } from 'react-router-dom';
+import React from "react";
+import { CheckCircle, Info, XCircle } from "lucide-react";
+import Footer from "../components/layout/Footer";
+import Logo from "../components/Logo.jsx";
+import SEO from "../components/SEO.jsx";
 
 const License = () => {
-  const navigate = useNavigate()
   const mitLicense = `MIT License
 
 Copyright (c) 2025 Slabpixel
@@ -124,11 +119,6 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
     }
   ];
 
-  const copyToClipboard = (text) => {
-    navigator.clipboard.writeText(text);
-    // You could add a toast notification here
-  };
-
   const structuredData = {
     "@context": "https://schema.org",
     "@type": "WebPage",
@@ -153,149 +143,190 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
         url="https://www.flowbitz.dev/license"
         structuredData={structuredData}
       />
-      <div className="bg-background text-foreground pt-[64px] min-h-screen">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 lg:py-20">
-          {/* Hero Section */}
-          <div className="text-center mb-16">
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-foreground mb-6">
-              <span wb-component="gradient-text">MIT</span> License
+      <section className="bg-transparent text-foreground min-h-screen relative overflow-hidden">
+        <div className="max-w-[1200px] lg:mx-auto mx-2 relative z-[2] border-x border-foreground/10">
+          {/* Hero */}
+          <header
+            wb-component="smart-animate"
+            className="w-full flex flex-col items-center gap-5 md:gap-[1.625rem] py-6 md:py-14 border-b border-foreground/10"
+          >
+
+            <h1 className="inter-semi-48 w-2/3 md:w-full text-center text-foreground">
+              MIT License
             </h1>
-            <p className="text-lg sm:text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-              FlowBitz is released under the MIT License, one of the most permissive open-source licenses. 
+
+            <p className="inter-reg-18 text-text-medium text-center px-4 md:px-0 max-w-[99%] md:max-w-[770px]">
+              FlowBitz is released under the MIT License, one of the most permissive open-source licenses.
               This means you have maximum freedom to use, modify, and distribute FlowBitz.
             </p>
-          </div>
+          </header>
 
           {/* License Content */}
-          <div className="max-w-4xl mx-auto space-y-[100px]">
-            {/* License Terms Table */}
-            <div className="group relative">
-              <h3 className="text-2xl font-semibold text-foreground mb-4">License Terms</h3>
-              <p className="text-muted-foreground mb-6">Complete overview of what you can do, requirements, and limitations under the MIT license</p>
-              
-              <div className="overflow-x-auto">
-                <table className="w-full border-collapse border border-border/50 rounded-lg overflow-hidden">
-                  <thead>
-                    <tr className="bg-muted/50">
-                      <th className="border border-border/50 p-4 text-left font-semibold text-foreground">Category</th>
-                      <th className="border border-border/50 p-4 text-left font-semibold text-foreground">Item</th>
-                      <th className="border border-border/50 p-4 text-left font-semibold text-foreground">Description</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {/* What You Can Do */}
-                    {allowedUses.map((use, index) => (
-                      <tr key={`allowed-${index}`} className="hover:bg-muted/30 transition-colors">
-                        <td className="border border-border/50 p-4 text-sm text-foreground font-medium">
-                          <div className="flex items-center gap-2">
-                            <CheckCircle className="w-4 h-4 text-green-500" />
-                            <span className="text-green-600 dark:text-green-400">Allowed</span>
-                          </div>
-                        </td>
-                        <td className="border border-border/50 p-4 text-sm font-semibold text-foreground">{use.title}</td>
-                        <td className="border border-border/50 p-4 text-sm text-muted-foreground">{use.description}</td>
-                      </tr>
-                    ))}
-                    
-                    {/* Requirements */}
-                    {requirements.map((req, index) => (
-                      <tr key={`requirement-${index}`} className="hover:bg-muted/30 transition-colors">
-                        <td className="border border-border/50 p-4 text-sm text-foreground font-medium">
-                          <div className="flex items-center gap-2">
-                            <Info className="w-4 h-4 text-blue-500" />
-                            <span className="text-blue-600 dark:text-blue-400">Required</span>
-                          </div>
-                        </td>
-                        <td className="border border-border/50 p-4 text-sm font-semibold text-foreground">{req.title}</td>
-                        <td className="border border-border/50 p-4 text-sm text-muted-foreground">{req.description}</td>
-                      </tr>
-                    ))}
-                    
-                    {/* Restrictions */}
-                    {restrictions.map((restriction, index) => (
-                      <tr key={`restriction-${index}`} className="hover:bg-muted/30 transition-colors">
-                        <td className="border border-border/50 p-4 text-sm text-foreground font-medium">
-                          <div className="flex items-center gap-2">
-                            <XCircle className="w-4 h-4 text-red-500" />
-                            <span className="text-red-600 dark:text-red-400">Limited</span>
-                          </div>
-                        </td>
-                        <td className="border border-border/50 p-4 text-sm font-semibold text-foreground">{restriction.title}</td>
-                        <td className="border border-border/50 p-4 text-sm text-muted-foreground">{restriction.description}</td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-            </div>
+          <div className="py-12 md:py-16 px-4 md:px-0 border-b border-foreground/10">
+            <div className="max-w-4xl mx-auto space-y-[100px]">
+              {/* License Terms Table */}
+              <div className="group relative">
+                <h3 className="inter-semi-24 text-foreground mb-4">License Terms</h3>
+                <p className="text-paragraph large text-text-medium mb-6">
+                  Complete overview of what you can do, requirements, and limitations under the MIT license
+                </p>
 
-            {/* License Text */}
-            <div className="group relative">
-              <div className="flex items-center gap-3 mb-4">
-                <h3 className="text-2xl font-semibold text-foreground">MIT License Text</h3>
-              </div>
-              <p className="text-muted-foreground mb-4">The complete MIT License text for FlowBitz</p>
-              <div className="relative">
-                <div className="bg-muted p-6 rounded-lg">
-                <pre className="text-sm whitespace-pre-wrap font-mono w-full">
-                    {mitLicense}
-                </pre>
+                <div className="overflow-x-auto">
+                  <table className="w-full border-collapse border border-foreground/10 rounded-[6px] overflow-hidden">
+                    <thead>
+                      <tr className="bg-background/40">
+                        <th className="border border-foreground/10 p-4 text-left font-semibold text-foreground">
+                          Category
+                        </th>
+                        <th className="border border-foreground/10 p-4 text-left font-semibold text-foreground">
+                          Item
+                        </th>
+                        <th className="border border-foreground/10 p-4 text-left font-semibold text-foreground">
+                          Description
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {/* What You Can Do */}
+                      {allowedUses.map((use, index) => (
+                        <tr key={`allowed-${index}`} className="hover:bg-foreground/5 transition-colors">
+                          <td className="border border-foreground/10 p-4 text-sm text-foreground font-medium">
+                            <div className="flex items-center gap-2">
+                              <CheckCircle className="w-4 h-4 text-green-500" />
+                              <span className="text-green-600 dark:text-green-400">Allowed</span>
+                            </div>
+                          </td>
+                          <td className="border border-foreground/10 p-4 text-sm font-semibold text-foreground">
+                            {use.title}
+                          </td>
+                          <td className="border border-foreground/10 p-4 text-sm text-text-medium">
+                            {use.description}
+                          </td>
+                        </tr>
+                      ))}
+
+                      {/* Requirements */}
+                      {requirements.map((req, index) => (
+                        <tr key={`requirement-${index}`} className="hover:bg-foreground/5 transition-colors">
+                          <td className="border border-foreground/10 p-4 text-sm text-foreground font-medium">
+                            <div className="flex items-center gap-2">
+                              <Info className="w-4 h-4 text-blue-500" />
+                              <span className="text-blue-600 dark:text-blue-400">Required</span>
+                            </div>
+                          </td>
+                          <td className="border border-foreground/10 p-4 text-sm font-semibold text-foreground">
+                            {req.title}
+                          </td>
+                          <td className="border border-foreground/10 p-4 text-sm text-text-medium">
+                            {req.description}
+                          </td>
+                        </tr>
+                      ))}
+
+                      {/* Restrictions */}
+                      {restrictions.map((restriction, index) => (
+                        <tr key={`restriction-${index}`} className="hover:bg-foreground/5 transition-colors">
+                          <td className="border border-foreground/10 p-4 text-sm text-foreground font-medium">
+                            <div className="flex items-center gap-2">
+                              <XCircle className="w-4 h-4 text-red-500" />
+                              <span className="text-red-600 dark:text-red-400">Limited</span>
+                            </div>
+                          </td>
+                          <td className="border border-foreground/10 p-4 text-sm font-semibold text-foreground">
+                            {restriction.title}
+                          </td>
+                          <td className="border border-foreground/10 p-4 text-sm text-text-medium">
+                            {restriction.description}
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
                 </div>
               </div>
-              <p className="text-sm text-muted-foreground mt-4">
-                This license text should be included in any distribution of FlowBitz or modified versions.
-              </p>
-            </div>
 
-            {/* Dependencies */}
-            <div className="group relative">
-              <h3 className="text-2xl font-semibold text-foreground mb-4">Third-Party Dependencies</h3>
-              <p className="text-muted-foreground mb-4">FlowBitz uses several open-source libraries. Here's how their licenses affect you.</p>
-              <div className="space-y-2">
-                      {thirdPartyLicenses.map((dep, index) => (
-                        <div key={index} className="border border-border/50 rounded-lg p-4 transition-all duration-300">
-                          <div className="flex items-start justify-between mb-2">
-                            <div>
-                              <h4 className="font-semibold text-foreground">{dep.name}</h4>
-                              <p className="text-muted-foreground">Version {dep.version}</p>
-                            </div>
-                            <Badge variant={dep.license === 'MIT' ? 'secondary' : 'default'}>
-                              {dep.license}
-                            </Badge>
-                          </div>
-                          <p className="mb-2">{dep.description}</p>
-                          <p className="text-sm text-muted-foreground">{dep.note}</p>
-                        </div>
-                      ))}
-              </div>
-                <p className="text-sm text-muted-foreground mt-4">
-                  Important Note: When using FlowBitz, you don't need to worry about individual library licenses. 
-                  All necessary licenses are included with FlowBitz. However, if you use these 
-                  libraries directly in your project outside of FlowBitz, you may need separate licenses.
+              {/* License Text */}
+              <div className="group relative">
+                <h3 className="inter-semi-24 text-foreground mb-4">MIT License Text</h3>
+                <p className="text-paragraph large text-text-medium mb-4">
+                  The complete MIT License text for FlowBitz
                 </p>
-            </div>
 
-            {/* FAQ */}
-            <div className="group relative">
-              <h3 className="text-2xl font-semibold text-foreground mb-4">Frequently Asked Questions</h3>
-              <p className="text-muted-foreground mb-6">Common questions about FlowBitz licensing and usage</p>
-              <div className="space-y-3">
-                      {faq.map((item, index) => (
-                        <div key={index} className="bg-card bg-muted rounded-xl p-4 sm:p-6 hover:bg-accent transition-all duration-300">
-                          <h4 className="text-lg font-semibold mb-2 text-foreground">{item.question}</h4>
-                          <div className="prose prose-sm max-w-none text-muted-foreground">
-                            <p className="whitespace-pre-line">{item.answer}</p>
-                          </div>
+                <div className="relative">
+                  <div className="bg-base-low border border-foreground/10 p-6 rounded-[6px]">
+                    <pre className="text-sm whitespace-pre-wrap font-mono w-full">{mitLicense}</pre>
+                  </div>
+                </div>
+
+                <p className="text-paragraph text-text-medium mt-4">
+                  This license text should be included in any distribution of FlowBitz or modified versions.
+                </p>
+              </div>
+
+              {/* Dependencies */}
+              <div className="group relative">
+                <h3 className="inter-semi-24 text-foreground mb-4">Third-Party Dependencies</h3>
+                <p className="text-paragraph large text-text-medium mb-4">
+                  FlowBitz uses several open-source libraries. Here's how their licenses affect you.
+                </p>
+
+                <div className="space-y-2">
+                  {thirdPartyLicenses.map((dep, index) => (
+                    <div
+                      key={index}
+                      className="border border-foreground/10 bg-base-low rounded-[6px] p-5 transition-all duration-300"
+                    >
+                      <div className="flex items-start justify-between mb-2 gap-4">
+                        <div>
+                          <h4 className="font-semibold text-foreground">{dep.name}</h4>
+                          <p className="text-text-medium">Version {dep.version}</p>
                         </div>
-                      ))}
+
+                        <span className="inline-flex items-center px-3 py-1 rounded-[2px] border border-foreground/10 bg-background/40 text-text-medium text-xs font-semibold">
+                          {dep.license}
+                        </span>
+                      </div>
+
+                      <p className="mb-2 text-text-medium">{dep.description}</p>
+                      <p className="text-sm text-text-medium opacity-80">{dep.note}</p>
+                    </div>
+                  ))}
+                </div>
+
+                <p className="text-paragraph text-text-medium mt-4">
+                  Important Note: When using FlowBitz, you don't need to worry about individual library licenses.
+                  All necessary licenses are included with FlowBitz. However, if you use these libraries directly
+                  in your project outside of FlowBitz, you may need separate licenses.
+                </p>
+              </div>
+
+              {/* FAQ */}
+              <div className="group relative">
+                <h3 className="inter-semi-24 text-foreground mb-4">
+                  Frequently Asked Questions
+                </h3>
+                <p className="text-paragraph large text-text-medium mb-6">
+                  Common questions about FlowBitz licensing and usage
+                </p>
+
+                <div className="space-y-3">
+                  {faq.map((item, index) => (
+                    <div
+                      key={index}
+                      className="bg-base-low border border-foreground/10 rounded-[6px] p-4 sm:p-6 hover:bg-foreground/5 transition-all duration-300"
+                    >
+                      <h4 className="text-lg font-semibold mb-2 text-foreground">{item.question}</h4>
+                      <div className="prose prose-sm max-w-none text-text-medium">
+                        <p className="whitespace-pre-line">{item.answer}</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
               </div>
             </div>
           </div>
         </div>
-        
-        {/* Footer */}
-        <Footer />
-      </div>
+      </section>
     </>
   );
 };

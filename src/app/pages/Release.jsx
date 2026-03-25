@@ -1,15 +1,10 @@
-import React from 'react';
-import { Helmet } from 'react-helmet-async';
-import { Badge } from '../components/ui/badge';
-import { useNavigate } from 'react-router-dom';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../components/ui/card';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '../components/ui/tabs';
-import { CheckCircle, Download, Star, Zap, Bug, Plus, ArrowRight, Heart } from 'lucide-react';
-import Footer from '../components/layout/Footer';
-import SEO from '../components/SEO';
+import React from "react";
+import { ArrowRight } from "lucide-react";
+import Logo from "../components/Logo.jsx";
+import Footer from "../components/layout/Footer";
+import SEO from "../components/SEO.jsx";
 
 const Release = () => {
-    const navigate = useNavigate()
     const releases = [
         {
             version: "2.4.4",
@@ -152,71 +147,85 @@ const Release = () => {
                 url="https://www.flowbitz.dev/release"
                 structuredData={structuredData}
             />
-            <div className="bg-background text-foreground pt-[64px] min-h-screen">
-                <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 lg:py-20">
-                    {/* Hero Section */}
-                    <div className="text-center mb-16">
-                        <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-foreground mb-6">
-                            Release <span wb-component="gradient-text">Notes</span>
+            <section className="bg-transparent text-foreground min-h-screen relative overflow-hidden">
+                <div className="max-w-[1200px] lg:mx-auto mx-2 relative z-[2] border-x border-foreground/10">
+                    {/* Hero */}
+                    <header
+                        wb-component="smart-animate"
+                        className="w-full flex flex-col items-center gap-5 md:gap-[1.625rem] py-6 md:py-14 border-b border-foreground/10"
+                    >
+
+                        <h1 className="inter-semi-48 w-2/3 md:w-full text-center text-foreground">
+                            Release Notes
                         </h1>
-                        <p className="text-lg sm:text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
+
+                        <p className="inter-reg-18 text-text-medium text-center px-4 md:px-0 max-w-[99%] md:max-w-[770px]">
                             Track the evolution of FlowBitz - from pre-release to stable versions. See what's new in each release.
                         </p>
-                    </div>
+                    </header>
 
                     {/* Release Timeline */}
-                    <div className="max-w-6xl mx-auto">
-                        <div className="relative">
+                    <div className="py-12 md:py-16 px-4 md:px-0 border-b border-foreground/10">
+                        <div wb-component="smart-animate" className="relative max-w-[900px] mx-auto">
                             {/* Timeline line */}
-                            <div className="absolute left-2 top-0 bottom-0 w-0.5 bg-border"></div>
+                            <div className="absolute left-2 top-0 bottom-0 w-0.5 bg-foreground/10"></div>
 
-                            <div className="space-y-8">
+                            <div className="flex flex-col gap-24">
                                 {releases.map((release, index) => {
-                                    // Parse date to extract month and year
                                     const dateObj = new Date(release.date);
-                                    const month = dateObj.toLocaleDateString('en-US', { month: 'long' });
+                                    const month = dateObj.toLocaleDateString("en-US", {
+                                        month: "long",
+                                    });
                                     const day = dateObj.getDate();
                                     const year = dateObj.getFullYear();
 
                                     return (
                                         <div key={index} className="relative flex items-start gap-4">
                                             {/* Timeline dot */}
-                                            <div className="block w-4 h-4 bg-primary rounded-full border-4 border-background shadow-sm z-10"></div>
+                                            <div className="block w-4 h-4 bg-primary/60 rounded-full border-4 border-background shadow-sm z-10"></div>
 
                                             <div className="w-full flex items-start gap-4 sm:flex-row flex-col">
                                                 {/* Date indicator */}
-                                                <div className="flex-shrink-0 min-w-[120px] text-left">
-                                                    <div>
-                                                        <div className="text-sm font-semibold text-foreground">
-                                                            {month} {day}
-                                                        </div>
-                                                        <div className="text-xs text-muted-foreground">
-                                                            {year}
-                                                        </div>
+                                                <div className="flex-shrink-0 min-w-[140px] text-left">
+                                                    <div className="text-sm font-semibold text-foreground">
+                                                        {month} {day}
+                                                    </div>
+                                                    <div className="text-xs text-text-medium opacity-80">
+                                                        {year}
                                                     </div>
                                                 </div>
 
                                                 {/* Release card */}
-                                                <div className="flex-1 bg-card rounded-xl p-6 transition-all duration-300 border border-border shadow-sm">
-                                                    <div className="flex items-start justify-between mb-4">
+                                                <div className="flex-1 transition-all duration-300">
+                                                    <div className="flex items-start justify-between mb-4 gap-4">
                                                         <div className="flex items-center gap-3">
-                                                            <Badge variant={release.type === 'stable' ? 'default' : 'secondary'}>
+                                                            <span className="inline-flex items-center px-3 py-1 rounded-[2px] border border-foreground/10 bg-background/40 text-text-medium text-xs font-semibold">
                                                                 v{release.version}
-                                                            </Badge>
-                                                            <span className="text-muted-foreground text-sm">{release.type === 'stable' ? 'Stable Release' : 'Pre-release'}</span>
+                                                            </span>
+                                                            <span className="text-sm text-text-medium opacity-80">
+                                                                {release.type === "stable"
+                                                                    ? "Stable Release"
+                                                                    : "Pre-release"}
+                                                            </span>
                                                         </div>
                                                     </div>
 
-                                                    <p className="text-muted-foreground mb-4 text-sm sm:text-base">
+                                                    <p className="text-paragraph large text-text-medium mb-4">
                                                         {release.description}
                                                     </p>
 
                                                     <div className="space-y-2">
-                                                        <h4 className="font-semibold text-sm text-foreground mb-2">What's included:</h4>
+                                                        <h4 className="text-sm font-semibold text-foreground mb-2">
+                                                            What's included:
+                                                        </h4>
+
                                                         <ul className="space-y-1">
                                                             {release.changes.map((change, changeIndex) => (
-                                                                <li key={changeIndex} className="flex items-start gap-2 text-sm text-muted-foreground">
-                                                                    <ArrowRight className="w-3 h-3 text-primary mt-1.5 flex-shrink-0" />
+                                                                <li
+                                                                    key={changeIndex}
+                                                                    className="flex items-start gap-2 text-sm text-text-medium"
+                                                                >
+                                                                    <ArrowRight className="w-3 h-3 text-foreground/60 mt-1.5 flex-shrink-0" />
                                                                     <span>{change}</span>
                                                                 </li>
                                                             ))}
@@ -231,10 +240,7 @@ const Release = () => {
                         </div>
                     </div>
                 </div>
-
-                {/* Footer */}
-                <Footer />
-            </div>
+            </section>
         </>
     );
 };
