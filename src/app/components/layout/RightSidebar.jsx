@@ -210,16 +210,17 @@ const ConfigSidebar = ({
           </h2>
 
           <div className="flex flex-col gap-2">
-            {component.attributes.map((attr, index, {length}) => {
+            {component.attributes.map((attr, index, attrs) => {
+              const length = attrs.length
               const isRequired = attr.required || attr.name === 'wb-component'
               const isActive = activeAttributes[attr.name] || false
+              const shouldShowControl = isRequired || isActive
               const lastItem = length - 1 === index ? true : false;
 
               return (
                 <>
                   <div
                     key={index}
-                    className='pb-2'
                   >
                     {/* Label row: switch (left) + name + badge + info tooltip */}
                     <div className="flex items-center py-3 gap-2">
@@ -251,11 +252,11 @@ const ConfigSidebar = ({
                     </div>
 
                     {/* Control */}
-                    <div className={`transition-opacity duration-200 ${
-                      !isActive ? 'opacity-40 pointer-events-none' : ''
-                    }`}>
-                      {renderInputControl(attr)}
-                    </div>
+                    {shouldShowControl ? (
+                      <div className="transition-opacity duration-200">
+                        {renderInputControl(attr)}
+                      </div>
+                    ) : null}
                   </div>
 
                   {lastItem ? '' : (<div className='h-[1px] w-full bg-foreground/10' />)}
