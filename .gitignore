@@ -32,3 +32,8 @@ dist-ssr
 build/
 out/
 .vercel
+
+#cursor config
+.cursor/
+.sdd/
+specs/

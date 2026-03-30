@@ -37,6 +37,9 @@ import outlineGradientAnimator from '../components/effect/outlineGradientAnimate
 import imageTrailAnimator from '../components/effect/imageTrail.js';
 import hoverZoomAnimator from '../components/effect/hoverZoom.js';
 
+/* Background Components */
+import matrixRainAnimator from '../components/background/matrixRain.js';
+
 /* Utils */
 import { setupScrollTriggerResize } from '../utils/animation/scrollTriggerHelper.js';
 
@@ -74,6 +77,7 @@ class WebflowBits {
       outlineGradient: outlineGradientAnimator,
       imageTrail: imageTrailAnimator,
       hoverZoom: hoverZoomAnimator,
+      matrixRain: matrixRainAnimator,
     };
   }
 
@@ -90,7 +94,7 @@ class WebflowBits {
     const config = {
       autoInit: true,
       debug: false,
-      components: ['splitText', 'textType', 'blurText', 'shinyText', 'gradientText', 'gradientButton', 'rippleButton', 'pulseButton', 'shimmerButton', 'decryptedText', 'scrambleText', 'variableProximity', 'countUp', 'rotatingText', 'textPressure', 'magnet', 'shuffle', 'tooltipText', 'rollText', 'cardHover3d', 'outlineGradient', 'imageTrail', 'hoverZoom'],
+      components: ['splitText', 'textType', 'blurText', 'shinyText', 'gradientText', 'gradientButton', 'rippleButton', 'pulseButton', 'shimmerButton', 'decryptedText', 'scrambleText', 'variableProximity', 'countUp', 'rotatingText', 'textPressure', 'magnet', 'shuffle', 'tooltipText', 'rollText', 'cardHover3d', 'outlineGradient', 'imageTrail', 'hoverZoom', 'matrixRain'],
       ...options
     };
 
@@ -215,6 +219,10 @@ class WebflowBits {
 
       if (config.components.includes('hoverZoom')) {
         this.initHoverZoom(config.debug);
+      }
+
+      if (config.components.includes('matrixRain')) {
+        this.initMatrixRain(config.debug);
       }
 
       // Setup mutation observer for dynamic content if autoInit is enabled
@@ -660,6 +668,49 @@ class WebflowBits {
   }
 
   /**
+   * Initialize MatrixRain component
+   */
+  initMatrixRain(debug = false) {
+    try {
+      matrixRainAnimator.initAll();
+      if (debug) {
+        console.log('WebflowBits: MatrixRain initialized');
+      }
+    } catch (error) {
+      console.error('WebflowBits: Failed to initialize MatrixRain', error);
+    }
+  }
+
+  /**
+   * Initialize MatrixRain on specific elements
+   * @param {string|NodeList|Element} selector
+   */
+  initMatrixRainOn(selector) {
+    try {
+      if (!selector) return this;
+
+      // matrixRainAnimator exposes initAll/initElement only.
+      // For selective init, just call initElement for matching nodes.
+      const elements =
+        typeof selector === 'string'
+          ? document.querySelectorAll(selector)
+          : selector.nodeType
+            ? [selector]
+            : selector;
+
+      Array.from(elements).forEach((element) => {
+        if (element?.getAttribute?.('wb-component') === 'matrix-rain') {
+          matrixRainAnimator.initElement(element);
+        }
+      });
+    } catch (error) {
+      console.error('WebflowBits: Failed to initialize MatrixRain on elements', error);
+    }
+
+    return this;
+  }
+
+  /**
    * Setup mutation observer to handle dynamically added content
    */
   setupMutationObserver(debug = false) {
@@ -926,6 +977,16 @@ class WebflowBits {
                 hoverZoomAnimator.initElement(element);
                 shouldRefresh = true;
               });
+
+              // Check for wb-component="matrix-rain" elements
+              const matrixRainElements = node.matches?.('[wb-component="matrix-rain"]')
+                ? [node]
+                : Array.from(node.querySelectorAll?.('[wb-component="matrix-rain"]') || []);
+
+              matrixRainElements.forEach(element => {
+                matrixRainAnimator.initElement(element);
+                shouldRefresh = true;
+              });
             }
           });
         }
@@ -953,6 +1014,7 @@ class WebflowBits {
           outlineGradientAnimator.refresh();
           imageTrailAnimator.refresh();
           hoverZoomAnimator.refresh();
+          matrixRainAnimator.refresh();
         }, 100);
       }
     });
@@ -1475,6 +1537,9 @@ class WebflowBits {
     // Destroy HoverZoom animations
     hoverZoomAnimator.destroyAll();
 
+    // Destroy MatrixRain animations
+    matrixRainAnimator.destroyAll();
+
     // Disconnect observers
     this.observers.forEach(observer => observer.disconnect());
     this.observers = [];
@@ -1514,6 +1579,8 @@ class WebflowBits {
     outlineGradientAnimator.refresh();
     imageTrailAnimator.refresh();
     hoverZoomAnimator.refresh();
+
+    matrixRainAnimator.refresh();
     return this;
   }
 

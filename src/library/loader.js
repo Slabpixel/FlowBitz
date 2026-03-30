@@ -2,29 +2,31 @@
  * FlowBitz - Dynamic Loader
  * Lightweight entry point with on-demand component loading
  * Inspired by Finsweet Attributes architecture
- * 
+ *
  * Features:
  * - Auto-detects components on page
  * - Lazy loads only what's needed
  * - Smart GSAP loading (only if required)
  * - Detects existing GSAP installations
- * 
+ *
  * @version 2.3.5
  * @author Slabpixel Studio
  * @license MIT
  */
 
-const VERSION = '2.3.5';
-const ATTR_PREFIX = 'wb-component';
+const VERSION = "2.3.5";
+const ATTR_PREFIX = "wb-component";
 
 /**
  * GSAP CDN URLs
  */
 const GSAP_CDN = {
-  core: 'https://cdn.jsdelivr.net/npm/gsap@3/dist/gsap.min.js',
-  scrollTrigger: 'https://cdn.jsdelivr.net/npm/gsap@3/dist/ScrollTrigger.min.js',
-  splitText: 'https://cdn.jsdelivr.net/npm/gsap@3/dist/SplitText.min.js',
-  scrambleTextPlugin: 'https://cdn.jsdelivr.net/npm/gsap@3/dist/ScrambleTextPlugin.min.js'
+  core: "https://cdn.jsdelivr.net/npm/gsap@3/dist/gsap.min.js",
+  scrollTrigger:
+    "https://cdn.jsdelivr.net/npm/gsap@3/dist/ScrollTrigger.min.js",
+  splitText: "https://cdn.jsdelivr.net/npm/gsap@3/dist/SplitText.min.js",
+  scrambleTextPlugin:
+    "https://cdn.jsdelivr.net/npm/gsap@3/dist/ScrambleTextPlugin.min.js",
 };
 
 /**
@@ -34,7 +36,7 @@ const gsapLoaded = {
   core: false,
   scrollTrigger: false,
   splitText: false,
-  scrambleTextPlugin: false
+  scrambleTextPlugin: false,
 };
 
 /**
@@ -43,34 +45,37 @@ const gsapLoaded = {
  */
 const COMPONENT_REQUIREMENTS = {
   // Text components with GSAP
-  'split-text': ['core', 'scrollTrigger', 'splitText'],
-  'text-type': ['core'],
-  'blur-text': ['core', 'scrollTrigger'],
-  'shiny-text': [],  // CSS only
-  'gradient-text': ['core', 'scrollTrigger'],
-  'decrypted-text': ['core', 'scrollTrigger'],
-  'scramble-text': ['core', 'scrollTrigger', 'scrambleTextPlugin'],
-  'variable-proximity': ['core'],
-  'count-up': ['core', 'scrollTrigger'],
-  'rotating-text': ['core'],
-  'text-pressure': ['core'],
-  'shuffle': ['core', 'scrollTrigger'],
-  'tooltip-text': [],  // CSS only
-  'roll-text': ['core', 'splitText'],
+  "split-text": ["core", "scrollTrigger", "splitText"],
+  "text-type": ["core"],
+  "blur-text": ["core", "scrollTrigger"],
+  "shiny-text": [], // CSS only
+  "gradient-text": ["core", "scrollTrigger"],
+  "decrypted-text": ["core", "scrollTrigger"],
+  "scramble-text": ["core", "scrollTrigger", "scrambleTextPlugin"],
+  "variable-proximity": ["core"],
+  "count-up": ["core", "scrollTrigger"],
+  "rotating-text": ["core"],
+  "text-pressure": ["core"],
+  shuffle: ["core", "scrollTrigger"],
+  "tooltip-text": [], // CSS only
+  "roll-text": ["core", "splitText"],
 
   // Button components (minimal GSAP)
-  'gradient-button': [],  // CSS only
-  'ripple-button': [],  // CSS only
-  'pulse-button': [],  // CSS only
-  'magnetic-button': ['core'],
-  'shimmer-button': [],  // CSS only
-  
+  "gradient-button": [], // CSS only
+  "ripple-button": [], // CSS only
+  "pulse-button": [], // CSS only
+  "magnetic-button": ["core"],
+  "shimmer-button": [], // CSS only
+
   // Effect components
-  'smart-animate': ['core', 'scrollTrigger'],
-  '3d-card-hover': [],
-  'outline-gradient-animate': [], // CSS only, no GSAP needed
-  'image-trail': ['core'],
-  'hover-zoom': [], // CSS only, no GSAP needed
+  "smart-animate": ["core", "scrollTrigger"],
+  "3d-card-hover": [],
+  "outline-gradient-animate": [], // CSS only, no GSAP needed
+  "image-trail": ["core"],
+  "hover-zoom": [], // CSS only, no GSAP needed
+
+  // Background components
+  "matrix-rain": [],
 };
 
 /**
@@ -79,34 +84,38 @@ const COMPONENT_REQUIREMENTS = {
  */
 const COMPONENT_LOADERS = {
   // Text components
-  'split-text': () => import('./components/text/splitText.js'),
-  'text-type': () => import('./components/text/textType.js'),
-  'blur-text': () => import('./components/text/blurText.js'),
-  'shiny-text': () => import('./components/text/shinyText.js'),
-  'gradient-text': () => import('./components/text/gradientText.js'),
-  'decrypted-text': () => import('./components/text/decryptedText.js'),
-  'scramble-text': () => import('./components/text/scrambleText.js'),
-  'variable-proximity': () => import('./components/text/variableProximity.js'),
-  'count-up': () => import('./components/text/countUp.js'),
-  'rotating-text': () => import('./components/text/rotatingText.js'),
-  'text-pressure': () => import('./components/text/textPressure.js'),
-  'shuffle': () => import('./components/text/shuffle.js'),
-  'tooltip-text': () => import('./components/text/tooltipText.js'),
-  'roll-text': () => import('./components/text/rollText.js'),
-  
+  "split-text": () => import("./components/text/splitText.js"),
+  "text-type": () => import("./components/text/textType.js"),
+  "blur-text": () => import("./components/text/blurText.js"),
+  "shiny-text": () => import("./components/text/shinyText.js"),
+  "gradient-text": () => import("./components/text/gradientText.js"),
+  "decrypted-text": () => import("./components/text/decryptedText.js"),
+  "scramble-text": () => import("./components/text/scrambleText.js"),
+  "variable-proximity": () => import("./components/text/variableProximity.js"),
+  "count-up": () => import("./components/text/countUp.js"),
+  "rotating-text": () => import("./components/text/rotatingText.js"),
+  "text-pressure": () => import("./components/text/textPressure.js"),
+  shuffle: () => import("./components/text/shuffle.js"),
+  "tooltip-text": () => import("./components/text/tooltipText.js"),
+  "roll-text": () => import("./components/text/rollText.js"),
+
   // Button components
-  'gradient-button': () => import('./components/button/gradientButton.js'),
-  'ripple-button': () => import('./components/button/rippleButton.js'),
-  'pulse-button': () => import('./components/button/pulseButton.js'),
-  'magnetic-button': () => import('./components/button/magneticButton.js'),
-  'shimmer-button': () => import('./components/button/shimmerButton.js'),
-  
+  "gradient-button": () => import("./components/button/gradientButton.js"),
+  "ripple-button": () => import("./components/button/rippleButton.js"),
+  "pulse-button": () => import("./components/button/pulseButton.js"),
+  "magnetic-button": () => import("./components/button/magneticButton.js"),
+  "shimmer-button": () => import("./components/button/shimmerButton.js"),
+
   // Effect components
-  'smart-animate': () => import('./components/effect/smartAnimate.js'),
-  '3d-card-hover': () => import('./components/effect/3dCardHover.js'),
-  'outline-gradient': () => import('./components/effect/outlineGradientAnimate.js'),
-  'image-trail': () => import('./components/effect/imageTrail.js'),
-  'hover-zoom': () => import('./components/effect/hoverZoom.js'),
+  "smart-animate": () => import("./components/effect/smartAnimate.js"),
+  "3d-card-hover": () => import("./components/effect/3dCardHover.js"),
+  "outline-gradient": () =>
+    import("./components/effect/outlineGradientAnimate.js"),
+  "image-trail": () => import("./components/effect/imageTrail.js"),
+  "hover-zoom": () => import("./components/effect/hoverZoom.js"),
+
+  // Background components
+  "matrix-rain": () => import("./components/background/matrixRain.js"),
 };
 
 /**
@@ -114,11 +123,11 @@ const COMPONENT_LOADERS = {
  * @returns {boolean} True if GSAP is available
  */
 function isGSAPAvailable() {
-  if (typeof window === 'undefined') return false;
-  
+  if (typeof window === "undefined") return false;
+
   // Check if gsap is available globally or via import
   try {
-    return !!(window.gsap || (typeof gsap !== 'undefined'));
+    return !!(window.gsap || typeof gsap !== "undefined");
   } catch (e) {
     return !!window.gsap;
   }
@@ -139,24 +148,36 @@ async function loadGSAPModule(module) {
     gsapLoaded.scrambleTextPlugin = true;
     return window.gsap;
   }
-  
+
   // Check if already loaded globally (user loaded it)
-  if (module === 'core' && typeof window !== 'undefined' && window.gsap) {
+  if (module === "core" && typeof window !== "undefined" && window.gsap) {
     gsapLoaded.core = true;
     return window.gsap;
   }
-  
-  if (module === 'scrollTrigger' && typeof window !== 'undefined' && window.gsap?.ScrollTrigger) {
+
+  if (
+    module === "scrollTrigger" &&
+    typeof window !== "undefined" &&
+    window.gsap?.ScrollTrigger
+  ) {
     gsapLoaded.scrollTrigger = true;
     return window.gsap.ScrollTrigger;
   }
-  
-  if (module === 'splitText' && typeof window !== 'undefined' && window.SplitText) {
+
+  if (
+    module === "splitText" &&
+    typeof window !== "undefined" &&
+    window.SplitText
+  ) {
     gsapLoaded.splitText = true;
     return window.SplitText;
   }
 
-  if (module === 'scrambleTextPlugin' && typeof window !== 'undefined' && window.gsap?.ScrambleTextPlugin) {
+  if (
+    module === "scrambleTextPlugin" &&
+    typeof window !== "undefined" &&
+    window.gsap?.ScrambleTextPlugin
+  ) {
     gsapLoaded.scrambleTextPlugin = true;
     return window.gsap.ScrambleTextPlugin;
   }
@@ -168,31 +189,31 @@ async function loadGSAPModule(module) {
 
   // Load dynamically from CDN (ES modules only)
   return new Promise((resolve, reject) => {
-    const script = document.createElement('script');
+    const script = document.createElement("script");
     script.src = GSAP_CDN[module];
     script.async = true;
-    
+
     script.onload = () => {
       gsapLoaded[module] = true;
-      
+
       // Register plugins with GSAP
-      if (module === 'scrollTrigger' && window.gsap) {
+      if (module === "scrollTrigger" && window.gsap) {
         window.gsap.registerPlugin(window.ScrollTrigger);
       }
-      if (module === 'splitText' && window.gsap) {
+      if (module === "splitText" && window.gsap) {
         window.gsap.registerPlugin(window.SplitText);
       }
-      if (module === 'scrambleTextPlugin' && window.gsap) {
+      if (module === "scrambleTextPlugin" && window.gsap) {
         window.gsap.registerPlugin(window.ScrambleTextPlugin);
       }
-      
+
       resolve(window.gsap || window.SplitText || window.ScrollTrigger);
     };
-    
+
     script.onerror = () => {
       reject(new Error(`Failed to load GSAP module: ${module}`));
     };
-    
+
     document.head.appendChild(script);
   });
 }
@@ -205,7 +226,7 @@ async function loadGSAPModule(module) {
  */
 async function loadRequiredGSAP(componentName, debug = false) {
   const requirements = COMPONENT_REQUIREMENTS[componentName] || [];
-  
+
   if (requirements.length === 0) {
     // No GSAP needed for this component
     return;
@@ -221,10 +242,10 @@ async function loadRequiredGSAP(componentName, debug = false) {
       if (debug) {
         console.log(`📦 Loading GSAP module: ${module}`);
       }
-      
+
       try {
         await loadGSAPModule(module);
-        
+
         if (debug) {
           console.log(`✅ GSAP ${module} loaded`);
         }
@@ -248,7 +269,7 @@ class FlowBitz {
     this.observers = [];
     this.gsapStats = {
       required: false,
-      modulesLoaded: []
+      modulesLoaded: [],
     };
     this.config = {
       auto: true,
@@ -262,15 +283,15 @@ class FlowBitz {
    */
   async init(options = {}) {
     this.config = { ...this.config, ...options };
-    
+
     if (this.config.debug) {
       console.log(`🎨 FlowBitz v${VERSION} initializing...`);
     }
 
     // Wait for DOM
-    if (document.readyState === 'loading') {
-      await new Promise(resolve => {
-        document.addEventListener('DOMContentLoaded', resolve);
+    if (document.readyState === "loading") {
+      await new Promise((resolve) => {
+        document.addEventListener("DOMContentLoaded", resolve);
       });
     }
 
@@ -285,12 +306,14 @@ class FlowBitz {
     }
 
     // Dispatch ready event
-    document.dispatchEvent(new CustomEvent('flowbitz-ready', {
-      detail: { version: VERSION }
-    }));
+    document.dispatchEvent(
+      new CustomEvent("flowbitz-ready", {
+        detail: { version: VERSION },
+      }),
+    );
 
     if (this.config.debug) {
-      console.log('✅ FlowBitz initialized');
+      console.log("✅ FlowBitz initialized");
     }
 
     return this;
@@ -301,11 +324,11 @@ class FlowBitz {
    */
   async detectAndLoad() {
     const components = new Set();
-    
+
     // Find all elements with wb-component attribute
     const elements = document.querySelectorAll(`[${ATTR_PREFIX}]`);
-    
-    elements.forEach(el => {
+
+    elements.forEach((el) => {
       const componentName = el.getAttribute(ATTR_PREFIX);
       if (COMPONENT_LOADERS[componentName]) {
         components.add(componentName);
@@ -317,7 +340,7 @@ class FlowBitz {
     }
 
     // Load all detected components
-    const loadPromises = Array.from(components).map(name => this.load(name));
+    const loadPromises = Array.from(components).map((name) => this.load(name));
     await Promise.all(loadPromises);
   }
 
@@ -347,12 +370,12 @@ class FlowBitz {
 
       // Load required GSAP modules FIRST (if needed)
       await loadRequiredGSAP(componentName, this.config.debug);
-      
+
       // Track GSAP usage
       const requirements = COMPONENT_REQUIREMENTS[componentName] || [];
       if (requirements.length > 0) {
         this.gsapStats.required = true;
-        requirements.forEach(module => {
+        requirements.forEach((module) => {
           if (!this.gsapStats.modulesLoaded.includes(module)) {
             this.gsapStats.modulesLoaded.push(module);
           }
@@ -378,7 +401,6 @@ class FlowBitz {
 
       this.loading.delete(componentName);
       return component;
-
     } catch (error) {
       console.error(`❌ Failed to load ${componentName}:`, error);
       this.loading.delete(componentName);
@@ -393,9 +415,9 @@ class FlowBitz {
     const observer = new MutationObserver(async (mutations) => {
       const componentsToLoad = new Set();
 
-      mutations.forEach(mutation => {
-        if (mutation.type === 'childList') {
-          mutation.addedNodes.forEach(node => {
+      mutations.forEach((mutation) => {
+        if (mutation.type === "childList") {
+          mutation.addedNodes.forEach((node) => {
             if (node.nodeType === Node.ELEMENT_NODE) {
               // Check if the node itself has the attribute
               const componentName = node.getAttribute?.(ATTR_PREFIX);
@@ -405,7 +427,7 @@ class FlowBitz {
 
               // Check children
               const elements = node.querySelectorAll?.(`[${ATTR_PREFIX}]`);
-              elements?.forEach(el => {
+              elements?.forEach((el) => {
                 const name = el.getAttribute(ATTR_PREFIX);
                 if (COMPONENT_LOADERS[name]) {
                   componentsToLoad.add(name);
@@ -419,7 +441,10 @@ class FlowBitz {
       // Load newly detected components
       if (componentsToLoad.size > 0) {
         if (this.config.debug) {
-          console.log('🔄 New components detected:', Array.from(componentsToLoad));
+          console.log(
+            "🔄 New components detected:",
+            Array.from(componentsToLoad),
+          );
         }
 
         for (const name of componentsToLoad) {
@@ -430,7 +455,7 @@ class FlowBitz {
 
     observer.observe(document.body, {
       childList: true,
-      subtree: true
+      subtree: true,
     });
 
     this.observers.push(observer);
@@ -443,18 +468,21 @@ class FlowBitz {
    */
   async initOn(componentName, selector) {
     const component = await this.load(componentName);
-    
+
     if (!component) {
       console.warn(`⚠️ Cannot initialize ${componentName}: not loaded`);
       return this;
     }
 
-    const elements = typeof selector === 'string' 
-      ? document.querySelectorAll(selector)
-      : selector.nodeType ? [selector] : selector;
+    const elements =
+      typeof selector === "string"
+        ? document.querySelectorAll(selector)
+        : selector.nodeType
+          ? [selector]
+          : selector;
 
     if (component.initElement) {
-      Array.from(elements).forEach(el => {
+      Array.from(elements).forEach((el) => {
         component.initElement(el);
       });
     }
@@ -501,8 +529,8 @@ class FlowBitz {
       required: this.gsapStats.required,
       modulesLoaded: [...this.gsapStats.modulesLoaded],
       isGSAPLoaded: gsapLoaded.core,
-      loadedModules: Object.keys(gsapLoaded).filter(key => gsapLoaded[key]),
-      globalGSAP: typeof window !== 'undefined' && !!window.gsap
+      loadedModules: Object.keys(gsapLoaded).filter((key) => gsapLoaded[key]),
+      globalGSAP: typeof window !== "undefined" && !!window.gsap,
     };
   }
 
@@ -510,7 +538,7 @@ class FlowBitz {
    * Refresh all loaded components
    */
   refresh() {
-    Object.values(this.modules).forEach(component => {
+    Object.values(this.modules).forEach((component) => {
       if (component && component.refresh) {
         component.refresh();
       }
@@ -523,22 +551,22 @@ class FlowBitz {
    */
   destroy() {
     // Destroy all components
-    Object.values(this.modules).forEach(component => {
+    Object.values(this.modules).forEach((component) => {
       if (component && component.destroyAll) {
         component.destroyAll();
       }
     });
 
     // Disconnect observers
-    this.observers.forEach(observer => observer.disconnect());
-    
+    this.observers.forEach((observer) => observer.disconnect());
+
     // Clear state
     this.modules = {};
     this.loading.clear();
     this.initialized.clear();
     this.observers = [];
 
-    document.dispatchEvent(new CustomEvent('flowbitz-destroyed'));
+    document.dispatchEvent(new CustomEvent("flowbitz-destroyed"));
     return this;
   }
 }
@@ -547,11 +575,11 @@ class FlowBitz {
 const flowbitz = new FlowBitz();
 
 // Make available globally
-if (typeof window !== 'undefined') {
+if (typeof window !== "undefined") {
   window.FlowBitz = flowbitz;
 
   // Auto-initialize if not loaded as module
-  if (!document.currentScript?.type?.includes('module')) {
+  if (!document.currentScript?.type?.includes("module")) {
     flowbitz.init();
   }
 }
@@ -559,4 +587,3 @@ if (typeof window !== 'undefined') {
 // Export for ES modules
 export default flowbitz;
 export { FlowBitz, VERSION };
-

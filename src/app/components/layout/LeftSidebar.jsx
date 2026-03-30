@@ -26,6 +26,7 @@ const CATEGORY_CONFIG = [
   { key: "text", label: "Text Components", accordionValue: "item-1" },
   { key: "effect", label: "Effect Components", accordionValue: "item-2" },
   { key: "button", label: "Button Components", accordionValue: "item-3" },
+  { key: "background", label: "Background Components", accordionValue: "item-4" },
 ];
 
 /** Static (non-component) navigation pages */
@@ -227,7 +228,7 @@ const Sidebar = ({ showBackLink = false, variant = "default", onNavigate }) => {
       className={
         isMobile
           ? `w-full relative ${isSearchActive ? "search-active" : ""}`
-          : `hidden lg:block w-full relative lg:max-w-[300px] lg:min-w-[300px] bg-background lg:overflow-y-auto lg:sticky lg:top-18 lg:self-start h-auto lg:h-[calc(100vh-4.5rem)] [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-thumb]:bg-transparent hover:[&::-webkit-scrollbar-thumb]:bg-muted [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:border-2 [&::-webkit-scrollbar-thumb]:border-background hover:[&::-webkit-scrollbar-thumb]:bg-muted-foreground/30 ${isSearchActive ? "search-active" : ""}`
+          : `hidden lg:block w-full relative lg:max-w-[300px] lg:min-w-[300px] bg-background lg:overflow-y-auto lg:sticky lg:top-18 lg:self-start h-auto lg:h-[calc(100vh-4.5rem)] [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-thumb]:bg-transparent [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:border-2 [&::-webkit-scrollbar-thumb]:border-background hover:[&::-webkit-scrollbar-thumb]:bg-muted-foreground/30 ${isSearchActive ? "search-active" : ""}`
       }
     >
       <div
