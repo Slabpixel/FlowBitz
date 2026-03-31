@@ -36,6 +36,7 @@ export const loadComponent = async (componentName) => {
       'smart-animate': 'effect/smartAnimate',
       'outline-gradient-animate': 'effect/outlineGradientAnimate',
       'image-trail': 'effect/imageTrail',
+      'firefly-background': 'background/fireflyBackground',
     }
 
     const fileName = componentMap[componentName]
@@ -97,6 +98,7 @@ export const getComponentFileName = (componentName) => {
     'smart-animate': 'effect/smartAnimate',
     'outline-gradient': 'effect/outlineGradientAnimate',
     'image-trail': 'effect/imageTrail',
+    'firefly-background': 'background/fireflyBackground',
   }
 
   return componentMap[componentName] || null

@@ -39,6 +39,7 @@ import hoverZoomAnimator from '../components/effect/hoverZoom.js';
 
 /* Background Components */
 import matrixRainAnimator from '../components/background/matrixRain.js';
+import fireflyAnimator from '../components/background/fireflyBackground.js';
 
 /* Utils */
 import { setupScrollTriggerResize } from '../utils/animation/scrollTriggerHelper.js';
@@ -78,6 +79,7 @@ class WebflowBits {
       imageTrail: imageTrailAnimator,
       hoverZoom: hoverZoomAnimator,
       matrixRain: matrixRainAnimator,
+      fireflyBackground: fireflyAnimator,
     };
   }
 
@@ -94,7 +96,7 @@ class WebflowBits {
     const config = {
       autoInit: true,
       debug: false,
-      components: ['splitText', 'textType', 'blurText', 'shinyText', 'gradientText', 'gradientButton', 'rippleButton', 'pulseButton', 'shimmerButton', 'decryptedText', 'scrambleText', 'variableProximity', 'countUp', 'rotatingText', 'textPressure', 'magnet', 'shuffle', 'tooltipText', 'rollText', 'cardHover3d', 'outlineGradient', 'imageTrail', 'hoverZoom', 'matrixRain'],
+      components: ['splitText', 'textType', 'blurText', 'shinyText', 'gradientText', 'gradientButton', 'rippleButton', 'pulseButton', 'shimmerButton', 'decryptedText', 'scrambleText', 'variableProximity', 'countUp', 'rotatingText', 'textPressure', 'magnet', 'shuffle', 'tooltipText', 'rollText', 'cardHover3d', 'outlineGradient', 'imageTrail', 'hoverZoom', 'matrixRain', 'fireflyBackground'],
       ...options
     };
 
@@ -223,6 +225,10 @@ class WebflowBits {
 
       if (config.components.includes('matrixRain')) {
         this.initMatrixRain(config.debug);
+      }
+
+      if (config.components.includes('fireflyBackground')) {
+        this.initFireflyBackground(config.debug);
       }
 
       // Setup mutation observer for dynamic content if autoInit is enabled
@@ -678,6 +684,21 @@ class WebflowBits {
       }
     } catch (error) {
       console.error('WebflowBits: Failed to initialize MatrixRain', error);
+    }
+  }
+
+  /**
+   * Initialize FireflyBackground on all matching elements.
+   * @param {boolean} debug
+   */
+  initFireflyBackground(debug = false) {
+    try {
+      fireflyAnimator.initAll();
+      if (debug) {
+        console.log('WebflowBits: FireflyBackground initialized');
+      }
+    } catch (error) {
+      console.error('WebflowBits: Failed to initialize FireflyBackground', error);
     }
   }
 

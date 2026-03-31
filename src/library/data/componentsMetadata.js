@@ -1908,6 +1908,125 @@ export const componentsMetadata = {
       description: "Canvas-based Matrix Digital Rain background effect",
     },
   },
+
+  "firefly-background": {
+    newComponent: true,
+    name: "Firefly Background",
+    description:
+      "Animated floating firefly particles with fade in/out lifecycle using Canvas 2D API",
+    category: "background",
+    file: "fireflyBackground.js",
+    installationNotes:
+      'Only supported on <section> and <div> elements. The component injects a <canvas> overlay and draws animated firefly particles inside it. Content inside the container remains visible above the canvas. For better performance on mobile or low-end devices, set wb-disable-glow="true" and keep wb-count under 60. If the container has overflow: hidden, particles will be clipped at edges — this is expected behavior.',
+    hoverPreview: false,
+    attributes: [
+      {
+        name: "wb-component",
+        description: "Enable firefly background animation",
+        default: "firefly-background",
+        inputType: "text",
+        required: true,
+      },
+      {
+        name: "wb-count",
+        description:
+          "Maximum number of active particles at once. Values above 200 may impact performance.",
+        default: "50",
+        inputType: "slider",
+        sliderConfig: { min: 10, max: 300, step: 5 },
+      },
+      {
+        name: "wb-color",
+        description:
+          "Firefly particle color. Supports: hex (#FFD700), rgb/rgba, hsl/hsla, named colors (gold, yellow)",
+        default: "#FFD700",
+        inputType: "color",
+        supportsAlpha: false,
+      },
+      {
+        name: "wb-glow-color",
+        description:
+          "Glow/shadow color around each particle. Defaults to wb-color if not set. Supports same formats as wb-color. BEST PRACTICE: Use bright background colors for better visibility.",
+        default: "",
+        inputType: "color",
+        supportsAlpha: false,
+      },
+      {
+        name: "wb-glow-size",
+        description:
+          "Glow radius in pixels (ctx.shadowBlur). 0 = no glow. Values above 30 may have high GPU cost.",
+        default: "20",
+        inputType: "slider",
+        sliderConfig: { min: 0, max: 50, step: 1 },
+      },
+      {
+        name: "wb-min-size",
+        description: "Minimum particle radius in pixels",
+        default: "1",
+        inputType: "slider",
+        sliderConfig: { min: 0.5, max: 10, step: 0.5 },
+      },
+      {
+        name: "wb-max-size",
+        description: "Maximum particle radius in pixels",
+        default: "5",
+        inputType: "slider",
+        sliderConfig: { min: 1, max: 20, step: 0.5 },
+      },
+      {
+        name: "wb-speed",
+        description:
+          "Velocity multiplier. 1 = default speed (x: ±1px/frame, y: ±0.5px/frame). 2 = 2× faster.",
+        default: "1",
+        inputType: "slider",
+        sliderConfig: { min: 0.1, max: 5, step: 0.1 },
+      },
+      {
+        name: "wb-min-lifespan",
+        description:
+          "Minimum particle lifespan in animation frames. Each particle fades in for the first half, fades out for the second half.",
+        default: "75",
+        unit: "frames",
+        inputType: "slider",
+        sliderConfig: { min: 20, max: 500, step: 5 },
+      },
+      {
+        name: "wb-max-lifespan",
+        description: "Maximum particle lifespan in animation frames.",
+        default: "150",
+        unit: "frames",
+        inputType: "slider",
+        sliderConfig: { min: 40, max: 1000, step: 10 },
+      },
+      {
+        name: "wb-background",
+        description:
+          'Canvas background color. Use "transparent" (default) for no background. Use rgba(0,0,0,0.1) for a subtle trail effect.',
+        default: "transparent",
+        inputType: "color",
+        supportsAlpha: true,
+      },
+      {
+        name: "wb-disable-glow",
+        description:
+          "Skip shadowBlur entirely for better performance. Recommended on mobile or when wb-count is high.",
+        default: "false",
+        inputType: "toggle",
+      },
+    ],
+    example: {
+      title: "Firefly Background",
+      code: `<section
+  wb-component="firefly-background"
+
+  style="height: 50vh; width: 50vw; display: flex; justify-content: center; align-items: center;"
+>
+  <h1 class="text-4xl font-bold text-white">Fireflies</h1>
+</section>`,
+      description:
+        "Canvas-based floating firefly particles with smooth fade in/out lifecycle. Particles pause automatically when the browser tab is hidden.",
+    },
+  },
 };
 
 Object.values(componentsMetadata).forEach((component) => {
