@@ -39,6 +39,7 @@ export { default as ImageTrail } from "./components/effect/imageTrail.js";
 export { default as HoverZoom } from "./components/effect/hoverZoom.js";
 export { default as MatrixRain } from "./components/background/matrixRain.js";
 export { default as FireflyBackground } from "./components/background/fireflyBackground.js";
+export { default as DotGrid } from "./components/background/dotGrid.js";
 
 // Export utilities
 export {

@@ -2027,6 +2027,95 @@ export const componentsMetadata = {
         "Canvas-based floating firefly particles with smooth fade in/out lifecycle. Particles pause automatically when the browser tab is hidden.",
     },
   },
+  "dot-grid": {
+    newComponent: true,
+    name: "Dot Grid",
+    description:
+      "Animated scrolling dot grid background effect using pure CSS radial-gradient",
+    category: "background",
+    file: "dotGrid.js",
+    installationNotes:
+      "Only supported on <section> and <div> elements. The component injects a background layer div and wraps existing children in a content wrapper — both are removed cleanly on destroy. Content inside the container remains fully interactive above the dot layer. If the container has overflow: hidden, the dot pattern will be clipped at edges — this is expected. The container must have a defined height for the dot layer to be visible.",
+    hoverPreview: false,
+    attributes: [
+      {
+        name: "wb-component",
+        description: "Enable dot grid background",
+        default: "dot-grid",
+        inputType: "text",
+        required: true,
+      },
+      {
+        name: "wb-dot-color",
+        description: "Dot color. Supports hex, rgb, rgba, hsl, named colors.",
+        default: "rgba(255,255,255,0.25)",
+        inputType: "color",
+        supportsAlpha: true,
+      },
+      {
+        name: "wb-dot-size",
+        description: "Dot radius in pixels",
+        default: "1",
+        unit: "px",
+        inputType: "slider",
+        sliderConfig: { min: 0.5, max: 8, step: 0.5 },
+      },
+      {
+        name: "wb-dot-spacing",
+        description: "Distance between dots (grid tile size) in pixels",
+        default: "24",
+        unit: "px",
+        inputType: "slider",
+        sliderConfig: { min: 8, max: 80, step: 2 },
+      },
+      {
+        name: "wb-speed",
+        description:
+          "Duration of one full animation cycle in seconds. Lower = faster.",
+        default: "1",
+        unit: "s",
+        inputType: "slider",
+        sliderConfig: { min: 0.1, max: 5, step: 0.1 },
+      },
+      {
+        name: "wb-direction",
+        description: "Scroll direction of the dot animation",
+        default: "diagonal",
+        inputType: "dropdown",
+        options: ["diagonal", "horizontal", "vertical", "none"],
+      },
+      {
+        name: "wb-bg-color",
+        description:
+          "Background color of the dot layer. Use for colored backdrop behind dots.",
+        default: "transparent",
+        inputType: "color",
+        supportsAlpha: true,
+      },
+      {
+        name: "wb-opacity",
+        description: "Opacity of the entire dot layer (0-1)",
+        default: "1",
+        inputType: "slider",
+        sliderConfig: { min: 0, max: 1, step: 0.05 },
+      },
+      {
+        name: "wb-paused",
+        description: "Pause the scroll animation on load",
+        default: "false",
+        inputType: "toggle",
+      },
+    ],
+    example: {
+      title: "Dot Grid Background",
+      code: `<section
+  wb-component="dot-grid"
+  style="height: 50vh; width: 50vw; display: flex; justify-content: center; align-items: center;"
+><h1 class="text-4xl font-bold text-white">Dot Grid</h1></section>`,
+      description:
+        "Pure CSS animated dot grid background with seamless scroll loop",
+    },
+  },
 };
 
 Object.values(componentsMetadata).forEach((component) => {

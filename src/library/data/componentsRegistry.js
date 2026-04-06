@@ -37,6 +37,7 @@ export const loadComponent = async (componentName) => {
       'outline-gradient-animate': 'effect/outlineGradientAnimate',
       'image-trail': 'effect/imageTrail',
       'firefly-background': 'background/fireflyBackground',
+      'dot-grid': 'background/dotGrid',
     }
 
     const fileName = componentMap[componentName]
@@ -99,6 +100,7 @@ export const getComponentFileName = (componentName) => {
     'outline-gradient': 'effect/outlineGradientAnimate',
     'image-trail': 'effect/imageTrail',
     'firefly-background': 'background/fireflyBackground',
+    'dot-grid': 'background/dotGrid',
   }
 
   return componentMap[componentName] || null
