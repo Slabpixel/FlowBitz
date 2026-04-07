@@ -2116,6 +2116,148 @@ export const componentsMetadata = {
         "Pure CSS animated dot grid background with seamless scroll loop",
     },
   },
+
+  "star-field": {
+    newComponent: true,
+    name: "Star Field",
+    description:
+      "Interactive star field animation where stars radiate from the cursor position. Click to trigger a speed burst.",
+    category: "background",
+    file: "starField.js",
+    installationNotes:
+      'Only supported on <section> and <div> elements. The component injects a <canvas> overlay as background and wraps existing children in a content wrapper — both are removed cleanly on destroy. Content inside the container remains fully interactive above the canvas.\n\nInteractive mode (default): the origin point of stars follows your cursor in real-time, and clicking the container triggers an acceleration burst. The container shows cursor: pointer to signal this interaction.\n\nTo disable cursor tracking and click interaction, set wb-interactive="false". To lock the origin to a fixed point, set wb-origin-x and wb-origin-y (in pixels, relative to container).\n\nNote: Setting wb-background="transparent" disables the trail/comet effect since trails require a semi-transparent background fill each frame.\n\nwb-star-count cannot be changed after initialization — use refresh() to apply a new value. The container must have a defined height for the star field to be visible.',
+    hoverPreview: false,
+    attributes: [
+      {
+        name: "wb-component",
+        description: "Enable star field background animation",
+        default: "star-field",
+        inputType: "text",
+        required: true,
+      },
+      {
+        name: "wb-star-count",
+        description:
+          "Number of stars. Values above 400 may impact performance. Cannot be changed after init — requires refresh().",
+        default: "250",
+        inputType: "slider",
+        sliderConfig: { min: 50, max: 500, step: 10 },
+      },
+      {
+        name: "wb-star-color",
+        description:
+          "Star color. Supports hex (#e6e664), rgb/rgba, hsl/hsla, named colors.",
+        default: "#e6e664",
+        inputType: "color",
+        supportsAlpha: false,
+      },
+      {
+        name: "wb-background",
+        description:
+          "Canvas background color used for the trail fade effect. Use 'transparent' to disable trails and show the element's own background.",
+        default: "#000000",
+        inputType: "color",
+        supportsAlpha: false,
+      },
+      {
+        name: "wb-speed",
+        description: "Base movement speed of stars.",
+        default: "1",
+        inputType: "slider",
+        sliderConfig: { min: 0.1, max: 5, step: 0.1 },
+      },
+      {
+        name: "wb-trail-length",
+        description:
+          "Length of the star trail/comet effect. 0 = no trail, 1 = very long trail. Has no effect when wb-background is transparent.",
+        default: "0.8",
+        inputType: "slider",
+        sliderConfig: { min: 0, max: 1, step: 0.05 },
+      },
+      {
+        name: "wb-hue-jitter",
+        description:
+          "Maximum hue variation in degrees applied randomly to each star at spawn. 0 = all stars same color, 360 = full spectrum.",
+        default: "0",
+        inputType: "slider",
+        sliderConfig: { min: 0, max: 360, step: 5 },
+      },
+      {
+        name: "wb-interactive",
+        description:
+          "Enable cursor tracking (origin follows mouse) and click acceleration burst. Set to false for a static, non-interactive star field.",
+        default: "true",
+        inputType: "boolean",
+      },
+      {
+        name: "wb-origin-x",
+        description:
+          "Lock the star origin to a fixed X coordinate (pixels, relative to container). Disables cursor tracking. Leave unset to use center.",
+        default: "",
+        inputType: "text",
+      },
+      {
+        name: "wb-origin-y",
+        description:
+          "Lock the star origin to a fixed Y coordinate (pixels, relative to container). Disables cursor tracking. Leave unset to use center.",
+        default: "",
+        inputType: "text",
+      },
+      {
+        name: "wb-max-acceleration",
+        description: "Maximum speed multiplier reached during click burst.",
+        default: "10",
+        inputType: "slider",
+        sliderConfig: { min: 1, max: 30, step: 1 },
+      },
+      {
+        name: "wb-acceleration-rate",
+        description: "How quickly speed ramps up toward max acceleration per frame.",
+        default: "0.2",
+        inputType: "slider",
+        sliderConfig: { min: 0.01, max: 1, step: 0.01 },
+      },
+      {
+        name: "wb-deceleration-rate",
+        description: "How quickly speed returns to base after acceleration burst.",
+        default: "0.2",
+        inputType: "slider",
+        sliderConfig: { min: 0.01, max: 1, step: 0.01 },
+      },
+      {
+        name: "wb-min-spawn-radius",
+        description:
+          "Minimum distance from origin where stars can spawn (pixels). Must be less than wb-max-spawn-radius.",
+        default: "80",
+        inputType: "slider",
+        sliderConfig: { min: 10, max: 500, step: 10 },
+      },
+      {
+        name: "wb-max-spawn-radius",
+        description:
+          "Maximum distance from origin where stars can spawn (pixels). Must be greater than wb-min-spawn-radius.",
+        default: "500",
+        inputType: "slider",
+        sliderConfig: { min: 50, max: 2000, step: 50 },
+      },
+    ],
+    example: {
+      title: "Star Field Background",
+      code: `<section
+  wb-component="star-field"
+  wb-star-color="#e6e664"
+  wb-background="#000000"
+  wb-speed="1"
+  wb-trail-length="0.8"
+  wb-interactive="true"
+  style="height: 50vh; width: 50vw; display: flex; justify-content: center; align-items: center;"
+>
+  <h1 class="text-4xl font-bold text-white">Star Field</h1>
+</section>`,
+      description:
+        "Interactive canvas-based star field. Stars radiate from cursor position; click to trigger speed burst.",
+    },
+  },
 };
 
 Object.values(componentsMetadata).forEach((component) => {

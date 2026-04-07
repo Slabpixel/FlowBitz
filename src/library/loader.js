@@ -76,8 +76,9 @@ const COMPONENT_REQUIREMENTS = {
 
   // Background components
   "matrix-rain": [],
-  "firefly-background": [],  // Canvas 2D only — no GSAP needed
+  "firefly-background": [], // Canvas 2D only — no GSAP needed
   "dot-grid": [], // Pure CSS — no GSAP needed
+  "star-field": [], // Canvas 2D only — no GSAP needed
 };
 
 /**
@@ -118,8 +119,10 @@ const COMPONENT_LOADERS = {
 
   // Background components
   "matrix-rain": () => import("./components/background/matrixRain.js"),
-  "firefly-background": () => import("./components/background/fireflyBackground.js"),
+  "firefly-background": () =>
+    import("./components/background/fireflyBackground.js"),
   "dot-grid": () => import("./components/background/dotGrid.js"),
+  "star-field": () => import("./components/background/starField.js"),
 };
 
 /**

@@ -41,6 +41,7 @@ import hoverZoomAnimator from '../components/effect/hoverZoom.js';
 import matrixRainAnimator from '../components/background/matrixRain.js';
 import fireflyAnimator from '../components/background/fireflyBackground.js';
 import dotGridAnimator from '../components/background/dotGrid.js';
+import starFieldAnimator from '../components/background/starField.js';
 
 /* Utils */
 import { setupScrollTriggerResize } from '../utils/animation/scrollTriggerHelper.js';
@@ -82,6 +83,7 @@ class WebflowBits {
       matrixRain: matrixRainAnimator,
       fireflyBackground: fireflyAnimator,
       dotGrid: dotGridAnimator,
+      starField: starFieldAnimator,
     };
   }
 
@@ -98,7 +100,7 @@ class WebflowBits {
     const config = {
       autoInit: true,
       debug: false,
-      components: ['splitText', 'textType', 'blurText', 'shinyText', 'gradientText', 'gradientButton', 'rippleButton', 'pulseButton', 'shimmerButton', 'decryptedText', 'scrambleText', 'variableProximity', 'countUp', 'rotatingText', 'textPressure', 'magnet', 'shuffle', 'tooltipText', 'rollText', 'cardHover3d', 'outlineGradient', 'imageTrail', 'hoverZoom', 'matrixRain', 'fireflyBackground', 'dotGrid'],
+      components: ['splitText', 'textType', 'blurText', 'shinyText', 'gradientText', 'gradientButton', 'rippleButton', 'pulseButton', 'shimmerButton', 'decryptedText', 'scrambleText', 'variableProximity', 'countUp', 'rotatingText', 'textPressure', 'magnet', 'shuffle', 'tooltipText', 'rollText', 'cardHover3d', 'outlineGradient', 'imageTrail', 'hoverZoom', 'matrixRain', 'fireflyBackground', 'dotGrid', 'starField'],
       ...options
     };
 
@@ -235,6 +237,10 @@ class WebflowBits {
 
       if (config.components.includes('dotGrid')) {
         this.initDotGrid(config.debug);
+      }
+
+      if (config.components.includes('starField')) {
+        this.initStarField(config.debug);
       }
 
       // Setup mutation observer for dynamic content if autoInit is enabled
@@ -724,6 +730,48 @@ class WebflowBits {
   }
 
   /**
+   * Initialize StarField on all matching elements.
+   * @param {boolean} debug
+   */
+  initStarField(debug = false) {
+    try {
+      starFieldAnimator.initAll();
+      if (debug) {
+        console.log('WebflowBits: StarField initialized');
+      }
+    } catch (error) {
+      console.error('WebflowBits: Failed to initialize StarField', error);
+    }
+  }
+
+  /**
+   * Initialize StarField on specific elements.
+   * @param {string|NodeList|Element} selector
+   */
+  initStarFieldOn(selector) {
+    try {
+      if (!selector) return this;
+
+      const elements =
+        typeof selector === 'string'
+          ? document.querySelectorAll(selector)
+          : selector.nodeType
+            ? [selector]
+            : selector;
+
+      Array.from(elements).forEach((element) => {
+        if (element?.getAttribute?.('wb-component') === 'star-field') {
+          starFieldAnimator.initElement(element);
+        }
+      });
+    } catch (error) {
+      console.error('WebflowBits: Failed to initialize StarField on elements', error);
+    }
+
+    return this;
+  }
+
+  /**
    * Initialize MatrixRain on specific elements
    * @param {string|NodeList|Element} selector
    */
@@ -1039,6 +1087,16 @@ class WebflowBits {
                 dotGridAnimator.initElement(element);
                 shouldRefresh = true;
               });
+
+              // Check for wb-component="star-field" elements
+              const starFieldElements = node.matches?.('[wb-component="star-field"]')
+                ? [node]
+                : Array.from(node.querySelectorAll?.('[wb-component="star-field"]') || []);
+
+              starFieldElements.forEach(element => {
+                starFieldAnimator.initElement(element);
+                shouldRefresh = true;
+              });
             }
           });
         }
@@ -1068,6 +1126,7 @@ class WebflowBits {
           hoverZoomAnimator.refresh();
           matrixRainAnimator.refresh();
           dotGridAnimator.refresh();
+          starFieldAnimator.refresh();
         }, 100);
       }
     });
@@ -1596,6 +1655,9 @@ class WebflowBits {
     // Destroy DotGrid animations
     dotGridAnimator.destroyAll();
 
+    // Destroy StarField animations
+    starFieldAnimator.destroyAll();
+
     // Disconnect observers
     this.observers.forEach(observer => observer.disconnect());
     this.observers = [];
@@ -1638,6 +1700,7 @@ class WebflowBits {
 
     matrixRainAnimator.refresh();
     dotGridAnimator.refresh();
+    starFieldAnimator.refresh();
     return this;
   }
 

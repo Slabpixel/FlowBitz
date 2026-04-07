@@ -1,26 +1,44 @@
-import React from 'react'
-import { Search } from 'lucide-react'
+import React from "react";
+import { Search } from "lucide-react";
 
-const FilterNav = ({ activeFilter, onFilterChange, searchQuery, onSearchChange, showAll = false, className }) => {
+const FilterNav = ({
+  activeFilter,
+  onFilterChange,
+  searchQuery,
+  onSearchChange,
+  showAll = false,
+  className,
+}) => {
   const filters = [
-    ...(showAll ? [{ id: 'all', label: 'All Components' }] : []),
-    { id: 'text', label: 'Text' },
-    { id: 'button', label: 'Button' },
-    { id: 'effect', label: 'Effects' }
-  ]
+    ...(showAll ? [{ id: "all", label: "All Components" }] : []),
+    { id: "text", label: "Text" },
+    { id: "button", label: "Button" },
+    { id: "effect", label: "Effects" },
+    { id: "background", label: "Background" },
+  ];
 
   return (
-    <div className={`flex flex-col md:flex-row items-stretch justify-between px-2 pt-2 pb-[2.375rem] ${className}`}>
+    <div
+      className={`flex flex-col md:flex-row items-stretch justify-between px-2 pt-2 pb-[2.375rem] ${className}`}
+    >
       {/* Navigation Links */}
       <nav className="flex items-center justify-center lg:justify-start gap-4 lg:gap-6 py-[0.875rem] lg:py-0 order-2 lg:order-1">
         {filters.map((filter) => (
           <button
             key={filter.id}
-            onClick={() => onFilterChange(showAll ? filter.id : (activeFilter === filter.id ? 'all' : filter.id))}
+            onClick={() =>
+              onFilterChange(
+                showAll
+                  ? filter.id
+                  : activeFilter === filter.id
+                    ? "all"
+                    : filter.id,
+              )
+            }
             className={`inter-med-18 transition-colors duration-200 ${
               activeFilter === filter.id
-                ? 'text-foreground'
-                : 'text-foreground/50 hover:text-foreground'
+                ? "text-foreground"
+                : "text-foreground/50 hover:text-foreground"
             }`}
           >
             {filter.label}
@@ -40,7 +58,7 @@ const FilterNav = ({ activeFilter, onFilterChange, searchQuery, onSearchChange, 
         <Search className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-foreground" />
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default FilterNav
+export default FilterNav;

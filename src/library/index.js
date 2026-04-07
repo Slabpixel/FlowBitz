@@ -40,6 +40,7 @@ export { default as HoverZoom } from "./components/effect/hoverZoom.js";
 export { default as MatrixRain } from "./components/background/matrixRain.js";
 export { default as FireflyBackground } from "./components/background/fireflyBackground.js";
 export { default as DotGrid } from "./components/background/dotGrid.js";
+export { default as StarField } from "./components/background/starField.js";
 
 // Export utilities
 export {

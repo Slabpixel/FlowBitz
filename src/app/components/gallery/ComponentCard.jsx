@@ -1,75 +1,96 @@
-import React, { useState, useRef, useCallback, useEffect, useMemo } from 'react'
-import { useWebflowBits } from '../../hooks/useWebflowBits'
+import React, {
+  useState,
+  useRef,
+  useCallback,
+  useEffect,
+  useMemo,
+} from "react";
+import { useWebflowBits } from "../../hooks/useWebflowBits";
 
-const REPLAY_INTERVAL = 3000 // ms between animation replays
+const REPLAY_INTERVAL = 3000; // ms between animation replays
 
-const ComponentCard = ({ id, name, category, isNew, exampleCode, hoverPreview, onClick, index }) => {
-  const [reloadKey, setReloadKey] = useState(0)
-  const intervalRef = useRef(null)
-  const { reinitializeComponents } = useWebflowBits()
+const ComponentCard = ({
+  id,
+  name,
+  category,
+  isNew,
+  exampleCode,
+  hoverPreview,
+  onClick,
+  index,
+}) => {
+  const [reloadKey, setReloadKey] = useState(0);
+  const intervalRef = useRef(null);
+  const { reinitializeComponents } = useWebflowBits();
 
   // Start continuous animation replay on hover
   const handleMouseEnter = useCallback(() => {
-    if (!hoverPreview) return
+    if (!hoverPreview) return;
 
     // Trigger initial reload
-    setReloadKey(prev => prev + 1)
-    setTimeout(() => reinitializeComponents(), 100)
+    setReloadKey((prev) => prev + 1);
+    setTimeout(() => reinitializeComponents(), 100);
 
     // Set interval for continuous replay
     intervalRef.current = setInterval(() => {
-      setReloadKey(prev => prev + 1)
-      setTimeout(() => reinitializeComponents(), 100)
-    }, REPLAY_INTERVAL)
-  }, [hoverPreview, reinitializeComponents])
+      setReloadKey((prev) => prev + 1);
+      setTimeout(() => reinitializeComponents(), 100);
+    }, REPLAY_INTERVAL);
+  }, [hoverPreview, reinitializeComponents]);
 
   // Stop replay on mouse leave
   const handleMouseLeave = useCallback(() => {
     if (intervalRef.current) {
-      clearInterval(intervalRef.current)
-      intervalRef.current = null
+      clearInterval(intervalRef.current);
+      intervalRef.current = null;
     }
-  }, [])
+  }, []);
 
   // Cleanup interval on unmount
   useEffect(() => {
     return () => {
       if (intervalRef.current) {
-        clearInterval(intervalRef.current)
+        clearInterval(intervalRef.current);
       }
-    }
-  }, [])
+    };
+  }, []);
 
   // Force immediate animation by disabling scroll trigger
   const processedCode = useMemo(() => {
-    if (!exampleCode) return ''
+    if (!exampleCode) return "";
 
-    let code = exampleCode
+    let code = exampleCode;
 
-    if (code.includes('wb-trigger-on-view')) {
-      code = code.replace(/wb-trigger-on-view="[^"]*"/g, 'wb-trigger-on-view="false"')
+    if (code.includes("wb-trigger-on-view")) {
+      code = code.replace(
+        /wb-trigger-on-view="[^"]*"/g,
+        'wb-trigger-on-view="false"',
+      );
     } else {
-      code = code.replace(/wb-component="([^"]*)"/, 'wb-component="$1" wb-trigger-on-view="false"')
+      code = code.replace(
+        /wb-component="([^"]*)"/,
+        'wb-component="$1" wb-trigger-on-view="false"',
+      );
     }
 
-    return code
-  }, [exampleCode])
+    return code;
+  }, [exampleCode]);
 
   return (
-    <div 
+    <div
       className={`group transition-all duration-300 hover:z-10 border border-foreground/10 hover:border-foreground/30 p-4`}
       style={{
         // Stagger animation delay based on index
-        animationDelay: `${index * 50}ms`
+        animationDelay: `${index * 50}ms`,
       }}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
       {/* Preview Area - Live FlowBitz Component */}
       <div className="h-[230px] md:h-[270px] bg-base-medium flex items-center justify-center overflow-hidden">
-        <div 
+        <div
           key={reloadKey}
-          className="w-full h-full flex items-center justify-center p-4 scale-75 text-center [&_*]:font-medium [&_.lg\:text-6xl]:!text-4xl [&_.lg\:text-\[160px\]]:!text-5xl [&_.text-3xl]:!text-2xl"
+          className={`w-full h-full flex items-center justify-center ${category === "Background Component" ? "" : "scale-75 p-4"} text-center [&_*]:font-medium [&_.lg\:text-6xl]:!text-4xl [&_.lg\:text-\[160px\]]:!text-5xl [&_.text-3xl]:!text-2xl`}
           dangerouslySetInnerHTML={{ __html: processedCode }}
         />
       </div>
@@ -87,7 +108,7 @@ const ComponentCard = ({ id, name, category, isNew, exampleCode, hoverPreview, o
         <p className="text-foreground/70 text-xs mt-1">{category}</p>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default ComponentCard
+export default ComponentCard;
