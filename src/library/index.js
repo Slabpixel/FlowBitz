@@ -41,6 +41,7 @@ export { default as MatrixRain } from "./components/background/matrixRain.js";
 export { default as FireflyBackground } from "./components/background/fireflyBackground.js";
 export { default as DotGrid } from "./components/background/dotGrid.js";
 export { default as StarField } from "./components/background/starField.js";
+export { default as ParticlesNetwork } from "./components/background/particlesNetwork.js";
 
 // Export utilities
 export {

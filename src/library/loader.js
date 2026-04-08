@@ -79,6 +79,7 @@ const COMPONENT_REQUIREMENTS = {
   "firefly-background": [], // Canvas 2D only — no GSAP needed
   "dot-grid": [], // Pure CSS — no GSAP needed
   "star-field": [], // Canvas 2D only — no GSAP needed
+  "particles-network": [], // Canvas 2D only — no GSAP needed
 };
 
 /**
@@ -123,6 +124,8 @@ const COMPONENT_LOADERS = {
     import("./components/background/fireflyBackground.js"),
   "dot-grid": () => import("./components/background/dotGrid.js"),
   "star-field": () => import("./components/background/starField.js"),
+  "particles-network": () =>
+    import("./components/background/particlesNetwork.js"),
 };
 
 /**

@@ -39,6 +39,7 @@ export const loadComponent = async (componentName) => {
       "firefly-background": "background/fireflyBackground",
       "dot-grid": "background/dotGrid",
       "star-field": "background/starField",
+      "particles-network": "background/particlesNetwork",
     };
 
     const fileName = componentMap[componentName];
@@ -103,6 +104,7 @@ export const getComponentFileName = (componentName) => {
     "firefly-background": "background/fireflyBackground",
     "dot-grid": "background/dotGrid",
     "star-field": "background/starField",
+    "particles-network": "background/particlesNetwork",
   };
 
   return componentMap[componentName] || null;

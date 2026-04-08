@@ -42,6 +42,7 @@ import matrixRainAnimator from '../components/background/matrixRain.js';
 import fireflyAnimator from '../components/background/fireflyBackground.js';
 import dotGridAnimator from '../components/background/dotGrid.js';
 import starFieldAnimator from '../components/background/starField.js';
+import particlesNetworkAnimator from '../components/background/particlesNetwork.js';
 
 /* Utils */
 import { setupScrollTriggerResize } from '../utils/animation/scrollTriggerHelper.js';
@@ -84,6 +85,7 @@ class WebflowBits {
       fireflyBackground: fireflyAnimator,
       dotGrid: dotGridAnimator,
       starField: starFieldAnimator,
+      particlesNetwork: particlesNetworkAnimator,
     };
   }
 
@@ -100,7 +102,7 @@ class WebflowBits {
     const config = {
       autoInit: true,
       debug: false,
-      components: ['splitText', 'textType', 'blurText', 'shinyText', 'gradientText', 'gradientButton', 'rippleButton', 'pulseButton', 'shimmerButton', 'decryptedText', 'scrambleText', 'variableProximity', 'countUp', 'rotatingText', 'textPressure', 'magnet', 'shuffle', 'tooltipText', 'rollText', 'cardHover3d', 'outlineGradient', 'imageTrail', 'hoverZoom', 'matrixRain', 'fireflyBackground', 'dotGrid', 'starField'],
+      components: ['splitText', 'textType', 'blurText', 'shinyText', 'gradientText', 'gradientButton', 'rippleButton', 'pulseButton', 'shimmerButton', 'decryptedText', 'scrambleText', 'variableProximity', 'countUp', 'rotatingText', 'textPressure', 'magnet', 'shuffle', 'tooltipText', 'rollText', 'cardHover3d', 'outlineGradient', 'imageTrail', 'hoverZoom', 'matrixRain', 'fireflyBackground', 'dotGrid', 'starField', 'particlesNetwork'],
       ...options
     };
 
@@ -241,6 +243,10 @@ class WebflowBits {
 
       if (config.components.includes('starField')) {
         this.initStarField(config.debug);
+      }
+
+      if (config.components.includes('particlesNetwork')) {
+        this.initParticlesNetwork(config.debug);
       }
 
       // Setup mutation observer for dynamic content if autoInit is enabled
@@ -772,6 +778,48 @@ class WebflowBits {
   }
 
   /**
+   * Initialize ParticlesNetwork on all matching elements.
+   * @param {boolean} debug
+   */
+  initParticlesNetwork(debug = false) {
+    try {
+      particlesNetworkAnimator.initAll();
+      if (debug) {
+        console.log('WebflowBits: ParticlesNetwork initialized');
+      }
+    } catch (error) {
+      console.error('WebflowBits: Failed to initialize ParticlesNetwork', error);
+    }
+  }
+
+  /**
+   * Initialize ParticlesNetwork on specific elements.
+   * @param {string|NodeList|Element} selector
+   */
+  initParticlesNetworkOn(selector) {
+    try {
+      if (!selector) return this;
+
+      const elements =
+        typeof selector === 'string'
+          ? document.querySelectorAll(selector)
+          : selector.nodeType
+            ? [selector]
+            : selector;
+
+      Array.from(elements).forEach((element) => {
+        if (element?.getAttribute?.('wb-component') === 'particles-network') {
+          particlesNetworkAnimator.initElement(element);
+        }
+      });
+    } catch (error) {
+      console.error('WebflowBits: Failed to initialize ParticlesNetwork on elements', error);
+    }
+
+    return this;
+  }
+
+  /**
    * Initialize MatrixRain on specific elements
    * @param {string|NodeList|Element} selector
    */
@@ -1097,6 +1145,16 @@ class WebflowBits {
                 starFieldAnimator.initElement(element);
                 shouldRefresh = true;
               });
+
+              // Check for wb-component="particles-network" elements
+              const particlesNetworkElements = node.matches?.('[wb-component="particles-network"]')
+                ? [node]
+                : Array.from(node.querySelectorAll?.('[wb-component="particles-network"]') || []);
+
+              particlesNetworkElements.forEach(element => {
+                particlesNetworkAnimator.initElement(element);
+                shouldRefresh = true;
+              });
             }
           });
         }
@@ -1127,6 +1185,7 @@ class WebflowBits {
           matrixRainAnimator.refresh();
           dotGridAnimator.refresh();
           starFieldAnimator.refresh();
+          particlesNetworkAnimator.refresh();
         }, 100);
       }
     });
@@ -1658,6 +1717,9 @@ class WebflowBits {
     // Destroy StarField animations
     starFieldAnimator.destroyAll();
 
+    // Destroy ParticlesNetwork animations
+    particlesNetworkAnimator.destroyAll();
+
     // Disconnect observers
     this.observers.forEach(observer => observer.disconnect());
     this.observers = [];
@@ -1701,6 +1763,7 @@ class WebflowBits {
     matrixRainAnimator.refresh();
     dotGridAnimator.refresh();
     starFieldAnimator.refresh();
+    particlesNetworkAnimator.refresh();
     return this;
   }
 

@@ -2258,6 +2258,167 @@ export const componentsMetadata = {
         "Interactive canvas-based star field. Stars radiate from cursor position; click to trigger speed burst.",
     },
   },
+
+  "particles-network": {
+    newComponent: true,
+    name: "Particles Network",
+    description:
+      "Animated particle network with mouse-proximity connection lines. Particles bounce within the container; lines appear near the cursor.",
+    category: "background",
+    file: "particlesNetwork.js",
+    installationNotes:
+      'Only supported on <section> and <div> elements. The component injects a <canvas> overlay as background and wraps existing children in a content wrapper — both removed cleanly on destroy. Content inside the container remains fully interactive above the canvas.\n\nThe container must have a defined height for the canvas to be visible.\n\nMouse interaction: connection lines appear between particles when the cursor is within wb-mouse-radius of any particle. Lines fade automatically after wb-idle-time ms of mouse inactivity.\n\nParallax: each particle has a random depth value — when wb-parallax="true" (default), particles shift slightly as the mouse moves, creating a 3D depth illusion.\n\nIdle connections: set wb-connect-idle="true" to keep a percentage of particles connected even when the mouse is outside the container.\n\nPerformance: recommended wb-count is under 200 for mobile devices. The component uses a spatial hash grid for efficient connection checks — no O(n²) brute force. Note: wb-interactive (click to add particles) is not supported — particle count is controlled via wb-count only.\n\nTransparent background: setting wb-background="transparent" renders no canvas background fill; use the container\'s own CSS background instead.',
+    hoverPreview: false,
+    attributes: [
+      {
+        name: "wb-component",
+        description: "Enable particles network background",
+        default: "particles-network",
+        inputType: "text",
+        required: true,
+      },
+      {
+        name: "wb-count",
+        description:
+          "Number of particles. Values above 300 may impact performance. Recommend below 200 on mobile.",
+        default: "100",
+        inputType: "slider",
+        sliderConfig: { min: 20, max: 500, step: 5 },
+      },
+      {
+        name: "wb-particle-color",
+        description:
+          "Particle fill color. Supports: hex (#ffffff), rgb/rgba, hsl/hsla, named colors.",
+        default: "#ffffff",
+        inputType: "color",
+        supportsAlpha: false,
+      },
+      {
+        name: "wb-connection-color",
+        description:
+          "Connection line color. Opacity is automatically calculated from the distance between particles.",
+        default: "#ffffff",
+        inputType: "color",
+        supportsAlpha: false,
+      },
+      {
+        name: "wb-background",
+        description:
+          "Canvas background color. Use 'transparent' to show the container's own background behind the particles.",
+        default: "#000000",
+        inputType: "color",
+        supportsAlpha: false,
+      },
+      {
+        name: "wb-max-distance",
+        description:
+          "Maximum distance in pixels between two particles for a connection line to appear.",
+        default: "120",
+        unit: "px",
+        inputType: "slider",
+        sliderConfig: { min: 30, max: 300, step: 5 },
+      },
+      {
+        name: "wb-speed",
+        description: "Particle movement speed multiplier.",
+        default: "1",
+        inputType: "slider",
+        sliderConfig: { min: 0.1, max: 5, step: 0.1 },
+      },
+      {
+        name: "wb-mouse-radius",
+        description:
+          "Radius in pixels around the cursor that activates connection lines. Set to 0 to disable mouse interactions.",
+        default: "150",
+        unit: "px",
+        inputType: "slider",
+        sliderConfig: { min: 0, max: 500, step: 10 },
+      },
+      {
+        name: "wb-min-size",
+        description: "Minimum particle radius in pixels.",
+        default: "1",
+        unit: "px",
+        inputType: "slider",
+        sliderConfig: { min: 0.5, max: 5, step: 0.5 },
+      },
+      {
+        name: "wb-max-size",
+        description: "Maximum particle radius in pixels.",
+        default: "3",
+        unit: "px",
+        inputType: "slider",
+        sliderConfig: { min: 1, max: 10, step: 0.5 },
+      },
+      {
+        name: "wb-line-thickness",
+        description: "Connection line stroke width in pixels.",
+        default: "1",
+        unit: "px",
+        inputType: "slider",
+        sliderConfig: { min: 0.5, max: 3, step: 0.5 },
+      },
+      {
+        name: "wb-connect-idle",
+        description:
+          "When true, a percentage of particles stay connected even when the mouse is outside the container.",
+        default: "false",
+        inputType: "boolean",
+      },
+      {
+        name: "wb-connect-percent",
+        description:
+          "Percentage of particles that always show connections when wb-connect-idle is true.",
+        default: "30",
+        unit: "%",
+        inputType: "slider",
+        sliderConfig: { min: 0, max: 100, step: 5 },
+      },
+      {
+        name: "wb-parallax",
+        description:
+          "Enable parallax depth effect. Each particle has a random depth — particles shift as the mouse moves, creating a 3D illusion.",
+        default: "true",
+        inputType: "boolean",
+      },
+      {
+        name: "wb-parallax-strength",
+        description:
+          "Parallax intensity divisor. Higher values produce slower, more subtle movement.",
+        default: "1",
+        inputType: "slider",
+        sliderConfig: { min: 0.1, max: 10, step: 0.1 },
+      },
+      {
+        name: "wb-idle-time",
+        description:
+          "Milliseconds of mouse inactivity before connection lines disappear.",
+        default: "1000",
+        unit: "ms",
+        inputType: "slider",
+        sliderConfig: { min: 200, max: 5000, step: 100 },
+      },
+    ],
+    example: {
+      title: "Particles Network Background",
+      code: `<section
+  wb-component="particles-network"
+  wb-count="100"
+  wb-particle-color="#ffffff"
+  wb-connection-color="#4fc3f7"
+  wb-background="#0a0a1a"
+  wb-max-distance="140"
+  wb-speed="0.8"
+  wb-mouse-radius="180"
+  wb-parallax="true"
+  style="height: 50vh; width: 50vw; display: flex; justify-content: center; align-items: center;"
+>
+  <h1 class="text-4xl font-bold text-white">Particles Network</h1>
+</section>`,
+      description:
+        "Canvas-based particle network background. Particles bounce within the container; connection lines appear near the cursor with distance-based opacity.",
+    },
+  },
 };
 
 Object.values(componentsMetadata).forEach((component) => {
