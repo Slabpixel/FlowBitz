@@ -80,6 +80,7 @@ const COMPONENT_REQUIREMENTS = {
   "dot-grid": [], // Pure CSS — no GSAP needed
   "star-field": [], // Canvas 2D only — no GSAP needed
   "particles-network": [], // Canvas 2D only — no GSAP needed
+  "flow-field": [],        // Canvas 2D only — no GSAP needed
 };
 
 /**
@@ -126,6 +127,7 @@ const COMPONENT_LOADERS = {
   "star-field": () => import("./components/background/starField.js"),
   "particles-network": () =>
     import("./components/background/particlesNetwork.js"),
+  "flow-field": () => import("./components/background/flowField.js"),
 };
 
 /**

@@ -43,6 +43,7 @@ import fireflyAnimator from '../components/background/fireflyBackground.js';
 import dotGridAnimator from '../components/background/dotGrid.js';
 import starFieldAnimator from '../components/background/starField.js';
 import particlesNetworkAnimator from '../components/background/particlesNetwork.js';
+import flowFieldAnimator from '../components/background/flowField.js';
 
 /* Utils */
 import { setupScrollTriggerResize } from '../utils/animation/scrollTriggerHelper.js';
@@ -86,6 +87,7 @@ class WebflowBits {
       dotGrid: dotGridAnimator,
       starField: starFieldAnimator,
       particlesNetwork: particlesNetworkAnimator,
+      flowField: flowFieldAnimator,
     };
   }
 
@@ -102,7 +104,7 @@ class WebflowBits {
     const config = {
       autoInit: true,
       debug: false,
-      components: ['splitText', 'textType', 'blurText', 'shinyText', 'gradientText', 'gradientButton', 'rippleButton', 'pulseButton', 'shimmerButton', 'decryptedText', 'scrambleText', 'variableProximity', 'countUp', 'rotatingText', 'textPressure', 'magnet', 'shuffle', 'tooltipText', 'rollText', 'cardHover3d', 'outlineGradient', 'imageTrail', 'hoverZoom', 'matrixRain', 'fireflyBackground', 'dotGrid', 'starField', 'particlesNetwork'],
+      components: ['splitText', 'textType', 'blurText', 'shinyText', 'gradientText', 'gradientButton', 'rippleButton', 'pulseButton', 'shimmerButton', 'decryptedText', 'scrambleText', 'variableProximity', 'countUp', 'rotatingText', 'textPressure', 'magnet', 'shuffle', 'tooltipText', 'rollText', 'cardHover3d', 'outlineGradient', 'imageTrail', 'hoverZoom', 'matrixRain', 'fireflyBackground', 'dotGrid', 'starField', 'particlesNetwork', 'flowField'],
       ...options
     };
 
@@ -247,6 +249,10 @@ class WebflowBits {
 
       if (config.components.includes('particlesNetwork')) {
         this.initParticlesNetwork(config.debug);
+      }
+
+      if (config.components.includes('flowField')) {
+        this.initFlowField(config.debug);
       }
 
       // Setup mutation observer for dynamic content if autoInit is enabled
@@ -793,6 +799,48 @@ class WebflowBits {
   }
 
   /**
+   * Initialize FlowField on all matching elements.
+   * @param {boolean} debug
+   */
+  initFlowField(debug = false) {
+    try {
+      flowFieldAnimator.initAll();
+      if (debug) {
+        console.log('WebflowBits: FlowField initialized');
+      }
+    } catch (error) {
+      console.error('WebflowBits: Failed to initialize FlowField', error);
+    }
+  }
+
+  /**
+   * Initialize FlowField on specific elements.
+   * @param {string|NodeList|Element} selector
+   */
+  initFlowFieldOn(selector) {
+    try {
+      if (!selector) return this;
+
+      const elements =
+        typeof selector === 'string'
+          ? document.querySelectorAll(selector)
+          : selector.nodeType
+            ? [selector]
+            : selector;
+
+      Array.from(elements).forEach((element) => {
+        if (element?.getAttribute?.('wb-component') === 'flow-field') {
+          flowFieldAnimator.initElement(element);
+        }
+      });
+    } catch (error) {
+      console.error('WebflowBits: Failed to initialize FlowField on elements', error);
+    }
+
+    return this;
+  }
+
+  /**
    * Initialize ParticlesNetwork on specific elements.
    * @param {string|NodeList|Element} selector
    */
@@ -1155,6 +1203,16 @@ class WebflowBits {
                 particlesNetworkAnimator.initElement(element);
                 shouldRefresh = true;
               });
+
+              // Check for wb-component="flow-field" elements
+              const flowFieldElements = node.matches?.('[wb-component="flow-field"]')
+                ? [node]
+                : Array.from(node.querySelectorAll?.('[wb-component="flow-field"]') || []);
+
+              flowFieldElements.forEach(element => {
+                flowFieldAnimator.initElement(element);
+                shouldRefresh = true;
+              });
             }
           });
         }
@@ -1186,6 +1244,7 @@ class WebflowBits {
           dotGridAnimator.refresh();
           starFieldAnimator.refresh();
           particlesNetworkAnimator.refresh();
+          flowFieldAnimator.refresh();
         }, 100);
       }
     });
@@ -1720,6 +1779,9 @@ class WebflowBits {
     // Destroy ParticlesNetwork animations
     particlesNetworkAnimator.destroyAll();
 
+    // Destroy FlowField animations
+    flowFieldAnimator.destroyAll();
+
     // Disconnect observers
     this.observers.forEach(observer => observer.disconnect());
     this.observers = [];
@@ -1764,6 +1826,7 @@ class WebflowBits {
     dotGridAnimator.refresh();
     starFieldAnimator.refresh();
     particlesNetworkAnimator.refresh();
+    flowFieldAnimator.refresh();
     return this;
   }
 

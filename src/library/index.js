@@ -42,6 +42,7 @@ export { default as FireflyBackground } from "./components/background/fireflyBac
 export { default as DotGrid } from "./components/background/dotGrid.js";
 export { default as StarField } from "./components/background/starField.js";
 export { default as ParticlesNetwork } from "./components/background/particlesNetwork.js";
+export { default as FlowField } from "./components/background/flowField.js";
 
 // Export utilities
 export {

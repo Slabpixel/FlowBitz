@@ -2212,14 +2212,16 @@ export const componentsMetadata = {
       },
       {
         name: "wb-acceleration-rate",
-        description: "How quickly speed ramps up toward max acceleration per frame.",
+        description:
+          "How quickly speed ramps up toward max acceleration per frame.",
         default: "0.2",
         inputType: "slider",
         sliderConfig: { min: 0.01, max: 1, step: 0.01 },
       },
       {
         name: "wb-deceleration-rate",
-        description: "How quickly speed returns to base after acceleration burst.",
+        description:
+          "How quickly speed returns to base after acceleration burst.",
         default: "0.2",
         inputType: "slider",
         sliderConfig: { min: 0.01, max: 1, step: 0.01 },
@@ -2417,6 +2419,125 @@ export const componentsMetadata = {
 </section>`,
       description:
         "Canvas-based particle network background. Particles bounce within the container; connection lines appear near the cursor with distance-based opacity.",
+    },
+  },
+
+  "flow-field": {
+    newComponent: true,
+    name: "Flow Field",
+    description:
+      "Animated particle trails following a sinusoidal vector field. Each particle traces a path guided by pre-computed angle data, leaving a colored history trail. Pure Canvas 2D + requestAnimationFrame — zero dependencies.",
+    category: "background",
+    file: "flowField.js",
+    installationNotes:
+      'Only supported on <section> and <div> elements. The component injects a <canvas> overlay and draws particle trails inside it. Content inside the container remains visible and interactive above the canvas.\n\nParticles follow a sinusoidal flow field computed from wb-curve and wb-zoom values. Adjust wb-count and wb-max-tail for performance control — lower values are recommended on mobile.\n\nwb-palette sets the particle color scheme. Use wb-palette="custom" with wb-particle-color to set a single custom color. wb-background="transparent" lets the container\'s CSS background show through.',
+    hoverPreview: false,
+    attributes: [
+      {
+        name: "wb-component",
+        description: "Required identifier for the Flow Field component.",
+        default: "flow-field",
+        inputType: "text",
+        required: true,
+      },
+      {
+        name: "wb-count",
+        description:
+          "Number of particles. Higher values produce a denser visual but require more CPU. Recommended: 150–500.",
+        default: "300",
+        inputType: "slider",
+        sliderConfig: { min: 50, max: 2000, step: 50 },
+      },
+      {
+        name: "wb-cell-size",
+        description:
+          "Size of each flow field cell in pixels. Smaller cells produce more detailed patterns but cost more at init/resize.",
+        default: "10",
+        unit: "px",
+        inputType: "slider",
+        sliderConfig: { min: 3, max: 30, step: 1 },
+      },
+      {
+        name: "wb-curve",
+        description:
+          "Amplitude of the sinusoidal angle formula. Higher values produce more dramatic, tightly-wound patterns.",
+        default: "6",
+        inputType: "slider",
+        sliderConfig: { min: 1, max: 20, step: 0.5 },
+      },
+      {
+        name: "wb-zoom",
+        description:
+          "Frequency of the sinusoidal sampling. Lower values produce wider, smoother curves; higher values produce tighter patterns.",
+        default: "0.01",
+        inputType: "slider",
+        sliderConfig: { min: 0.001, max: 0.1, step: 0.001 },
+      },
+      {
+        name: "wb-speed",
+        description:
+          "Base speed multiplier for particle movement. Each particle gets a random fraction of this speed.",
+        default: "2",
+        inputType: "slider",
+        sliderConfig: { min: 0.5, max: 8, step: 0.5 },
+      },
+      {
+        name: "wb-max-tail",
+        description:
+          "Maximum trail length (history array size). Shorter tails are lighter on draw calls. Each particle has a random tail up to this length.",
+        default: "80",
+        inputType: "slider",
+        sliderConfig: { min: 10, max: 300, step: 10 },
+      },
+      {
+        name: "wb-line-thickness",
+        description: "Canvas lineWidth for trail strokes.",
+        default: "1",
+        inputType: "slider",
+        sliderConfig: { min: 0.5, max: 3, step: 0.5 },
+      },
+      {
+        name: "wb-background",
+        description:
+          'Canvas fill color. Use "transparent" to let the container\'s CSS background show through.',
+        default: "transparent",
+        inputType: "color",
+      },
+      {
+        name: "wb-palette",
+        description:
+          'Particle color palette. Options: purple, blue, fire, ocean, mono, custom. Use "custom" with wb-particle-color for a single custom color.',
+        default: "purple",
+        inputType: "dropdown",
+        options: ["purple", "blue", "fire", "ocean", "mono", "custom"],
+      },
+      {
+        name: "wb-particle-color",
+        description:
+          'Custom particle color. Only active when wb-palette="custom".',
+        default: "#9622c7",
+        inputType: "color",
+      },
+    ],
+    example: {
+      title: "Flow Field Background",
+      code: `<section
+  wb-component="flow-field"
+  wb-count="300"
+  wb-palette="purple"
+  wb-background="transparent"
+  wb-speed="2"
+  wb-curve="6"
+  wb-zoom="0.01"
+  wb-max-tail="80"
+  style="height: 50vh; width: 50vw; position: relative;"
+>
+  <div style="position: relative; z-index: 1; padding: 2rem; color: white;">
+    <h1>Flow Field</h1>
+  </div>
+</section>`,
+      description:
+        "Sinusoidal flow field background with purple palette. Particles follow pre-computed angle vectors and leave colored history trails.",
     },
   },
 };

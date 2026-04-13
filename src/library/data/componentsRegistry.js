@@ -105,6 +105,7 @@ export const getComponentFileName = (componentName) => {
     "dot-grid": "background/dotGrid",
     "star-field": "background/starField",
     "particles-network": "background/particlesNetwork",
+    "flow-field": "background/flowField",
   };
 
   return componentMap[componentName] || null;
