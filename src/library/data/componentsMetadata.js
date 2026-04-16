@@ -1837,7 +1837,7 @@ export const componentsMetadata = {
     category: "background",
     file: "matrixRain.js",
     installationNotes:
-      'Only supported on <section> and <div> elements. The component injects a <canvas> overlay and draws the rain effect inside it. Content inside the container remains visible above the canvas. To highlight the head character of each column, set wb-highlight-head="true".',
+      "This component works exclusively with <div> and <section> elements by injecting a <canvas> overlay to render the rain effect behind your content. Your containers existing elements will remain fully visible in the foreground.",
     hoverPreview: false,
     attributes: [
       {
@@ -1903,8 +1903,8 @@ export const componentsMetadata = {
       title: "Matrix Digital Rain Background",
       code: `<section
   wb-component="matrix-rain"
-  style="height: 50vh; width: 50vw; display: flex; justify-content: center; align-items: center;"
-><h1 class="text-4xl font-bold">Hello World</h1></section>`,
+  class="h-full w-full flex items-center justify-center"
+></section>`,
       description: "Canvas-based Matrix Digital Rain background effect",
     },
   },
@@ -1917,7 +1917,7 @@ export const componentsMetadata = {
     category: "background",
     file: "fireflyBackground.js",
     installationNotes:
-      'Only supported on <section> and <div> elements. The component injects a <canvas> overlay and draws animated firefly particles inside it. Content inside the container remains visible above the canvas. For better performance on mobile or low-end devices, set wb-disable-glow="true" and keep wb-count under 60. If the container has overflow: hidden, particles will be clipped at edges — this is expected behavior.',
+      'Only supported on <section> and <div> elements. The component injects a <canvas> overlay and draws animated firefly particles inside it. Content inside the container remains visible above the canvas. For better performance on mobile or low-end devices, set wb-disable-glow="true" and keep wb-count under 60. If the container has overflow: hidden, particles will be clipped at edges.',
     hoverPreview: false,
     attributes: [
       {
@@ -2018,10 +2018,8 @@ export const componentsMetadata = {
       title: "Firefly Background",
       code: `<section
   wb-component="firefly-background"
-
-  style="height: 50vh; width: 50vw; display: flex; justify-content: center; align-items: center;"
+  class="h-full w-full flex items-center justify-center"
 >
-  <h1 class="text-4xl font-bold text-white">Fireflies</h1>
 </section>`,
       description:
         "Canvas-based floating firefly particles with smooth fade in/out lifecycle. Particles pause automatically when the browser tab is hidden.",
@@ -2035,7 +2033,7 @@ export const componentsMetadata = {
     category: "background",
     file: "dotGrid.js",
     installationNotes:
-      "Only supported on <section> and <div> elements. The component injects a background layer div and wraps existing children in a content wrapper — both are removed cleanly on destroy. Content inside the container remains fully interactive above the dot layer. If the container has overflow: hidden, the dot pattern will be clipped at edges — this is expected. The container must have a defined height for the dot layer to be visible.",
+      "Compatible only with <div> and <section> elements, this component injects a background dot layer while keeping your content fully interactive on top. It automatically wraps your elements and ensures a clean removal upon destruction. Just make sure your container has a defined height so the pattern is visible, and keep in mind that overflow: hidden will clip the dots at the edges as intended.",
     hoverPreview: false,
     attributes: [
       {
@@ -2110,8 +2108,8 @@ export const componentsMetadata = {
       title: "Dot Grid Background",
       code: `<section
   wb-component="dot-grid"
-  style="height: 50vh; width: 50vw; display: flex; justify-content: center; align-items: center;"
-><h1 class="text-4xl font-bold text-white">Dot Grid</h1></section>`,
+  class="h-full w-full flex items-center justify-center"
+></section>`,
       description:
         "Pure CSS animated dot grid background with seamless scroll loop",
     },
@@ -2125,7 +2123,7 @@ export const componentsMetadata = {
     category: "background",
     file: "starField.js",
     installationNotes:
-      'Only supported on <section> and <div> elements. The component injects a <canvas> overlay as background and wraps existing children in a content wrapper — both are removed cleanly on destroy. Content inside the container remains fully interactive above the canvas.\n\nInteractive mode (default): the origin point of stars follows your cursor in real-time, and clicking the container triggers an acceleration burst. The container shows cursor: pointer to signal this interaction.\n\nTo disable cursor tracking and click interaction, set wb-interactive="false". To lock the origin to a fixed point, set wb-origin-x and wb-origin-y (in pixels, relative to container).\n\nNote: Setting wb-background="transparent" disables the trail/comet effect since trails require a semi-transparent background fill each frame.\n\nwb-star-count cannot be changed after initialization — use refresh() to apply a new value. The container must have a defined height for the star field to be visible.',
+      "For <div> and <section> elements. Injects a <canvas> star field background while keeping content interactive. Stars track the cursor and accelerate on click by default, disable interaction or set a fixed origin via attributes. Trail effects require a non-transparent background. Changing star count after init requires calling refresh(). Container must have a defined height.",
     hoverPreview: false,
     attributes: [
       {
@@ -2252,9 +2250,8 @@ export const componentsMetadata = {
   wb-speed="1"
   wb-trail-length="0.8"
   wb-interactive="true"
-  style="height: 50vh; width: 50vw; display: flex; justify-content: center; align-items: center;"
+  class="h-full w-full flex items-center justify-center"
 >
-  <h1 class="text-4xl font-bold text-white">Star Field</h1>
 </section>`,
       description:
         "Interactive canvas-based star field. Stars radiate from cursor position; click to trigger speed burst.",
@@ -2269,7 +2266,7 @@ export const componentsMetadata = {
     category: "background",
     file: "particlesNetwork.js",
     installationNotes:
-      'Only supported on <section> and <div> elements. The component injects a <canvas> overlay as background and wraps existing children in a content wrapper — both removed cleanly on destroy. Content inside the container remains fully interactive above the canvas.\n\nThe container must have a defined height for the canvas to be visible.\n\nMouse interaction: connection lines appear between particles when the cursor is within wb-mouse-radius of any particle. Lines fade automatically after wb-idle-time ms of mouse inactivity.\n\nParallax: each particle has a random depth value — when wb-parallax="true" (default), particles shift slightly as the mouse moves, creating a 3D depth illusion.\n\nIdle connections: set wb-connect-idle="true" to keep a percentage of particles connected even when the mouse is outside the container.\n\nPerformance: recommended wb-count is under 200 for mobile devices. The component uses a spatial hash grid for efficient connection checks — no O(n²) brute force. Note: wb-interactive (click to add particles) is not supported — particle count is controlled via wb-count only.\n\nTransparent background: setting wb-background="transparent" renders no canvas background fill; use the container\'s own CSS background instead.',
+      'For <section> and <div> elements. Injects a <canvas> background; content remains interactive above it. Container must have a defined height. Connection lines appear near the cursor within wb-mouse-radius and fade after wb-idle-time ms. Enable wb-parallax for a 3D depth effect. Use wb-connect-idle="true" to keep idle connections. Keep wb-count below 200 on mobile. wb-interactive is not supported, use wb-count only. Set wb-background="transparent" to show the container\'s CSS background.',
     hoverPreview: false,
     attributes: [
       {
@@ -2413,9 +2410,8 @@ export const componentsMetadata = {
   wb-speed="0.8"
   wb-mouse-radius="180"
   wb-parallax="true"
-  style="height: 50vh; width: 50vw; display: flex; justify-content: center; align-items: center;"
+  class="h-full w-full flex items-center justify-center"
 >
-  <h1 class="text-4xl font-bold text-white">Particles Network</h1>
 </section>`,
       description:
         "Canvas-based particle network background. Particles bounce within the container; connection lines appear near the cursor with distance-based opacity.",
@@ -2430,7 +2426,7 @@ export const componentsMetadata = {
     category: "background",
     file: "flowField.js",
     installationNotes:
-      'Only supported on <section> and <div> elements. The component injects a <canvas> overlay and draws particle trails inside it. Content inside the container remains visible and interactive above the canvas.\n\nParticles follow a sinusoidal flow field computed from wb-curve and wb-zoom values. Adjust wb-count and wb-max-tail for performance control — lower values are recommended on mobile.\n\nwb-palette sets the particle color scheme. Use wb-palette="custom" with wb-particle-color to set a single custom color. wb-background="transparent" lets the container\'s CSS background show through.',
+      'For <section> and <div> elements. Injects a <canvas> overlay; content remains visible and interactive above it.\n\nParticles follow a sinusoidal flow field driven by wb-curve and wb-zoom. Adjust wb-count and wb-max-tail for performance, lower values recommended on mobile.\n\nwb-palette sets the color scheme. Use wb-palette="custom" with wb-particle-color for a single color. Set wb-background="transparent" to show the container\'s CSS background.',
     hoverPreview: false,
     attributes: [
       {
@@ -2530,10 +2526,9 @@ export const componentsMetadata = {
   wb-curve="6"
   wb-zoom="0.01"
   wb-max-tail="80"
-  style="height: 50vh; width: 50vw; position: relative;"
+  class="h-full w-full flex items-center justify-center"
 >
   <div style="position: relative; z-index: 1; padding: 2rem; color: white;">
-    <h1>Flow Field</h1>
   </div>
 </section>`,
       description:
